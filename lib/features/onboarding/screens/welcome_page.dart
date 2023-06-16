@@ -1,0 +1,50 @@
+//**
+// This is where we show App logo having wavy shimmer
+// */
+
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import '../../../core/constants/assets.dart';
+import '../../../core/constants/hive/local_storage.dart';
+import '../../../core/routes/routes.dart';
+
+class WelcomePage extends StatefulWidget {
+  const WelcomePage({super.key});
+
+  @override
+  State<WelcomePage> createState() => _WelcomePageState();
+}
+
+class _WelcomePageState extends State<WelcomePage> {
+  @override
+  void initState() {
+    appStartUp(context);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Image.asset(
+          Assets.assetsWelcomeAppLogo,
+          fit: BoxFit.contain,
+          height: 200,
+          width: 200,
+        ),
+      ),
+    );
+  }
+
+  Future<void> appStartUp(BuildContext context) async {
+    await LocalStorage.instance.getToken().then((value) {
+      if (value.isEmpty) {
+        context.go(landingPageRoute);
+      } else {
+        debugPrint("token is =>=>=>=>  $value");
+        context.go(dashBoardRoute);
+        //context.read<ProfileBloc>().add(GetProfileEvent());
+      }
+    });
+  }
+}

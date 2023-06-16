@@ -1,0 +1,96 @@
+name: metaltrade
+description: A new Flutter project.
+ 
+ 
+publish_to: 'none'  
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.6 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  dio: ^5.1.1
+  flutter_bloc: ^8.1.2
+  get_it: ^7.2.0
+  go_router: ^6.5.6
+  shimmer: ^2.0.0
+  carousel_slider: ^4.2.1
+  flutter_svg: ^2.0.5
+  cached_network_image: ^3.2.3
+  hive: ^2.2.3
+  flutter_secure_storage: ^8.0.0
+  flutter_dotenv: ^5.0.2
+  intl: ^0.18.1
+  path_provider: ^2.0.15
+  marquee: ^2.2.3
+  webview_flutter: ^4.2.2
+  page_view_dot_indicator: ^2.1.0
+  pinput: ^2.2.31
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  uses-material-design: true
+  
+  fonts:
+    - family: PlayfairDisplay
+      fonts:
+        - asset: fonts/PlayfairDisplay-Regular.ttf
+    - family: Inter
+      fonts:
+        - asset: fonts/Inter-Regular.ttf
+        
+  assets:
+    - .env
+    - assets/
+    - assets/welcome/
+    - assets/login/
+    - assets/home/
+    - assets/bottom_bar/
+    - assets/profile/
+
+    
+flutter_assets:
+  assets_path: assets/
+  output_path: lib/core/constants/
+  filename: assets.dart
+
+   
+   
+   
+   
+
+   
+   
+
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   

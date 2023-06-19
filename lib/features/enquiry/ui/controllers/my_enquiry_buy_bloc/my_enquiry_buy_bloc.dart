@@ -20,15 +20,17 @@ class MyEnquiryBloc extends Bloc<MyEnquiryEvent, MyEnquiryState> {
       : super(MyEnquiryInitial()) {
     on<MyEnquiryEvent>((event, emit) async {
       if (event is GetMyEnquiryList) {
+        String statusQuery = event.status.isNotEmpty
+            ? "&status=${event.status.join('&status=')}"
+            : '';
         try {
           emit(MyEnquiryInitial());
           final DataState<HomePageEnquiryEntity> dataState =
               await homePageEnquiryUsecase.call(RequestParams(
                   url:
-                      "${baseUrl}user/enquiry?page=${event.page}&size=10&enquiryType=${event.intent.name}${event.status.join('&status=')}",
+                      "${baseUrl}user/enquiry?page=${event.page}&size=10&enquiryType=${event.intent.name}$statusQuery",
                   apiMethods: ApiMethods.get,
                   header: header));
-          print(dataState.data);
           if (dataState.data != null) {
             if (event.intent == UserIntent.Buy) {
               isMyEnquiryListEnd = dataState.data!.last!;

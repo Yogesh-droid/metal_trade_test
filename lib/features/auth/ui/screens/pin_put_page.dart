@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/routes/routes.dart';
 import 'package:pinput/pinput.dart';
-
 import '../../../../core/constants/assets.dart';
 import '../../../../core/constants/spaces.dart';
 import '../../../../core/constants/strings.dart';
@@ -40,7 +39,7 @@ class PinPutPage extends StatelessWidget {
                 return Pinput(
                   controller: pinTextController,
                   length: 6,
-                  onCompleted: (pin) => print(pin),
+                  onCompleted: (pin) => debugPrint(pin),
                 );
               },
             ),

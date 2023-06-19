@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:marquee/marquee.dart';
-import 'package:metaltrade/core/constants/app_colors.dart';
 
 class HomePageAppbarBottom extends StatelessWidget with PreferredSizeWidget {
   const HomePageAppbarBottom(

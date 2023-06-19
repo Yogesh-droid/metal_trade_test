@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:metaltrade/features/enquiry/ui/screens/enquiry_page.dart';
 import 'package:metaltrade/features/menu/ui/screens/menu_page.dart';
 import 'package:metaltrade/features/network/ui/screens/network_page.dart';
 import 'package:metaltrade/features/quotes/ui/screens/quote_page.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/assets.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../home/ui/screens/home_page.dart';
 import '../controllers/bottom_bar_controller_cubit.dart';

@@ -1,16 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/app_colors.dart';
 import 'package:metaltrade/core/constants/app_widgets/main_app_bar.dart';
 import 'package:metaltrade/core/constants/strings.dart';
+import 'package:metaltrade/core/routes/routes.dart';
 import 'package:metaltrade/features/home/ui/controllers/home_page_buyer_enquiry_bloc/home_page_buyer_enquiry_bloc.dart';
 import 'package:metaltrade/features/home/ui/controllers/home_page_seller_enquiry_bloc/home_page_seller_enquiry_bloc.dart';
 import 'package:metaltrade/features/home/ui/screens/buyer_enquiry_page.dart';
 import 'package:metaltrade/features/home/ui/screens/seller_enquiry_page.dart';
 import 'package:metaltrade/features/home/ui/widgets/home_page_appbar_bottom.dart';
-import 'package:metaltrade/features/home/ui/widgets/trending_new_list.dart';
-import '../../data/data/mock_news_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,15 +23,6 @@ class _HomePageState extends State<HomePage>
   late TabController _tabController;
   late HomePageBuyerEnquiryBloc homePageBuyerEnquiryBloc;
   late HomePageSellerEnquiryBloc homePageSellerEnquiryBloc;
-  // ScrollController scrollController = ScrollController();
-
-  /// this function is to enable news list scrolling  /////
-
-  // _scrollToBottom() {
-  //   scrollController.animateTo(scrollController.position.maxScrollExtent,
-  //       duration: Duration(seconds: (mockNewslist.length * 5)),
-  //       curve: Curves.linear);
-  // }
 
   @override
   void initState() {
@@ -46,7 +36,6 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    // WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
     return Scaffold(
       backgroundColor: white,
       appBar: MainAppBar(
@@ -84,8 +73,6 @@ class _HomePageState extends State<HomePage>
       ),
       body: Column(
         children: [
-          // TrendingNewsList(
-          //     scrollController: scrollController, news: mockNewslist),
           Expanded(
               child: TabBarView(
                   controller: _tabController,
@@ -93,7 +80,9 @@ class _HomePageState extends State<HomePage>
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          context.pushNamed(createEnquiryPageName);
+        },
         child: const Icon(Icons.note_add_outlined, color: black),
       ),
     );

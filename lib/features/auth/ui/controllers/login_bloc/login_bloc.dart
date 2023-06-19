@@ -14,13 +14,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginEvent>((event, emit) async {
       if (event is GetOtpEvent) {
         try {
-          DataState<String> _dataState = await loginUsecase.call(RequestParams(
+          DataState<String> dataState = await loginUsecase.call(RequestParams(
               url: "${baseUrl}auth/generate",
               apiMethods: ApiMethods.post,
               body: {"mobileNumber": event.mobNo}));
 
-          if (_dataState.data != null) {
-            emit(LoginSuccessfulState(otp: _dataState.data!));
+          if (dataState.data != null) {
+            emit(LoginSuccessfulState(otp: dataState.data!));
           } else {
             emit(LoginFailedState(Exception("No Data Found")));
           }

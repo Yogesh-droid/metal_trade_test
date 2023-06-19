@@ -4,7 +4,6 @@ import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 import 'package:metaltrade/features/landing/ui/widgets/welcome_page_view.dart';
 
 import '../../../../core/constants/assets.dart';
-import '../../../../core/constants/hive/local_storage.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/routes/routes.dart';
 import '../widgets/intro_widget.dart';
@@ -41,10 +40,10 @@ class LandingPage extends StatelessWidget {
           key: const ValueKey("WelcomeColumn"),
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 200),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.2),
             SizedBox(
                 key: const ValueKey("WelcomeSizedBox2"),
-                height: 400,
+                height: MediaQuery.of(context).size.height * 0.5,
                 width: MediaQuery.of(context).size.width,
                 child: WelcomePageView(
                     key: const ValueKey("WelcomePageView"), pages: introPages)),

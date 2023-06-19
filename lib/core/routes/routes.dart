@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:metaltrade/features/auth/ui/screens/login_page.dart';
 import 'package:metaltrade/features/auth/ui/screens/pin_put_page.dart';
+import 'package:metaltrade/features/enquiry/ui/screens/create_enquiry_screen.dart';
 import 'package:metaltrade/features/landing/ui/screens/landing_page.dart';
 
 import '../../features/dashboard/ui/screens/dashboard.dart';
@@ -13,6 +14,8 @@ const String loginPageRoute = '/loginPage';
 const String dashBoardRoute = '/dashBoard';
 const String otpPageROute = "/otpPageRoute";
 const String otpPageName = "otpPage";
+const String createEnquiryRoute = '/createEnquiryRoute';
+const String createEnquiryPageName = 'CreateEnquiryPageName';
 
 final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
   GoRoute(
@@ -54,6 +57,16 @@ final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
     pageBuilder: (context, state) {
       return getTransition(
           child: PinPutPage(),
+          animationType: TransitionType.slide,
+          duration: const Duration(milliseconds: 200));
+    },
+  ),
+  GoRoute(
+    path: createEnquiryRoute,
+    name: createEnquiryPageName,
+    pageBuilder: (context, state) {
+      return getTransition(
+          child: const CreateEnquiryScreen(),
           animationType: TransitionType.slide,
           duration: const Duration(milliseconds: 200));
     },

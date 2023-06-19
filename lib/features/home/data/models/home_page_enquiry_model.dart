@@ -41,6 +41,7 @@ class HomePageEnquiryModel extends HomePageEnquiryEntity {
 }
 
 class Content {
+  String? lastModifiedDate;
   int? id;
   List<Item>? item;
   EnquiryCompany? enquiryCompany;
@@ -54,6 +55,7 @@ class Content {
 
   Content(
       {this.id,
+      this.lastModifiedDate,
       this.item,
       this.enquiryCompany,
       this.enquiryType,
@@ -66,6 +68,7 @@ class Content {
 
   Content.fromJson(Map<String, dynamic> json) {
     id = json["id"];
+    lastModifiedDate = json["lastModifiedDate"];
     item = json["item"] == null
         ? null
         : (json["item"] as List).map((e) => Item.fromJson(e)).toList();

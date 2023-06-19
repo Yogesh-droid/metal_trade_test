@@ -6,6 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:metaltrade/features/auth/data/models/country_code_model.dart';
 import 'package:metaltrade/features/auth/ui/controllers/country_code_controller.dart';
 import 'package:metaltrade/features/auth/ui/controllers/login_bloc/login_bloc.dart';
+import 'package:metaltrade/features/enquiry/ui/controllers/create_enquiry_bloc/create_enquiry_bloc.dart';
 import 'package:metaltrade/features/home/ui/controllers/home_page_buyer_enquiry_bloc/home_page_buyer_enquiry_bloc.dart';
 import 'core/constants/app_theme.dart';
 import 'core/di/get_it_setup.dart';
@@ -32,9 +33,6 @@ class MetalTradeApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final countrycode = WidgetsBinding.instance.window.locale.countryCode ?? '';
-    // String flag = countrycode.toUpperCase().replaceAllMapped(RegExp(r'[A-Z]'),
-    //     (match) => String.fromCharCode(match.group(0)!.codeUnitAt(0) + 127397));
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => BottomNavControllerCubit()),
@@ -44,7 +42,8 @@ class MetalTradeApp extends StatelessWidget {
           BlocProvider<HomePageSellerEnquiryBloc>(create: (context) => getIt()),
           BlocProvider<LoginBloc>(create: (context) => getIt()),
           BlocProvider<MyEnquiryBloc>(create: (context) => getIt()),
-          BlocProvider<MyEnquirySellBloc>(create: (context) => getIt())
+          BlocProvider<MyEnquirySellBloc>(create: (context) => getIt()),
+          BlocProvider<CreateEnquiryBloc>(create: (context) => getIt())
         ],
         child: MaterialApp.router(
           title: 'Metal Trade',

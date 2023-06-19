@@ -15,7 +15,6 @@ class _WelcomePageViewState extends State<WelcomePageView> {
   List<Widget> newList = [];
   late Timer timer;
   int _currentPage = 0;
-  bool _isReversed = false;
 
   @override
   void initState() {
@@ -58,9 +57,7 @@ class _WelcomePageViewState extends State<WelcomePageView> {
         // reverse: _isReversed,
         controller: _pageController,
         onPageChanged: (value) {
-          print("On Page chaned");
           _currentPage = value % newList.length;
-          print("$_currentPage is on page page changed");
         },
         // itemCount: newList.length,
         itemBuilder: (context, index) {

@@ -27,7 +27,7 @@ class HomePageBuyerEnquiryBloc
                       "${baseUrl}user/enquiry/all?page=${event.page}&size=20&enquiryType=${event.intent.name}",
                   apiMethods: ApiMethods.get,
                   header: header));
-          print(dataState.data);
+
           if (dataState.data != null) {
             if (event.intent == UserIntent.Buy) {
               isBuyerListEnd = dataState.data!.last!;

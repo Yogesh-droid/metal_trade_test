@@ -3,6 +3,10 @@ import 'package:metaltrade/features/auth/data/repo/login_repo_impl.dart';
 import 'package:metaltrade/features/auth/domain/repo/login_repo.dart';
 import 'package:metaltrade/features/auth/domain/usecases/login_usecase.dart';
 import 'package:metaltrade/features/auth/ui/controllers/login_bloc/login_bloc.dart';
+import 'package:metaltrade/features/enquiry/data/repo/post_enquiry_repo_impl.dart';
+import 'package:metaltrade/features/enquiry/domain/repo/post_enquiry_repo.dart';
+import 'package:metaltrade/features/enquiry/domain/usecases/post_enquiry_usecase.dart';
+import 'package:metaltrade/features/enquiry/ui/controllers/create_enquiry_bloc/create_enquiry_bloc.dart';
 import 'package:metaltrade/features/home/domain/repo/home_page_enquiry_repo.dart';
 import 'package:metaltrade/features/home/domain/usecases/home_page_enquiry_usecase.dart';
 import 'package:metaltrade/features/home/ui/controllers/home_page_buyer_enquiry_bloc/home_page_buyer_enquiry_bloc.dart';
@@ -44,4 +48,12 @@ void setup() {
 
   getIt.registerFactory<MyEnquirySellBloc>(
       () => MyEnquirySellBloc(homePageEnquiryUsecase: getIt()));
+
+  // setup for create enquiry bloc //
+
+  getIt.registerFactory<PostEnquiryRepo>(
+      () => PostEnquiryRepoImpl(networkManager: getIt()));
+  getIt.registerFactory<PostEnquiryUsecase>(
+      () => PostEnquiryUsecase(postEnquiryRepo: getIt()));
+  getIt.registerFactory<CreateEnquiryBloc>(() => CreateEnquiryBloc(getIt()));
 }

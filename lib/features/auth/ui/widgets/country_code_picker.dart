@@ -2,22 +2,29 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/spaces.dart';
 import '../../data/models/country_code_model.dart';
 import '../controllers/country_code_controller.dart';
 
 class CountryCodePicker extends StatefulWidget {
-  const CountryCodePicker({super.key});
+  const CountryCodePicker({super.key, required this.countryList});
+  final List<CountryCodeModel> countryList;
 
   @override
   State<CountryCodePicker> createState() => _CountryCodePickerState();
 }
 
 class _CountryCodePickerState extends State<CountryCodePicker> {
-  final List<CountryCodeModel> _countryList = [];
+  late List<CountryCodeModel> _countryList;
   final TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    _countryList = widget.countryList;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -112,6 +119,7 @@ class _CountryCodePickerState extends State<CountryCodePicker> {
                 .toLowerCase()
                 .contains(searchController.text.toLowerCase()))
         .toList();
+
     setState(() {});
     return list1;
   }

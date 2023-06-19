@@ -18,15 +18,15 @@ class HomePageAppbarBottom extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          color: black,
-          height: 30,
-          child: Marquee(
-              text: newsString ??
-                  'lskdmc;mdscmdwmcdm   sdockdsomc;ldwsmc;lmd   dspokewopkfipewjipodj  sdiocidsjipodj',
-              style: const TextStyle(color: white),
-              scrollAxis: Axis.horizontal),
-        ),
+        // Container(
+        //   color: black,
+        //   height: 30,
+        //   child: Marquee(
+        //       text: newsString ??
+        //           'lskdmc;mdscmdwmcdm   sdockdsomc;ldwsmc;lmd   dspokewopkfipewjipodj  sdiocidsjipodj',
+        //       style: const TextStyle(color: white),
+        //       scrollAxis: Axis.horizontal),
+        // ),
         TabBar(
             tabs: tabList,
             indicatorSize: TabBarIndicatorSize.tab,

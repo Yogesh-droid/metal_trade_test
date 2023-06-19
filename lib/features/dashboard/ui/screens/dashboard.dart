@@ -20,16 +20,27 @@ class DashBoard extends StatelessWidget {
       backgroundColor: white,
       body: getPages(),
       bottomNavigationBar: getBottomNavBar(),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            context.read<BottomNavControllerCubit>().changeIndex(2);
+          },
+          backgroundColor: blue,
+          shape: const CircleBorder(),
+          child: const Icon(
+            Icons.home_filled,
+            color: white,
+          )),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
   Widget getPages() {
     const List<Widget> pageList = [
-      HomePage(),
+      MenuPage(),
       EnquiryPage(),
+      HomePage(),
       QuotePage(),
       NetworkPage(),
-      MenuPage()
     ];
     return BlocBuilder<BottomNavControllerCubit, int>(
         builder: (context, state) {
@@ -47,45 +58,37 @@ class DashBoard extends StatelessWidget {
             type: BottomNavigationBarType.fixed,
             currentIndex: state,
             enableFeedback: true,
-            selectedItemColor: Colors.black,
+            selectedItemColor: blue,
             showSelectedLabels: true,
             showUnselectedLabels: true,
             unselectedItemColor: Colors.grey[700],
-            selectedLabelStyle: const TextStyle(color: Colors.black),
+            selectedLabelStyle: const TextStyle(color: blue),
             unselectedLabelStyle: TextStyle(color: Colors.grey[600]),
             onTap: (value) {
               context.read<BottomNavControllerCubit>().changeIndex(value);
             },
-            items: [
+            items: const [
               BottomNavigationBarItem(
-                  icon:
-                      SvgPicture.asset(Assets.assetsBottomBarHome, height: 24),
-                  activeIcon: SvgPicture.asset(Assets.assetsBottomBarHomeActive,
-                      height: 24),
-                  label: kHome),
+                  icon: Icon(Icons.newspaper_outlined),
+                  activeIcon: Icon(Icons.newspaper_rounded),
+                  label: kNews),
               BottomNavigationBarItem(
-                  icon:
-                      SvgPicture.asset(Assets.assetsBottomBarNotes, height: 24),
-                  activeIcon:
-                      SvgPicture.asset(Assets.assetsBottomBarNotes, height: 24),
+                  icon: Icon(Icons.description_outlined),
+                  activeIcon: Icon(Icons.description),
                   label: kEnquiry),
               BottomNavigationBarItem(
-                  icon: SvgPicture.asset(Assets.assetsBottomBarBag, height: 24),
-                  activeIcon:
-                      SvgPicture.asset(Assets.assetsBottomBarBag, height: 24),
+                  icon: SizedBox(
+                    height: 24,
+                  ),
+                  label: kHome),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.local_mall_outlined),
+                  activeIcon: Icon(Icons.local_mall),
                   label: kMyQuotes),
               BottomNavigationBarItem(
-                  icon:
-                      SvgPicture.asset(Assets.assetsBottomBarShare, height: 24),
-                  activeIcon:
-                      SvgPicture.asset(Assets.assetsBottomBarShare, height: 24),
-                  label: kNetwork),
-              BottomNavigationBarItem(
-                  icon:
-                      SvgPicture.asset(Assets.assetsBottomBarMenu, height: 24),
-                  activeIcon: SvgPicture.asset(Assets.assetsBottomBarMenuActive,
-                      height: 24),
-                  label: kMenu),
+                  icon: Icon(Icons.chat_bubble_outline),
+                  activeIcon: Icon(Icons.chat),
+                  label: kChat),
             ]);
       },
     );

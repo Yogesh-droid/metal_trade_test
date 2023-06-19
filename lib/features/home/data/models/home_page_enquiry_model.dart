@@ -50,6 +50,7 @@ class Content {
   String? deliveryTerms;
   String? status;
   int? quoteCount;
+  String? uuid;
 
   Content(
       {this.id,
@@ -60,7 +61,8 @@ class Content {
       this.paymentTerms,
       this.deliveryTerms,
       this.status,
-      this.quoteCount});
+      this.quoteCount,
+      this.uuid});
 
   Content.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -76,10 +78,12 @@ class Content {
     deliveryTerms = json["deliveryTerms"];
     status = json["status"];
     quoteCount = json["quoteCount"];
+    uuid = json["uuid"];
   }
 }
 
 class EnquiryCompany {
+  String? lastModifiedDate;
   int? id;
   String? name;
   String? address;
@@ -87,17 +91,23 @@ class EnquiryCompany {
   String? email;
   dynamic phone;
   String? status;
+  String? locale;
+  Country? country;
 
   EnquiryCompany(
-      {this.id,
+      {this.lastModifiedDate,
+      this.id,
       this.name,
       this.address,
       this.pinCode,
       this.email,
       this.phone,
-      this.status});
+      this.status,
+      this.locale,
+      this.country});
 
   EnquiryCompany.fromJson(Map<String, dynamic> json) {
+    lastModifiedDate = json["lastModifiedDate"];
     id = json["id"];
     name = json["name"];
     address = json["address"];
@@ -105,10 +115,14 @@ class EnquiryCompany {
     email = json["email"];
     phone = json["phone"];
     status = json["status"];
+    locale = json["locale"];
+    country =
+        json["country"] == null ? null : Country.fromJson(json["country"]);
   }
 }
 
 class Item {
+  String? lastModifiedDate;
   int? id;
   Sku? sku;
   int? quantity;
@@ -122,9 +136,11 @@ class Item {
       this.quantity,
       this.quantityUnit,
       this.price,
-      this.remarks});
+      this.remarks,
+      this.lastModifiedDate});
 
   Item.fromJson(Map<String, dynamic> json) {
+    lastModifiedDate = json["lastModifiedDate"];
     id = json["id"];
     sku = json["sku"] == null ? null : Sku.fromJson(json["sku"]);
     quantity = json["quantity"];
@@ -143,5 +159,17 @@ class Sku {
   Sku.fromJson(Map<String, dynamic> json) {
     id = json["id"];
     title = json["title"];
+  }
+}
+
+class Country {
+  int? id;
+  String? name;
+
+  Country({this.id, this.name});
+
+  Country.fromJson(Map<String, dynamic> json) {
+    id = json["id"];
+    name = json["name"];
   }
 }

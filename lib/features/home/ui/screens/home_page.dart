@@ -24,37 +24,36 @@ class _HomePageState extends State<HomePage>
   late TabController _tabController;
   late HomePageBuyerEnquiryBloc homePageBuyerEnquiryBloc;
   late HomePageSellerEnquiryBloc homePageSellerEnquiryBloc;
-  ScrollController scrollController = ScrollController();
+  // ScrollController scrollController = ScrollController();
 
-  _scrollToBottom() {
-    scrollController.animateTo(scrollController.position.maxScrollExtent,
-        duration: Duration(seconds: (mockNewslist.length * 5)),
-        curve: Curves.linear);
-  }
+  /// this function is to enable news list scrolling  /////
+
+  // _scrollToBottom() {
+  //   scrollController.animateTo(scrollController.position.maxScrollExtent,
+  //       duration: Duration(seconds: (mockNewslist.length * 5)),
+  //       curve: Curves.linear);
+  // }
 
   @override
   void initState() {
     homePageBuyerEnquiryBloc = context.read<HomePageBuyerEnquiryBloc>();
     homePageSellerEnquiryBloc = context.read<HomePageSellerEnquiryBloc>();
     _tabController = TabController(length: 2, vsync: this);
-    homePageBuyerEnquiryBloc.add(
-        GetHomeBuyerPageEnquiryEvent(page: 0, intent: UserIntent.BUY_INTENT));
+    homePageBuyerEnquiryBloc
+        .add(GetHomeBuyerPageEnquiryEvent(page: 0, intent: UserIntent.Buy));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
+    // WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
     return Scaffold(
       backgroundColor: white,
       appBar: MainAppBar(
-        height: 150,
+        height: 100,
         actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(CupertinoIcons.line_horizontal_3_decrease)),
           IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.message_outlined))
+          IconButton(onPressed: () {}, icon: const Icon(Icons.person))
         ],
         title: const Text(kAppTitle),
         elevation: 5,
@@ -71,27 +70,31 @@ class _HomePageState extends State<HomePage>
                     !homePageBuyerEnquiryBloc.isBuyerListEnd) {
                   homePageBuyerEnquiryBloc.add(GetHomeBuyerPageEnquiryEvent(
                       page: homePageBuyerEnquiryBloc.buyerListPage,
-                      intent: UserIntent.BUY_INTENT));
+                      intent: UserIntent.Buy));
                 }
               } else {
                 if (homePageSellerEnquiryBloc.sellerEnquiryList.isEmpty &&
                     !homePageSellerEnquiryBloc.isSellerListEnd) {
                   homePageSellerEnquiryBloc.add(GetHomePageSellerEnquiryEvent(
                       page: homePageSellerEnquiryBloc.sellerListPage,
-                      intent: UserIntent.SELL_INTENT));
+                      intent: UserIntent.Sell));
                 }
               }
             }),
       ),
       body: Column(
         children: [
-          TrendingNewsList(
-              scrollController: scrollController, news: mockNewslist),
+          // TrendingNewsList(
+          //     scrollController: scrollController, news: mockNewslist),
           Expanded(
               child: TabBarView(
                   controller: _tabController,
                   children: const [BuyerEnquiryPage(), SellerEnquiryPage()]))
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.note_add_outlined, color: black),
       ),
     );
   }

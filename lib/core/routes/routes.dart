@@ -43,7 +43,7 @@ final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
     path: loginPageRoute,
     pageBuilder: (context, state) {
       return getTransition(
-          child: LoginPage(),
+          child: const LoginPage(),
           animationType: TransitionType.fade,
           duration: const Duration(milliseconds: 500));
     },
@@ -53,7 +53,7 @@ final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
     name: otpPageName,
     pageBuilder: (context, state) {
       return getTransition(
-          child: PinPutPage(otp: state.queryParams["otp"]),
+          child: PinPutPage(),
           animationType: TransitionType.slide,
           duration: const Duration(milliseconds: 200));
     },

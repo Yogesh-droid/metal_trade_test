@@ -12,4 +12,4 @@ const Color grey8 = Color(0xFFF4F4F4);
 const Color white = Color(0xFFFFFFFF);
 const Color transparent = Color.fromRGBO(0, 0, 0, 0);
 const Color lightBg = Color(0xFFF6F6F8);
-const Color blue = Color(0xFF0317fc);
+const Color blue = Color(0xFF432575);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/routes/routes.dart';
 import 'package:pinput/pinput.dart';
@@ -8,10 +9,11 @@ import '../../../../core/constants/spaces.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/constants/text_tyles.dart';
 import '../../../landing/ui/widgets/get_started_btn.dart';
+import '../controllers/login_bloc/login_bloc.dart';
 
 class PinPutPage extends StatelessWidget {
-  const PinPutPage({super.key, this.otp});
-  final String? otp;
+  PinPutPage({super.key});
+  final pinTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +32,17 @@ class PinPutPage extends StatelessWidget {
             const SizedBox(height: appWidgetGap),
             const Text(kEnterOtp, style: secMed14),
             const SizedBox(height: appWidgetGap),
-            Pinput(
-              length: 6,
-              onCompleted: (pin) => print(pin),
+            BlocBuilder<LoginBloc, LoginState>(
+              builder: (context, state) {
+                if (state is LoginSuccessfulState) {
+                  pinTextController.text = state.otp;
+                }
+                return Pinput(
+                  controller: pinTextController,
+                  length: 6,
+                  onCompleted: (pin) => print(pin),
+                );
+              },
             ),
             const SizedBox(height: appWidgetGap),
             Padding(

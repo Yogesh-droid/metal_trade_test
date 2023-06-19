@@ -16,9 +16,17 @@ class IntroWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Image.asset(imagePath),
-        Text(title, style: secMed15),
-        Text(subtitle, style: secMed12)
+        Image.asset(imagePath,
+            height: MediaQuery.of(context).size.height * 0.3),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(title,
+              style: secMed18.copyWith(fontWeight: FontWeight.bold)),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(subtitle, style: secMed12),
+        )
       ],
     );
   }

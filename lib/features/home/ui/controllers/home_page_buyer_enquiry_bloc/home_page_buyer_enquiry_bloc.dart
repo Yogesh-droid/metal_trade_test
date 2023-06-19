@@ -29,7 +29,7 @@ class HomePageBuyerEnquiryBloc
                   header: header));
           print(dataState.data);
           if (dataState.data != null) {
-            if (event.intent == UserIntent.BUY_INTENT) {
+            if (event.intent == UserIntent.Buy) {
               isBuyerListEnd = dataState.data!.last!;
               buyerListPage = (dataState.data!.number)! + 1;
               buyerEnquiryList.addAll(dataState.data!.content!);

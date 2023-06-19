@@ -45,22 +45,23 @@ class LandingPage extends StatelessWidget {
             SizedBox(
                 key: const ValueKey("WelcomeSizedBox2"),
                 height: 400,
-                width: 300,
+                width: MediaQuery.of(context).size.width,
                 child: WelcomePageView(
                     key: const ValueKey("WelcomePageView"), pages: introPages)),
             const Spacer(),
             GetStartedBtn(
               title: kGetStarted,
               onPressed: () async {
-                await LocalStorage.instance.getToken().then((value) {
-                  if (value.isEmpty) {
-                    context.go(loginPageRoute);
-                  } else {
-                    debugPrint("token is =>=>=>=>  $value");
-                    context.go(dashBoardRoute);
-                    //context.read<ProfileBloc>().add(GetProfileEvent());
-                  }
-                });
+                context.go(dashBoardRoute);
+                // await LocalStorage.instance.getToken().then((value) {
+                //   if (value.isEmpty) {
+                //     context.go(loginPageRoute);
+                //   } else {
+                //     debugPrint("token is =>=>=>=>  $value");
+                //     context.go(dashBoardRoute);
+                //     //context.read<ProfileBloc>().add(GetProfileEvent());
+                //   }
+                // });
               },
               width: 300,
             ),

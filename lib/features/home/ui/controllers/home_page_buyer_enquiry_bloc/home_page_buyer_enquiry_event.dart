@@ -11,4 +11,4 @@ class GetHomeBuyerPageEnquiryEvent extends HomePageEnquiryEvent {
 }
 
 // ignore: constant_identifier_names
-enum UserIntent { BUY_INTENT, SELL_INTENT }
+enum UserIntent { Buy, Sell }

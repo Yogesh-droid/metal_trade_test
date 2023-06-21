@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/api_constants.dart';
 import 'package:metaltrade/core/resource/request_params/request_params.dart';
 import 'package:metaltrade/features/enquiry/domain/usecases/post_enquiry_usecase.dart';
-import '../../../data/models/post_enquiry_model.dart';
+import '../../../data/models/post_enquiry_req_model.dart';
 import '../../../domain/entities/post_enquiry_res_entity.dart';
 part 'create_enquiry_event.dart';
 part 'create_enquiry_state.dart';

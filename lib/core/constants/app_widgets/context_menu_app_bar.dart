@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import '../app_colors.dart';
-import '../strings.dart';
 import '../text_tyles.dart';
 
 class ContextMenuAppBar extends StatelessWidget with PreferredSizeWidget {

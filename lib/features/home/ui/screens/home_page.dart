@@ -80,6 +80,7 @@ class _HomePageState extends State<HomePage>
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: "homePageFAB",
         onPressed: () {
           context.pushNamed(createEnquiryPageName);
         },

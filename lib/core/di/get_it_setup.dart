@@ -4,9 +4,13 @@ import 'package:metaltrade/features/auth/domain/repo/login_repo.dart';
 import 'package:metaltrade/features/auth/domain/usecases/login_usecase.dart';
 import 'package:metaltrade/features/auth/ui/controllers/login_bloc/login_bloc.dart';
 import 'package:metaltrade/features/enquiry/data/repo/post_enquiry_repo_impl.dart';
+import 'package:metaltrade/features/enquiry/data/repo/sku_repo_impl.dart';
 import 'package:metaltrade/features/enquiry/domain/repo/post_enquiry_repo.dart';
+import 'package:metaltrade/features/enquiry/domain/repo/sku_repo.dart';
 import 'package:metaltrade/features/enquiry/domain/usecases/post_enquiry_usecase.dart';
+import 'package:metaltrade/features/enquiry/domain/usecases/sku_usecase.dart';
 import 'package:metaltrade/features/enquiry/ui/controllers/create_enquiry_bloc/create_enquiry_bloc.dart';
+import 'package:metaltrade/features/enquiry/ui/controllers/get_sku/get_sku_bloc.dart';
 import 'package:metaltrade/features/home/domain/repo/home_page_enquiry_repo.dart';
 import 'package:metaltrade/features/home/domain/usecases/home_page_enquiry_usecase.dart';
 import 'package:metaltrade/features/home/ui/controllers/home_page_buyer_enquiry_bloc/home_page_buyer_enquiry_bloc.dart';
@@ -56,4 +60,9 @@ void setup() {
   getIt.registerFactory<PostEnquiryUsecase>(
       () => PostEnquiryUsecase(postEnquiryRepo: getIt()));
   getIt.registerFactory<CreateEnquiryBloc>(() => CreateEnquiryBloc(getIt()));
+
+  // Sku Fetch on post enquiry for setup //
+  getIt.registerFactory<SkuRepo>(() => SkuRepoImpl(networkManager: getIt()));
+  getIt.registerFactory<SkuUsecase>(() => SkuUsecase(skuRepo: getIt()));
+  getIt.registerFactory<GetSkuBloc>(() => GetSkuBloc(getIt()));
 }

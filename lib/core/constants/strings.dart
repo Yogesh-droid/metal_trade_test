@@ -55,7 +55,9 @@ const String kTopNews = "Top News";
 const String kWantsToSellFrom = "Sell From :";
 const String kWantsTOBuyFrom = "Wants to buy from :";
 const String kItemList = "Items List";
+const String kItemName = "Items Name";
 const String kTotalQty = "Total Qty";
+const String kQuantity = "Quantity";
 const String kShowMore = "Show More";
 const String kShowLess = "Show Less";
 const String kClose = "Close";
@@ -65,3 +67,6 @@ const String kPostEnquiry = "Post Enquiry";
 const String kBuy = "Buy";
 const String kSell = "Sell";
 const String kEnquiryType = "Enquiry Type";
+const String kChooseCity = "Which city do you want to buy/sell";
+const String kTellMoreAbtYourRequirement =
+    "Give More information about your requirement";

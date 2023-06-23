@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/features/enquiry/ui/screens/enquiry_page.dart';
-import 'package:metaltrade/features/menu/ui/screens/menu_page.dart';
 import 'package:metaltrade/features/network/ui/screens/network_page.dart';
 import 'package:metaltrade/features/quotes/ui/screens/quote_page.dart';
+import '../../../news/ui/screens/news_page.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../home/ui/screens/home_page.dart';
@@ -34,7 +34,7 @@ class DashBoard extends StatelessWidget {
 
   Widget getPages() {
     const List<Widget> pageList = [
-      MenuPage(),
+      NewsPage(),
       EnquiryPage(),
       HomePage(),
       QuotePage(),

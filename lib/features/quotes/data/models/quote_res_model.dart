@@ -1,3 +1,4 @@
+import 'package:metaltrade/features/quotes/domain/entities/accept_quote_res_entity.dart';
 import 'package:metaltrade/features/quotes/domain/entities/quote_res_entity.dart';
 
 import '../../../home/data/models/home_page_enquiry_model.dart';
@@ -42,46 +43,36 @@ class QuoteResModel extends QuoteResEntity {
   }
 }
 
-class Content {
-  String? lastModifiedDate;
-  int? id;
-  EnquiryCompany? quoteCompany;
-  Enquiry? enquiry;
-  List<Item>? item;
-  String? transportationTerms;
-  String? paymentTerms;
-  String? deliveryTerms;
-  String? status;
-  String? uuid;
-
+class Content extends AcceptQuoteResEntity {
   Content(
-      {this.lastModifiedDate,
-      this.id,
-      this.quoteCompany,
-      this.enquiry,
-      this.item,
-      this.transportationTerms,
-      this.paymentTerms,
-      this.deliveryTerms,
-      this.status,
-      this.uuid});
+      {String? lastModifiedDate,
+      int? id,
+      EnquiryCompany? quoteCompany,
+      Enquiry? enquiry,
+      List<Item>? item,
+      String? transportationTerms,
+      String? paymentTerms,
+      String? deliveryTerms,
+      String? status,
+      String? uuid});
 
-  Content.fromJson(Map<String, dynamic> json) {
-    lastModifiedDate = json["lastModifiedDate"];
-    id = json["id"];
-    quoteCompany = json["quoteCompany"] == null
-        ? null
-        : EnquiryCompany.fromJson(json["quoteCompany"]);
-    enquiry =
-        json["enquiry"] == null ? null : Enquiry.fromJson(json["enquiry"]);
-    item = json["item"] == null
-        ? null
-        : (json["item"] as List).map((e) => Item.fromJson(e)).toList();
-    transportationTerms = json["transportationTerms"];
-    paymentTerms = json["paymentTerms"];
-    deliveryTerms = json["deliveryTerms"];
-    status = json["status"];
-    uuid = json["uuid"];
+  factory Content.fromJson(Map<String, dynamic> json) {
+    return Content(
+        lastModifiedDate: json["lastModifiedDate"],
+        id: json["id"],
+        quoteCompany: json["quoteCompany"] == null
+            ? null
+            : EnquiryCompany.fromJson(json["quoteCompany"]),
+        enquiry:
+            json["enquiry"] == null ? null : Enquiry.fromJson(json["enquiry"]),
+        item: json["item"] == null
+            ? null
+            : (json["item"] as List).map((e) => Item.fromJson(e)).toList(),
+        transportationTerms: json["transportationTerms"],
+        paymentTerms: json["paymentTerms"],
+        deliveryTerms: json["deliveryTerms"],
+        status: json["status"],
+        uuid: json["uuid"]);
   }
 }
 

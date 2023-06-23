@@ -31,7 +31,7 @@ dependencies:
   webview_flutter: ^4.2.2
   page_view_dot_indicator: ^2.1.0
   pinput: ^2.2.31
-  web_socket_channel: ^2.4.0
+  socket_io_client: ^2.0.2
 
 dev_dependencies:
   flutter_test:

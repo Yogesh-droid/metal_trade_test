@@ -15,9 +15,19 @@ import 'package:metaltrade/features/home/domain/repo/home_page_enquiry_repo.dart
 import 'package:metaltrade/features/home/domain/usecases/home_page_enquiry_usecase.dart';
 import 'package:metaltrade/features/home/ui/controllers/home_page_buyer_enquiry_bloc/home_page_buyer_enquiry_bloc.dart';
 import 'package:metaltrade/features/home/ui/controllers/home_page_seller_enquiry_bloc/home_page_seller_enquiry_bloc.dart';
+import 'package:metaltrade/features/news/data/repo/news_repo_impl.dart';
+import 'package:metaltrade/features/news/domain/repo/news_repo.dart';
+import 'package:metaltrade/features/news/domain/usecases/news_usecase.dart';
+import 'package:metaltrade/features/news/ui/controllers/news_bloc/news_bloc.dart';
+import 'package:metaltrade/features/profile/domain/repo/get_profile_repo.dart';
+import 'package:metaltrade/features/profile/domain/usecases/get_profile_usecase.dart';
+import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
+import 'package:metaltrade/features/quotes/domain/usecases/accept_quote_res_usecase.dart';
+import 'package:metaltrade/features/quotes/ui/controllers/accept_quote_bloc/accept_quote_bloc.dart';
 import '../../features/enquiry/ui/controllers/my_enquiry_buy_bloc/my_enquiry_buy_bloc.dart';
 import '../../features/enquiry/ui/controllers/my_enquiry_sell_bloc/my_enquiry_sell_bloc.dart';
 import '../../features/home/data/repo/home_page_enquiry_repo_impl.dart';
+import '../../features/profile/data/repo/profile_repo_impl.dart';
 import '../resource/network/network_manager.dart';
 
 GetIt getIt = GetIt.I;
@@ -65,4 +75,22 @@ void setup() {
   getIt.registerFactory<SkuRepo>(() => SkuRepoImpl(networkManager: getIt()));
   getIt.registerFactory<SkuUsecase>(() => SkuUsecase(skuRepo: getIt()));
   getIt.registerFactory<GetSkuBloc>(() => GetSkuBloc(getIt()));
+
+  // profile setup //
+
+  getIt.registerFactory<GetProfileRepo>(() => ProfileRepoImpl(getIt()));
+  getIt.registerFactory<GetProfileUsecase>(
+      () => GetProfileUsecase(profileRepo: getIt()));
+  getIt.registerFactory<ProfileBloc>(() => ProfileBloc(getIt()));
+
+  // News Bloc  //
+  getIt.registerFactory<NewsRepo>(() => NewsRepoImpl(networkManager: getIt()));
+  getIt.registerFactory<NewUsecase>(() => NewUsecase(newsRepo: getIt()));
+  getIt.registerFactory<NewsBloc>(() => NewsBloc(newUsecase: getIt()));
+
+  // Accept quote setup ///
+
+  getIt.registerFactory<AcceptQuoteResUsecase>(
+      () => AcceptQuoteResUsecase(acceptQuoteResRepo: getIt()));
+  getIt.registerFactory<AcceptQuoteBloc>(() => AcceptQuoteBloc(getIt()));
 }

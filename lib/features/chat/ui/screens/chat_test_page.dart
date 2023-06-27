@@ -42,7 +42,7 @@ final stompClient = StompClient(
 void onConnect(StompFrame frame) {
   print("calling onConnect");
   stompClient.subscribe(
-    destination: '/mtp/chat',
+    destination: '/company/1/queue/messages',
     headers: {"Accept-Encoding": "gzip"},
     callback: (frame) {
       print(frame.body);
@@ -120,11 +120,11 @@ class _ChatTestPageState extends State<ChatTestPage> {
                       stompClient.send(
                         destination: '/mtp/chat',
                         body: json.encode({
-                          "sender": {"id": 6},
-                          "recipient": {"id": 6},
-                          "enquiry": {"id": 1},
-                          "quote": {"id": 1},
-                          "message": "hello"
+                          "senderCompanyId": 1,
+                          "recipientCompanyId": 1,
+                          "body": {
+                            "text": "Hello, this is from your app only, so enjoy."
+                          }
                         }),
                       );
                       // channel.sink.add(textEditingController.text);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class HomePageAppbarBottom extends StatelessWidget with PreferredSizeWidget {
+class HomePageAppbarBottom extends StatelessWidget implements PreferredSizeWidget {
   const HomePageAppbarBottom(
       {super.key,
       required this.tabList,

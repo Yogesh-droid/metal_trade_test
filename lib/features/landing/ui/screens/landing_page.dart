@@ -4,6 +4,7 @@ import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 import 'package:metaltrade/features/landing/ui/widgets/welcome_page_view.dart';
 
 import '../../../../core/constants/assets.dart';
+import '../../../../core/constants/hive/local_storage.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/routes/routes.dart';
 import '../widgets/intro_widget.dart';

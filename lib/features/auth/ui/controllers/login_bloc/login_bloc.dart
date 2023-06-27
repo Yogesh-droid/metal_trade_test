@@ -20,7 +20,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               body: {"mobileNumber": event.mobNo}));
 
           if (dataState.data != null) {
-            emit(LoginSuccessfulState(otp: dataState.data!));
+            emit(
+                LoginSuccessfulState(otp: dataState.data!, mobNo: event.mobNo));
           } else {
             emit(LoginFailedState(Exception("No Data Found")));
           }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:metaltrade/features/chat/ui/screens/chat_test_page.dart';
 import 'package:metaltrade/features/enquiry/ui/screens/enquiry_page.dart';
-import 'package:metaltrade/features/network/ui/screens/network_page.dart';
 import 'package:metaltrade/features/quotes/ui/screens/quote_page.dart';
 import '../../../news/ui/screens/news_page.dart';
 import '../../../../core/constants/app_colors.dart';
@@ -15,21 +15,9 @@ class DashBoard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white,
-      body: getPages(),
-      bottomNavigationBar: getBottomNavBar(),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            context.read<BottomNavControllerCubit>().changeIndex(2);
-          },
-          backgroundColor: blue,
-          shape: const CircleBorder(),
-          child: const Icon(
-            Icons.home_filled,
-            color: white,
-          )),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-    );
+        backgroundColor: white,
+        body: getPages(),
+        bottomNavigationBar: getBottomNavBar());
   }
 
   Widget getPages() {
@@ -38,7 +26,7 @@ class DashBoard extends StatelessWidget {
       EnquiryPage(),
       HomePage(),
       QuotePage(),
-      NetworkPage(),
+      ChatTestPage()
     ];
     return BlocBuilder<BottomNavControllerCubit, int>(
         builder: (context, state) {
@@ -75,9 +63,8 @@ class DashBoard extends StatelessWidget {
                   activeIcon: Icon(Icons.description),
                   label: kEnquiry),
               BottomNavigationBarItem(
-                  icon: SizedBox(
-                    height: 24,
-                  ),
+                  icon: Icon(Icons.home_outlined),
+                  activeIcon: Icon(Icons.home),
                   label: kHome),
               BottomNavigationBarItem(
                   icon: Icon(Icons.local_mall_outlined),

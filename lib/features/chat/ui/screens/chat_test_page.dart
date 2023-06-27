@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/app_colors.dart';
 import 'package:metaltrade/core/constants/app_widgets/context_menu_app_bar.dart';
+import 'package:metaltrade/features/auth/ui/controllers/login_bloc/login_bloc.dart';
+import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import 'package:stomp_dart_client/stomp.dart';
 import 'package:stomp_dart_client/stomp_config.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
@@ -18,32 +20,46 @@ class ChatTestPage extends StatefulWidget {
   State<ChatTestPage> createState() => _ChatTestPageState();
 }
 
+final stompClient = StompClient(
+  config: StompConfig(
+      url: 'wss://api.metaltrade.io/ws',
+      onConnect: onConnect,
+      beforeConnect: () async {
+        print('waiting to connect...');
+        print('connecting...');
+      },
+      onWebSocketError: (dynamic error) => print(error.toString()),
+      stompConnectHeaders: {
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTE4MzA3NzA5MzgyIiwiaWF0IjoxNjg3ODY0NjM1LCJleHAiOjE3MTk0MDA2MzV9.sXETePR2xAO6FAbLqFaAl1JfffeLMetmgT3u5TVxS8c'
+      },
+      webSocketConnectHeaders: {
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTE4MzA3NzA5MzgyIiwiaWF0IjoxNjg3ODY0NjM1LCJleHAiOjE3MTk0MDA2MzV9.sXETePR2xAO6FAbLqFaAl1JfffeLMetmgT3u5TVxS8c'
+      }),
+);
+
+void onConnect(StompFrame frame) {
+  print("calling onConnect");
+  stompClient.subscribe(
+    destination: '/mtp/chat',
+    headers: {"Accept-Encoding": "gzip"},
+    callback: (frame) {
+      print(frame.body);
+      List<dynamic>? result = json.decode(frame.body!);
+      print(result);
+    },
+  );
+}
+
 class _ChatTestPageState extends State<ChatTestPage> {
   late ChatBloc chatBloc;
   final TextEditingController textEditingController = TextEditingController();
-
-  late StompClient stompClient;
+  late String token;
 
   @override
   void initState() {
-    stompClient = StompClient(
-      config: StompConfig(
-          url: 'ws://api.metaltrade.io/ws',
-          onConnect: onConnect,
-          beforeConnect: () async {
-            print('waiting to connect...');
-            print('connecting...');
-          },
-          onWebSocketError: (dynamic error) => print(error.toString()),
-          stompConnectHeaders: {
-            'Authorization':
-                'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTE5ODExODcxNDUxIiwiaWF0IjoxNjg3ODYwNzIyLCJleHAiOjE3MTkzOTY3MjJ9.E0NI54y68qiR9GsGArmaKLZhLT7shvBk8QvYa2K1bVE'
-          },
-          webSocketConnectHeaders: {
-            'Authorization':
-                'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTE5ODExODcxNDUxIiwiaWF0IjoxNjg3ODYwNzIyLCJleHAiOjE3MTkzOTY3MjJ9.E0NI54y68qiR9GsGArmaKLZhLT7shvBk8QvYa2K1bVE'
-          }),
-    );
+    token = context.read<ProfileBloc>().token ?? '';
 
     stompClient.activate();
     super.initState();
@@ -104,8 +120,8 @@ class _ChatTestPageState extends State<ChatTestPage> {
                       stompClient.send(
                         destination: '/mtp/chat',
                         body: json.encode({
-                          "sender": {"id": 1},
-                          "recipient": {"id": 1},
+                          "sender": {"id": 6},
+                          "recipient": {"id": 6},
                           "enquiry": {"id": 1},
                           "quote": {"id": 1},
                           "message": "hello"
@@ -124,19 +140,9 @@ class _ChatTestPageState extends State<ChatTestPage> {
     );
   }
 
-  void onConnect(StompFrame frame) {
-    stompClient.subscribe(
-      destination: '/company/6/queue/messages',
-      callback: (frame) {
-        List<dynamic>? result = json.decode(frame.body!);
-        print(result);
-      },
-    );
-
-    @override
-    void dispose() {
-      //channel.sink.close();
-      super.dispose();
-    }
+  @override
+  void dispose() {
+    //channel.sink.close();
+    super.dispose();
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:metaltrade/core/constants/hive/local_storage.dart';
 import 'package:metaltrade/core/routes/routes.dart';
 import 'package:pinput/pinput.dart';
 import '../../../../core/constants/assets.dart';
@@ -8,12 +9,16 @@ import '../../../../core/constants/spaces.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/constants/text_tyles.dart';
 import '../../../landing/ui/widgets/get_started_btn.dart';
+import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import '../controllers/login_bloc/login_bloc.dart';
+import '../controllers/validate_otp/validate_otp_bloc.dart';
 
+// ignore: must_be_immutable
 class PinPutPage extends StatelessWidget {
   PinPutPage({super.key});
   final pinTextController = TextEditingController();
-
+  String phoneNo = '';
+  String otp = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +39,8 @@ class PinPutPage extends StatelessWidget {
             BlocBuilder<LoginBloc, LoginState>(
               builder: (context, state) {
                 if (state is LoginSuccessfulState) {
+                  phoneNo = state.mobNo;
+                  otp = state.otp;
                   pinTextController.text = state.otp;
                 }
                 return Pinput(
@@ -46,12 +53,25 @@ class PinPutPage extends StatelessWidget {
             const SizedBox(height: appWidgetGap),
             Padding(
               padding: const EdgeInsets.all(appPadding),
-              child: GetStartedBtn(
-                  height: 50,
-                  title: kSubmit.toUpperCase(),
-                  onPressed: () {
+              child: BlocConsumer<ValidateOtpBloc, ValidateOtpState>(
+                listener: (context, state) {
+                  if (state is ValidateOtpSuccess) {
+                    LocalStorage.instance.saveToken(state.token);
+                    context.read<ProfileBloc>().token = state.token;
                     context.push(dashBoardRoute);
-                  }),
+                  }
+                },
+                builder: (context, state) {
+                  return GetStartedBtn(
+                      height: 50,
+                      title: kSubmit.toUpperCase(),
+                      onPressed: () {
+                        //context.push(dashBoardRoute);
+                        context.read<ValidateOtpBloc>().add(
+                            GetValidateOtpEvent(phoneNo: phoneNo, otp: otp));
+                      });
+                },
+              ),
             ),
           ],
         ),

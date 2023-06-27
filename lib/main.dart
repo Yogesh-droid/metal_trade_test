@@ -6,6 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:metaltrade/features/auth/data/models/country_code_model.dart';
 import 'package:metaltrade/features/auth/ui/controllers/country_code_controller.dart';
 import 'package:metaltrade/features/auth/ui/controllers/login_bloc/login_bloc.dart';
+import 'package:metaltrade/features/auth/ui/controllers/validate_otp/validate_otp_bloc.dart';
 import 'package:metaltrade/features/chat/ui/controllers/chat_bloc/chat_bloc.dart';
 import 'package:metaltrade/features/enquiry/ui/controllers/create_enquiry_bloc/create_enquiry_bloc.dart';
 import 'package:metaltrade/features/enquiry/ui/controllers/get_sku/get_sku_bloc.dart';
@@ -46,6 +47,7 @@ class MetalTradeApp extends StatelessWidget {
           BlocProvider<HomePageBuyerEnquiryBloc>(create: (context) => getIt()),
           BlocProvider<HomePageSellerEnquiryBloc>(create: (context) => getIt()),
           BlocProvider<LoginBloc>(create: (context) => getIt()),
+          BlocProvider<ValidateOtpBloc>(create: (context) => getIt()),
           BlocProvider<MyEnquiryBloc>(create: (context) => getIt()),
           BlocProvider<MyEnquirySellBloc>(create: (context) => getIt()),
           BlocProvider<CreateEnquiryBloc>(create: (context) => getIt()),

@@ -10,6 +10,7 @@ part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final GetProfileUsecase getProfileUsecase;
+  String? token;
   ProfileBloc(this.getProfileUsecase) : super(ProfileInitial()) {
     on<ProfileEvent>((event, emit) async {
       if (event is GetUserProfileEvent) {

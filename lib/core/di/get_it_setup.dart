@@ -1,8 +1,11 @@
 import 'package:get_it/get_it.dart';
 import 'package:metaltrade/features/auth/data/repo/login_repo_impl.dart';
 import 'package:metaltrade/features/auth/domain/repo/login_repo.dart';
+import 'package:metaltrade/features/auth/domain/repo/validate_otp_repo.dart';
 import 'package:metaltrade/features/auth/domain/usecases/login_usecase.dart';
+import 'package:metaltrade/features/auth/domain/usecases/validate_otp_usecase.dart';
 import 'package:metaltrade/features/auth/ui/controllers/login_bloc/login_bloc.dart';
+import 'package:metaltrade/features/auth/ui/controllers/validate_otp/validate_otp_bloc.dart';
 import 'package:metaltrade/features/enquiry/data/repo/post_enquiry_repo_impl.dart';
 import 'package:metaltrade/features/enquiry/data/repo/sku_repo_impl.dart';
 import 'package:metaltrade/features/enquiry/domain/repo/post_enquiry_repo.dart';
@@ -24,6 +27,7 @@ import 'package:metaltrade/features/profile/domain/usecases/get_profile_usecase.
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import 'package:metaltrade/features/quotes/domain/usecases/accept_quote_res_usecase.dart';
 import 'package:metaltrade/features/quotes/ui/controllers/accept_quote_bloc/accept_quote_bloc.dart';
+import '../../features/auth/data/repo/validate_otp_repo_impl.dart';
 import '../../features/enquiry/ui/controllers/my_enquiry_buy_bloc/my_enquiry_buy_bloc.dart';
 import '../../features/enquiry/ui/controllers/my_enquiry_sell_bloc/my_enquiry_sell_bloc.dart';
 import '../../features/home/data/repo/home_page_enquiry_repo_impl.dart';
@@ -53,6 +57,14 @@ void setup() {
       .registerFactory<LoginRepo>(() => LoginRepoImpl(networkManager: getIt()));
   getIt.registerFactory<LoginUsecase>(() => LoginUsecase(loginRepo: getIt()));
   getIt.registerFactory<LoginBloc>(() => LoginBloc(loginUsecase: getIt()));
+
+  ///   Validate OTP  //
+  getIt.registerFactory<ValidateOtpRepo>(
+      () => ValidateOtpRepoImpl(networkManager: getIt()));
+  getIt.registerFactory<ValidateOtpUsecase>(
+      () => ValidateOtpUsecase(validateOtpRepo: getIt()));
+  getIt.registerFactory<ValidateOtpBloc>(
+      () => ValidateOtpBloc(validateOtpUsecase: getIt()));
 
   // THis is My Enquiry bloc setup //
   // homePage usecase and repo is used in this as they have same data //

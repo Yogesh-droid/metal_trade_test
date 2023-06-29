@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metaltrade/core/constants/app_colors.dart';
 
-class MainAppBar extends StatelessWidget with PreferredSizeWidget {
+class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MainAppBar(
       {super.key,
       this.actions,

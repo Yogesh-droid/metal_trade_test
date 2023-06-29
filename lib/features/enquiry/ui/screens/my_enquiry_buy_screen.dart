@@ -23,6 +23,7 @@ class MyEnquiryBuyScreen extends StatelessWidget {
                     enquiryCommpanyName: e.enquiryCompany!.name,
                     itemList: e.item,
                     ownerName: e.enquiryCompany!.name,
+                    datePosted: e.enquiryCompany!.lastModifiedDate,
                   ))
               .toList(),
         );

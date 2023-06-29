@@ -16,3 +16,5 @@ class ProfileFailed extends ProfileState {
 
   ProfileFailed(this.exception);
 }
+
+class ProfileLoggedOut extends ProfileState {}

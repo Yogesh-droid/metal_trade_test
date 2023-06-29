@@ -115,6 +115,10 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(width: 20),
                   Expanded(
                       child: TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    enableIMEPersonalizedLearning: true,
+                    enableSuggestions: true,
+                    keyboardType: TextInputType.phone,
                     autofocus: true,
                     controller: phoneNoController,
                     decoration: const InputDecoration(
@@ -189,7 +193,8 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     String countryCode =
-        WidgetsBinding.instance.window.locale.countryCode ?? '';
+        WidgetsBinding.instance.platformDispatcher.locale.countryCode ?? '';
+
     currentCountryModel = _countryList
         .where((element) => element.code == countryCode)
         .toList()[0];

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../app_colors.dart';
 import '../text_tyles.dart';
 
-class ContextMenuAppBar extends StatelessWidget with PreferredSizeWidget {
+class ContextMenuAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ContextMenuAppBar({super.key, this.title, this.actionButton});
   final String? title;
   final List<Widget>? actionButton;
@@ -12,7 +12,11 @@ class ContextMenuAppBar extends StatelessWidget with PreferredSizeWidget {
         title: Text(title ?? ''),
         backgroundColor: blue,
         titleTextStyle: secMed18.copyWith(color: white),
-        leading: const Icon(Icons.arrow_back, color: white),
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: white),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
         actions: actionButton);
   }
 

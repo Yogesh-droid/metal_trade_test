@@ -70,3 +70,4 @@ const String kEnquiryType = "Enquiry Type";
 const String kChooseCity = "Which city do you want to buy/sell";
 const String kTellMoreAbtYourRequirement =
     "Give More information about your requirement";
+const String kMyProfile = "My Profile";

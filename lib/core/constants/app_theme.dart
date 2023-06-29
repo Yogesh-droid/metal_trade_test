@@ -14,6 +14,7 @@ class AppTheme {
         /// You can define your custom theme if you need by applying .copyWith method
         ///
 
+        iconTheme: const IconThemeData(color: blue),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
                 backgroundColor:

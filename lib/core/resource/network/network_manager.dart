@@ -15,9 +15,12 @@ class NetworkManager {
     switch (requestParams.apiMethods) {
       case ApiMethods.get:
         debugPrint(requestParams.url);
-
         response = await _dio.get(requestParams.url, options: options);
-        return response;
+        if (response.statusCode == 200) {
+          return response;
+        } else {
+          throw Exception(response.statusMessage);
+        }
 
       case ApiMethods.post:
         debugPrint(requestParams.url);

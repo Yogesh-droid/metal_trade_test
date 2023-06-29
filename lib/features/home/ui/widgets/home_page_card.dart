@@ -4,6 +4,7 @@ import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
 import '../../data/models/home_page_enquiry_model.dart';
+import 'package:intl/intl.dart';
 
 class HomePageCard extends StatefulWidget {
   const HomePageCard(
@@ -60,7 +61,8 @@ class _HomePageCardState extends State<HomePageCard> {
                           icon: const Icon(Icons.message_outlined)),
                     ],
                   ),
-                  const Text("Date posted")
+                  Text(DateFormat('dd MMM yyyy')
+                      .format(DateTime.parse(widget.datePosted ?? '')))
                 ])
               ],
             ),

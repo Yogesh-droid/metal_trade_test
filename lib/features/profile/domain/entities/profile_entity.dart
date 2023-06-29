@@ -6,11 +6,13 @@ class ProfileEntity {
   final String? mobileNumber;
   final Company? company;
   final String? status;
+  final ProfileCompletion? profileCompletion;
 
   ProfileEntity(
       {this.lastModifiedDate,
       this.id,
       this.mobileNumber,
       this.company,
-      this.status});
+      this.status,
+      this.profileCompletion});
 }

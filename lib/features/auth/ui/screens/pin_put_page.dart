@@ -9,7 +9,6 @@ import '../../../../core/constants/spaces.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/constants/text_tyles.dart';
 import '../../../landing/ui/widgets/get_started_btn.dart';
-import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import '../controllers/login_bloc/login_bloc.dart';
 import '../controllers/validate_otp/validate_otp_bloc.dart';
 
@@ -57,7 +56,6 @@ class PinPutPage extends StatelessWidget {
                 listener: (context, state) {
                   if (state is ValidateOtpSuccess) {
                     LocalStorage.instance.saveToken(state.token);
-                    context.read<ProfileBloc>().token = state.token;
                     context.push(dashBoardRoute);
                   }
                 },

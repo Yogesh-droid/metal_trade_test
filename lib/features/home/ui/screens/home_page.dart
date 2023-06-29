@@ -42,7 +42,11 @@ class _HomePageState extends State<HomePage>
         height: 100,
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.person))
+          IconButton(
+              onPressed: () {
+                context.pushNamed(profilePageName);
+              },
+              icon: const Icon(Icons.person))
         ],
         title: const Text(kAppTitle),
         elevation: 5,

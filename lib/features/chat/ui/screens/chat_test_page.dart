@@ -1,17 +1,18 @@
 import 'dart:convert';
-
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/app_colors.dart';
-import 'package:metaltrade/core/constants/app_widgets/context_menu_app_bar.dart';
-import 'package:metaltrade/features/auth/ui/controllers/login_bloc/login_bloc.dart';
-import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
+import 'package:metaltrade/core/constants/app_widgets/main_app_bar.dart';
+import 'package:metaltrade/core/constants/hive/local_storage.dart';
 import 'package:stomp_dart_client/stomp.dart';
 import 'package:stomp_dart_client/stomp_config.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 import '../../../../core/constants/strings.dart';
 import '../controllers/chat_bloc/chat_bloc.dart';
+
+// ignore: constant_identifier_names
+const String EVENT = "CHAT PAGE EVENT";
 
 class ChatTestPage extends StatefulWidget {
   const ChatTestPage({super.key});
@@ -25,29 +26,27 @@ final stompClient = StompClient(
       url: 'wss://api.metaltrade.io/ws',
       onConnect: onConnect,
       beforeConnect: () async {
-        print('waiting to connect...');
-        print('connecting...');
+        log("Stomp Server Connecting", name: EVENT);
       },
-      onWebSocketError: (dynamic error) => print(error.toString()),
+      onWebSocketError: (dynamic error) => log('', error: error.toString()),
       stompConnectHeaders: {
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTE4MzA3NzA5MzgyIiwiaWF0IjoxNjg3ODY0NjM1LCJleHAiOjE3MTk0MDA2MzV9.sXETePR2xAO6FAbLqFaAl1JfffeLMetmgT3u5TVxS8c'
+        'Authorization': 'Bearer ${LocalStorage.instance.token}'
       },
       webSocketConnectHeaders: {
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTE4MzA3NzA5MzgyIiwiaWF0IjoxNjg3ODY0NjM1LCJleHAiOjE3MTk0MDA2MzV9.sXETePR2xAO6FAbLqFaAl1JfffeLMetmgT3u5TVxS8c'
+        'Authorization': 'Bearer ${LocalStorage.instance.token}'
       }),
 );
 
 void onConnect(StompFrame frame) {
-  print("calling onConnect");
+  print(frame.headers.toString());
   stompClient.subscribe(
-    destination: '/mtp/chat',
-    headers: {"Accept-Encoding": "gzip"},
+    destination: '/company/5/queue/messages',
     callback: (frame) {
+      print(frame.headers.toString());
       print(frame.body);
+      print(frame.binaryBody);
       List<dynamic>? result = json.decode(frame.body!);
-      print(result);
+      log(result.toString(), name: EVENT);
     },
   );
 }
@@ -59,34 +58,17 @@ class _ChatTestPageState extends State<ChatTestPage> {
 
   @override
   void initState() {
-    token = context.read<ProfileBloc>().token ?? '';
+    token = LocalStorage.instance.token ?? '';
 
     stompClient.activate();
     super.initState();
   }
 
-  /* late WebSocketChannel channel;
-  late Stream stream;
-
-  @override
-  void initState() {
-    chatBloc = context.read<ChatBloc>();
-    chatBloc.add(GetPreviousChatEvent());
-    // channel = WebSocketChannel.connect(Uri.parse('ws://api.metaltrade.io/ws'));
-    channel = WebSocketChannel.connect(Uri.parse(
-        'wss://s9304.blr1.piesocket.com/v3/1?api_key=mREErxPKDoD0AEVQRsedu7kpgldk7slxOHytUhj6&notify_self=1'));
-    stream = channel.stream.asBroadcastStream();
-    stream.listen((event) {
-      chatBloc.add(ChatInitiateEvent(message: event, receiverId: 3));
-    });
-    super.initState();
-  } */
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const ContextMenuAppBar(
-        title: kChat,
+      appBar: const MainAppBar(
+        title: Text(kChat),
       ),
       body: Column(
         children: [
@@ -118,10 +100,10 @@ class _ChatTestPageState extends State<ChatTestPage> {
                 IconButton(
                     onPressed: () {
                       stompClient.send(
-                        destination: '/mtp/chat',
+                        destination: '/company/5/queue/messages',
                         body: json.encode({
-                          "sender": {"id": 6},
-                          "recipient": {"id": 6},
+                          "sender": {"id": 5},
+                          "recipient": {"id": 5},
                           "enquiry": {"id": 1},
                           "quote": {"id": 1},
                           "message": "hello"

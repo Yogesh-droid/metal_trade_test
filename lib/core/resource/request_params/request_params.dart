@@ -1,3 +1,5 @@
+import 'package:metaltrade/core/constants/hive/local_storage.dart';
+
 class RequestParams {
   final String url;
   final ApiMethods apiMethods;
@@ -16,7 +18,6 @@ enum ApiMethods { get, post, delete, put, patch }
 // };
 
 Map<String, String> header = {
-  "Authorization":
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIrOTE5ODExODcxNDUxIiwiaWF0IjoxNjg2MzExMzA0LCJleHAiOjE3MTc4NDczMDR9.F-YhmCzGl2xxTsbGoCGuZ-qarWig1QBbEOF1REAvR2U",
+  "Authorization": "Bearer ${LocalStorage.instance.token}",
   "Content-Type": "application/json",
 };

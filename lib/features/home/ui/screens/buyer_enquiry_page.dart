@@ -22,12 +22,12 @@ class _BuyerEnquiryPageState extends State<BuyerEnquiryPage> {
           shrinkWrap: true,
           children: state.buyerEnquiryList
               .map((e) => HomePageCard(
-                    isSeller: false,
-                    companyAddress: e.enquiryCompany!.address,
-                    enquiryCommpanyName: e.enquiryCompany!.name,
-                    itemList: e.item,
-                    ownerName: e.enquiryCompany!.name,
-                  ))
+                  isSeller: false,
+                  companyAddress: e.enquiryCompany!.address,
+                  enquiryCommpanyName: e.enquiryCompany!.name,
+                  itemList: e.item,
+                  ownerName: e.enquiryCompany!.name,
+                  datePosted: e.enquiryCompany!.lastModifiedDate))
               .toList(),
         );
       } else {

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:metaltrade/features/auth/ui/controllers/login_bloc/login_bloc.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 import 'package:metaltrade/features/landing/ui/widgets/welcome_page_view.dart';
-import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
+
 import '../../../../core/constants/assets.dart';
 import '../../../../core/constants/hive/local_storage.dart';
 import '../../../../core/constants/strings.dart';
@@ -60,7 +58,6 @@ class LandingPage extends StatelessWidget {
                     context.go(loginPageRoute);
                   } else {
                     debugPrint("token is =>=>=>=>  $value");
-                    context.read<ProfileBloc>().token = value;
                     context.go(dashBoardRoute);
                     //context.read<ProfileBloc>().add(GetProfileEvent());
                   }

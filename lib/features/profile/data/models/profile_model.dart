@@ -6,7 +6,15 @@ class ProfileModel extends ProfileEntity {
       int? id,
       String? mobileNumber,
       Company? company,
-      String? status});
+      String? status,
+      ProfileCompletion? profileCompletion})
+      : super(
+            company: company,
+            id: id,
+            lastModifiedDate: lastModifiedDate,
+            mobileNumber: mobileNumber,
+            status: status,
+            profileCompletion: profileCompletion);
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(
@@ -36,6 +44,7 @@ class Company {
   String? status;
   List<SellInterest>? sellInterest;
   String? locale;
+  ProfileCompletion? profileCompletion;
 
   Company(
       {this.lastModifiedDate,
@@ -53,7 +62,8 @@ class Company {
       this.phone,
       this.status,
       this.sellInterest,
-      this.locale});
+      this.locale,
+      this.profileCompletion});
 
   Company.fromJson(Map<String, dynamic> json) {
     lastModifiedDate = json["lastModifiedDate"];
@@ -101,5 +111,17 @@ class Country {
   Country.fromJson(Map<String, dynamic> json) {
     id = json["id"];
     name = json["name"];
+  }
+}
+
+class ProfileCompletion {
+  int? completion;
+  String? next;
+
+  ProfileCompletion({this.completion, this.next});
+
+  ProfileCompletion.fromJson(Map<String, dynamic> json) {
+    completion = json["completion"];
+    next = json["next"];
   }
 }

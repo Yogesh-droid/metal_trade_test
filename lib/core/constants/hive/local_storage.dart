@@ -25,7 +25,8 @@ class LocalStorage {
   Future<void> deleteToken() async {
     final enctriptedBox = await getEnctriptedBox();
     token = null;
-    await enctriptedBox.put(dotenv.env['token_value'], null);
+    await enctriptedBox.delete(dotenv.env['token_value']);
+    token = null;
   }
 
   Future<String> getToken() async {

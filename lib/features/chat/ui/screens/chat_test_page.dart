@@ -101,7 +101,7 @@ class _ChatTestPageState extends State<ChatTestPage> {
                 IconButton(
                     onPressed: () {
                       stompClient.send(
-                        destination: '/company/1/queue/messages',
+                        destination: '/mtp/chat',
                         body: json.encode({
                           "senderCompanyId": 1,
                           "recipientCompanyId": 1,

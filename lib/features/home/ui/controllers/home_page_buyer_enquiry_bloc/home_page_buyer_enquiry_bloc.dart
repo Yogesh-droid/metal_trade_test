@@ -38,7 +38,7 @@ class HomePageBuyerEnquiryBloc
             }
           } else {
             emit(HoemPageBuyerEnquiryFailed(
-                exception: Exception("No Data Found")));
+                exception: Exception(dataState.exception)));
           }
         } on Exception catch (e) {
           emit(HoemPageBuyerEnquiryFailed(exception: e));

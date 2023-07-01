@@ -11,6 +11,8 @@ import 'package:metaltrade/features/home/ui/screens/buyer_enquiry_page.dart';
 import 'package:metaltrade/features/home/ui/screens/seller_enquiry_page.dart';
 import 'package:metaltrade/features/home/ui/widgets/home_page_appbar_bottom.dart';
 
+import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -23,14 +25,22 @@ class _HomePageState extends State<HomePage>
   late TabController _tabController;
   late HomePageBuyerEnquiryBloc homePageBuyerEnquiryBloc;
   late HomePageSellerEnquiryBloc homePageSellerEnquiryBloc;
+  late ProfileBloc profileBloc;
 
   @override
   void initState() {
-    homePageBuyerEnquiryBloc = context.read<HomePageBuyerEnquiryBloc>();
-    homePageSellerEnquiryBloc = context.read<HomePageSellerEnquiryBloc>();
+    profileBloc = context.read<ProfileBloc>();
+    profileBloc.add(GetUserProfileEvent());
     _tabController = TabController(length: 2, vsync: this);
-    homePageBuyerEnquiryBloc
-        .add(GetHomeBuyerPageEnquiryEvent(page: 0, intent: UserIntent.Buy));
+
+    profileBloc.stream.listen((state) {
+      if (state is ProfileSuccessState && state.profileEntity.company != null) {
+        homePageBuyerEnquiryBloc = context.read<HomePageBuyerEnquiryBloc>();
+        homePageSellerEnquiryBloc = context.read<HomePageSellerEnquiryBloc>();
+        homePageBuyerEnquiryBloc
+            .add(GetHomeBuyerPageEnquiryEvent(page: 0, intent: UserIntent.Buy));
+      }
+    });
     super.initState();
   }
 

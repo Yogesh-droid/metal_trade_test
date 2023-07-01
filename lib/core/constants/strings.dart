@@ -71,3 +71,17 @@ const String kChooseCity = "Which city do you want to buy/sell";
 const String kTellMoreAbtYourRequirement =
     "Give More information about your requirement";
 const String kMyProfile = "My Profile";
+const String kCompleteKyc = "Complete KYC";
+const String kPleaseCompleteKyc =
+    "Please complete your KYC without it you will not be able to access may features";
+
+const String kEmail = "Email";
+const String kPhoneNo = "Phone No";
+const String kAddress = "Address";
+const String kCompanyName = "Company Name";
+const String kPinCode = "Pin Code";
+const String kRepresentativeName = "Representative Name";
+const String kChooseCountry = "Choose your country";
+const String kRetry = "Retry";
+const String kCheckProfile = "Check Profile";
+const String kBack = "Back";

@@ -4,6 +4,7 @@ import 'package:metaltrade/features/auth/ui/screens/login_page.dart';
 import 'package:metaltrade/features/auth/ui/screens/pin_put_page.dart';
 import 'package:metaltrade/features/enquiry/ui/screens/create_enquiry_screen.dart';
 import 'package:metaltrade/features/landing/ui/screens/landing_page.dart';
+import 'package:metaltrade/features/profile/ui/screens/kyc_screen.dart';
 import 'package:metaltrade/features/profile/ui/screens/profile_screen.dart';
 
 import '../../features/dashboard/ui/screens/dashboard.dart';
@@ -19,6 +20,8 @@ const String createEnquiryRoute = '/createEnquiryRoute';
 const String createEnquiryPageName = 'CreateEnquiryPageName';
 const String profilePageRoute = '/profilePageRoute';
 const String profilePageName = 'ProfilePageName';
+const String kycPageName = 'KycPageName';
+const String kycPageRoute = '/kycPageRoute';
 
 final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
   GoRoute(
@@ -80,6 +83,16 @@ final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
     pageBuilder: (context, state) {
       return getTransition(
           child: const ProfileScreen(),
+          animationType: TransitionType.slide,
+          duration: const Duration(milliseconds: 200));
+    },
+  ),
+  GoRoute(
+    path: kycPageRoute,
+    name: kycPageName,
+    pageBuilder: (context, state) {
+      return getTransition(
+          child: const KycScreen(),
           animationType: TransitionType.slide,
           duration: const Duration(milliseconds: 200));
     },

@@ -22,8 +22,15 @@ import 'package:metaltrade/features/news/data/repo/news_repo_impl.dart';
 import 'package:metaltrade/features/news/domain/repo/news_repo.dart';
 import 'package:metaltrade/features/news/domain/usecases/news_usecase.dart';
 import 'package:metaltrade/features/news/ui/controllers/news_bloc/news_bloc.dart';
+import 'package:metaltrade/features/profile/data/repo/country_repo_impl.dart';
+import 'package:metaltrade/features/profile/data/repo/kyc_repo_impl.dart';
+import 'package:metaltrade/features/profile/domain/repo/country_repo.dart';
 import 'package:metaltrade/features/profile/domain/repo/get_profile_repo.dart';
+import 'package:metaltrade/features/profile/domain/usecases/country_usecase.dart';
 import 'package:metaltrade/features/profile/domain/usecases/get_profile_usecase.dart';
+import 'package:metaltrade/features/profile/domain/usecases/kyc_usecase.dart';
+import 'package:metaltrade/features/profile/ui/controllers/country_cubit/country_cubit.dart';
+import 'package:metaltrade/features/profile/ui/controllers/kyc_bloc/kyc_bloc.dart';
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import 'package:metaltrade/features/quotes/domain/usecases/accept_quote_res_usecase.dart';
 import 'package:metaltrade/features/quotes/ui/controllers/accept_quote_bloc/accept_quote_bloc.dart';
@@ -32,6 +39,7 @@ import '../../features/enquiry/ui/controllers/my_enquiry_buy_bloc/my_enquiry_buy
 import '../../features/enquiry/ui/controllers/my_enquiry_sell_bloc/my_enquiry_sell_bloc.dart';
 import '../../features/home/data/repo/home_page_enquiry_repo_impl.dart';
 import '../../features/profile/data/repo/profile_repo_impl.dart';
+import '../../features/profile/domain/repo/kyc_repo.dart';
 import '../resource/network/network_manager.dart';
 
 GetIt getIt = GetIt.I;
@@ -94,6 +102,20 @@ void setup() {
   getIt.registerFactory<GetProfileUsecase>(
       () => GetProfileUsecase(profileRepo: getIt()));
   getIt.registerFactory<ProfileBloc>(() => ProfileBloc(getIt()));
+
+  //  Kyc page setup /   it uses profile entity and profile model
+
+  getIt.registerFactory<KycRepo>(() => KycRepoImpl(networkManager: getIt()));
+  getIt.registerFactory<KycUsecase>(() => KycUsecase(kycRepo: getIt()));
+  getIt.registerFactory<KycBloc>(() => KycBloc(getIt()));
+
+  //  Country setup  for kyc  //
+
+  getIt.registerFactory<CountryRepo>(
+      () => CountryRepoImpl(networkManager: getIt()));
+  getIt.registerFactory<CountryUsecase>(
+      () => CountryUsecase(countryRepo: getIt()));
+  getIt.registerFactory<CountryCubit>(() => CountryCubit(getIt()));
 
   // News Bloc  //
   getIt.registerFactory<NewsRepo>(() => NewsRepoImpl(networkManager: getIt()));

@@ -12,6 +12,8 @@ import 'package:metaltrade/features/enquiry/ui/controllers/create_enquiry_bloc/c
 import 'package:metaltrade/features/enquiry/ui/controllers/get_sku/get_sku_bloc.dart';
 import 'package:metaltrade/features/home/ui/controllers/home_page_buyer_enquiry_bloc/home_page_buyer_enquiry_bloc.dart';
 import 'package:metaltrade/features/news/ui/controllers/news_bloc/news_bloc.dart';
+import 'package:metaltrade/features/profile/ui/controllers/country_cubit/country_cubit.dart';
+import 'package:metaltrade/features/profile/ui/controllers/kyc_bloc/kyc_bloc.dart';
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import 'package:metaltrade/features/quotes/ui/controllers/accept_quote_bloc/accept_quote_bloc.dart';
 import 'core/constants/app_theme.dart';
@@ -55,7 +57,9 @@ class MetalTradeApp extends StatelessWidget {
           BlocProvider<NewsBloc>(create: (context) => getIt()),
           BlocProvider<AcceptQuoteBloc>(create: (context) => getIt()),
           BlocProvider<ProfileBloc>(create: (context) => getIt()),
-          BlocProvider<ChatBloc>(create: (context) => ChatBloc())
+          BlocProvider<ChatBloc>(create: (context) => ChatBloc()),
+          BlocProvider<KycBloc>(create: (context) => getIt()),
+          BlocProvider<CountryCubit>(create: (context) => getIt())
         ],
         child: MaterialApp.router(
           title: 'Metal Trade',

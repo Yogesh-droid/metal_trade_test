@@ -1,20 +1,18 @@
 import 'package:metaltrade/features/profile/domain/entities/profile_entity.dart';
 
 class ProfileModel extends ProfileEntity {
-  ProfileModel(
-      {String? lastModifiedDate,
-      int? id,
-      String? mobileNumber,
-      Company? company,
-      String? status,
-      ProfileCompletion? profileCompletion})
-      : super(
+  ProfileModel({
+    String? lastModifiedDate,
+    int? id,
+    String? mobileNumber,
+    Company? company,
+    String? status,
+  }) : super(
             company: company,
             id: id,
             lastModifiedDate: lastModifiedDate,
             mobileNumber: mobileNumber,
-            status: status,
-            profileCompletion: profileCompletion);
+            status: status);
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(

@@ -11,6 +11,7 @@ part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final GetProfileUsecase getProfileUsecase;
+  ProfileEntity? profileEntity;
   ProfileBloc(this.getProfileUsecase) : super(ProfileInitial()) {
     on<ProfileEvent>((event, emit) async {
       if (event is GetUserProfileEvent) {
@@ -21,6 +22,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
                   apiMethods: ApiMethods.get,
                   header: header));
           if (dataState.data != null) {
+            profileEntity = dataState.data!;
             emit(ProfileSuccessState(profileEntity: dataState.data!));
           } else {
             emit(ProfileFailed(Exception(dataState.exception)));

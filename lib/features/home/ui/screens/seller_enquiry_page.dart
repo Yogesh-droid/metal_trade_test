@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:metaltrade/features/profile/ui/widgets/kyc_dialog.dart';
+import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import '../controllers/home_page_seller_enquiry_bloc/home_page_seller_enquiry_bloc.dart';
+import '../widgets/home_page_card.dart';
 
 class SellerEnquiryPage extends StatefulWidget {
   const SellerEnquiryPage({super.key});
@@ -12,21 +15,36 @@ class SellerEnquiryPage extends StatefulWidget {
 class _SellerEnquiryPageState extends State<SellerEnquiryPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomePageSellerEnquiryBloc, HomePageSellerEnquiryState>(
-        builder: (context, state) {
-      if (state is HomePageSellerEnquiryInitial) {
-        return const Center(child: CircularProgressIndicator());
-      } else if (state is HomePageSellerEnquiryFetchedState) {
-        return ListView(
-          shrinkWrap: true,
-          children: state.sellerEnquiryList
-              .map((e) => SizedBox(
-                  height: 150, child: Center(child: Text(e.id.toString()))))
-              .toList(),
-        );
-      } else {
-        return const Center(child: Text("Some Error"));
-      }
-    });
+    return BlocBuilder<ProfileBloc, ProfileState>(
+      builder: (context, state) {
+        if (state is ProfileSuccessState &&
+            state.profileEntity.company != null) {
+          return BlocBuilder<HomePageSellerEnquiryBloc,
+              HomePageSellerEnquiryState>(builder: (context, state) {
+            if (state is HomePageSellerEnquiryInitial) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is HomePageSellerEnquiryFetchedState) {
+              return ListView(
+                shrinkWrap: true,
+                children: state.sellerEnquiryList
+                    .map((e) => HomePageCard(
+                        isSeller: true,
+                        companyAddress: e.enquiryCompany!.address,
+                        enquiryCommpanyName: e.enquiryCompany!.name,
+                        itemList: e.item,
+                        ownerName: e.enquiryCompany!.name,
+                        datePosted: e.enquiryCompany!.lastModifiedDate))
+                    .toList(),
+              );
+            } else if (state is HoemPageSellerEnquiryFailed) {
+              return Center(child: Text(state.exception.toString()));
+            } else {
+              return const Center(child: Text("Some Error"));
+            }
+          });
+        }
+        return const KycDialog();
+      },
+    );
   }
 }

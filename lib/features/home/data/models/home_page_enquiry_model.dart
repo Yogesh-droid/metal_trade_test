@@ -130,7 +130,7 @@ class Item {
   Sku? sku;
   int? quantity;
   String? quantityUnit;
-  int? price;
+  double? price;
   String? remarks;
 
   Item(

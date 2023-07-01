@@ -35,7 +35,7 @@ class HomePageSellerEnquiryBloc
                 sellerEnquiryList: sellerEnquiryList));
           } else {
             emit(HoemPageSellerEnquiryFailed(
-                exception: Exception("Data Not found")));
+                exception: Exception(dataState.exception)));
           }
         } on Exception catch (e) {
           emit(HoemPageSellerEnquiryFailed(exception: e));

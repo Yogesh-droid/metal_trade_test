@@ -17,38 +17,50 @@ class ProfileTile extends StatelessWidget {
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, state) {
         if (state is ProfileSuccessState) {
-          return Padding(
-            padding: const EdgeInsets.all(appPadding),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: blue,
-                      child: Text(
-                        state.profileEntity.company!.name![0],
-                        style: secMed20.copyWith(color: white),
-                      ),
-                    ),
-                    const SizedBox(width: appPadding),
-                    Column(
+          return state.profileEntity.company != null
+              ? Padding(
+                  padding: const EdgeInsets.all(appPadding),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(state.profileEntity.company!.name ?? '',
-                              style: secMed20.copyWith(
-                                  fontWeight: FontWeight.bold)),
-                          Text(state.profileEntity.company!.email ?? ''),
-                          Text(state.profileEntity.company!.phone ?? '')
-                        ]),
-                  ],
-                ),
-                IconButton(onPressed: () {}, icon: const Icon(Icons.edit))
-              ],
-            ),
-          );
+                          CircleAvatar(
+                            backgroundColor: blue,
+                            child: Text(
+                              state.profileEntity.company!.name![0],
+                              style: secMed20.copyWith(color: white),
+                            ),
+                          ),
+                          const SizedBox(width: appPadding),
+                          Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(state.profileEntity.company!.name ?? '',
+                                    style: secMed20.copyWith(
+                                        fontWeight: FontWeight.bold)),
+                                Text(state.profileEntity.company!.email ?? ''),
+                                Text(state.profileEntity.company!.phone ?? '')
+                              ]),
+                        ],
+                      ),
+                      IconButton(onPressed: () {}, icon: const Icon(Icons.edit))
+                    ],
+                  ),
+                )
+              : Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(appPadding),
+                    child: GetStartedBtn(
+                        title: kCompleteKyc,
+                        width: MediaQuery.of(context).size.width / 1.5,
+                        onPressed: () {
+                          context.pushNamed(kycPageName);
+                        }),
+                  ),
+                );
         } else if (state is ProfileFailed) {
           return Center(child: Text(state.exception.toString()));
         } else {

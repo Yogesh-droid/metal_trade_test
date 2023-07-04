@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'app_colors.dart';
-
 const double appPadding =
     16.0; //  used for padding let from screen in whole app
 
@@ -23,9 +21,6 @@ const double appFormFieldGap = 12.0;
 Widget appDivider() {
   return Padding(
     padding: const EdgeInsets.only(top: 16, bottom: 16),
-    child: Container(
-      height: 8,
-      color: lightBg,
-    ),
+    child: Container(height: 8),
   );
 }

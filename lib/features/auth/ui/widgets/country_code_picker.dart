@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/spaces.dart';
 import '../../data/models/country_code_model.dart';
 import '../controllers/country_code_controller.dart';
@@ -28,15 +27,15 @@ class _CountryCodePickerState extends State<CountryCodePicker> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shadowColor: grey5,
-      backgroundColor: transparent,
+      shadowColor: Theme.of(context).shadowColor,
+      backgroundColor: Colors.transparent,
       insetPadding: const EdgeInsets.all(appPadding),
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              color: white,
+              color: Theme.of(context).colorScheme.surface,
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 1.3,
               child: Column(
@@ -84,19 +83,18 @@ class _CountryCodePickerState extends State<CountryCodePicker> {
             ),
             const SizedBox(height: appPadding),
             Container(
-                decoration:
-                    const BoxDecoration(color: grey2, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    shape: BoxShape.circle),
                 child: IconButton(
-                  splashColor: transparent,
-                  splashRadius: 10,
-                  visualDensity:
-                      const VisualDensity(horizontal: 1, vertical: 1),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(Icons.close),
-                  color: grey5,
-                )),
+                    splashColor: Colors.transparent,
+                    splashRadius: 10,
+                    visualDensity:
+                        const VisualDensity(horizontal: 1, vertical: 1),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.close))),
           ],
         ),
       ),

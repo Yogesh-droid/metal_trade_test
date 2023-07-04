@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:metaltrade/core/constants/app_colors.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
@@ -37,9 +36,8 @@ class _HomePageCardState extends State<HomePageCard> {
       child: Card(
         elevation: 15,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-        child: Container(
+        child: Padding(
           padding: const EdgeInsets.all(appPadding),
-          color: grey7,
           child: Column(children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,16 +71,16 @@ class _HomePageCardState extends State<HomePageCard> {
                     ? RichText(
                         text: TextSpan(
                             text: kWantsToSellFrom,
-                            style: secMed15.copyWith(
-                                fontWeight: FontWeight.bold, color: blue),
+                            style:
+                                secMed15.copyWith(fontWeight: FontWeight.bold),
                             children: [
                             TextSpan(text: " ${widget.sellingFrom ?? "All"}")
                           ]))
                     : RichText(
                         text: TextSpan(
                             text: kWantsTOBuyFrom,
-                            style: secMed15.copyWith(
-                                fontWeight: FontWeight.bold, color: blue),
+                            style:
+                                secMed15.copyWith(fontWeight: FontWeight.bold),
                             children: [
                             TextSpan(
                                 text: " ${widget.sellingFrom ?? "All"}",

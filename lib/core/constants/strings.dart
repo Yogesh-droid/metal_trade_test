@@ -4,6 +4,7 @@ const String kBrowse = "Browse";
 const String kMore = "More";
 const String kViewAll = "View All";
 const String kNews = "News";
+const String kRfq = "RFQs";
 const String kChat = "Chat";
 const String kResults = "Results";
 const String kCategories = "Categories";

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/features/enquiry/ui/controllers/my_enquiry_buy_bloc/my_enquiry_buy_bloc.dart';
 import 'package:metaltrade/features/enquiry/ui/controllers/my_enquiry_sell_bloc/my_enquiry_sell_bloc.dart';
 import 'package:metaltrade/features/enquiry/ui/screens/my_enquiry_buy_screen.dart';
 import 'package:metaltrade/features/enquiry/ui/screens/my_enquiry_sell_screen.dart';
-
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_widgets/main_app_bar.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../home/ui/controllers/home_page_buyer_enquiry_bloc/home_page_buyer_enquiry_bloc.dart';
@@ -43,7 +40,7 @@ class _EnquiryPageState extends State<EnquiryPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: MainAppBar(
         height: 100,
         actions: [
@@ -52,7 +49,6 @@ class _EnquiryPageState extends State<EnquiryPage>
         ],
         title: const Text(kMyEnquiry),
         elevation: 5,
-        color: white,
         bottomWidget: HomePageAppbarBottom(
             tabList: const [
               Tab(text: kBuyer),
@@ -90,17 +86,19 @@ class _EnquiryPageState extends State<EnquiryPage>
                   .map((e) => Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: FilterChip(
-                            disabledColor: grey8,
-                            backgroundColor: grey8,
+                            disabledColor:
+                                Theme.of(context).colorScheme.tertiary,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.background,
                             labelPadding:
                                 const EdgeInsets.symmetric(horizontal: 8),
                             label: Text(e.name),
                             selected: statusList.contains(e.name),
-                            selectedColor: blue,
-                            checkmarkColor: white,
-                            labelStyle: statusList.contains(e.name)
-                                ? secMed14.copyWith(color: white)
-                                : secMed14,
+                            // selectedColor: primaryContainer,
+                            // checkmarkColor: white,
+                            // labelStyle: statusList.contains(e.name)
+                            //     ? secMed14.copyWith(color: white)
+                            //     : secMed14,
                             onSelected: (value) {
                               value
                                   ? statusList.add(e.name)

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:metaltrade/core/constants/app_colors.dart';
 import 'package:metaltrade/core/constants/app_widgets/main_app_bar.dart';
 import 'package:metaltrade/core/constants/hive/local_storage.dart';
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
@@ -114,7 +113,9 @@ class _ChatTestPageState extends State<ChatTestPage> {
                   ),
                   const Spacer(),
                   Container(
-                    decoration: BoxDecoration(border: Border.all(color: grey5)),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Theme.of(context).colorScheme.outline)),
                     child: Row(
                       children: [
                         Expanded(

@@ -16,7 +16,7 @@ import 'package:metaltrade/features/profile/ui/controllers/country_cubit/country
 import 'package:metaltrade/features/profile/ui/controllers/kyc_bloc/kyc_bloc.dart';
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import 'package:metaltrade/features/quotes/ui/controllers/accept_quote_bloc/accept_quote_bloc.dart';
-import 'core/constants/app_theme.dart';
+import 'core/constants/color_scheme.dart';
 import 'core/di/get_it_setup.dart';
 import 'core/routes/routes.dart';
 import 'package:path_provider/path_provider.dart';
@@ -63,7 +63,14 @@ class MetalTradeApp extends StatelessWidget {
         ],
         child: MaterialApp.router(
           title: 'Metal Trade',
-          theme: AppTheme.getAppTheme(context),
+          theme: ThemeData(
+            useMaterial3: true,
+            colorScheme: lightColorScheme,
+          ),
+          darkTheme: ThemeData(
+            useMaterial3: true,
+            colorScheme: darkColorScheme,
+          ),
           routerConfig: router,
         ));
   }

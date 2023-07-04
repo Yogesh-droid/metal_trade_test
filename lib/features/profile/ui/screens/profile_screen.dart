@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:metaltrade/core/constants/app_colors.dart';
 import 'package:metaltrade/core/constants/app_widgets/context_menu_app_bar.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
@@ -35,40 +34,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 const ProfileTile(),
                 const SizedBox(height: appPadding),
-                const OptionTile(
-                    title: kMyEnquiry,
-                    leading: Icon(
-                      Icons.note,
-                      color: blue,
-                    )),
+                const OptionTile(title: kMyEnquiry, leading: Icon(Icons.note)),
                 const SizedBox(height: appPadding),
-                const OptionTile(
-                    title: kMyEnquiry,
-                    leading: Icon(
-                      Icons.note,
-                      color: blue,
-                    )),
+                const OptionTile(title: kMyEnquiry, leading: Icon(Icons.note)),
                 const SizedBox(height: appPadding),
-                const OptionTile(
-                    title: kMyEnquiry,
-                    leading: Icon(
-                      Icons.note,
-                      color: blue,
-                    )),
+                const OptionTile(title: kMyEnquiry, leading: Icon(Icons.note)),
                 const SizedBox(height: appPadding),
-                const OptionTile(
-                    title: kMyEnquiry,
-                    leading: Icon(
-                      Icons.note,
-                      color: blue,
-                    )),
+                const OptionTile(title: kMyEnquiry, leading: Icon(Icons.note)),
                 const SizedBox(height: appPadding),
-                const OptionTile(
-                    title: kMyEnquiry,
-                    leading: Icon(
-                      Icons.note,
-                      color: blue,
-                    )),
+                const OptionTile(title: kMyEnquiry, leading: Icon(Icons.note)),
                 const SizedBox(height: appWidgetGap),
                 GetStartedBtn(
                     title: kLogout,

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/features/enquiry/data/models/sku_model.dart';
 import 'package:metaltrade/features/enquiry/ui/widgets/sku_container.dart';
-
-import '../../../../core/constants/app_colors.dart';
 
 class ItemListContainer extends StatefulWidget {
   const ItemListContainer({super.key, required this.skuList});
@@ -24,72 +21,68 @@ class _ItemListContainerState extends State<ItemListContainer> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      child: Container(
-        color: white,
-        padding: const EdgeInsets.all(appPadding),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                InkWell(
-                  onTap: () {
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (_) {
-                          return SkuContainer(onSelected: (value) {
-                            setState(() {
-                              selectedItem = value;
-                            });
+      child: Column(
+        children: [
+          Row(
+            children: [
+              InkWell(
+                onTap: () {
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (_) {
+                        return SkuContainer(onSelected: (value) {
+                          setState(() {
+                            selectedItem = value;
                           });
                         });
+                      });
+                },
+                child: Row(children: [
+                  Text(selectedItem.isEmpty ? kItemName : selectedItem),
+                  const SizedBox(width: 15),
+                  const Icon(Icons.arrow_drop_down_rounded)
+                ]),
+              ),
+              const SizedBox(width: 15),
+              Expanded(
+                  child: TextFormField(
+                controller: quantityController,
+                decoration: const InputDecoration(hintText: kQuantity),
+              )),
+              DropdownButton(
+                  items: [
+                    DropdownMenuItem<String>(
+                        value: 'MT', child: const Text("MT"), onTap: () {}),
+                    DropdownMenuItem<String>(
+                      value: 'T',
+                      child: const Text("T"),
+                      onTap: () {},
+                    ),
+                    DropdownMenuItem<String>(
+                      value: 'KG',
+                      child: const Text("KG"),
+                      onTap: () {},
+                    ),
+                    DropdownMenuItem<String>(
+                      value: 'G',
+                      child: const Text("G"),
+                      onTap: () {},
+                    ),
+                  ],
+                  onChanged: (value) {
+                    selectedUnit = value!;
+                    setState(() {});
                   },
-                  child: Row(children: [
-                    Text(selectedItem.isEmpty ? kItemName : selectedItem),
-                    const SizedBox(width: 15),
-                    const Icon(Icons.arrow_drop_down_rounded)
-                  ]),
-                ),
-                const SizedBox(width: 15),
-                Expanded(
-                    child: TextFormField(
-                  controller: quantityController,
-                  decoration: const InputDecoration(hintText: kQuantity),
-                )),
-                DropdownButton(
-                    items: [
-                      DropdownMenuItem<String>(
-                          value: 'MT', child: const Text("MT"), onTap: () {}),
-                      DropdownMenuItem<String>(
-                        value: 'T',
-                        child: const Text("T"),
-                        onTap: () {},
-                      ),
-                      DropdownMenuItem<String>(
-                        value: 'KG',
-                        child: const Text("KG"),
-                        onTap: () {},
-                      ),
-                      DropdownMenuItem<String>(
-                        value: 'G',
-                        child: const Text("G"),
-                        onTap: () {},
-                      ),
-                    ],
-                    onChanged: (value) {
-                      selectedUnit = value!;
-                      setState(() {});
-                    },
-                    value: selectedUnit,
-                    hint: const Text(kItemName)),
-              ],
-            ),
-            TextFormField(
-              controller: descriptionController,
-              decoration:
-                  const InputDecoration(hintText: kTellMoreAbtYourRequirement),
-            )
-          ],
-        ),
+                  value: selectedUnit,
+                  hint: const Text(kItemName)),
+            ],
+          ),
+          TextFormField(
+            controller: descriptionController,
+            decoration:
+                const InputDecoration(hintText: kTellMoreAbtYourRequirement),
+          )
+        ],
       ),
     );
   }

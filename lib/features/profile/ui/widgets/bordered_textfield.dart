@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 
-import '../../../../core/constants/app_colors.dart';
-
 class BorderedTextField extends StatelessWidget {
   const BorderedTextField(
       {super.key,
@@ -40,28 +38,32 @@ class BorderedTextField extends StatelessWidget {
       decoration: InputDecoration(
         //border: const UnderlineInputBorder(),
         border: OutlineInputBorder(
-            borderSide: const BorderSide(color: blue),
+            borderSide:
+                BorderSide(color: Theme.of(context).colorScheme.primary),
             borderRadius: BorderRadius.circular(appPadding),
             gapPadding: 8),
         focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: blue),
+            borderSide:
+                BorderSide(color: Theme.of(context).colorScheme.primary),
             borderRadius: BorderRadius.circular(appPadding),
             gapPadding: 8),
         disabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: grey4),
+            borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.tertiaryContainer),
             borderRadius: BorderRadius.circular(appPadding),
             gapPadding: 8),
         enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: blue),
+            borderSide:
+                BorderSide(color: Theme.of(context).colorScheme.primary),
             borderRadius: BorderRadius.circular(appPadding),
             gapPadding: 8),
         labelText: hintText,
-        labelStyle: const TextStyle(color: blue),
+        labelStyle: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
         prefix: prefix,
         suffix: suffix,
       ),
-      cursorColor: black,
-      style: const TextStyle(color: grey2),
+      cursorColor: Theme.of(context).colorScheme.primary,
+      style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
       textInputAction: textInputAction,
       onFieldSubmitted: onDone,
       maxLength: maxLines,

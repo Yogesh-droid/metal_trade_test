@@ -1,4 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+
+import 'color_scheme.dart';
+
+class AppTheme {
+  static ThemeData getAppTheme(BuildContext context) {
+    return SchedulerBinding.instance.platformDispatcher.platformBrightness ==
+            Brightness.light
+        ? ThemeData(
+            useMaterial3: true,
+            colorScheme: lightColorScheme,
+          )
+        : ThemeData(useMaterial3: true, colorScheme: darkColorScheme);
+  }
+}
+
+
+/* import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
 import 'text_tyles.dart';
@@ -13,8 +31,9 @@ class AppTheme {
         ///  below code is for ElevatedButton  ////
         /// You can define your custom theme if you need by applying .copyWith method
         ///
+        ///
 
-        iconTheme: const IconThemeData(color: blue),
+        iconTheme: const IconThemeData(color: primaryContainer),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
                 backgroundColor:
@@ -38,7 +57,7 @@ class AppTheme {
         /// You can define your custom theme if you need by applying .copyWith method
         ///
         ///
-        textButtonTheme: TextButtonThemeData(style: ButtonStyle(backgroundColor: MaterialStateProperty.resolveWith((states) => states.contains(MaterialState.pressed) ? grey5 : transparent), textStyle: MaterialStateProperty.all<TextStyle>(const TextStyle().copyWith(foreground: Paint()..color = blue)), padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 0, vertical: 14)), overlayColor: MaterialStateProperty.all(grey5))),
+        textButtonTheme: TextButtonThemeData(style: ButtonStyle(backgroundColor: MaterialStateProperty.resolveWith((states) => states.contains(MaterialState.pressed) ? grey5 : transparent), textStyle: MaterialStateProperty.all<TextStyle>(const TextStyle().copyWith(foreground: Paint()..color = primaryContainer)), padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 0, vertical: 14)), overlayColor: MaterialStateProperty.all(grey5))),
 
         /// below is code for outlined button ////
         ///
@@ -49,3 +68,4 @@ class AppTheme {
         appBarTheme: AppBarTheme(iconTheme: const IconThemeData().copyWith(color: black), titleTextStyle: secMed15.copyWith(fontFamily: "Inter-Regular", fontSize: 18, fontWeight: FontWeight.w500)));
   }
 }
+ */

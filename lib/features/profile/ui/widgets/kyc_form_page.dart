@@ -12,7 +12,6 @@ import 'package:metaltrade/features/profile/ui/controllers/country_cubit/country
 import 'package:metaltrade/features/profile/ui/controllers/kyc_bloc/kyc_bloc.dart';
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import 'package:metaltrade/features/profile/ui/widgets/bordered_textfield.dart';
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/spaces.dart';
 
 class KycFormPage extends StatefulWidget {
@@ -232,23 +231,28 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
               },
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                    borderSide: const BorderSide(color: blue),
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.primary),
                     borderRadius: BorderRadius.circular(appPadding),
                     gapPadding: 8),
                 focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: blue),
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.primary),
                     borderRadius: BorderRadius.circular(appPadding),
                     gapPadding: 8),
                 disabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: grey4),
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.tertiary),
                     borderRadius: BorderRadius.circular(appPadding),
                     gapPadding: 8),
                 enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: blue),
+                    borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.primary),
                     borderRadius: BorderRadius.circular(appPadding),
                     gapPadding: 8),
                 labelText: kChooseCountry,
-                labelStyle: const TextStyle(color: blue),
+                labelStyle:
+                    TextStyle(color: Theme.of(context).colorScheme.onPrimary),
               ),
               items: state.countries
                   .map((e) =>

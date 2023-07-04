@@ -16,7 +16,6 @@ import 'package:metaltrade/features/auth/ui/controllers/login_bloc/login_bloc.da
 import 'package:metaltrade/features/auth/ui/widgets/app_web_pages.dart';
 import 'package:metaltrade/features/auth/ui/widgets/country_code_picker.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
-import '../../../../core/constants/app_colors.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -41,8 +40,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: white,
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
@@ -72,8 +70,12 @@ class _LoginPageState extends State<LoginPage> {
                   BlocBuilder<CountryCodeController, CountryCodeModel>(
                     builder: (context, state) {
                       return Container(
-                        decoration: const BoxDecoration(
-                            border: Border(bottom: BorderSide(color: black))),
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface))),
                         child: InkWell(
                           onTap: () {
                             showGeneralDialog(
@@ -105,8 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                                       ],
                                     ),
                                   )
-                                : const Icon(Icons.flag_circle_rounded,
-                                    color: blue),
+                                : const Icon(Icons.flag_circle_rounded),
                           ),
                         ),
                       );
@@ -160,7 +161,8 @@ class _LoginPageState extends State<LoginPage> {
                 textAlign: TextAlign.center,
                 text: TextSpan(
                     text: kAcceptPrivacyNpolicy,
-                    style: const TextStyle(color: black),
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface),
                     children: [
                       TextSpan(
                           recognizer: TapGestureRecognizer()

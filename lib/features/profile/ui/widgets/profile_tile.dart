@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:metaltrade/core/constants/app_colors.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/core/routes/routes.dart';
@@ -28,10 +27,13 @@ class ProfileTile extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CircleAvatar(
-                            backgroundColor: blue,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary,
                             child: Text(
                               state.profileEntity.company!.name![0],
-                              style: secMed20.copyWith(color: white),
+                              style: secMed20.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary),
                             ),
                           ),
                           const SizedBox(width: appPadding),

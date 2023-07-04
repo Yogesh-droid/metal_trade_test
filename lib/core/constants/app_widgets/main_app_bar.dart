@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:metaltrade/core/constants/app_colors.dart';
 
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MainAppBar(
@@ -21,7 +20,6 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      shadowColor: grey7,
       surfaceTintColor: color,
       title: title,
       actions: actions,

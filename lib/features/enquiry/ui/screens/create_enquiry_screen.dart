@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:metaltrade/core/constants/app_colors.dart';
 import 'package:metaltrade/core/constants/app_widgets/context_menu_app_bar.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
@@ -31,9 +30,9 @@ class _CreateEnquiryScreenState extends State<CreateEnquiryScreen> {
         actionButton: [
           IconButton(
               onPressed: () {},
-              icon: const Icon(
+              icon: Icon(
                 Icons.check,
-                color: white,
+                color: Theme.of(context).colorScheme.surface,
               ))
         ],
       ),

@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
-import '../../../../core/constants/app_colors.dart';
 
 class TrendingNewsList extends StatelessWidget {
   const TrendingNewsList(
@@ -17,9 +16,8 @@ class TrendingNewsList extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            color: blue,
             width: 60,
-            child: Text(kTopNews, style: secMed14.copyWith(color: white)),
+            child: const Text(kTopNews, style: secMed14),
           ),
           Expanded(
             child: ListView(
@@ -27,8 +25,7 @@ class TrendingNewsList extends StatelessWidget {
                 controller: scrollController,
                 scrollDirection: Axis.horizontal,
                 children: news
-                    .map((e) => Container(
-                          decoration: const BoxDecoration(color: grey7),
+                    .map((e) => SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: Center(
                             child: Text(

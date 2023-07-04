@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:metaltrade/core/constants/app_colors.dart';
 import 'package:metaltrade/core/constants/app_widgets/main_app_bar.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/routes/routes.dart';
@@ -47,7 +46,7 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: MainAppBar(
         height: 100,
         actions: [
@@ -60,7 +59,6 @@ class _HomePageState extends State<HomePage>
         ],
         title: const Text(kAppTitle),
         elevation: 5,
-        color: white,
         bottomWidget: HomePageAppbarBottom(
             tabList: const [
               Tab(text: kBuyer),
@@ -98,7 +96,7 @@ class _HomePageState extends State<HomePage>
         onPressed: () {
           context.pushNamed(createEnquiryPageName);
         },
-        child: const Icon(Icons.note_add_outlined, color: black),
+        child: const Icon(Icons.note_add_outlined),
       ),
     );
   }

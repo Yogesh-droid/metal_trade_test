@@ -24,6 +24,8 @@ class MyEnquirySellScreen extends StatelessWidget {
                     itemList: e.item,
                     ownerName: e.enquiryCompany!.name,
                     datePosted: e.enquiryCompany!.lastModifiedDate,
+                    country: e.enquiryCompany!.country!.name,
+                    uuid: e.uuid,
                   ))
               .toList(),
         );

@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'color_scheme.dart';
 
-class AppTheme {
-  static ThemeData getAppTheme(BuildContext context) {
-    return SchedulerBinding.instance.platformDispatcher.platformBrightness ==
-            Brightness.light
-        ? ThemeData(
+class AppTheme extends Cubit<ThemeData> {
+  AppTheme(super.initialState);
+
+  void getAppTheme(Brightness brightness) {
+    brightness == Brightness.light
+        ? emit(ThemeData(
             useMaterial3: true,
             colorScheme: lightColorScheme,
-          )
-        : ThemeData(useMaterial3: true, colorScheme: darkColorScheme);
+          ))
+        : emit(ThemeData(useMaterial3: true, colorScheme: lightColorScheme));
   }
 }
+
 
 
 /* import 'package:flutter/material.dart';

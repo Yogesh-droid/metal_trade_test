@@ -29,12 +29,15 @@ class _BuyerEnquiryPageState extends State<BuyerEnquiryPage> {
                 shrinkWrap: true,
                 children: state.buyerEnquiryList
                     .map((e) => HomePageCard(
-                        isSeller: false,
-                        companyAddress: e.enquiryCompany!.address,
-                        enquiryCommpanyName: e.enquiryCompany!.name,
-                        itemList: e.item,
-                        ownerName: e.enquiryCompany!.name,
-                        datePosted: e.enquiryCompany!.lastModifiedDate))
+                          isSeller: false,
+                          companyAddress: e.enquiryCompany!.address,
+                          enquiryCommpanyName: e.enquiryCompany!.name,
+                          itemList: e.item,
+                          ownerName: e.enquiryCompany!.name,
+                          datePosted: e.enquiryCompany!.lastModifiedDate,
+                          country: e.enquiryCompany!.country!.name,
+                          uuid: e.uuid,
+                        ))
                     .toList(),
               );
             } else if (state is HoemPageBuyerEnquiryFailed) {

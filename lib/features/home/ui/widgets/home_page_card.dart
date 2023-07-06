@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
+import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 import '../../data/models/home_page_enquiry_model.dart';
 import 'package:intl/intl.dart';
 
@@ -14,7 +15,9 @@ class HomePageCard extends StatefulWidget {
       this.ownerName,
       this.sellingFrom,
       this.datePosted,
-      this.itemList});
+      this.itemList,
+      this.uuid,
+      this.country});
   final bool isSeller;
   final String? enquiryCommpanyName;
   final String? companyAddress;
@@ -22,73 +25,55 @@ class HomePageCard extends StatefulWidget {
   final String? sellingFrom;
   final String? datePosted;
   final List<Item>? itemList;
+  final String? uuid;
+  final String? country;
 
   @override
   State<HomePageCard> createState() => _HomePageCardState();
 }
 
 class _HomePageCardState extends State<HomePageCard> {
-  bool isItemsCollapsed = true;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(appPadding),
       child: Card(
-        elevation: 15,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        color: Theme.of(context).colorScheme.background,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         child: Padding(
           padding: const EdgeInsets.all(appPadding),
-          child: Column(children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(children: [
-                  Text(
-                    widget.enquiryCommpanyName ?? '',
-                    style: secMed14.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  Text(widget.companyAddress ?? ''),
-                ]),
-                Column(children: [
-                  Row(
-                    children: [
-                      IconButton(
-                          onPressed: () {}, icon: const Icon(Icons.person)),
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.message_outlined)),
-                    ],
-                  ),
-                  Text(DateFormat('dd MMM yyyy')
-                      .format(DateTime.parse(widget.datePosted ?? '')))
-                ])
+                DateTime.tryParse(widget.datePosted ?? '') != null
+                    ? Text(
+                        "$kPosted : ${DateFormat('dd MMM yyyy').format(DateTime.tryParse(widget.datePosted ?? '')!)}")
+                    : const SizedBox(),
+                const Icon(Icons.arrow_right)
               ],
             ),
+            Text('${widget.uuid ?? ''}, ${widget.country ?? ''}'),
             const Divider(),
-            Container(
-                alignment: Alignment.topLeft,
-                child: widget.isSeller
-                    ? RichText(
-                        text: TextSpan(
-                            text: kWantsToSellFrom,
-                            style:
-                                secMed15.copyWith(fontWeight: FontWeight.bold),
-                            children: [
-                            TextSpan(text: " ${widget.sellingFrom ?? "All"}")
-                          ]))
-                    : RichText(
-                        text: TextSpan(
-                            text: kWantsTOBuyFrom,
-                            style:
-                                secMed15.copyWith(fontWeight: FontWeight.bold),
-                            children: [
-                            TextSpan(
-                                text: " ${widget.sellingFrom ?? "All"}",
-                                style: secMed14.copyWith(
-                                    fontWeight: FontWeight.normal))
-                          ]))),
+            itemListWidget(context),
             const Divider(),
-            itemListWidget(context)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                OutlinedIconButtonWidget(
+                  icon: const Icon(Icons.add),
+                  title: kChat,
+                  onPressed: () {},
+                ),
+                const SizedBox(width: appPadding),
+                FilledButtonWidget(
+                  title: kSubmit,
+                  onPressed: () {},
+                  width: MediaQuery.of(context).size.width * 0.2,
+                )
+              ],
+            )
           ]),
         ),
       ),
@@ -102,24 +87,14 @@ class _HomePageCardState extends State<HomePageCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            kItemList,
+            kProducts,
             style: secMed14.copyWith(fontWeight: FontWeight.w600),
           ),
-          Column(
-              children: isItemsCollapsed
-                  ? [getItemListTile(widget.itemList![0])]
-                  : widget.itemList!.map((e) => getItemListTile(e)).toList()),
-          TextButton(
-              onPressed: () {
-                isItemsCollapsed = !isItemsCollapsed;
-                setState(() {});
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: Text(
-                  isItemsCollapsed ? kShowMore : kShowLess,
-                ),
-              ))
+          getItemListTile(widget.itemList![0]),
+          if (widget.itemList!.length > 1)
+            TextButton(
+                onPressed: () {},
+                child: Text("+ ${widget.itemList!.length} more"))
         ],
       ),
     );
@@ -132,8 +107,11 @@ class _HomePageCardState extends State<HomePageCard> {
       subtitle: Text(e.remarks ?? ''),
       trailing: RichText(
           text: TextSpan(children: [
-        TextSpan(text: "${e.quantity} ", style: secMed12),
-        TextSpan(text: "${e.quantityUnit}", style: secMed12)
+        TextSpan(
+            text: "${e.quantity} ",
+            style: secMed12.copyWith(
+                color: Theme.of(context).colorScheme.onSurface),
+            children: [TextSpan(text: "${e.quantityUnit}", style: secMed12)]),
       ])),
     );
   }

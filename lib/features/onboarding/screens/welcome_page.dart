@@ -3,7 +3,9 @@
 // */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:metaltrade/core/constants/app_theme.dart';
 import '../../../core/constants/assets.dart';
 import '../../../core/constants/hive/local_storage.dart';
 import '../../../core/routes/routes.dart';
@@ -16,8 +18,10 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
+  late AppTheme appTheme;
   @override
   void initState() {
+    appTheme = context.read<AppTheme>();
     appStartUp(context);
     super.initState();
   }
@@ -46,5 +50,10 @@ class _WelcomePageState extends State<WelcomePage> {
         //context.read<ProfileBloc>().add(GetProfileEvent());
       }
     });
+
+    final platformDispatcher = WidgetsBinding.instance.platformDispatcher;
+    platformDispatcher.onPlatformBrightnessChanged = () {
+      appTheme.getAppTheme(platformDispatcher.platformBrightness);
+    };
   }
 }

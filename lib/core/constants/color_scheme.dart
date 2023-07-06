@@ -21,7 +21,8 @@ const lightColorScheme = ColorScheme(
   outline: Color(0xFF79747E),
   background: Color(0xFFFFFBFE),
   onBackground: Color(0xFF1C1B1F),
-  surface: Color(0xFFFFFBFE),
+  // surface: Color(0xFFFFFBFE),
+  surface: Color(0xFFEBEFF2),
   onSurface: Color(0xFF1C1B1F),
   surfaceVariant: Color(0xFFE7E0EC),
   onSurfaceVariant: Color(0xFF49454F),
@@ -67,7 +68,3 @@ const darkColorScheme = ColorScheme(
   outlineVariant: Color(0xFF49454F),
   scrim: Color(0xFF000000),
 );
-
-
-
-//Theme.of(context).ColorScheme.

@@ -60,14 +60,21 @@ class PinPutPage extends StatelessWidget {
                   }
                 },
                 builder: (context, state) {
-                  return GetStartedBtn(
-                      height: 50,
-                      title: kSubmit.toUpperCase(),
+                  // return GetStartedBtn(
+                  //     height: 50,
+                  //     title: kSubmit.toUpperCase(),
+                  //     onPressed: () {
+                  //       //context.push(dashBoardRoute);
+                  //       context.read<ValidateOtpBloc>().add(
+                  //           GetValidateOtpEvent(phoneNo: phoneNo, otp: otp));
+                  //     });
+                  return FilledButtonWidget(
                       onPressed: () {
-                        //context.push(dashBoardRoute);
+                        // context.push(dashBoardRoute);
                         context.read<ValidateOtpBloc>().add(
                             GetValidateOtpEvent(phoneNo: phoneNo, otp: otp));
-                      });
+                      },
+                      title: kSubmit.toUpperCase());
                 },
               ),
             ),

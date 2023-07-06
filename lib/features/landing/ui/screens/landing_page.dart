@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 import 'package:metaltrade/features/landing/ui/widgets/welcome_page_view.dart';
 
@@ -42,28 +43,33 @@ class LandingPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.2),
-            SizedBox(
+            Container(
+                padding: const EdgeInsets.all(appPadding),
                 key: const ValueKey("WelcomeSizedBox2"),
                 height: MediaQuery.of(context).size.height * 0.5,
                 width: MediaQuery.of(context).size.width,
                 child: WelcomePageView(
                     key: const ValueKey("WelcomePageView"), pages: introPages)),
             const Spacer(),
-            GetStartedBtn(
-              title: kGetStarted,
-              onPressed: () async {
-                //context.go(dashBoardRoute);
-                await LocalStorage.instance.getToken().then((value) {
-                  if (value.isEmpty) {
-                    context.go(loginPageRoute);
-                  } else {
-                    debugPrint("token is =>=>=>=>  $value");
-                    context.go(dashBoardRoute);
-                    //context.read<ProfileBloc>().add(GetProfileEvent());
-                  }
-                });
-              },
-              width: 300,
+            Container(
+              padding: const EdgeInsets.all(appPadding),
+              width: MediaQuery.of(context).size.width,
+              child: FilledButtonWidget(
+                title: kGetStarted,
+                onPressed: () async {
+                  //context.go(dashBoardRoute);
+                  await LocalStorage.instance.getToken().then((value) {
+                    if (value.isEmpty) {
+                      context.go(loginPageRoute);
+                    } else {
+                      debugPrint("token is =>=>=>=>  $value");
+                      context.go(dashBoardRoute);
+                      //context.read<ProfileBloc>().add(GetProfileEvent());
+                    }
+                  });
+                },
+                width: 300,
+              ),
             ),
             const SizedBox(height: 50)
           ],

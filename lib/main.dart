@@ -12,7 +12,7 @@ import 'core/routes/routes.dart';
 Future<void> main(List<String> args) async {
   setup();
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: "dotenv");
   if (!kIsWeb) {
     final directory = await getApplicationSupportDirectory();
     Hive.init(directory.path);

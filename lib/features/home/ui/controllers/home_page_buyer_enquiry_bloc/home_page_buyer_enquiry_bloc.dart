@@ -15,16 +15,21 @@ class HomePageBuyerEnquiryBloc
   List<Content> buyerEnquiryList = [];
   int buyerListPage = 0;
   bool isBuyerListEnd = false;
+  bool isFetchingMore = false;
   HomePageBuyerEnquiryBloc({required this.homePageEnquiryUsecase})
       : super(HomePageBuyerEnquiryInitial()) {
     on<HomePageEnquiryEvent>((event, emit) async {
       if (event is GetHomeBuyerPageEnquiryEvent) {
         try {
-          emit(HomePageBuyerEnquiryInitial());
+          if (buyerListPage == 0) {
+            emit(HomePageBuyerEnquiryInitial());
+          } else {
+            emit(HomePageBuyerEnquiryLoadMore());
+          }
           final DataState<HomePageEnquiryEntity> dataState =
               await homePageEnquiryUsecase.call(RequestParams(
                   url:
-                      "${baseUrl}user/enquiry/all?page=${event.page}&size=20&enquiryType=${event.intent.name}",
+                      "${baseUrl}user/enquiry/all?page=${event.page}&size=5&enquiryType=${event.intent.name}",
                   apiMethods: ApiMethods.get,
                   header: header));
 

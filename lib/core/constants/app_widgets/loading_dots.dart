@@ -42,16 +42,15 @@ class _LoadingDotsState extends State<LoadingDots>
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width / 4,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          animationBuilder(animation),
-          animationBuilder(animation1),
-          animationBuilder(animation2)
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        animationBuilder(animation),
+        const SizedBox(width: 10),
+        animationBuilder(animation1),
+        const SizedBox(width: 10),
+        animationBuilder(animation2)
+      ],
     );
   }
 

@@ -21,10 +21,15 @@ class HomePageSellerEnquiryBloc
     on<HomePageSellerEnquiryEvent>((event, emit) async {
       if (event is GetHomePageSellerEnquiryEvent) {
         try {
+          if (sellerListPage == 0) {
+            emit(HomePageSellerEnquiryInitial());
+          } else {
+            emit(HomePageSellerEnquiryLoadMore());
+          }
           final DataState<HomePageEnquiryEntity> dataState =
               await homePageEnquiryUsecase.call(RequestParams(
                   url:
-                      "${baseUrl}user/enquiry/all?page=${event.page}&size=20&enquiryType=${event.intent.name}",
+                      "${baseUrl}user/enquiry/all?page=${event.page}&size=5&enquiryType=${event.intent.name}",
                   apiMethods: ApiMethods.get,
                   header: header));
           if (dataState.data != null) {

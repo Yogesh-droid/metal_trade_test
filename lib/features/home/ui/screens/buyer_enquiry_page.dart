@@ -15,6 +15,27 @@ class BuyerEnquiryPage extends StatefulWidget {
 }
 
 class _BuyerEnquiryPageState extends State<BuyerEnquiryPage> {
+  late ScrollController scrollController;
+  late HomePageBuyerEnquiryBloc homePageBuyerEnquiryBloc;
+  bool isFetchMore = false;
+
+  @override
+  void initState() {
+    scrollController = ScrollController();
+    homePageBuyerEnquiryBloc = context.read<HomePageBuyerEnquiryBloc>();
+    scrollController.addListener(() {
+      if (!homePageBuyerEnquiryBloc.isBuyerListEnd) {
+        if (scrollController.position.pixels ==
+            scrollController.position.maxScrollExtent) {
+          homePageBuyerEnquiryBloc.add(GetHomeBuyerPageEnquiryEvent(
+              page: homePageBuyerEnquiryBloc.buyerListPage,
+              intent: UserIntent.Buy));
+        }
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileBloc, ProfileState>(
@@ -25,13 +46,14 @@ class _BuyerEnquiryPageState extends State<BuyerEnquiryPage> {
                 HomePageBuyerEnquiryState>(builder: (context, state) {
               if (state is HomePageBuyerEnquiryInitial) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (state is HomePageBuyerEnquiryFetchedState) {
+              } else if (state is HomePageBuyerEnquiryFetchedState ||
+                  state is HomePageBuyerEnquiryLoadMore) {
                 return Stack(
                   children: [
-                    const Positioned(bottom: 10, child: LoadingDots()),
                     ListView(
+                      controller: scrollController,
                       shrinkWrap: true,
-                      children: state.buyerEnquiryList
+                      children: homePageBuyerEnquiryBloc.buyerEnquiryList
                           .map((e) => HomePageCard(
                                 content: e,
                                 isSeller: false,
@@ -45,6 +67,14 @@ class _BuyerEnquiryPageState extends State<BuyerEnquiryPage> {
                               ))
                           .toList(),
                     ),
+                    if (state is HomePageBuyerEnquiryLoadMore)
+                      Positioned(
+                          bottom: 0,
+                          child: Container(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                              height: 50,
+                              width: MediaQuery.of(context).size.width,
+                              child: const LoadingDots())),
                   ],
                 );
               } else if (state is HoemPageBuyerEnquiryFailed) {

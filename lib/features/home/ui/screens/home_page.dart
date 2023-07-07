@@ -48,58 +48,50 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: MainAppBar(
-        height: 100,
-        // actions: [
-        //   IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
-        //   IconButton(
-        //       onPressed: () {
-        //         context.pushNamed(profilePageName);
-        //       },
-        //       icon: const Icon(Icons.person))
-        // ],
-        title: SearchBarWidget(searchController: searchController),
-        elevation: 5,
-        bottomWidget: HomePageAppbarBottom(
-            tabList: const [
-              Tab(text: kBuyer),
-              Tab(text: kSeller),
-            ],
-            tabController: _tabController,
-            onTap: (value) {
-              if (value == 0) {
-                if (homePageBuyerEnquiryBloc.buyerEnquiryList.isEmpty &&
-                    !homePageBuyerEnquiryBloc.isBuyerListEnd) {
-                  homePageBuyerEnquiryBloc.add(GetHomeBuyerPageEnquiryEvent(
-                      page: homePageBuyerEnquiryBloc.buyerListPage,
-                      intent: UserIntent.Buy));
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        appBar: MainAppBar(
+          height: 100,
+          // actions: [
+          //   IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
+          //   IconButton(
+          //       onPressed: () {
+          //         context.pushNamed(profilePageName);
+          //       },
+          //       icon: const Icon(Icons.person))
+          // ],
+          title: SearchBarWidget(searchController: searchController),
+          elevation: 5,
+          bottomWidget: HomePageAppbarBottom(
+              tabList: const [
+                Tab(text: kBuyer),
+                Tab(text: kSeller),
+              ],
+              tabController: _tabController,
+              onTap: (value) {
+                if (value == 0) {
+                  if (homePageBuyerEnquiryBloc.buyerEnquiryList.isEmpty &&
+                      !homePageBuyerEnquiryBloc.isBuyerListEnd) {
+                    homePageBuyerEnquiryBloc.add(GetHomeBuyerPageEnquiryEvent(
+                        page: homePageBuyerEnquiryBloc.buyerListPage,
+                        intent: UserIntent.Buy));
+                  }
+                } else {
+                  if (homePageSellerEnquiryBloc.sellerEnquiryList.isEmpty &&
+                      !homePageSellerEnquiryBloc.isSellerListEnd) {
+                    homePageSellerEnquiryBloc.add(GetHomePageSellerEnquiryEvent(
+                        page: homePageSellerEnquiryBloc.sellerListPage,
+                        intent: UserIntent.Sell));
+                  }
                 }
-              } else {
-                if (homePageSellerEnquiryBloc.sellerEnquiryList.isEmpty &&
-                    !homePageSellerEnquiryBloc.isSellerListEnd) {
-                  homePageSellerEnquiryBloc.add(GetHomePageSellerEnquiryEvent(
-                      page: homePageSellerEnquiryBloc.sellerListPage,
-                      intent: UserIntent.Sell));
-                }
-              }
-            }),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-              child: TabBarView(
-                  controller: _tabController,
-                  children: const [BuyerEnquiryPage(), SellerEnquiryPage()]))
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        heroTag: "homePageFAB",
-        onPressed: () {
-          context.pushNamed(createEnquiryPageName);
-        },
-        child: const Icon(Icons.note_add_outlined),
-      ),
-    );
+              }),
+        ),
+        body: Column(
+          children: [
+            Expanded(
+                child: TabBarView(
+                    controller: _tabController,
+                    children: const [BuyerEnquiryPage(), SellerEnquiryPage()]))
+          ],
+        ));
   }
 }

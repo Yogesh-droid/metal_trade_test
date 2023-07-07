@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:metaltrade/features/auth/ui/screens/login_page.dart';
 import 'package:metaltrade/features/auth/ui/screens/pin_put_page.dart';
-import 'package:metaltrade/features/enquiry/ui/screens/create_enquiry_screen.dart';
-import 'package:metaltrade/features/home/data/models/home_page_enquiry_model.dart';
-import 'package:metaltrade/features/home/ui/screens/product_detail_screen.dart';
 import 'package:metaltrade/features/landing/ui/screens/landing_page.dart';
 import 'package:metaltrade/features/profile/ui/screens/kyc_screen.dart';
 import 'package:metaltrade/features/profile/ui/screens/profile_screen.dart';
 import '../../features/dashboard/ui/screens/dashboard.dart';
+import '../../features/my_home/ui/screens/create_enquiry_screen.dart';
 import '../../features/onboarding/screens/welcome_page.dart';
+import '../../features/rfq/data/models/rfq_enquiry_model.dart';
+import '../../features/rfq/ui/screens/product_detail_screen.dart';
 
 const String welcomePageRoute = '/';
 const String landingPageRoute = '/landingPage';

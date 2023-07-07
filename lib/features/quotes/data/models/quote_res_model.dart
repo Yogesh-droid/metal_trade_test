@@ -1,7 +1,7 @@
 import 'package:metaltrade/features/quotes/domain/entities/accept_quote_res_entity.dart';
 import 'package:metaltrade/features/quotes/domain/entities/quote_res_entity.dart';
 
-import '../../../home/data/models/home_page_enquiry_model.dart';
+import '../../../rfq/data/models/rfq_enquiry_model.dart';
 
 class QuoteResModel extends QuoteResEntity {
   QuoteResModel(

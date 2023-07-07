@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/features/chat/ui/screens/chat_test_page.dart';
 import 'package:metaltrade/features/dashboard/ui/widgets/destinations.dart';
-import 'package:metaltrade/features/enquiry/ui/screens/enquiry_page.dart';
+import 'package:metaltrade/features/my_home/ui/screens/my_home_page.dart';
 import 'package:metaltrade/features/profile/ui/screens/profile_screen.dart';
+import 'package:metaltrade/features/rfq/ui/screens/rfq_home_page.dart';
 import '../../../news/ui/screens/news_page.dart';
-import '../../../home/ui/screens/home_page.dart';
 import '../controllers/bottom_bar_controller_cubit.dart';
 
 class DashBoard extends StatelessWidget {
@@ -21,8 +21,8 @@ class DashBoard extends StatelessWidget {
 
   Widget getPages() {
     const List<Widget> pageList = [
-      HomePage(),
-      EnquiryPage(),
+      MyHomePage(),
+      RfqHomePage(),
       NewsPage(),
       ChatTestPage(),
       ProfileScreen()

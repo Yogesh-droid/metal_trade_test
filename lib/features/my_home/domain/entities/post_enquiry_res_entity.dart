@@ -1,27 +1,30 @@
 import '../../../rfq/data/models/rfq_enquiry_model.dart';
-import '../../data/models/quote_res_model.dart';
 
-class AcceptQuoteResEntity {
+class PostEnquiryResEntity {
   final String? lastModifiedDate;
   final int? id;
-  final EnquiryCompany? quoteCompany;
-  final Enquiry? enquiry;
   final List<Item>? item;
+  final List<Country>? country;
+  final EnquiryCompany? enquiryCompany;
+  final String? enquiryType;
   final String? transportationTerms;
   final String? paymentTerms;
   final String? deliveryTerms;
   final String? status;
+  final int? quoteCount;
   final String? uuid;
 
-  AcceptQuoteResEntity(
+  PostEnquiryResEntity(
       {this.lastModifiedDate,
       this.id,
-      this.quoteCompany,
-      this.enquiry,
       this.item,
+      this.country,
+      this.enquiryCompany,
+      this.enquiryType,
       this.transportationTerms,
       this.paymentTerms,
       this.deliveryTerms,
       this.status,
+      this.quoteCount,
       this.uuid});
 }

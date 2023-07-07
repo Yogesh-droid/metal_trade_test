@@ -6,19 +6,8 @@ import 'package:metaltrade/features/auth/domain/usecases/login_usecase.dart';
 import 'package:metaltrade/features/auth/domain/usecases/validate_otp_usecase.dart';
 import 'package:metaltrade/features/auth/ui/controllers/login_bloc/login_bloc.dart';
 import 'package:metaltrade/features/auth/ui/controllers/validate_otp/validate_otp_bloc.dart';
-import 'package:metaltrade/features/enquiry/data/repo/post_enquiry_repo_impl.dart';
-import 'package:metaltrade/features/enquiry/data/repo/sku_repo_impl.dart';
-import 'package:metaltrade/features/enquiry/domain/repo/post_enquiry_repo.dart';
-import 'package:metaltrade/features/enquiry/domain/repo/sku_repo.dart';
-import 'package:metaltrade/features/enquiry/domain/usecases/post_enquiry_usecase.dart';
-import 'package:metaltrade/features/enquiry/domain/usecases/sku_usecase.dart';
-import 'package:metaltrade/features/enquiry/ui/controllers/create_enquiry_bloc/create_enquiry_bloc.dart';
-import 'package:metaltrade/features/enquiry/ui/controllers/get_sku/get_sku_bloc.dart';
-import 'package:metaltrade/features/home/domain/repo/home_page_enquiry_repo.dart';
-import 'package:metaltrade/features/home/domain/usecases/home_page_enquiry_usecase.dart';
-import 'package:metaltrade/features/home/ui/controllers/home_page_buyer_enquiry_bloc/home_page_buyer_enquiry_bloc.dart';
-import 'package:metaltrade/features/home/ui/controllers/home_page_seller_enquiry_bloc/home_page_seller_enquiry_bloc.dart';
-import 'package:metaltrade/features/home/ui/controllers/search_controller/search_bloc.dart';
+import 'package:metaltrade/features/my_home/ui/controllers/my_quote_bloc/my_quote_bloc.dart';
+import 'package:metaltrade/features/my_home/ui/controllers/my_rfq_bloc/my_rfq_bloc.dart';
 import 'package:metaltrade/features/news/data/repo/news_repo_impl.dart';
 import 'package:metaltrade/features/news/domain/repo/news_repo.dart';
 import 'package:metaltrade/features/news/domain/usecases/news_usecase.dart';
@@ -35,12 +24,23 @@ import 'package:metaltrade/features/profile/ui/controllers/kyc_bloc/kyc_bloc.dar
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import 'package:metaltrade/features/quotes/domain/usecases/accept_quote_res_usecase.dart';
 import 'package:metaltrade/features/quotes/ui/controllers/accept_quote_bloc/accept_quote_bloc.dart';
+import 'package:metaltrade/features/rfq/data/repo/rfq_enquiry_repo_impl.dart';
+import 'package:metaltrade/features/rfq/domain/repo/rfq_enquiry_repo.dart';
+import 'package:metaltrade/features/rfq/domain/usecases/rfq_usecase.dart';
+import 'package:metaltrade/features/rfq/ui/controllers/rfq_buyer_enquiry_bloc/rfq_buyer_enquiry_bloc.dart';
+import 'package:metaltrade/features/rfq/ui/controllers/rfq_seller_enquiry_bloc/rfq_seller_enquiry_bloc.dart';
 import '../../features/auth/data/repo/validate_otp_repo_impl.dart';
-import '../../features/enquiry/ui/controllers/my_enquiry_buy_bloc/my_enquiry_buy_bloc.dart';
-import '../../features/enquiry/ui/controllers/my_enquiry_sell_bloc/my_enquiry_sell_bloc.dart';
-import '../../features/home/data/repo/home_page_enquiry_repo_impl.dart';
+import '../../features/my_home/data/repo/post_enquiry_repo_impl.dart';
+import '../../features/my_home/data/repo/sku_repo_impl.dart';
+import '../../features/my_home/domain/repo/post_enquiry_repo.dart';
+import '../../features/my_home/domain/repo/sku_repo.dart';
+import '../../features/my_home/domain/usecases/post_enquiry_usecase.dart';
+import '../../features/my_home/domain/usecases/sku_usecase.dart';
+import '../../features/my_home/ui/controllers/create_enquiry_bloc/create_enquiry_bloc.dart';
+import '../../features/my_home/ui/controllers/get_sku/get_sku_bloc.dart';
 import '../../features/profile/data/repo/profile_repo_impl.dart';
 import '../../features/profile/domain/repo/kyc_repo.dart';
+import '../../features/rfq/ui/controllers/search_controller/search_bloc.dart';
 import '../resource/network/network_manager.dart';
 
 GetIt getIt = GetIt.I;
@@ -48,13 +48,12 @@ void setup() {
   /// Network calls
   getIt.registerLazySingleton(() => NetworkManager());
 
-  /// For Home Page Banners
-  getIt.registerFactory<HomePageEnquiryRepo>(
-      () => HomePageEnquiryImpl(networkManager: getIt()));
-  getIt.registerFactory<HomePageEnquiryUsecase>(
-      () => HomePageEnquiryUsecase(homePageEnquiryRepo: getIt()));
-  getIt.registerFactory<HomePageBuyerEnquiryBloc>(
-      () => HomePageBuyerEnquiryBloc(homePageEnquiryUsecase: getIt()));
+  /// For Rfq Page Banners
+  getIt.registerFactory<RfqEnquiryRepo>(
+      () => RfqEnquiryImpl(networkManager: getIt()));
+  getIt.registerFactory<RfqUsecase>(() => RfqUsecase(rfqRepo: getIt()));
+  getIt.registerFactory<RfqBuyerEnquiryBloc>(
+      () => RfqBuyerEnquiryBloc(homePageEnquiryUsecase: getIt()));
 
   ///  Search Controller uses HomePageEnquiryRepo
   ///
@@ -63,8 +62,8 @@ void setup() {
 
   ///  seller section bloc Home Page ///
 
-  getIt.registerFactory<HomePageSellerEnquiryBloc>(
-      () => HomePageSellerEnquiryBloc(homePageEnquiryUsecase: getIt()));
+  getIt.registerFactory<RfqSellerEnquiryBloc>(
+      () => RfqSellerEnquiryBloc(homePageEnquiryUsecase: getIt()));
 
   /// Login page setup ////
   getIt
@@ -83,11 +82,11 @@ void setup() {
   // THis is My Enquiry bloc setup //
   // homePage usecase and repo is used in this as they have same data //
 
-  getIt.registerFactory<MyEnquiryBloc>(
-      () => MyEnquiryBloc(homePageEnquiryUsecase: getIt()));
+  getIt.registerFactory<MyRfqBloc>(
+      () => MyRfqBloc(homePageEnquiryUsecase: getIt()));
 
-  getIt.registerFactory<MyEnquirySellBloc>(
-      () => MyEnquirySellBloc(homePageEnquiryUsecase: getIt()));
+  getIt.registerFactory<MyQuoteBloc>(
+      () => MyQuoteBloc(homePageEnquiryUsecase: getIt()));
 
   // setup for create enquiry bloc //
 

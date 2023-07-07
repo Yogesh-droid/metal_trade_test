@@ -68,3 +68,7 @@ const String kPosted = "Posted";
 const String kVerified = "Verified";
 const String kBid = "Bid";
 const String kProducts = "Products";
+const String kRfqDetails = "RFQ Details";
+const String kPaymentTerms = "Payment Terms";
+const String kTransportTerms = "Transportation Terms";
+const String kDeliveryTerms = "Delivery Terms";

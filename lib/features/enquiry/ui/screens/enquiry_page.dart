@@ -78,7 +78,7 @@ class _EnquiryPageState extends State<EnquiryPage>
       body: Column(
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.05,
+            height: MediaQuery.of(context).size.height * 0.065,
             child: ListView(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
@@ -94,11 +94,6 @@ class _EnquiryPageState extends State<EnquiryPage>
                                 const EdgeInsets.symmetric(horizontal: 8),
                             label: Text(e.name),
                             selected: statusList.contains(e.name),
-                            // selectedColor: primaryContainer,
-                            // checkmarkColor: white,
-                            // labelStyle: statusList.contains(e.name)
-                            //     ? secMed14.copyWith(color: white)
-                            //     : secMed14,
                             onSelected: (value) {
                               value
                                   ? statusList.add(e.name)

@@ -9,6 +9,7 @@ import 'package:metaltrade/features/home/ui/controllers/home_page_seller_enquiry
 import 'package:metaltrade/features/home/ui/screens/buyer_enquiry_page.dart';
 import 'package:metaltrade/features/home/ui/screens/seller_enquiry_page.dart';
 import 'package:metaltrade/features/home/ui/widgets/home_page_appbar_bottom.dart';
+import 'package:metaltrade/features/home/ui/widgets/search_bar_widget.dart';
 
 import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
 
@@ -24,6 +25,7 @@ class _HomePageState extends State<HomePage>
   late TabController _tabController;
   late HomePageBuyerEnquiryBloc homePageBuyerEnquiryBloc;
   late HomePageSellerEnquiryBloc homePageSellerEnquiryBloc;
+  final SearchController searchController = SearchController();
   late ProfileBloc profileBloc;
 
   @override
@@ -49,15 +51,15 @@ class _HomePageState extends State<HomePage>
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: MainAppBar(
         height: 100,
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
-          IconButton(
-              onPressed: () {
-                context.pushNamed(profilePageName);
-              },
-              icon: const Icon(Icons.person))
-        ],
-        title: const Text(kAppTitle),
+        // actions: [
+        //   IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
+        //   IconButton(
+        //       onPressed: () {
+        //         context.pushNamed(profilePageName);
+        //       },
+        //       icon: const Icon(Icons.person))
+        // ],
+        title: SearchBarWidget(searchController: searchController),
         elevation: 5,
         bottomWidget: HomePageAppbarBottom(
             tabList: const [

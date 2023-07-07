@@ -41,126 +41,83 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: appWidgetGap * 1.5),
-          Image.asset(
-            Assets.assetsWelcomeAppLogo,
-            height: 100,
-            width: 100,
-          ),
-          const SizedBox(height: appWidgetGap),
-          Text(kWhatsYourNo, style: Theme.of(context).textTheme.headlineLarge),
-          const SizedBox(height: appWidgetGap),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                // BlocBuilder<CountryCodeController, CountryCodeModel>(
-                //   builder: (context, state) {
-                //     return Container(
-                //       decoration: BoxDecoration(
-                //           border: Border(
-                //               bottom: BorderSide(
-                //                   color: Theme.of(context)
-                //                       .colorScheme
-                //                       .onSurface))),
-                //       child: InkWell(
-                //         onTap: () {
-                //           showGeneralDialog(
-                //               context: context,
-                //               pageBuilder: (ctx, a1, a2) {
-                //                 return const SizedBox();
-                //               },
-                //               transitionBuilder: (context, animation,
-                //                   secondaryAnimation, child) {
-                //                 return Transform.scale(
-                //                     scale: Curves.easeIn
-                //                         .transform(animation.value),
-                //                     child: CountryCodePicker(
-                //                       countryList: _countryList,
-                //                     ));
-                //               },
-                //               transitionDuration:
-                //                   const Duration(milliseconds: 500));
-                //         },
-                //         child: SizedBox(
-                //           height: 50,
-                //           child: state.dialCode != null
-                //               ? Padding(
-                //                   padding: const EdgeInsets.all(8.0),
-                //                   child: Row(
-                //                     children: [
-                //                       Text(
-                //                           "${state.emoji}  ${state.dialCode ?? ''}")
-                //                     ],
-                //                   ),
-                //                 )
-                //               : const Icon(Icons.flag_circle_rounded),
-                //         ),
-                //       ),
-                //     );
-                //   },
-                // ),
-                // const SizedBox(width: 20),
-                Expanded(
-                    child: FilledTextFieldWidget(
-                  textEditingController: phoneNoController,
-                  prefix: CountryChooserIconBtn(countryList: _countryList),
-                ))
-              ],
+          child: Padding(
+        padding: const EdgeInsets.all(appPadding),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: appWidgetGap * 1.5),
+            Image.asset(
+              Assets.assetsWelcomeAppLogo,
+              height: 100,
+              width: 100,
             ),
-          ),
-          const SizedBox(height: appWidgetGap),
-          Padding(
-            padding: const EdgeInsets.all(appPadding),
-            child: BlocBuilder<CountryCodeController, CountryCodeModel>(
-              builder: (context, state) {
-                return FilledButtonWidget(
-                    title: kContinue.toUpperCase(),
-                    onPressed: () {
-                      if (state.dialCode != null) {
-                        if (state.dialCode!.isEmpty) {
-                          showSnackBar(context, "Enter correct country code");
+            const SizedBox(height: appWidgetGap),
+            Text(kWhatsYourNo,
+                style: Theme.of(context).textTheme.headlineLarge),
+            const SizedBox(height: appWidgetGap),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                      child: FilledTextFieldWidget(
+                    textEditingController: phoneNoController,
+                    prefix: CountryChooserIconBtn(countryList: _countryList),
+                  ))
+                ],
+              ),
+            ),
+            const SizedBox(height: appWidgetGap),
+            Padding(
+              padding: const EdgeInsets.all(appPadding),
+              child: BlocBuilder<CountryCodeController, CountryCodeModel>(
+                builder: (context, state) {
+                  return FilledButtonWidget(
+                      title: kContinue.toUpperCase(),
+                      onPressed: () {
+                        if (state.dialCode != null) {
+                          if (state.dialCode!.isEmpty) {
+                            showSnackBar(context, "Enter correct country code");
+                          } else {
+                            context.read<LoginBloc>().add(GetOtpEvent(
+                                mobNo:
+                                    "${state.dialCode}${phoneNoController.text}"));
+                            context.pushNamed(
+                              otpPageName,
+                            );
+                          }
                         } else {
-                          context.read<LoginBloc>().add(GetOtpEvent(
-                              mobNo:
-                                  "${state.dialCode}${phoneNoController.text}"));
-                          context.pushNamed(
-                            otpPageName,
-                          );
+                          showSnackBar(
+                              context, "Please enter corrrect country code");
                         }
-                      } else {
-                        showSnackBar(
-                            context, "Please enter corrrect country code");
-                      }
-                    });
-              },
+                      });
+                },
+              ),
             ),
-          ),
-          const SizedBox(height: appWidgetGap),
-          RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                  text: kAcceptPrivacyNpolicy,
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.onSurface),
-                  children: [
-                    TextSpan(
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const AppWebPages(
-                                        url: "https://flutter.dev/")));
-                          },
-                        text: "\n$kTnC",
-                        style: const TextStyle(color: Colors.blue))
-                  ]))
-        ],
+            const SizedBox(height: appWidgetGap),
+            RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                    text: kAcceptPrivacyNpolicy,
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface),
+                    children: [
+                      TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const AppWebPages(
+                                          url: "https://flutter.dev/")));
+                            },
+                          text: "\n$kTnC",
+                          style: const TextStyle(color: Colors.blue))
+                    ]))
+          ],
+        ),
       )),
     );
   }

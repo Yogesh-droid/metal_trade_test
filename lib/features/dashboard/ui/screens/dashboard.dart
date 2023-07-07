@@ -42,6 +42,8 @@ class DashBoard extends StatelessWidget {
         return NavigationBar(
           destinations: destinations,
           selectedIndex: state,
+          indicatorColor:
+              Theme.of(context).colorScheme.inversePrimary.withOpacity(0.50),
           onDestinationSelected: (value) {
             context.read<BottomNavControllerCubit>().changeIndex(value);
           },

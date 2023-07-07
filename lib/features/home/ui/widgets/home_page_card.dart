@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
+import 'package:metaltrade/core/routes/routes.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 import '../../data/models/home_page_enquiry_model.dart';
 import 'package:intl/intl.dart';
@@ -17,7 +19,9 @@ class HomePageCard extends StatefulWidget {
       this.datePosted,
       this.itemList,
       this.uuid,
-      this.country});
+      this.country,
+      this.content});
+  final Content? content;
   final bool isSeller;
   final String? enquiryCommpanyName;
   final String? companyAddress;
@@ -38,7 +42,7 @@ class _HomePageCardState extends State<HomePageCard> {
     return Padding(
       padding: const EdgeInsets.all(appPadding),
       child: Card(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.onPrimary,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         child: Padding(
           padding: const EdgeInsets.all(appPadding),
@@ -47,11 +51,21 @@ class _HomePageCardState extends State<HomePageCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                DateTime.tryParse(widget.datePosted ?? '') != null
+                DateTime.tryParse(widget.content!.lastModifiedDate ?? '') !=
+                        null
                     ? Text(
-                        "$kPosted : ${DateFormat('dd MMM yyyy').format(DateTime.tryParse(widget.datePosted ?? '')!)}")
+                        "$kPosted : ${DateFormat('dd MMM yyyy').format(DateTime.tryParse(widget.content!.lastModifiedDate ?? '')!)}",
+                        style: secMed12.copyWith(
+                            color: Theme.of(context).colorScheme.secondary),
+                      )
                     : const SizedBox(),
-                const Icon(Icons.arrow_right)
+                IconButton(
+                  icon: const Icon(Icons.arrow_right),
+                  onPressed: () {
+                    context.pushNamed(productDetailPageRouteName,
+                        extra: widget.content);
+                  },
+                )
               ],
             ),
             Text('${widget.uuid ?? ''}, ${widget.country ?? ''}'),
@@ -69,8 +83,9 @@ class _HomePageCardState extends State<HomePageCard> {
                 const SizedBox(width: appPadding),
                 FilledButtonWidget(
                   title: kSubmit,
-                  onPressed: () {},
-                  width: MediaQuery.of(context).size.width * 0.2,
+                  onPressed: () {
+                    context.pushNamed(createEnquiryPageName);
+                  },
                 )
               ],
             )
@@ -86,14 +101,18 @@ class _HomePageCardState extends State<HomePageCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            kProducts,
-            style: secMed14.copyWith(fontWeight: FontWeight.w600),
-          ),
+          Text(kProducts,
+              style: Theme.of(context)
+                  .textTheme
+                  .labelSmall!
+                  .copyWith(color: Theme.of(context).colorScheme.secondary)),
           getItemListTile(widget.itemList![0]),
           if (widget.itemList!.length > 1)
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.pushNamed(productDetailPageRouteName,
+                      extra: widget.content);
+                },
                 child: Text("+ ${widget.itemList!.length} more"))
         ],
       ),

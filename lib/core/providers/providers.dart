@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:metaltrade/features/home/ui/controllers/search_controller/search_bloc.dart';
 import '../../features/auth/data/models/country_code_model.dart';
 import '../../features/auth/ui/controllers/country_code_controller.dart';
 import '../../features/auth/ui/controllers/login_bloc/login_bloc.dart';
@@ -18,18 +18,16 @@ import '../../features/profile/ui/controllers/kyc_bloc/kyc_bloc.dart';
 import '../../features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import '../../features/quotes/ui/controllers/accept_quote_bloc/accept_quote_bloc.dart';
 import '../constants/app_theme.dart';
-import '../constants/color_scheme.dart';
 import '../di/get_it_setup.dart';
 
 class AppBlocProviders {
   static get allBlocProviders => [
-        BlocProvider(
-            create: (context) => AppTheme(
-                ThemeData(useMaterial3: true, colorScheme: lightColorScheme))),
+        BlocProvider(create: (context) => AppTheme(lightTheme)),
         BlocProvider(create: (context) => BottomNavControllerCubit()),
         BlocProvider(
             create: (context) => CountryCodeController(CountryCodeModel())),
         BlocProvider<HomePageBuyerEnquiryBloc>(create: (context) => getIt()),
+        BlocProvider<SearchBloc>(create: (context) => getIt()),
         BlocProvider<HomePageSellerEnquiryBloc>(create: (context) => getIt()),
         BlocProvider<LoginBloc>(create: (context) => getIt()),
         BlocProvider<ValidateOtpBloc>(create: (context) => getIt()),

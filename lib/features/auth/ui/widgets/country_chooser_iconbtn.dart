@@ -14,7 +14,7 @@ class CountryChooserIconBtn extends StatelessWidget {
     return BlocBuilder<CountryCodeController, CountryCodeModel>(
       builder: (context, state) {
         return SizedBox(
-          width: 100,
+          width: MediaQuery.of(context).size.width * 0.2,
           child: InkWell(
               onTap: () {
                 showGeneralDialog(

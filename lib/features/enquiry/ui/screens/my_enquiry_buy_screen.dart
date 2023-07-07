@@ -18,6 +18,7 @@ class MyEnquiryBuyScreen extends StatelessWidget {
           shrinkWrap: true,
           children: state.contentList
               .map((e) => HomePageCard(
+                    content: e,
                     isSeller: false,
                     companyAddress: e.enquiryCompany!.address,
                     enquiryCommpanyName: e.enquiryCompany!.name,

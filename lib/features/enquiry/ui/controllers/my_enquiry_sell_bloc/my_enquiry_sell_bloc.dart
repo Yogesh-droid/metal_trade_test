@@ -29,11 +29,11 @@ class MyEnquirySellBloc extends Bloc<MyEnquirySellEvent, MyEnquirySellState> {
           final DataState<HomePageEnquiryEntity> dataState =
               await homePageEnquiryUsecase.call(RequestParams(
                   url:
-                      "${baseUrl}user/enquiry?page=${event.page}&size=10&enquiryType=${event.intent.name}$statusQuery}",
+                      "${baseUrl}user/enquiry?page=${event.page}&size=10&enquiryType=${event.intent.name}$statusQuery",
                   apiMethods: ApiMethods.get,
                   header: header));
           if (dataState.data != null) {
-            if (event.intent == UserIntent.Buy) {
+            if (event.intent == UserIntent.Sell) {
               isMyEnquirySellListEnd = dataState.data!.last!;
               myEnquirySellListPage = (dataState.data!.number)! + 1;
               myEnquirySellList.addAll(dataState.data!.content!);

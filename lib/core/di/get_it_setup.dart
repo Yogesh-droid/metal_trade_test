@@ -18,6 +18,7 @@ import 'package:metaltrade/features/home/domain/repo/home_page_enquiry_repo.dart
 import 'package:metaltrade/features/home/domain/usecases/home_page_enquiry_usecase.dart';
 import 'package:metaltrade/features/home/ui/controllers/home_page_buyer_enquiry_bloc/home_page_buyer_enquiry_bloc.dart';
 import 'package:metaltrade/features/home/ui/controllers/home_page_seller_enquiry_bloc/home_page_seller_enquiry_bloc.dart';
+import 'package:metaltrade/features/home/ui/controllers/search_controller/search_bloc.dart';
 import 'package:metaltrade/features/news/data/repo/news_repo_impl.dart';
 import 'package:metaltrade/features/news/domain/repo/news_repo.dart';
 import 'package:metaltrade/features/news/domain/usecases/news_usecase.dart';
@@ -54,6 +55,11 @@ void setup() {
       () => HomePageEnquiryUsecase(homePageEnquiryRepo: getIt()));
   getIt.registerFactory<HomePageBuyerEnquiryBloc>(
       () => HomePageBuyerEnquiryBloc(homePageEnquiryUsecase: getIt()));
+
+  ///  Search Controller uses HomePageEnquiryRepo
+  ///
+  getIt.registerFactory<SearchBloc>(
+      () => SearchBloc(homePageEnquiryUsecase: getIt()));
 
   ///  seller section bloc Home Page ///
 

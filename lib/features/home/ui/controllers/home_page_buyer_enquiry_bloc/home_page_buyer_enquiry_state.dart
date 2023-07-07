@@ -5,6 +5,8 @@ abstract class HomePageBuyerEnquiryState {}
 
 class HomePageBuyerEnquiryInitial extends HomePageBuyerEnquiryState {}
 
+class HomePageBuyerEnquiryLoadMore extends HomePageBuyerEnquiryState {}
+
 class HomePageBuyerEnquiryFetchedState extends HomePageBuyerEnquiryState {
   final List<Content> buyerEnquiryList;
 

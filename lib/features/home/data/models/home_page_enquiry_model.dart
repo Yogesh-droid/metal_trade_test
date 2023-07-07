@@ -52,6 +52,7 @@ class Content {
   String? status;
   int? quoteCount;
   String? uuid;
+  int? matchingEnquiries;
 
   Content(
       {this.id,
@@ -64,6 +65,7 @@ class Content {
       this.deliveryTerms,
       this.status,
       this.quoteCount,
+      this.matchingEnquiries,
       this.uuid});
 
   Content.fromJson(Map<String, dynamic> json) {
@@ -82,6 +84,7 @@ class Content {
     status = json["status"];
     quoteCount = json["quoteCount"];
     uuid = json["uuid"];
+    matchingEnquiries = json['matchingEnquiries'];
   }
 }
 

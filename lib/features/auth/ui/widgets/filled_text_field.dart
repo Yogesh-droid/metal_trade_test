@@ -22,17 +22,24 @@ class FilledTextFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      enableIMEPersonalizedLearning: true,
-      enableSuggestions: true,
-      keyboardType: textInputType,
-      autofocus: true,
-      controller: textEditingController,
-      validator: onValidate,
-      decoration: InputDecoration(
-          prefix: prefix,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20)),
+    return Container(
+      color: Theme.of(context).colorScheme.onSecondary,
+      child: TextFormField(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        enableIMEPersonalizedLearning: true,
+        enableSuggestions: true,
+        keyboardType: textInputType,
+        autofocus: true,
+        controller: textEditingController,
+        validator: onValidate,
+        decoration: InputDecoration(
+            prefix: prefix,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+            enabledBorder:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+            focusColor: Theme.of(context).colorScheme.primary),
+      ),
     );
   }
 }

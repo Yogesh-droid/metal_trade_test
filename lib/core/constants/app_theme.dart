@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'color_scheme.dart';
 
 class AppTheme extends Cubit<ThemeData> {
   AppTheme(super.initialState);
 
   void getAppTheme(Brightness brightness) {
-    brightness == Brightness.light
-        ? emit(ThemeData(
-            useMaterial3: true,
-            colorScheme: lightColorScheme,
-          ))
-        : emit(ThemeData(useMaterial3: true, colorScheme: lightColorScheme));
+    brightness == Brightness.light ? emit(lightTheme) : emit(lightTheme);
   }
 }
+
+ThemeData get lightTheme => ThemeData(
+    useMaterial3: true,
+    colorScheme: lightColorScheme,
+    //  For App Bar  /////
+    appBarTheme: AppBarTheme(
+        iconTheme: const IconThemeData().copyWith(),
+        titleTextStyle: secMed14.copyWith(
+            color: const Color(0xFF6750A4),
+            fontFamily: "Inter-Regular",
+            fontWeight: FontWeight.w500)));
+
+ThemeData get darkTheme => ThemeData(
+      useMaterial3: true,
+      colorScheme: darkColorScheme,
+    );
 
 
 

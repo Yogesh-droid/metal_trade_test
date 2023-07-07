@@ -8,11 +8,13 @@ class ContextMenuAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
         title: Text(title ?? ''),
+        centerTitle: true,
         leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.pop(context);
             }),
+        elevation: 0,
         actions: actionButton);
   }
 

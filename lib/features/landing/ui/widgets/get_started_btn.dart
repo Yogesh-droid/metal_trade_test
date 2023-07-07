@@ -77,7 +77,7 @@ class FilledButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        width: width ?? MediaQuery.of(context).size.width,
+        width: width,
         child: FilledButton(onPressed: onPressed, child: Text(title)));
   }
 }

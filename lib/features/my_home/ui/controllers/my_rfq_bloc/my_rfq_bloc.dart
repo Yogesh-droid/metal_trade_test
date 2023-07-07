@@ -6,7 +6,6 @@ import '../../../../../core/constants/api_constants.dart';
 import '../../../../../core/resource/data_state/data_state.dart';
 import '../../../../../core/resource/request_params/request_params.dart';
 import '../../../../rfq/data/models/rfq_enquiry_model.dart';
-import '../../../../rfq/ui/controllers/rfq_buyer_enquiry_bloc/rfq_buyer_enquiry_bloc.dart';
 part 'my_rfq_state.dart';
 part 'my_rfq_event.dart';
 
@@ -18,24 +17,24 @@ class MyRfqBloc extends Bloc<MyRfqEvent, MyRfqState> {
   MyRfqBloc({required this.homePageEnquiryUsecase}) : super(MyRfqInitial()) {
     on<MyRfqEvent>((event, emit) async {
       if (event is GetMyRfqList) {
-        String statusQuery = event.status.isNotEmpty
-            ? "&status=${event.status.join('&status=')}"
+        String statusQuery = event.status != null
+            ? event.status!.isNotEmpty
+                ? "&status=${event.status!.join('&status=')}"
+                : ''
             : '';
         try {
           emit(MyRfqInitial());
           final DataState<RfqEntity> dataState =
               await homePageEnquiryUsecase.call(RequestParams(
                   url:
-                      "${baseUrl}user/enquiry?page=${event.page}&size=10&enquiryType=${event.intent.name}$statusQuery",
+                      "${baseUrl}user/enquiry?page=${event.page}&size=10$statusQuery",
                   apiMethods: ApiMethods.get,
                   header: header));
           if (dataState.data != null) {
-            if (event.intent == UserIntent.Buy) {
-              isMyRfqListEnd = dataState.data!.last!;
-              myRfqListPage = (dataState.data!.number)! + 1;
-              myRfqList.addAll(dataState.data!.content!);
-              emit(MyRfqFetchedState(contentList: myRfqList));
-            }
+            isMyRfqListEnd = dataState.data!.last!;
+            myRfqListPage = (dataState.data!.number)! + 1;
+            myRfqList.addAll(dataState.data!.content!);
+            emit(MyRfqFetchedState(contentList: myRfqList));
           } else {
             emit(MyRfqFailedState(exception: Exception("No Data Found")));
           }

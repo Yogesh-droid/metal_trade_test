@@ -72,3 +72,4 @@ const String kRfqDetails = "RFQ Details";
 const String kPaymentTerms = "Payment Terms";
 const String kTransportTerms = "Transportation Terms";
 const String kDeliveryTerms = "Delivery Terms";
+const String kMyRfq = "My RFQs";

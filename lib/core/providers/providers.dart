@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:metaltrade/features/my_home/ui/controllers/filter_status_cubit/filter_status_cubit.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_quote_bloc/my_quote_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_rfq_bloc/my_rfq_bloc.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/rfq_buyer_enquiry_bloc/rfq_buyer_enquiry_bloc.dart';
@@ -40,6 +41,7 @@ class AppBlocProviders {
         BlocProvider<ProfileBloc>(create: (context) => getIt()),
         BlocProvider<ChatBloc>(create: (context) => ChatBloc()),
         BlocProvider<KycBloc>(create: (context) => getIt()),
-        BlocProvider<CountryCubit>(create: (context) => getIt())
+        BlocProvider<CountryCubit>(create: (context) => getIt()),
+        BlocProvider<FilterStatusCubit>(create: (_) => FilterStatusCubit())
       ];
 }

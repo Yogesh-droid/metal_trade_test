@@ -34,6 +34,7 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       key: const ValueKey("LandingScaffold"),
       body: SizedBox(
         key: const ValueKey("WelcomeSizedBox"),

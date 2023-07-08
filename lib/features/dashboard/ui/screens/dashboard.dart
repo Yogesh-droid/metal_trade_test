@@ -14,7 +14,7 @@ class DashBoard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
         body: getPages(),
         bottomNavigationBar: getBottomNavBar());
   }

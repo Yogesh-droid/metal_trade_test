@@ -14,50 +14,54 @@ class ProductDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
         appBar: const ContextMenuAppBar(title: kRfqDetails),
         body: SingleChildScrollView(
-            child: Padding(
-          padding: const EdgeInsets.all(appPadding),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            DateTime.tryParse(item.lastModifiedDate ?? '') != null
-                ? Text(
-                    "$kPosted : ${DateFormat('dd MMM yyyy').format(DateTime.tryParse(item.lastModifiedDate ?? '')!)}",
-                    style: secMed12.copyWith(
-                        color: Theme.of(context).colorScheme.secondary),
+            child: Container(
+          color: Theme.of(context).colorScheme.tertiaryContainer,
+          child: Padding(
+            padding: const EdgeInsets.all(appPadding),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              DateTime.tryParse(item.lastModifiedDate ?? '') != null
+                  ? Text(
+                      "$kPosted : ${DateFormat('dd MMM yyyy').format(DateTime.tryParse(item.lastModifiedDate ?? '')!)}",
+                      style: secMed12.copyWith(
+                          color: Theme.of(context).colorScheme.secondary),
+                    )
+                  : const SizedBox(),
+              Text(
+                '${item.uuid ?? ''}, ${item.enquiryCompany!.country!.name ?? ''}',
+                style: secMed12.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface),
+              ),
+              const Divider(),
+              itemListWidget(context),
+              const SizedBox(height: appWidgetGap),
+              const Divider(),
+              termsRow(context, kPaymentTerms, item.paymentTerms),
+              const Divider(),
+              termsRow(context, kTransportTerms, item.transportationTerms),
+              const Divider(),
+              termsRow(context, kDeliveryTerms, item.deliveryTerms),
+              const SizedBox(height: appWidgetGap),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  OutlinedIconButtonWidget(
+                    icon: const Icon(Icons.add),
+                    title: kChat,
+                    onPressed: () {},
+                  ),
+                  const SizedBox(width: appPadding),
+                  FilledButtonWidget(
+                    title: kSubmit,
+                    onPressed: () {},
                   )
-                : const SizedBox(),
-            Text(
-              '${item.uuid ?? ''}, ${item.enquiryCompany!.country!.name ?? ''}',
-              style: secMed12.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface),
-            ),
-            const Divider(),
-            itemListWidget(context),
-            const SizedBox(height: appWidgetGap),
-            const Divider(),
-            termsRow(context, kPaymentTerms, item.paymentTerms),
-            const Divider(),
-            termsRow(context, kTransportTerms, item.transportationTerms),
-            const Divider(),
-            termsRow(context, kDeliveryTerms, item.deliveryTerms),
-            const SizedBox(height: appWidgetGap),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                OutlinedIconButtonWidget(
-                  icon: const Icon(Icons.add),
-                  title: kChat,
-                  onPressed: () {},
-                ),
-                const SizedBox(width: appPadding),
-                FilledButtonWidget(
-                  title: kSubmit,
-                  onPressed: () {},
-                )
-              ],
-            )
-          ]),
+                ],
+              )
+            ]),
+          ),
         )));
   }
 

@@ -46,7 +46,7 @@ const String kViewQuotes = "View Quote(s)";
 const String kPostEnquiry = "Post Enquiry";
 const String kBuy = "Buy";
 const String kSell = "Sell";
-const String kEnquiryType = "Enquiry Type";
+const String kRfqType = "RFQ Type";
 const String kChooseCity = "Which city do you want to buy/sell";
 const String kTellMoreAbtYourRequirement =
     "Give More information about your requirement";

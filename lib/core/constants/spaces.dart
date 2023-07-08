@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-const double appPadding =
-    16.0; //  used for padding let from screen in whole app
+const double appPadding = 8.0; //  used for padding let from screen in whole app
 
 const double appWidgetGap = 48.0; //  used for seprating two widget vertically
 

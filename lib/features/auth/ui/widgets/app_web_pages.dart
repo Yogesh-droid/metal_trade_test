@@ -41,6 +41,7 @@ class _AppWebPagesState extends State<AppWebPages> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       body: WebViewWidget(controller: controller),
     ));
   }

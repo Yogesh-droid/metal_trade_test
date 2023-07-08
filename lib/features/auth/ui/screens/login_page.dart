@@ -40,6 +40,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       body: SingleChildScrollView(
           child: Padding(
         padding: const EdgeInsets.all(appPadding),

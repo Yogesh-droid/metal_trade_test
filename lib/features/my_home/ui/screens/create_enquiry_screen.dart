@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/app_widgets/context_menu_app_bar.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
+import 'package:metaltrade/features/my_home/ui/screens/create_enquiry_form.dart';
 import '../controllers/get_sku/get_sku_bloc.dart';
 import '../widgets/add_item_container.dart';
 import '../widgets/enquiry_type_radio.dart';
@@ -15,7 +16,6 @@ class CreateEnquiryScreen extends StatefulWidget {
 }
 
 class _CreateEnquiryScreenState extends State<CreateEnquiryScreen> {
-  final TextEditingController cityTextController = TextEditingController();
   @override
   void initState() {
     context.read<GetSkuBloc>().add(GetAllSkuEvent());
@@ -25,6 +25,7 @@ class _CreateEnquiryScreenState extends State<CreateEnquiryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       appBar: ContextMenuAppBar(
         title: kPostEnquiry,
         actionButton: [
@@ -38,32 +39,8 @@ class _CreateEnquiryScreenState extends State<CreateEnquiryScreen> {
       ),
       body: SingleChildScrollView(
           child: Padding(
-        padding: const EdgeInsets.all(appPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(kEnquiryType),
-            const EnquiryTypeRadio(),
-            const SizedBox(height: appPadding),
-            const Text(kChooseCity),
-            TextFormField(
-              controller: cityTextController,
-              decoration: const InputDecoration(hintText: "Enter Your City"),
-            ),
-            const SizedBox(height: appPadding),
-            const Text(kItemList),
-            const SizedBox(height: appPadding),
-            BlocBuilder<GetSkuBloc, GetSkuState>(
-              builder: (context, state) {
-                if (state is AllSkuFetched) {
-                  return ItemListContainer(skuList: state.skuList);
-                }
-                return const ItemListContainer(skuList: []);
-              },
-            )
-          ],
-        ),
-      )),
+              padding: const EdgeInsets.all(appPadding),
+              child: CreateEnquiryForm())),
     );
   }
 }

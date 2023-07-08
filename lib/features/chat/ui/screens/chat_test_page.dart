@@ -89,6 +89,7 @@ class _ChatTestPageState extends State<ChatTestPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       appBar: const MainAppBar(
         title: Text(kChat),
       ),

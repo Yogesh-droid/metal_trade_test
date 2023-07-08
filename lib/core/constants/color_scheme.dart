@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 const lightColorScheme = ColorScheme(
   brightness: Brightness.light,
-  primary: Color(0xFF6750A4),
+  primary: Color(0xFF6750A4), // used in all purple buttons
   onPrimary: Color(0xFFFFFFFF),
   primaryContainer: Color(0xFFEADDFF),
   onPrimaryContainer: Color(0xFF21005D),
@@ -12,7 +12,7 @@ const lightColorScheme = ColorScheme(
   onSecondaryContainer: Color(0xFF1D192B),
   tertiary: Color(0xFF7D5260),
   onTertiary: Color(0xFFFFFFFF),
-  tertiaryContainer: Color(0xFFFFD8E4),
+  tertiaryContainer: Color(0xFFFEF7FF),
   onTertiaryContainer: Color(0xFF31111D),
   error: Color(0xFFB3261E),
   onError: Color(0xFFFFFFFF),
@@ -22,9 +22,9 @@ const lightColorScheme = ColorScheme(
   background: Color(0xFFFFFBFE),
   onBackground: Color(0xFF1C1B1F),
   // surface: Color(0xFFFFFBFE),
-  surface: Color(0xFFEBEFF2),
+  surface: Color(0xFFEBEFF2), // used as background of all scaffolds
   onSurface: Color(0xFF1C1B1F),
-  surfaceVariant: Color(0xFFE7E0EC),
+  surfaceVariant: Color(0xFFFEFDFF), // used for very light pink
   // onSurfaceVariant: Color(0xFF49454F),
   onSurfaceVariant: Color(0xFF466A8C),
   inverseSurface: Color(0xFF313033),

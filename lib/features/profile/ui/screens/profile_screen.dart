@@ -24,6 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       appBar: const ContextMenuAppBar(title: kMyProfile),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,

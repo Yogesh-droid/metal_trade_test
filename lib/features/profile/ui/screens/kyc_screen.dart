@@ -9,9 +9,10 @@ class KycScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: ContextMenuAppBar(title: kCompleteKyc),
-      body: KycFormPage(),
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+      appBar: const ContextMenuAppBar(title: kCompleteKyc),
+      body: const KycFormPage(),
     );
   }
 }

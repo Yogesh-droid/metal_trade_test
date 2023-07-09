@@ -1,166 +1,84 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/features/my_home/data/models/sku_model.dart';
 import 'package:metaltrade/features/my_home/ui/widgets/app_dropdown_form.dart';
 import 'package:metaltrade/features/my_home/ui/widgets/sku_container.dart';
 import 'package:metaltrade/features/profile/ui/widgets/bordered_textfield.dart';
 import 'package:metaltrade/features/profile/ui/widgets/disabled_text_field.dart';
+import 'package:dotted_border/dotted_border.dart';
 
 class ItemListContainer extends StatefulWidget {
-  const ItemListContainer({super.key, required this.skuList});
-  final List<Content> skuList;
+  const ItemListContainer(
+      {super.key,
+      this.onChange,
+      required this.quantityController,
+      required this.onProductSelect});
+  final Function(Object? value)? onChange;
+  final TextEditingController quantityController;
+  final Function(Content content) onProductSelect;
 
   @override
   State<ItemListContainer> createState() => _ItemListContainerState();
 }
 
 class _ItemListContainerState extends State<ItemListContainer> {
-  final TextEditingController quantityController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-  String selectedUnit = 'MT';
-  String selectedItem = '';
-
+  Content selectedSku = Content();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        DisabledTextField(
-          onTap: () {
-            showModalBottomSheet(
-                context: context,
-                builder: (_) {
-                  return SkuContainer(onSelected: (value) {
-                    setState(() {
-                      selectedItem = value;
+    final TextEditingController quantityController = TextEditingController();
+    return DottedBorder(
+      color: Theme.of(context).colorScheme.outline,
+      padding: const EdgeInsets.all(appPadding),
+      borderPadding: const EdgeInsets.only(bottom: appPadding),
+      child: Column(
+        children: [
+          DisabledTextField(
+            onTap: () {
+              showModalBottomSheet(
+                  context: context,
+                  builder: (_) {
+                    return SkuContainer(onSelected: (value) {
+                      selectedSku = value;
+                      widget.onProductSelect(value);
+                      setState(() {});
                     });
                   });
-                });
-          },
-          hintText: kItemName,
-          suffix: Icon(
-            CupertinoIcons.chevron_down,
-            color: Theme.of(context).colorScheme.primaryContainer,
+            },
+            hintText: selectedSku.title ?? kItemName,
+            suffix: Icon(
+              CupertinoIcons.chevron_down,
+              color: Theme.of(context).colorScheme.primaryContainer,
+            ),
           ),
-        ),
-        // AppDropdownFormField(
-        //   hintText: kItemName,
-        //   onChange: (value) {
-        //     showModalBottomSheet(
-        //         context: context,
-        //         builder: (_) {
-        //           return SkuContainer(onSelected: (value) {
-        //             setState(() {
-        //               selectedItem = value;
-        //             });
-        //           });
-        //         });
-        //   },
-        // ),
-        // InkWell(
-        //   onTap: () {
-        //     showModalBottomSheet(
-        //         context: context,
-        //         builder: (_) {
-        //           return SkuContainer(onSelected: (value) {
-        //             setState(() {
-        //               selectedItem = value;
-        //             });
-        //           });
-        //         });
-        //   },
-        //   child: Row(children: [
-        //     Text(selectedItem.isEmpty ? kItemName : selectedItem),
-        //     const SizedBox(width: 15),
-        //     const Icon(Icons.arrow_drop_down_rounded)
-        //   ]),
-        // ),
-        Row(
-          children: [
-            // InkWell(
-            //   onTap: () {
-            //     showModalBottomSheet(
-            //         context: context,
-            //         builder: (_) {
-            //           return SkuContainer(onSelected: (value) {
-            //             setState(() {
-            //               selectedItem = value;
-            //             });
-            //           });
-            //         });
-            //   },
-            //   child: Row(children: [
-            //     Text(selectedItem.isEmpty ? kItemName : selectedItem),
-            //     const SizedBox(width: 15),
-            //     const Icon(Icons.arrow_drop_down_rounded)
-            //   ]),
-            // ),
-            const SizedBox(width: 15),
-            Expanded(
-                child: TextFormField(
-              controller: quantityController,
-              decoration: const InputDecoration(hintText: kQuantity),
-            )),
-            Expanded(
-              child: DropdownButtonFormField(
-                  items: [
-                    DropdownMenuItem<String>(
-                        value: 'MT', child: const Text("MT"), onTap: () {}),
-                    DropdownMenuItem<String>(
-                      value: 'T',
-                      child: const Text("T"),
-                      onTap: () {},
-                    ),
-                    DropdownMenuItem<String>(
-                      value: 'KG',
-                      child: const Text("KG"),
-                      onTap: () {},
-                    ),
-                    DropdownMenuItem<String>(
-                      value: 'G',
-                      child: const Text("G"),
-                      onTap: () {},
-                    ),
-                  ],
-                  onChanged: (value) {
-                    selectedUnit = value!;
-                    setState(() {});
-                  }),
-            )
-            /* DropdownButton(
-                items: [
-                  DropdownMenuItem<String>(
-                      value: 'MT', child: const Text("MT"), onTap: () {}),
-                  DropdownMenuItem<String>(
-                    value: 'T',
-                    child: const Text("T"),
-                    onTap: () {},
-                  ),
-                  DropdownMenuItem<String>(
-                    value: 'KG',
-                    child: const Text("KG"),
-                    onTap: () {},
-                  ),
-                  DropdownMenuItem<String>(
-                    value: 'G',
-                    child: const Text("G"),
-                    onTap: () {},
-                  ),
+          const SizedBox(height: appPadding),
+          Row(
+            children: [
+              Expanded(
+                  child: BorderedTextField(
+                isObscureText: false,
+                textEditingController: quantityController,
+                radius: 4,
+                hintText: kChooseCountry,
+              )),
+              const SizedBox(width: 5),
+              Expanded(
+                  child: AppDropdownFormField(
+                hintText: kUnit,
+                items: const [
+                  DropdownMenuItem<String>(value: 'MT', child: Text("MT")),
+                  DropdownMenuItem<String>(value: 'T', child: Text("T")),
+                  DropdownMenuItem<String>(value: 'KG', child: Text("KG")),
+                  DropdownMenuItem<String>(value: 'G', child: Text("G")),
                 ],
-                onChanged: (value) {
-                  selectedUnit = value!;
-                  setState(() {});
-                },
-                value: selectedUnit,
-                hint: const Text(kItemName)), */
-          ],
-        ),
-        TextFormField(
-          controller: descriptionController,
-          decoration:
-              const InputDecoration(hintText: kTellMoreAbtYourRequirement),
-        )
-      ],
+                onChange: widget.onChange,
+              ))
+            ],
+          ),
+          const SizedBox(height: appPadding * 2)
+        ],
+      ),
     );
   }
 }

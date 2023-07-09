@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_quote_bloc/my_quote_bloc.dart';
+import 'package:metaltrade/features/my_home/ui/screens/create_enquiry_screen.dart';
 import 'package:metaltrade/features/my_home/ui/screens/my_quote_screen.dart';
 import 'package:metaltrade/features/my_home/ui/screens/my_rfq_screen.dart';
 import '../../../../core/constants/app_widgets/main_app_bar.dart';
@@ -26,9 +27,8 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   void initState() {
     myRfqBloc = context.read<MyRfqBloc>();
-
     myQuoteBloc = context.read<MyQuoteBloc>();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     myRfqBloc.add(GetMyRfqList(page: 0));
     super.initState();
   }
@@ -47,7 +47,8 @@ class _MyHomePageState extends State<MyHomePage>
         elevation: 5,
         bottomWidget: HomePageAppbarBottom(
             tabList: const [
-              Tab(text: kMyRfq),
+              Tab(text: kCreateEnquiry),
+              Tab(text: kMyENquiries),
               Tab(text: kMyQuotes),
             ],
             tabController: _tabController,
@@ -73,9 +74,11 @@ class _MyHomePageState extends State<MyHomePage>
       body: Column(
         children: [
           Expanded(
-              child: TabBarView(
-                  controller: _tabController,
-                  children: const [MyRfqScreen(), MyQuoteScreen()]))
+              child: TabBarView(controller: _tabController, children: const [
+            CreateEnquiryScreen(),
+            MyRfqScreen(),
+            MyQuoteScreen()
+          ]))
         ],
       ),
     );

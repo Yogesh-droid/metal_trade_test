@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/filter_status_cubit/filter_status_cubit.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_rfq_bloc/my_rfq_bloc.dart';
-import 'package:metaltrade/features/my_home/ui/screens/create_enquiry_form.dart';
-import 'package:metaltrade/features/my_home/ui/screens/create_enquiry_screen.dart';
 import 'package:metaltrade/features/my_home/ui/widgets/filter_chips_list.dart';
 
 import '../../../rfq/ui/widgets/home_page_card.dart';
@@ -44,7 +42,6 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
         controller: scrollController,
         child: Column(
           children: [
-            CreateEnquiryForm(),
             const FilterChipList(),
             BlocBuilder<MyRfqBloc, MyRfqState>(builder: (context, state) {
               if (state is MyRfqInitial) {

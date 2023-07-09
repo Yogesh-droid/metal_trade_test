@@ -27,6 +27,7 @@ class HomePageAppbarBottom extends StatelessWidget
         //       scrollAxis: Axis.horizontal),
         // ),
         TabBar(
+            isScrollable: true,
             tabs: tabList,
             indicatorSize: TabBarIndicatorSize.tab,
             controller: tabController,

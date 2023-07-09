@@ -15,7 +15,8 @@ class BorderedTextField extends StatelessWidget {
       this.onValidate,
       this.prefix,
       this.suffix,
-      this.textInputAction});
+      this.textInputAction,
+      this.radius});
   final String? hintText;
   final Function(String s)? onChange;
   final FocusNode? focusNode;
@@ -28,6 +29,7 @@ class BorderedTextField extends StatelessWidget {
   final Widget? prefix;
   final Widget? suffix;
   final TextInputAction? textInputAction;
+  final double? radius;
 
   @override
   Widget build(BuildContext context) {
@@ -40,33 +42,33 @@ class BorderedTextField extends StatelessWidget {
         border: OutlineInputBorder(
             borderSide:
                 BorderSide(color: Theme.of(context).colorScheme.primary),
-            borderRadius: BorderRadius.circular(appPadding),
+            borderRadius: BorderRadius.circular(radius ?? appPadding),
             gapPadding: 8),
         focusedBorder: OutlineInputBorder(
             borderSide:
                 BorderSide(color: Theme.of(context).colorScheme.primary),
-            borderRadius: BorderRadius.circular(appPadding),
+            borderRadius: BorderRadius.circular(radius ?? appPadding),
             gapPadding: 8),
         disabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
                 color: Theme.of(context).colorScheme.tertiaryContainer),
-            borderRadius: BorderRadius.circular(appPadding),
+            borderRadius: BorderRadius.circular(radius ?? appPadding),
             gapPadding: 8),
         enabledBorder: OutlineInputBorder(
             borderSide:
                 BorderSide(color: Theme.of(context).colorScheme.primary),
-            borderRadius: BorderRadius.circular(appPadding),
+            borderRadius: BorderRadius.circular(radius ?? appPadding),
             gapPadding: 8),
         labelText: hintText,
-        labelStyle: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+        labelStyle: TextStyle(color: Theme.of(context).colorScheme.outline),
         prefix: prefix,
         suffix: suffix,
       ),
-      cursorColor: Theme.of(context).colorScheme.primary,
-      style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+      cursorColor: Theme.of(context).colorScheme.scrim,
+      style: TextStyle(color: Theme.of(context).colorScheme.scrim),
       textInputAction: textInputAction,
       onFieldSubmitted: onDone,
-      maxLength: maxLines,
+      maxLines: maxLines ?? 1,
       obscureText: isObscureText,
       controller: textEditingController,
       validator: onValidate,

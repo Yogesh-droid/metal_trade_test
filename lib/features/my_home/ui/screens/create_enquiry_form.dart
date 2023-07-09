@@ -1,16 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
-
 import '../../../../core/constants/spaces.dart';
 import '../../../../core/constants/strings.dart';
-import '../controllers/get_sku/get_sku_bloc.dart';
+import '../../../profile/ui/widgets/bordered_textfield.dart';
 import '../widgets/add_item_container.dart';
 import '../widgets/enquiry_type_radio.dart';
 
-class CreateEnquiryForm extends StatelessWidget {
-  CreateEnquiryForm({super.key});
+class CreateEnquiryForm extends StatefulWidget {
+  const CreateEnquiryForm({super.key});
+
+  @override
+  State<CreateEnquiryForm> createState() => _CreateEnquiryFormState();
+}
+
+class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
   final TextEditingController cityTextController = TextEditingController();
+  final TextEditingController quantityController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController deliveryTermsContriller = TextEditingController();
+  final TextEditingController paymentTemsController = TextEditingController();
+  final TextEditingController transportTermsController =
+      TextEditingController();
+  late List<ItemListContainer> itemContainers;
+
+  @override
+  void initState() {
+    itemContainers = [
+      ItemListContainer(
+        onChange: (value) {},
+        onProductSelect: (value) {},
+        quantityController: quantityController,
+      ),
+    ];
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,14 +53,44 @@ class CreateEnquiryForm extends StatelessWidget {
             ),
             const EnquiryTypeRadio(),
             const SizedBox(height: appPadding),
-            BlocBuilder<GetSkuBloc, GetSkuState>(
-              builder: (context, state) {
-                if (state is AllSkuFetched) {
-                  return ItemListContainer(skuList: state.skuList);
-                }
-                return const ItemListContainer(skuList: []);
-              },
-            )
+            const SizedBox(height: appPadding),
+            Column(children: itemContainers),
+            TextButton(
+                onPressed: () {
+                  itemContainers.add(ItemListContainer(
+                    onChange: (value) {},
+                    onProductSelect: (value) {},
+                    quantityController: quantityController,
+                  ));
+                  setState(() {});
+                },
+                child: const Text("+ $kAddProducts")),
+            const SizedBox(height: appPadding),
+            const Divider(),
+            BorderedTextField(
+                isObscureText: false,
+                hintText: kAddDeliveryTerms,
+                radius: 4,
+                textEditingController: deliveryTermsContriller),
+            const SizedBox(height: appPadding),
+            BorderedTextField(
+                isObscureText: false,
+                hintText: kAddPaymentTerms,
+                radius: 4,
+                textEditingController: paymentTemsController),
+            const SizedBox(height: appPadding),
+            BorderedTextField(
+                isObscureText: false,
+                hintText: kTransportTerms,
+                radius: 4,
+                textEditingController: transportTermsController),
+            const SizedBox(height: appPadding),
+            BorderedTextField(
+                isObscureText: false,
+                hintText: kTellMoreAbtYourRequirement,
+                maxLines: 4,
+                radius: 4,
+                textEditingController: descriptionController)
           ],
         ),
       ),

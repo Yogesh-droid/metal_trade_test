@@ -7,27 +7,20 @@ class HomePageAppbarBottom extends StatelessWidget
       required this.tabList,
       required this.tabController,
       required this.onTap,
-      this.newsString});
+      this.newsString,
+      this.isScrollable});
   final List<Tab> tabList;
   final TabController tabController;
   final Function(int) onTap;
+  final bool? isScrollable;
   final String? newsString;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Container(
-        //   color: black,
-        //   height: 30,
-        //   child: Marquee(
-        //       text: newsString ??
-        //           'lskdmc;mdscmdwmcdm   sdockdsomc;ldwsmc;lmd   dspokewopkfipewjipodj  sdiocidsjipodj',
-        //       style: const TextStyle(color: white),
-        //       scrollAxis: Axis.horizontal),
-        // ),
         TabBar(
-            isScrollable: true,
+            isScrollable: isScrollable ?? false,
             tabs: tabList,
             indicatorSize: TabBarIndicatorSize.tab,
             controller: tabController,

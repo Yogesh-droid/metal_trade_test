@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
 import 'package:metaltrade/features/profile/ui/widgets/kyc_dialog.dart';
+import '../../../../core/constants/strings.dart';
+import '../../../../core/routes/routes.dart';
 import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import '../controllers/rfq_buyer_enquiry_bloc/rfq_buyer_enquiry_bloc.dart';
 import '../controllers/rfq_seller_enquiry_bloc/rfq_seller_enquiry_bloc.dart';
@@ -55,14 +58,16 @@ class _SellerRfqPageState extends State<SellerRfqPage> {
                       children: homePageSellerEnquiryBloc.sellerRfqList
                           .map((e) => HomePageCard(
                                 content: e,
-                                isSeller: true,
-                                companyAddress: e.enquiryCompany!.address,
-                                enquiryCommpanyName: e.enquiryCompany!.name,
                                 itemList: e.item,
-                                ownerName: e.enquiryCompany!.name,
-                                datePosted: e.enquiryCompany!.lastModifiedDate,
                                 country: e.enquiryCompany!.country!.name,
                                 uuid: e.uuid,
+                                borderedBtnTitle: kChat,
+                                filledBtnTitle: "+ $kSubmitQuote",
+                                onBorderedBtnTapped: () {},
+                                onFilledBtnTapped: () {
+                                  context.pushNamed(submitQuotePageName,
+                                      extra: e);
+                                },
                               ))
                           .toList(),
                     ),

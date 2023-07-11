@@ -11,26 +11,22 @@ import 'package:intl/intl.dart';
 class HomePageCard extends StatefulWidget {
   const HomePageCard(
       {super.key,
-      required this.isSeller,
-      this.enquiryCommpanyName,
-      this.companyAddress,
-      this.ownerName,
-      this.sellingFrom,
-      this.datePosted,
       this.itemList,
       this.uuid,
       this.country,
-      this.content});
+      this.content,
+      required this.onBorderedBtnTapped,
+      required this.onFilledBtnTapped,
+      required this.borderedBtnTitle,
+      required this.filledBtnTitle});
   final Content? content;
-  final bool isSeller;
-  final String? enquiryCommpanyName;
-  final String? companyAddress;
-  final String? ownerName;
-  final String? sellingFrom;
-  final String? datePosted;
   final List<Item>? itemList;
   final String? uuid;
   final String? country;
+  final Function()? onBorderedBtnTapped;
+  final Function()? onFilledBtnTapped;
+  final String? borderedBtnTitle;
+  final String? filledBtnTitle;
 
   @override
   State<HomePageCard> createState() => _HomePageCardState();
@@ -75,18 +71,17 @@ class _HomePageCardState extends State<HomePageCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                OutlinedIconButtonWidget(
-                  icon: const Icon(Icons.add),
-                  title: kChat,
-                  onPressed: () {},
-                ),
+                if (widget.borderedBtnTitle != null)
+                  OutlinedIconButtonWidget(
+                    icon: const Icon(Icons.add),
+                    title: widget.borderedBtnTitle!,
+                    onPressed: widget.onBorderedBtnTapped ?? () {},
+                  ),
                 const SizedBox(width: appPadding),
-                FilledButtonWidget(
-                  title: kSubmit,
-                  onPressed: () {
-                    context.pushNamed(createEnquiryPageName);
-                  },
-                )
+                if (widget.filledBtnTitle != null)
+                  FilledButtonWidget(
+                      title: widget.filledBtnTitle!,
+                      onPressed: widget.onFilledBtnTapped ?? () {})
               ],
             )
           ]),

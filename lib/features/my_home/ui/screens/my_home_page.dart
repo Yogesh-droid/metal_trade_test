@@ -52,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage>
               Tab(text: kMyQuotes),
             ],
             tabController: _tabController,
+            isScrollable: true,
             onTap: (value) {
               if (value == 0) {
                 if (myRfqBloc.myRfqList.isEmpty && !myRfqBloc.isMyRfqListEnd) {

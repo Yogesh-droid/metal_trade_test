@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/api_constants.dart';
+import 'package:metaltrade/core/resource/data_state/data_state.dart';
 import 'package:metaltrade/core/resource/request_params/request_params.dart';
 import '../../../data/models/post_enquiry_req_model.dart';
 import '../../../domain/entities/post_enquiry_res_entity.dart';
@@ -15,11 +16,19 @@ class CreateEnquiryBloc extends Bloc<CreateEnquiryEvent, CreateEnquiryState> {
       if (event is PostEnquiryEvent) {
         Map<String, dynamic> body = event.postEnquiryModel.toJson();
         try {
-          await postEnquiryUsecase.call(RequestParams(
-              url: "${baseUrl}user/enquiry",
-              apiMethods: ApiMethods.post,
-              body: body,
-              header: header));
+          DataState<PostEnquiryResEntity> dataState =
+              await postEnquiryUsecase.call(RequestParams(
+                  url: "${baseUrl}user/enquiry",
+                  apiMethods: ApiMethods.post,
+                  body: body,
+                  header: header));
+
+          if (dataState.data != null) {
+            print(dataState.data!.id);
+            emit(PostEnquirySuccessful(dataState.data!));
+          } else {
+            emit(PostEnquiryFailed(Exception(dataState.exception)));
+          }
         } on Exception catch (e) {
           emit(PostEnquiryFailed(e));
         }

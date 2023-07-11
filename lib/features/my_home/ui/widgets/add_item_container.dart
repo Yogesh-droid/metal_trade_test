@@ -14,10 +14,12 @@ class ItemListContainer extends StatefulWidget {
       {super.key,
       this.onChange,
       required this.quantityController,
-      required this.onProductSelect});
+      required this.onProductSelect,
+      this.onDone});
   final Function(Object? value)? onChange;
   final TextEditingController quantityController;
   final Function(Content content) onProductSelect;
+  final Function(String s)? onDone;
 
   @override
   State<ItemListContainer> createState() => _ItemListContainerState();
@@ -25,9 +27,18 @@ class ItemListContainer extends StatefulWidget {
 
 class _ItemListContainerState extends State<ItemListContainer> {
   Content selectedSku = Content();
+  final TextEditingController quantityController = TextEditingController();
+  final FocusNode quantityFocusNode = FocusNode();
+  @override
+  void initState() {
+    quantityFocusNode.addListener(() {
+      print(quantityFocusNode.hasFocus);
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final TextEditingController quantityController = TextEditingController();
     return DottedBorder(
       color: Theme.of(context).colorScheme.outline,
       padding: const EdgeInsets.all(appPadding),
@@ -60,7 +71,10 @@ class _ItemListContainerState extends State<ItemListContainer> {
                 isObscureText: false,
                 textEditingController: quantityController,
                 radius: 4,
-                hintText: kChooseCountry,
+                hintText: kQuantity,
+                textInputType: const TextInputType.numberWithOptions(),
+                onDone: widget.onDone,
+                focusNode: FocusNode(),
               )),
               const SizedBox(width: 5),
               Expanded(
@@ -69,8 +83,7 @@ class _ItemListContainerState extends State<ItemListContainer> {
                 items: const [
                   DropdownMenuItem<String>(value: 'MT', child: Text("MT")),
                   DropdownMenuItem<String>(value: 'T', child: Text("T")),
-                  DropdownMenuItem<String>(value: 'KG', child: Text("KG")),
-                  DropdownMenuItem<String>(value: 'G', child: Text("G")),
+                  DropdownMenuItem<String>(value: 'Kg', child: Text("KG")),
                 ],
                 onChange: widget.onChange,
               ))

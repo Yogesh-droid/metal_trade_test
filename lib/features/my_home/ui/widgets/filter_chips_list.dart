@@ -4,7 +4,7 @@ import 'package:metaltrade/features/my_home/ui/controllers/filter_status_cubit/f
 import 'package:metaltrade/features/my_home/ui/controllers/my_rfq_bloc/my_rfq_bloc.dart';
 
 // ignore: constant_identifier_names
-enum EnquiryStatus { All, Inreview, Active, Complete }
+enum EnquiryStatus { Inreview, Active, Complete }
 
 class FilterChipList extends StatelessWidget {
   const FilterChipList({super.key});
@@ -33,8 +33,7 @@ class FilterChipList extends StatelessWidget {
                           selected: state.statusList.contains(e.name),
                           onSelected: (value) {
                             myRfqBloc.add(GetMyRfqList(
-                                page: myRfqBloc.myRfqListPage,
-                                status: state.statusList));
+                                page: 0, status: state.statusList));
                             context.read<FilterStatusCubit>().addFilter(e.name);
                           })))
                   .toList(),

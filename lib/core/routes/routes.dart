@@ -5,6 +5,7 @@ import 'package:metaltrade/features/auth/ui/screens/pin_put_page.dart';
 import 'package:metaltrade/features/landing/ui/screens/landing_page.dart';
 import 'package:metaltrade/features/profile/ui/screens/kyc_screen.dart';
 import 'package:metaltrade/features/profile/ui/screens/profile_screen.dart';
+import 'package:metaltrade/features/rfq/ui/screens/submit_quote_screen.dart';
 import '../../features/dashboard/ui/screens/dashboard.dart';
 import '../../features/my_home/ui/screens/create_enquiry_screen.dart';
 import '../../features/onboarding/screens/welcome_page.dart';
@@ -25,6 +26,8 @@ const String kycPageName = 'KycPageName';
 const String kycPageRoute = '/kycPageRoute';
 const String productDetailPageRoute = "/productDetailPageRoute";
 const String productDetailPageRouteName = "ProductDetailPageRouteName";
+const String submitQuotePageName = "SubmitQuotePageName";
+const String submitQuotePageRoute = "/submitQuotePage";
 
 final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
   GoRoute(
@@ -106,6 +109,16 @@ final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
     pageBuilder: (context, state) {
       return getTransition(
           child: ProductDetailScreen(item: state.extra as Content),
+          animationType: TransitionType.slide,
+          duration: const Duration(milliseconds: 200));
+    },
+  ),
+  GoRoute(
+    path: submitQuotePageRoute,
+    name: submitQuotePageName,
+    pageBuilder: (context, state) {
+      return getTransition(
+          child: SubmitQuoteScreen(content: state.extra as Content),
           animationType: TransitionType.slide,
           duration: const Duration(milliseconds: 200));
     },

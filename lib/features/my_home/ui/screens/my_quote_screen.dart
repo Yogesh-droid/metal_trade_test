@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_quote_bloc/my_quote_bloc.dart';
 
 import '../../../rfq/ui/widgets/home_page_card.dart';
@@ -18,14 +19,13 @@ class MyQuoteScreen extends StatelessWidget {
           children: state.contentList
               .map((e) => HomePageCard(
                     content: e,
-                    isSeller: true,
-                    companyAddress: e.enquiryCompany!.address,
-                    enquiryCommpanyName: e.enquiryCompany!.name,
                     itemList: e.item,
-                    ownerName: e.enquiryCompany!.name,
-                    datePosted: e.enquiryCompany!.lastModifiedDate,
                     country: e.enquiryCompany!.country!.name,
                     uuid: e.uuid,
+                    filledBtnTitle: e.status == 'Inreview' ? "kCancel" : null,
+                    borderedBtnTitle: kChat,
+                    onBorderedBtnTapped: () {},
+                    onFilledBtnTapped: () {},
                   ))
               .toList(),
         );

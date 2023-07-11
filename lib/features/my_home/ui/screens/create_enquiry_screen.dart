@@ -20,9 +20,8 @@ class _CreateEnquiryScreenState extends State<CreateEnquiryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return const SingleChildScrollView(
         child: Padding(
-            padding: const EdgeInsets.all(appPadding),
-            child: CreateEnquiryForm()));
+            padding: EdgeInsets.all(appPadding), child: CreateEnquiryForm()));
   }
 }

@@ -99,7 +99,11 @@ class FilledButtonIconWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FilledButton.icon(
-        onPressed: onPressed, icon: icon, label: Text(title));
+    return SizedBox(
+      height: height,
+      width: width,
+      child: FilledButton.icon(
+          onPressed: onPressed, icon: icon, label: Text(title)),
+    );
   }
 }

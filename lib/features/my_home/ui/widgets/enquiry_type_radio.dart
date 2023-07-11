@@ -3,15 +3,18 @@ import 'package:metaltrade/core/constants/strings.dart';
 
 import '../../../rfq/ui/controllers/rfq_buyer_enquiry_bloc/rfq_buyer_enquiry_bloc.dart';
 
-class EnquiryTypeRadio extends StatefulWidget {
-  const EnquiryTypeRadio({super.key});
+class EnquiryTypeRadio extends StatelessWidget {
+  const EnquiryTypeRadio(
+      {super.key, required this.onSelect, required this.groupValue});
+  final Function(String? value) onSelect;
+  final String groupValue;
 
-  @override
-  State<EnquiryTypeRadio> createState() => _EnquiryTypeRadioState();
-}
+//   @override
+//   State<EnquiryTypeRadio> createState() => _EnquiryTypeRadioState();
+// }
 
-class _EnquiryTypeRadioState extends State<EnquiryTypeRadio> {
-  var rValue = UserIntent.Buy.name;
+// class _EnquiryTypeRadioState extends State<EnquiryTypeRadio> {
+//   var rValue = UserIntent.Buy.name;
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +24,8 @@ class _EnquiryTypeRadioState extends State<EnquiryTypeRadio> {
           Radio<String>(
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
               value: UserIntent.Buy.name,
-              groupValue: rValue,
-              onChanged: (value) {
-                rValue = value!;
-                setState(() {});
-              }),
+              groupValue: groupValue,
+              onChanged: onSelect),
           const Text(kBuy)
         ],
       ),
@@ -35,11 +35,8 @@ class _EnquiryTypeRadioState extends State<EnquiryTypeRadio> {
           Radio<String>(
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
               value: UserIntent.Sell.name,
-              groupValue: rValue,
-              onChanged: (value) {
-                rValue = value!;
-                setState(() {});
-              }),
+              groupValue: groupValue,
+              onChanged: onSelect),
           const Text(kSell)
         ],
       )

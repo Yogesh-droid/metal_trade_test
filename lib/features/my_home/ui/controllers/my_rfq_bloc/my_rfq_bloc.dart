@@ -23,16 +23,21 @@ class MyRfqBloc extends Bloc<MyRfqEvent, MyRfqState> {
                 : ''
             : '';
         try {
-          emit(MyRfqInitial());
+          if (event.page == 0) {
+            emit(MyRfqInitial());
+          }
+          if (event.page == myRfqListPage) {
+            myRfqList.clear();
+          }
           final DataState<RfqEntity> dataState =
               await homePageEnquiryUsecase.call(RequestParams(
                   url:
-                      "${baseUrl}user/enquiry?page=${event.page}&size=10$statusQuery",
+                      "${baseUrl}user/enquiry?page=${event.page}&size=5$statusQuery",
                   apiMethods: ApiMethods.get,
                   header: header));
           if (dataState.data != null) {
             isMyRfqListEnd = dataState.data!.last!;
-            myRfqListPage = (dataState.data!.number)! + 1;
+            myRfqListPage = (dataState.data!.number)!;
             myRfqList.addAll(dataState.data!.content!);
             emit(MyRfqFetchedState(contentList: myRfqList));
           } else {

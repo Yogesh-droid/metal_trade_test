@@ -47,42 +47,7 @@ class _RfqHomePageState extends State<RfqHomePage>
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
-        appBar: MainAppBar(
-          height: 100,
-          // actions: [
-          //   IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
-          //   IconButton(
-          //       onPressed: () {
-          //         context.pushNamed(profilePageName);
-          //       },
-          //       icon: const Icon(Icons.person))
-          // ],
-          title: SearchBarWidget(searchController: searchController),
-          elevation: 5,
-          bottomWidget: HomePageAppbarBottom(
-              tabList: const [
-                Tab(text: kBuyer),
-                Tab(text: kSeller),
-              ],
-              tabController: _tabController,
-              onTap: (value) {
-                if (value == 0) {
-                  if (rfqBuyerEnquiryBloc.buyerRfqList.isEmpty &&
-                      !rfqBuyerEnquiryBloc.isBuyerRfqListEnd) {
-                    rfqBuyerEnquiryBloc.add(GetRfqBuyerPageEnquiryEvent(
-                        page: rfqBuyerEnquiryBloc.buyerRfqListPage,
-                        intent: UserIntent.Buy));
-                  }
-                } else {
-                  if (rfqSellerEnquiryBloc.sellerRfqList.isEmpty &&
-                      !rfqSellerEnquiryBloc.isSellerRfqListEnd) {
-                    rfqSellerEnquiryBloc.add(GetRfqSellerEnquiryEvent(
-                        page: rfqSellerEnquiryBloc.sellerRfqListPage,
-                        intent: UserIntent.Sell));
-                  }
-                }
-              }),
-        ),
+        appBar: mainAppBar(context),
         body: Column(
           children: [
             Expanded(
@@ -91,5 +56,36 @@ class _RfqHomePageState extends State<RfqHomePage>
                     children: const [BuyerRfqPage(), SellerRfqPage()]))
           ],
         ));
+  }
+
+  mainAppBar(BuildContext context) {
+    return MainAppBar(
+      height: 100,
+      title: SearchBarWidget(searchController: searchController),
+      elevation: 5,
+      bottomWidget: HomePageAppbarBottom(
+          tabList: const [
+            Tab(text: kBuyer),
+            Tab(text: kSeller),
+          ],
+          tabController: _tabController,
+          onTap: (value) {
+            if (value == 0) {
+              if (rfqBuyerEnquiryBloc.buyerRfqList.isEmpty &&
+                  !rfqBuyerEnquiryBloc.isBuyerRfqListEnd) {
+                rfqBuyerEnquiryBloc.add(GetRfqBuyerPageEnquiryEvent(
+                    page: rfqBuyerEnquiryBloc.buyerRfqListPage,
+                    intent: UserIntent.Buy));
+              }
+            } else {
+              if (rfqSellerEnquiryBloc.sellerRfqList.isEmpty &&
+                  !rfqSellerEnquiryBloc.isSellerRfqListEnd) {
+                rfqSellerEnquiryBloc.add(GetRfqSellerEnquiryEvent(
+                    page: rfqSellerEnquiryBloc.sellerRfqListPage,
+                    intent: UserIntent.Sell));
+              }
+            }
+          }),
+    );
   }
 }

@@ -5,7 +5,7 @@ abstract class NewsEvent {}
 
 class GetAllNewsEvent extends NewsEvent {
   final int page;
-  final String future;
+  final List<String>? filters;
 
-  GetAllNewsEvent({required this.page, required this.future});
+  GetAllNewsEvent({required this.page, this.filters});
 }

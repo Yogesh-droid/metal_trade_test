@@ -53,6 +53,8 @@ class FilterChipList extends StatelessWidget {
                         label: Text(e.name),
                         selected: false,
                         onSelected: (value) {
+                          myRfqBloc
+                              .add(GetMyRfqList(page: 0, status: [e.name]));
                           context.read<FilterStatusCubit>().addFilter(e.name);
                         })))
                 .toList(),

@@ -6,9 +6,16 @@ import 'package:metaltrade/features/profile/ui/widgets/bordered_textfield.dart';
 import 'package:metaltrade/features/rfq/data/models/rfq_enquiry_model.dart';
 
 class ItemContainer extends StatefulWidget {
-  const ItemContainer({super.key, required this.item, this.onChange});
+  const ItemContainer(
+      {super.key,
+      required this.item,
+      this.onChange,
+      required this.onPriceChange,
+      required this.onQuantityChange});
   final Item item;
   final Function(Object? object)? onChange;
+  final Function(String s) onPriceChange;
+  final Function(String s) onQuantityChange;
 
   @override
   State<ItemContainer> createState() => _ItemContainerState();
@@ -22,8 +29,8 @@ class _ItemContainerState extends State<ItemContainer> {
 
   @override
   void initState() {
-    initialPrice = "\$ ${widget.item.price}";
-    initialQuantity = "${widget.item.quantity} ${widget.item.quantityUnit}";
+    initialPrice = "${widget.item.price}";
+    initialQuantity = "${widget.item.quantity}";
     quantityController = TextEditingController(text: initialQuantity);
     priceController = TextEditingController(text: initialPrice);
     super.initState();
@@ -60,19 +67,28 @@ class _ItemContainerState extends State<ItemContainer> {
                   child: BorderedTextField(
                 isObscureText: false,
                 textEditingController: quantityController,
-                hintText: kQuantity,
+                onChange: widget.onQuantityChange,
+                hintText: "$kQuantity (${widget.item.quantityUnit})",
               )),
               const SizedBox(width: appPadding),
               Expanded(
                   child: BorderedTextField(
                 isObscureText: false,
                 textEditingController: priceController,
-                hintText: kQuotePrice,
+                onChange: widget.onPriceChange,
+                hintText: "$kQuotePrice (\$)",
               ))
             ],
           )
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    quantityController.dispose();
+    priceController.dispose();
+    super.dispose();
   }
 }

@@ -24,7 +24,6 @@ class CreateEnquiryBloc extends Bloc<CreateEnquiryEvent, CreateEnquiryState> {
                   header: header));
 
           if (dataState.data != null) {
-            print(dataState.data!.id);
             emit(PostEnquirySuccessful(dataState.data!));
           } else {
             emit(PostEnquiryFailed(Exception(dataState.exception)));

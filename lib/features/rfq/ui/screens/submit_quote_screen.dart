@@ -15,23 +15,29 @@ class SubmitQuoteScreen extends StatefulWidget {
 }
 
 class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
+  late Content content;
   List<int> selectedIndex = [];
   double totalPrice = 0;
 
   @override
+  void initState() {
+    content = widget.content;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          ContextMenuAppBar(title: kSubmitQuote, subtitle: widget.content.uuid),
+      appBar: ContextMenuAppBar(title: kSubmitQuote, subtitle: content.uuid),
       body: SingleChildScrollView(
         child: _buildPanel(),
       ),
       floatingActionButton: TotalPriceBox(
           onPressed: () {
             List<Map<String, dynamic>> selectedItems = [];
-            for (var element in widget.content.item!) {
+            Map<String, dynamic> submitQuote = {};
+            for (var element in content.item!) {
               if (selectedIndex.contains(element.id)) {
-                // TODO : Getting value of edited price and quantity
                 selectedItems.add({
                   "quantity": element.quantity,
                   "quantityUnit": element.quantityUnit,
@@ -40,7 +46,12 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
                   "sku": {"id": element.sku!.id}
                 });
               }
+              submitQuote['transportationTerms'] = content.transportationTerms;
+              submitQuote['paymentTerms'] = content.paymentTerms;
+              submitQuote['deliveryTerms'] = content.deliveryTerms;
+              submitQuote['item'] = selectedItems;
             }
+            print(selectedItems.toString());
           },
           price: totalPrice),
     );
@@ -48,12 +59,28 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
 
   Widget _buildPanel() {
     return Column(
-      children: widget.content.item!
+      children: content.item!
           .map((e) => AnimatedSize(
                 duration: const Duration(milliseconds: 500),
                 child: selectedIndex.contains(e.id)
                     ? ItemContainer(
                         item: e,
+                        onPriceChange: (value) {
+                          if (value.isNotEmpty) {
+                            content.item!
+                                .where((element) => element.id == e.id)
+                                .first
+                                .price = double.parse(value);
+                            totalPrice += double.parse(value);
+                            setState(() {});
+                          }
+                        },
+                        onQuantityChange: (value) {
+                          content.item!
+                              .where((element) => element.id == e.id)
+                              .first
+                              .quantity = int.parse(value);
+                        },
                         onChange: (value) {
                           setState(() {
                             selectedIndex.contains(e.id)

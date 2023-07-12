@@ -68,6 +68,7 @@ class BorderedTextField extends StatelessWidget {
       style: TextStyle(color: Theme.of(context).colorScheme.scrim),
       textInputAction: textInputAction,
       onFieldSubmitted: onDone,
+      onChanged: onChange,
       maxLines: maxLines ?? 1,
       obscureText: isObscureText,
       controller: textEditingController,

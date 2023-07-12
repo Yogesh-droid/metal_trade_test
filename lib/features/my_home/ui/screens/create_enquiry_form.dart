@@ -79,13 +79,11 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
         quantityController: quantityController,
         onDone: (value) {
           if (value.isNotEmpty) {
-            print(value);
             items[0]['quantity'] = int.parse(value.toString());
           }
         },
       ),
     ];
-    print(itemContainers.length);
     super.initState();
   }
 

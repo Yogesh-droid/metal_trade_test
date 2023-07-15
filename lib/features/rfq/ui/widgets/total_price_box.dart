@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
+import 'package:metaltrade/features/rfq/ui/controllers/submit_quote/submit_quote_bloc.dart';
 
 class TotalPriceBox extends StatelessWidget {
   const TotalPriceBox(
@@ -25,7 +28,25 @@ class TotalPriceBox extends StatelessWidget {
               Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [const Text(kTotalOffer), Text("\$ $price")]),
-              FilledButtonWidget(title: kSubmit, onPressed: onPressed)
+              BlocConsumer<SubmitQuoteBloc, SubmitQuoteState>(
+                listener: (context, state) {
+                  if (state is SubmitQuoteSuccessful) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Quote Submitted successfully')));
+                  } else if (state is SubmitQuoteFailed) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(state.exception.toString())));
+                  }
+                },
+                builder: (context, state) {
+                  if (state is SubmittingQuote) {
+                    return const FilledButton(
+                        onPressed: null, child: LoadingDots());
+                  }
+                  return FilledButtonWidget(
+                      title: kSubmit, onPressed: onPressed);
+                },
+              )
             ]),
       ),
     );

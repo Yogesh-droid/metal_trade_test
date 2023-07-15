@@ -31,9 +31,7 @@ class _ItemListContainerState extends State<ItemListContainer> {
   final FocusNode quantityFocusNode = FocusNode();
   @override
   void initState() {
-    quantityFocusNode.addListener(() {
-      print(quantityFocusNode.hasFocus);
-    });
+    quantityFocusNode.addListener(() {});
     super.initState();
   }
 

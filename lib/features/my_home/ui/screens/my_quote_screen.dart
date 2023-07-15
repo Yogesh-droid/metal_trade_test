@@ -20,9 +20,9 @@ class MyQuoteScreen extends StatelessWidget {
               .map((e) => HomePageCard(
                     content: e,
                     itemList: e.item,
-                    country: e.enquiryCompany!.country!.name,
+                    country: e.quoteCompany!.country!.name,
                     uuid: e.uuid,
-                    filledBtnTitle: e.status == 'Inreview' ? "kCancel" : null,
+                    filledBtnTitle: e.status == 'Inreview' ? kCancel : null,
                     borderedBtnTitle: kChat,
                     onBorderedBtnTapped: () {},
                     onFilledBtnTapped: () {},

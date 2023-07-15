@@ -30,3 +30,15 @@ class MessageReceivedState extends ChatState {
 
   MessageReceivedState(this.message);
 }
+
+class PreviousChatLoaded extends ChatState {
+  final List<Content> chatList;
+
+  PreviousChatLoaded({required this.chatList});
+}
+
+class PreviousChatFailed extends ChatState {
+  final Exception exception;
+
+  PreviousChatFailed(this.exception);
+}

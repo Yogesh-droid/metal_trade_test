@@ -11,6 +11,7 @@ import 'package:stomp_dart_client/stomp_config.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
 import '../../../../core/constants/strings.dart';
 import '../controllers/chat_bloc/chat_bloc.dart';
+import '../widgets/chat_list.dart';
 
 // ignore: constant_identifier_names
 const String EVENT = "CHAT PAGE EVENT";
@@ -101,15 +102,13 @@ class _ChatTestPageState extends State<ChatTestPage> {
                 children: [
                   BlocBuilder<ChatBloc, ChatState>(
                     builder: (context, state) {
-                      if (state is ChatListSuccessState) {
+                      print(state);
+                      if (state is PreviousChatLoaded) {
                         return Expanded(
-                          child: ListView(
-                            children: state.chats.map((e) => Text(e)).toList(),
-                          ),
-                        );
-                      } else {
-                        return const Text("Failed to connect");
+                            child: ChatList(chatList: state.chatList));
                       }
+                      return const Center(
+                          child: Text("No Previous Chat Found"));
                     },
                   ),
                   const Spacer(),

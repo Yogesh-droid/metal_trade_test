@@ -6,6 +6,10 @@ import 'package:metaltrade/features/auth/domain/usecases/login_usecase.dart';
 import 'package:metaltrade/features/auth/domain/usecases/validate_otp_usecase.dart';
 import 'package:metaltrade/features/auth/ui/controllers/login_bloc/login_bloc.dart';
 import 'package:metaltrade/features/auth/ui/controllers/validate_otp/validate_otp_bloc.dart';
+import 'package:metaltrade/features/chat/data/repo/chat_list_repo_impl.dart';
+import 'package:metaltrade/features/chat/domain/repo/chat_list_repo.dart';
+import 'package:metaltrade/features/chat/domain/usecases/chat_list_usecase.dart';
+import 'package:metaltrade/features/chat/ui/controllers/chat_bloc/chat_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_quote_bloc/my_quote_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_rfq_bloc/my_rfq_bloc.dart';
 import 'package:metaltrade/features/news/data/repo/news_repo_impl.dart';
@@ -25,10 +29,14 @@ import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_
 import 'package:metaltrade/features/quotes/domain/usecases/accept_quote_res_usecase.dart';
 import 'package:metaltrade/features/quotes/ui/controllers/accept_quote_bloc/accept_quote_bloc.dart';
 import 'package:metaltrade/features/rfq/data/repo/rfq_enquiry_repo_impl.dart';
+import 'package:metaltrade/features/rfq/data/repo/submit_quote_repo_impl.dart';
 import 'package:metaltrade/features/rfq/domain/repo/rfq_enquiry_repo.dart';
+import 'package:metaltrade/features/rfq/domain/repo/submit_quote_repo.dart';
 import 'package:metaltrade/features/rfq/domain/usecases/rfq_usecase.dart';
+import 'package:metaltrade/features/rfq/domain/usecases/submit_quote_usecase.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/rfq_buyer_enquiry_bloc/rfq_buyer_enquiry_bloc.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/rfq_seller_enquiry_bloc/rfq_seller_enquiry_bloc.dart';
+import 'package:metaltrade/features/rfq/ui/controllers/submit_quote/submit_quote_bloc.dart';
 import '../../features/auth/data/repo/validate_otp_repo_impl.dart';
 import '../../features/my_home/data/repo/post_enquiry_repo_impl.dart';
 import '../../features/my_home/data/repo/sku_repo_impl.dart';
@@ -132,4 +140,20 @@ void setup() {
   getIt.registerFactory<AcceptQuoteResUsecase>(
       () => AcceptQuoteResUsecase(acceptQuoteResRepo: getIt()));
   getIt.registerFactory<AcceptQuoteBloc>(() => AcceptQuoteBloc(getIt()));
+
+  // SubmitQuote bLoc setup //
+  getIt.registerFactory<SubmitQuoteRepo>(
+      () => SubmitQuoteRepoImpl(networkManager: getIt()));
+  getIt.registerFactory<SubmitQuoteUsecase>(
+      () => SubmitQuoteUsecase(submitQuoteRepo: getIt()));
+  getIt.registerFactory<SubmitQuoteBloc>(
+      () => SubmitQuoteBloc(submitQuoteUsecase: getIt()));
+
+  // CHat list Bloc setup //
+
+  getIt.registerFactory<ChatListRepo>(
+      () => ChatListRepoImpl(networkManager: getIt()));
+  getIt.registerFactory<ChatListUsecase>(
+      () => ChatListUsecase(chatListRepo: getIt()));
+  getIt.registerFactory<ChatBloc>(() => ChatBloc(chatListUsecase: getIt()));
 }

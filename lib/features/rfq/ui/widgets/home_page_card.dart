@@ -64,7 +64,37 @@ class _HomePageCardState extends State<HomePageCard> {
                 )
               ],
             ),
-            Text('${widget.uuid ?? ''}, ${widget.country ?? ''}'),
+            Row(
+              children: [
+                Text(widget.uuid ?? ''),
+                const SizedBox(width: appPadding),
+                Row(children: [
+                  Icon(
+                    Icons.brightness_1,
+                    color: widget.content!.status == "Active"
+                        ? Colors.green
+                        : widget.content!.status == "Expired"
+                            ? Colors.red
+                            : widget.content!.status == "Inreview"
+                                ? Colors.orange
+                                : Colors.white,
+                    size: 8,
+                  ),
+                  const SizedBox(width: appPadding),
+                  Text(
+                    widget.content!.status ?? '',
+                    style: secMed12.copyWith(
+                        color: widget.content!.status == "Active"
+                            ? Colors.green
+                            : widget.content!.status == "Expired"
+                                ? Colors.red
+                                : widget.content!.status == "Inreview"
+                                    ? Colors.orange
+                                    : Colors.white),
+                  )
+                ])
+              ],
+            ),
             const Divider(),
             itemListWidget(context),
             const Divider(),

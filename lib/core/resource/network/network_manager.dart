@@ -10,26 +10,32 @@ class NetworkManager {
   final Dio _dio = Client().dio;
 
   Future<Response?> makeNetworkRequest(RequestParams requestParams) async {
-    Response response;
+    Response? response;
     Options options = Options(headers: requestParams.header);
     switch (requestParams.apiMethods) {
       case ApiMethods.get:
         debugPrint(requestParams.url);
-        response = await _dio.get(requestParams.url, options: options);
-        if (response.statusCode == 200) {
+        try {
+          response = await _dio.get(requestParams.url, options: options);
           return response;
-        } else {
-          throw Exception(response.statusMessage);
+        } on DioException catch (e) {
+          throw Exception(
+              e.response != null ? e.response!.data['message'] : e.message);
         }
 
       case ApiMethods.post:
         debugPrint(requestParams.url);
         debugPrint(requestParams.header.toString());
         debugPrint(jsonEncode(requestParams.body));
-        response = await _dio.post(requestParams.url,
-            data: requestParams.body, options: options);
-        return response;
 
+        try {
+          response = await _dio.post(requestParams.url,
+              data: requestParams.body, options: options);
+          return response;
+        } on DioException catch (e) {
+          throw Exception(
+              e.response != null ? e.response!.data['message'] : e.message);
+        }
       default:
         return null;
     }

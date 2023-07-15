@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:metaltrade/features/auth/ui/screens/login_page.dart';
 import 'package:metaltrade/features/auth/ui/screens/pin_put_page.dart';
+import 'package:metaltrade/features/chat/ui/screens/chat_test_page.dart';
 import 'package:metaltrade/features/landing/ui/screens/landing_page.dart';
 import 'package:metaltrade/features/profile/ui/screens/kyc_screen.dart';
 import 'package:metaltrade/features/profile/ui/screens/profile_screen.dart';
+import 'package:metaltrade/features/rfq/ui/screens/my_quote_page.dart';
 import 'package:metaltrade/features/rfq/ui/screens/submit_quote_screen.dart';
 import '../../features/dashboard/ui/screens/dashboard.dart';
 import '../../features/my_home/ui/screens/create_enquiry_screen.dart';
@@ -28,6 +30,10 @@ const String productDetailPageRoute = "/productDetailPageRoute";
 const String productDetailPageRouteName = "ProductDetailPageRouteName";
 const String submitQuotePageName = "SubmitQuotePageName";
 const String submitQuotePageRoute = "/submitQuotePage";
+const String chatPageRoute = "/chatPage";
+const String chatPageName = "ChatPageName";
+const String myQuotePageScreenName = "MyQuotePageRouteName";
+const String myQuotePageRoute = "/myQuotePageRoute";
 
 final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
   GoRoute(
@@ -119,6 +125,26 @@ final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
     pageBuilder: (context, state) {
       return getTransition(
           child: SubmitQuoteScreen(content: state.extra as Content),
+          animationType: TransitionType.slide,
+          duration: const Duration(milliseconds: 200));
+    },
+  ),
+  GoRoute(
+    path: chatPageRoute,
+    name: chatPageName,
+    pageBuilder: (context, state) {
+      return getTransition(
+          child: const ChatTestPage(),
+          animationType: TransitionType.slide,
+          duration: const Duration(milliseconds: 200));
+    },
+  ),
+  GoRoute(
+    path: myQuotePageRoute,
+    name: myQuotePageScreenName,
+    pageBuilder: (context, state) {
+      return getTransition(
+          child: const MyQuotesPage(),
           animationType: TransitionType.slide,
           duration: const Duration(milliseconds: 200));
     },

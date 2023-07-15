@@ -45,6 +45,7 @@ class Content {
   int? id;
   List<Item>? item;
   EnquiryCompany? enquiryCompany;
+  EnquiryCompany? quoteCompany;
   String? enquiryType;
   String? transportationTerms;
   String? paymentTerms;
@@ -59,6 +60,7 @@ class Content {
       this.lastModifiedDate,
       this.item,
       this.enquiryCompany,
+      this.quoteCompany,
       this.enquiryType,
       this.transportationTerms,
       this.paymentTerms,
@@ -77,6 +79,10 @@ class Content {
     enquiryCompany = json["enquiryCompany"] == null
         ? null
         : EnquiryCompany.fromJson(json["enquiryCompany"]);
+
+    quoteCompany = json["quoteCompany"] == null
+        ? null
+        : EnquiryCompany.fromJson(json["quoteCompany"]);
     enquiryType = json["enquiryType"];
     transportationTerms = json["transportationTerms"];
     paymentTerms = json["paymentTerms"];

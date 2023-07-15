@@ -28,16 +28,14 @@ class MyQuoteBloc extends Bloc<MyQuoteEvent, MyQuoteState> {
           final DataState<RfqEntity> dataState =
               await homePageEnquiryUsecase.call(RequestParams(
                   url:
-                      "${baseUrl}user/enquiry?page=${event.page}&size=10&enquiryType=${event.intent.name}$statusQuery",
+                      "${baseUrl}user/quote?page=${event.page}&size=10$statusQuery",
                   apiMethods: ApiMethods.get,
                   header: header));
           if (dataState.data != null) {
-            if (event.intent == UserIntent.Sell) {
-              isMyQuoteListEnd = dataState.data!.last!;
-              myQuoteListPage = (dataState.data!.number)! + 1;
-              myQuoteList.addAll(dataState.data!.content!);
-              emit(MyQuoteFetchedState(contentList: myQuoteList));
-            }
+            isMyQuoteListEnd = dataState.data!.last!;
+            myQuoteListPage = (dataState.data!.number)! + 1;
+            myQuoteList.addAll(dataState.data!.content!);
+            emit(MyQuoteFetchedState(contentList: myQuoteList));
           } else {
             emit(MyQuoteFailedState(exception: Exception("No Data Found")));
           }

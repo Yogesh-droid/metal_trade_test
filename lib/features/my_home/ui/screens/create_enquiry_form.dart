@@ -166,9 +166,6 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                 postEnquiryMap['paymentTerms'] = termsOfPayment;
                 postEnquiryMap['deliveryTerms'] = termsOfDelivery;
                 postEnquiryMap['item'] = items;
-
-                print(postEnquiryMap.toString());
-
                 PostEnquiryModel postEnquiryModel =
                     PostEnquiryModel.fromJson(postEnquiryMap);
                 context

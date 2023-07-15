@@ -25,7 +25,8 @@ class _NewsPageState extends State<NewsPage> {
   void initState() {
     newsBloc = context.read<NewsBloc>();
     newsFilterStatusCubit = context.read<NewsFilterStatusCubit>();
-    newsBloc.add(GetAllNewsEvent(page: 0));
+    newsFilterStatusCubit.addFilter('rb');
+    newsBloc.add(GetAllNewsEvent(page: 0, filters: const ['rb']));
     scrollController = ScrollController();
     scrollController.addListener(() {
       if (scrollController.position.pixels ==

@@ -50,7 +50,7 @@ class _HomePageCardState extends State<HomePageCard> {
                 DateTime.tryParse(widget.content!.lastModifiedDate ?? '') !=
                         null
                     ? Text(
-                        "$kPosted : ${DateFormat('dd MMM yyyy').format(DateTime.tryParse(widget.content!.lastModifiedDate ?? '')!)}",
+                        "$kPosted : ${DateFormat('dd MMM yyyy - hh:mm a').format(DateTime.tryParse(widget.content!.lastModifiedDate ?? '')!)}",
                         style: secMed12.copyWith(
                             color: Theme.of(context).colorScheme.secondary),
                       )

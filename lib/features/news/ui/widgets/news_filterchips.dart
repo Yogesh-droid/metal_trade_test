@@ -4,11 +4,10 @@ import 'package:metaltrade/features/news/ui/controllers/news_bloc/news_bloc.dart
 import 'package:metaltrade/features/news/ui/controllers/news_filter_status_cubit/news_filter_status_cubit.dart';
 
 Map<String, String> filterStatus = {
-  "Steel wire rod": "wr",
   "Steel rebar": "rb",
+  "Steel wire rod": "wr",
   "Hot rolled coil": "hc",
   "Stainless steel": "ss",
-  "All": "wr,rb,hc,ss"
 };
 
 class NewsFilterChips extends StatelessWidget {

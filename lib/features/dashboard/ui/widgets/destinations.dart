@@ -11,7 +11,7 @@ List<NavigationDestination> destinations = const [
   NavigationDestination(
       icon: Icon(Icons.description_outlined),
       selectedIcon: Icon(Icons.description),
-      label: kRfq),
+      label: kEnquiry),
   NavigationDestination(
       icon: Icon(Icons.newspaper_outlined),
       selectedIcon: Icon(Icons.newspaper_rounded),

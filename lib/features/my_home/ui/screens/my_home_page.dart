@@ -6,8 +6,8 @@ import 'package:metaltrade/features/my_home/ui/screens/my_quote_screen.dart';
 import 'package:metaltrade/features/my_home/ui/screens/my_rfq_screen.dart';
 import '../../../../core/constants/app_widgets/main_app_bar.dart';
 import '../../../../core/constants/strings.dart';
-import '../../../rfq/ui/controllers/rfq_buyer_enquiry_bloc/rfq_buyer_enquiry_bloc.dart';
 import '../../../rfq/ui/widgets/home_page_appbar_bottom.dart';
+import '../../../rfq/ui/widgets/search_bar_widget.dart';
 import '../controllers/my_rfq_bloc/my_rfq_bloc.dart';
 import '../widgets/filter_chips_list.dart';
 
@@ -23,6 +23,7 @@ class _MyHomePageState extends State<MyHomePage>
   late TabController _tabController;
   late MyRfqBloc myRfqBloc;
   late MyQuoteBloc myQuoteBloc;
+  final SearchController searchController = SearchController();
 
   @override
   void initState() {
@@ -39,11 +40,7 @@ class _MyHomePageState extends State<MyHomePage>
       backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       appBar: MainAppBar(
         height: 100,
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.person))
-        ],
-        title: const Text(kMyEnquiry),
+        title: SearchBarWidget(searchController: searchController),
         elevation: 5,
         bottomWidget: HomePageAppbarBottom(
             tabList: const [

@@ -2,11 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/features/rfq/domain/entities/rfq_enquiry_entity.dart';
 import 'package:metaltrade/features/rfq/domain/usecases/rfq_usecase.dart';
+
 import '../../../../../core/constants/api_constants.dart';
 import '../../../../../core/resource/data_state/data_state.dart';
 import '../../../../../core/resource/request_params/request_params.dart';
 import '../../../../rfq/data/models/rfq_enquiry_model.dart';
-import '../../../../rfq/ui/controllers/rfq_buyer_enquiry_bloc/rfq_buyer_enquiry_bloc.dart';
 
 part 'my_quote_event.dart';
 part 'my_quote_state.dart';

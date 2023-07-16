@@ -15,7 +15,7 @@ class ProductDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
-        appBar: const ContextMenuAppBar(title: kRfqDetails),
+        appBar: const ContextMenuAppBar(title: kEnquiryDetail),
         body: SingleChildScrollView(
             child: Container(
           color: Theme.of(context).colorScheme.tertiaryContainer,
@@ -25,7 +25,7 @@ class ProductDetailScreen extends StatelessWidget {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               DateTime.tryParse(item.lastModifiedDate ?? '') != null
                   ? Text(
-                      "$kPosted : ${DateFormat('dd MMM yyyy').format(DateTime.tryParse(item.lastModifiedDate ?? '')!)}",
+                      "$kPosted : ${DateFormat('dd MMM yyyy - hh:mm a').format(DateTime.tryParse(item.lastModifiedDate ?? '')!)}",
                       style: secMed12.copyWith(
                           color: Theme.of(context).colorScheme.secondary),
                     )

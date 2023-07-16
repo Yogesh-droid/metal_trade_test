@@ -32,7 +32,7 @@ class _WelcomePageState extends State<WelcomePage> {
       backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       body: Center(
         child: Image.asset(
-          Assets.assetsWelcomeAppLogo,
+          Assets.assetsWelcomeAppIcon,
           fit: BoxFit.contain,
           height: 200,
           width: 200,

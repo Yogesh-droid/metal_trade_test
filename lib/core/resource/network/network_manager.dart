@@ -19,8 +19,9 @@ class NetworkManager {
           response = await _dio.get(requestParams.url, options: options);
           return response;
         } on DioException catch (e) {
-          throw Exception(
-              e.response != null ? e.response!.data['message'] : e.message);
+          throw Exception(e.response != null && e.response!.data != null
+              ? e.response!.data['message']
+              : e.message);
         }
 
       case ApiMethods.post:
@@ -33,8 +34,9 @@ class NetworkManager {
               data: requestParams.body, options: options);
           return response;
         } on DioException catch (e) {
-          throw Exception(
-              e.response != null ? e.response!.data['message'] : e.message);
+          throw Exception(e.response != null && e.response!.data != null
+              ? e.response!.data['message']
+              : e.message);
         }
       default:
         return null;

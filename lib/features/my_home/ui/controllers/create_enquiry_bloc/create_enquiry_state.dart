@@ -16,3 +16,5 @@ class PostEnquiryFailed extends CreateEnquiryState {
 
   PostEnquiryFailed(this.exception);
 }
+
+class PostEnquiryInProgress extends CreateEnquiryState {}

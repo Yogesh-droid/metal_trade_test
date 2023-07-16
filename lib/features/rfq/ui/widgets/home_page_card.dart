@@ -138,7 +138,7 @@ class _HomePageCardState extends State<HomePageCard> {
                   context.pushNamed(productDetailPageRouteName,
                       extra: widget.content);
                 },
-                child: Text("+ ${widget.itemList!.length} more"))
+                child: Text("+ ${widget.itemList!.length - 1} more"))
         ],
       ),
     );

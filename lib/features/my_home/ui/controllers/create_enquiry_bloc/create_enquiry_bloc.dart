@@ -14,6 +14,7 @@ class CreateEnquiryBloc extends Bloc<CreateEnquiryEvent, CreateEnquiryState> {
   CreateEnquiryBloc(this.postEnquiryUsecase) : super(CreateEnquiryInitial()) {
     on<CreateEnquiryEvent>((event, emit) async {
       if (event is PostEnquiryEvent) {
+        emit(PostEnquiryInProgress());
         Map<String, dynamic> body = event.postEnquiryModel.toJson();
         try {
           DataState<PostEnquiryResEntity> dataState =

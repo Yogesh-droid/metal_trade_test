@@ -13,13 +13,15 @@ class ItemListContainer extends StatefulWidget {
   const ItemListContainer(
       {super.key,
       this.onChange,
-      required this.quantityController,
       required this.onProductSelect,
-      this.onDone});
+      this.onDone,
+      required this.onRemoveTapped,
+      this.onRemarksSubmit});
   final Function(Object? value)? onChange;
-  final TextEditingController quantityController;
   final Function(Content content) onProductSelect;
   final Function(String s)? onDone;
+  final Function(String s)? onRemarksSubmit;
+  final Function() onRemoveTapped;
 
   @override
   State<ItemListContainer> createState() => _ItemListContainerState();
@@ -28,6 +30,7 @@ class ItemListContainer extends StatefulWidget {
 class _ItemListContainerState extends State<ItemListContainer> {
   Content selectedSku = Content();
   final TextEditingController quantityController = TextEditingController();
+  final TextEditingController remarksController = TextEditingController();
   final FocusNode quantityFocusNode = FocusNode();
   @override
   void initState() {
@@ -37,59 +40,85 @@ class _ItemListContainerState extends State<ItemListContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return DottedBorder(
-      color: Theme.of(context).colorScheme.outline,
-      padding: const EdgeInsets.all(appPadding),
-      borderPadding: const EdgeInsets.only(bottom: appPadding),
-      child: Column(
-        children: [
-          DisabledTextField(
-            onTap: () {
-              showModalBottomSheet(
-                  context: context,
-                  builder: (_) {
-                    return SkuContainer(onSelected: (value) {
-                      selectedSku = value;
-                      widget.onProductSelect(value);
-                      setState(() {});
-                    });
-                  });
-            },
-            hintText: selectedSku.title ?? kItemName,
-            suffix: Icon(
-              CupertinoIcons.chevron_down,
-              color: Theme.of(context).colorScheme.primaryContainer,
-            ),
-          ),
-          const SizedBox(height: appPadding),
-          Row(
+    return Stack(
+      children: [
+        DottedBorder(
+          color: Theme.of(context).colorScheme.outline,
+          padding: const EdgeInsets.all(appPadding),
+          borderPadding: const EdgeInsets.only(bottom: appPadding),
+          child: Column(
             children: [
-              Expanded(
-                  child: BorderedTextField(
+              DisabledTextField(
+                onTap: () {
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (_) {
+                        return SkuContainer(onSelected: (value) {
+                          selectedSku = value;
+                          widget.onProductSelect(value);
+                          Navigator.pop(context);
+                          setState(() {});
+                        });
+                      });
+                },
+                hintText: selectedSku.title ?? kItemName,
+                suffix: Icon(
+                  CupertinoIcons.chevron_down,
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                ),
+              ),
+              const SizedBox(height: appPadding),
+              Row(
+                children: [
+                  Expanded(
+                      child: BorderedTextField(
+                    isObscureText: false,
+                    textEditingController: quantityController,
+                    radius: 4,
+                    hintText: kQuantity,
+                    textInputType: const TextInputType.numberWithOptions(),
+                    onDone: widget.onDone,
+                    focusNode: FocusNode(),
+                  )),
+                  const SizedBox(width: 5),
+                  Expanded(
+                      child: AppDropdownFormField(
+                    hintText: kUnit,
+                    items: const [
+                      DropdownMenuItem<String>(value: 'MT', child: Text("MT")),
+                      DropdownMenuItem<String>(value: 'T', child: Text("T")),
+                      DropdownMenuItem<String>(value: 'Kg', child: Text("KG")),
+                    ],
+                    onChange: widget.onChange,
+                  ))
+                ],
+              ),
+              const SizedBox(height: appPadding),
+              BorderedTextField(
                 isObscureText: false,
-                textEditingController: quantityController,
+                textEditingController: remarksController,
                 radius: 4,
-                hintText: kQuantity,
-                textInputType: const TextInputType.numberWithOptions(),
+                hintText: kRemarks,
+                textInputType: TextInputType.text,
                 onDone: widget.onDone,
                 focusNode: FocusNode(),
-              )),
-              const SizedBox(width: 5),
-              Expanded(
-                  child: AppDropdownFormField(
-                hintText: kUnit,
-                items: const [
-                  DropdownMenuItem<String>(value: 'MT', child: Text("MT")),
-                  DropdownMenuItem<String>(value: 'T', child: Text("T")),
-                  DropdownMenuItem<String>(value: 'Kg', child: Text("KG")),
-                ],
-                onChange: widget.onChange,
-              ))
+              ),
+              const SizedBox(height: appPadding * 2)
             ],
           ),
-          const SizedBox(height: appPadding * 2)
-        ],
-      ),
+        ),
+        Positioned(
+            right: 0,
+            child: InkWell(
+              onTap: () {
+                widget.onRemoveTapped();
+              },
+              child: const Icon(
+                Icons.remove_circle,
+                color: Colors.red,
+              ),
+            ))
+      ],
     );
   }
 }

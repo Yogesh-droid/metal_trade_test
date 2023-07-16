@@ -4,18 +4,21 @@ class PostEnquiryModel {
   String? paymentTerms;
   String? deliveryTerms;
   List<Item>? item;
+  String? remarks;
 
   PostEnquiryModel(
       {this.enquiryType,
       this.transportationTerms,
       this.paymentTerms,
       this.deliveryTerms,
-      this.item});
+      this.item,
+      this.remarks});
 
   PostEnquiryModel.fromJson(Map<String, dynamic> json) {
     enquiryType = json['enquiryType'];
     transportationTerms = json['transportationTerms'];
     paymentTerms = json['paymentTerms'];
+    remarks = json['remarks'];
     deliveryTerms = json['deliveryTerms'];
     if (json['item'] != null) {
       item = <Item>[];
@@ -31,6 +34,7 @@ class PostEnquiryModel {
     data['transportationTerms'] = transportationTerms;
     data['paymentTerms'] = paymentTerms;
     data['deliveryTerms'] = deliveryTerms;
+    data['remarks'] = remarks;
     if (item != null) {
       data['item'] = item!.map((v) => v.toJson()).toList();
     }

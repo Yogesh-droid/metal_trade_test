@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 import 'package:metaltrade/features/my_home/data/models/post_enquiry_req_model.dart';
@@ -7,6 +8,7 @@ import 'package:metaltrade/features/my_home/ui/controllers/create_enquiry_bloc/c
 import 'package:metaltrade/features/my_home/ui/widgets/app_dropdown_form.dart';
 import '../../../../core/constants/spaces.dart';
 import '../../../../core/constants/strings.dart';
+import '../../../profile/ui/widgets/bordered_textfield.dart';
 import '../widgets/add_item_container.dart';
 import '../widgets/enquiry_type_radio.dart';
 
@@ -52,6 +54,7 @@ class CreateEnquiryForm extends StatefulWidget {
 class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
   final TextEditingController cityTextController = TextEditingController();
   final TextEditingController quantityController = TextEditingController();
+  final TextEditingController remarksController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController deliveryTermsContriller = TextEditingController();
   final TextEditingController paymentTemsController = TextEditingController();
@@ -62,7 +65,9 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
   String termsOfPayment = '';
   String termsOfDelivery = '';
   String termsOfTransport = '';
+  String remarks = '';
   int selectedProductSku = 0;
+  int itemCOntainerKey = 0;
   Map<String, dynamic> postEnquiryMap = {};
   List<Map<String, dynamic>> items = [];
   @override
@@ -70,18 +75,22 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
     items.add({});
     itemContainers = [
       ItemListContainer(
+        key: ValueKey(itemCOntainerKey),
         onChange: (value) {
           items[0]['quantityUnit'] = value!;
         },
         onProductSelect: (value) {
           items[0]['sku'] = {"id": value.id};
         },
-        quantityController: quantityController,
         onDone: (value) {
           if (value.isNotEmpty) {
             items[0]['quantity'] = int.parse(value.toString());
           }
         },
+        onRemarksSubmit: (value) {
+          items[0]['remarks'] = value;
+        },
+        onRemoveTapped: () {},
       ),
     ];
     super.initState();
@@ -100,7 +109,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              kRfqType,
+              kEnquiryType,
               style: secMed12,
             ),
             EnquiryTypeRadio(
@@ -113,20 +122,29 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
             Column(children: itemContainers),
             TextButton(
                 onPressed: () {
+                  itemCOntainerKey++;
                   items.add({});
                   int index = itemContainers.length;
                   itemContainers.add(ItemListContainer(
+                    key: ValueKey(itemCOntainerKey),
                     onChange: (value) {
                       items[index]['quantityUnit'] = value!;
                     },
                     onProductSelect: (value) {
                       items[index]['sku'] = {"id": value.id};
                     },
-                    quantityController: quantityController,
                     onDone: (value) {
                       if (value.isNotEmpty) {
                         items[index]['quantity'] = int.parse(value.toString());
                       }
+                    },
+                    onRemarksSubmit: (value) {
+                      items[index]['remarks'] = value;
+                    },
+                    onRemoveTapped: () {
+                      itemContainers.remove(itemContainers[index]);
+                      items.remove(items[index]);
+                      setState(() {});
                     },
                   ));
                   setState(() {});
@@ -157,23 +175,46 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                 termsOfTransport = value.toString();
               },
             ),
-            const SizedBox(height: appWidgetGap),
-            FilledButtonIconWidget(
-              title: kCreateEnquiry,
-              onPressed: () {
-                postEnquiryMap['enquiryType'] = groupValue;
-                postEnquiryMap['transportationTerms'] = termsOfTransport;
-                postEnquiryMap['paymentTerms'] = termsOfPayment;
-                postEnquiryMap['deliveryTerms'] = termsOfDelivery;
-                postEnquiryMap['item'] = items;
-                PostEnquiryModel postEnquiryModel =
-                    PostEnquiryModel.fromJson(postEnquiryMap);
-                context
-                    .read<CreateEnquiryBloc>()
-                    .add(PostEnquiryEvent(postEnquiryModel: postEnquiryModel));
+            const SizedBox(height: appPadding),
+            BorderedTextField(
+              isObscureText: false,
+              textEditingController: remarksController,
+              radius: 4,
+              maxLines: 4,
+              hintText: kRemarks,
+              textInputType: TextInputType.text,
+              focusNode: FocusNode(),
+            ),
+            const SizedBox(height: appWidgetGap - 20),
+            BlocConsumer<CreateEnquiryBloc, CreateEnquiryState>(
+              listener: (context, state) {
+                if (state is PostEnquirySuccessful) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text("Enquiry created Successfully")));
+                }
               },
-              icon: const Icon(Icons.add),
-              width: double.maxFinite,
+              builder: (context, state) {
+                if (state is PostEnquiryInProgress) {
+                  return const LoadingDots();
+                }
+                return FilledButtonIconWidget(
+                  title: kCreateEnquiry,
+                  onPressed: () {
+                    postEnquiryMap['enquiryType'] = groupValue;
+                    postEnquiryMap['transportationTerms'] = termsOfTransport;
+                    postEnquiryMap['paymentTerms'] = termsOfPayment;
+                    postEnquiryMap['deliveryTerms'] = termsOfDelivery;
+                    postEnquiryMap['item'] = items;
+                    postEnquiryMap['remarks'] = remarksController.text;
+                    PostEnquiryModel postEnquiryModel =
+                        PostEnquiryModel.fromJson(postEnquiryMap);
+                    context.read<CreateEnquiryBloc>().add(
+                        PostEnquiryEvent(postEnquiryModel: postEnquiryModel));
+                  },
+                  icon: const Icon(Icons.add),
+                  width: double.maxFinite,
+                );
+              },
             )
           ],
         ),

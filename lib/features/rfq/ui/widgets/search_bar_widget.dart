@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:metaltrade/core/constants/assets.dart';
+import 'package:metaltrade/core/constants/spaces.dart';
 import '../controllers/search_controller/search_bloc.dart';
 
 class SearchBarWidget extends StatelessWidget {
@@ -11,28 +13,36 @@ class SearchBarWidget extends StatelessWidget {
     final SearchBloc searchBloc = context.read<SearchBloc>();
     return SizedBox(
       height: 40,
-      child: SearchAnchor.bar(
-          barElevation: const MaterialStatePropertyAll(0),
-          suggestionsBuilder: (context, controller) {
-            if (searchController.text.isEmpty) {
-              if (searchBloc.searchHistory.isEmpty) {
-                return [const Center(child: Text("No History found"))];
-              }
-              return searchBloc.searchHistory.map((e) => ListTile(
-                    leading: const Icon(Icons.history),
-                    title: Text(e),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.call_missed),
-                      onPressed: () {
-                        controller.text = e;
-                        controller.selection = TextSelection.collapsed(
-                            offset: controller.text.length);
-                      },
-                    ),
-                  ));
-            }
-            return getSuggestion(searchController);
-          }),
+      child: Row(
+        children: [
+          Image.asset(Assets.assetsWelcomeMetalTradeLogo),
+          const SizedBox(width: appPadding),
+          Expanded(
+            child: SearchAnchor.bar(
+                barElevation: const MaterialStatePropertyAll(0),
+                suggestionsBuilder: (context, controller) {
+                  if (searchController.text.isEmpty) {
+                    if (searchBloc.searchHistory.isEmpty) {
+                      return [const Center(child: Text("No History found"))];
+                    }
+                    return searchBloc.searchHistory.map((e) => ListTile(
+                          leading: const Icon(Icons.history),
+                          title: Text(e),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.call_missed),
+                            onPressed: () {
+                              controller.text = e;
+                              controller.selection = TextSelection.collapsed(
+                                  offset: controller.text.length);
+                            },
+                          ),
+                        ));
+                  }
+                  return getSuggestion(searchController);
+                }),
+          ),
+        ],
+      ),
     );
   }
 

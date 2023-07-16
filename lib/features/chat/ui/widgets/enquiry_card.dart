@@ -4,7 +4,7 @@ import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/features/chat/data/models/chat_response_model.dart';
 import 'package:intl/intl.dart';
 import '../../../../core/constants/strings.dart';
-import '../../../rfq/data/models/rfq_enquiry_model.dart' as rfqModel;
+import '../../../rfq/data/models/rfq_enquiry_model.dart' as rfq_model;
 
 class EnquiryCard extends StatelessWidget {
   const EnquiryCard({super.key, required this.content});
@@ -51,7 +51,7 @@ class EnquiryCard extends StatelessWidget {
 
 class ItemList extends StatelessWidget {
   const ItemList({super.key, required this.item});
-  final List<rfqModel.Item> item;
+  final List<rfq_model.Item> item;
 
   @override
   Widget build(BuildContext context) {

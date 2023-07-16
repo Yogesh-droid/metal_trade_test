@@ -20,7 +20,7 @@ class NewsCard extends StatelessWidget {
           children: [
             DateTime.tryParse(news.lastModifiedDate ?? '') != null
                 ? Text(
-                    "$kPosted : ${DateFormat('dd MMM yyyy').format(DateTime.tryParse(news.lastModifiedDate ?? '')!)}",
+                    "$kPosted : ${DateFormat('dd MMM yyyy - hh:mm a').format(DateTime.tryParse(news.lastModifiedDate ?? '')!)}",
                     style: secMed12.copyWith(
                         color: Theme.of(context).colorScheme.secondary),
                   )

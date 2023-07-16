@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             const SizedBox(height: appWidgetGap * 1.5),
             Image.asset(
-              Assets.assetsWelcomeAppLogo,
+              Assets.assetsWelcomeAppIcon,
               height: 100,
               width: 100,
             ),

@@ -33,9 +33,13 @@ class Assets {
   /// assets/country.json
   static const String assetsCountry = "assets/country.json";
 
-  /// Assets for assetsWelcomeAppLogo
-  /// assets/welcome/app_logo.svg
-  static const String assetsWelcomeAppLogo = "assets/welcome/app_icon.png";
+  /// Assets for assetsWelcomeAppIcon
+  /// assets/welcome/app_icon.png
+  static const String assetsWelcomeAppIcon = "assets/welcome/app_icon.png";
+
+  /// Assets for assetsWelcomeMetalTradeLogo
+  /// assets/welcome/metal_trade_logo.png
+  static const String assetsWelcomeMetalTradeLogo = "assets/welcome/metal_trade_logo.png";
 
   /// Assets for assetsWelcomeWelcome1
   /// assets/welcome/welcome_1.png

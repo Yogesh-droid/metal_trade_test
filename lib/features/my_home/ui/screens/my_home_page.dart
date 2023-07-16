@@ -7,7 +7,6 @@ import 'package:metaltrade/features/my_home/ui/screens/my_rfq_screen.dart';
 import '../../../../core/constants/app_widgets/main_app_bar.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../rfq/ui/widgets/home_page_appbar_bottom.dart';
-import '../../../rfq/ui/widgets/search_bar_widget.dart';
 import '../controllers/my_rfq_bloc/my_rfq_bloc.dart';
 import '../widgets/filter_chips_list.dart';
 
@@ -40,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage>
       backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       appBar: MainAppBar(
         height: 100,
-        title: SearchBarWidget(searchController: searchController),
+        title: const Text(kHome),
         elevation: 5,
         bottomWidget: HomePageAppbarBottom(
             tabList: const [

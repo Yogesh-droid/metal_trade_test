@@ -9,14 +9,18 @@ class ChatList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      children: chatList
-          .map((e) => ChatCard(
-                content: e,
-                isMyChat: e.senderCompanyId == 1,
-              ))
-          .toList(),
-    );
+    return chatList.isNotEmpty
+        ? ListView(
+            shrinkWrap: true,
+            children: chatList
+                .map((e) => ChatCard(
+                      content: e,
+                      isMyChat: e.senderCompanyId == 1,
+                    ))
+                .toList(),
+          )
+        : const Center(
+            child: Text("Sorry No chat found"),
+          );
   }
 }

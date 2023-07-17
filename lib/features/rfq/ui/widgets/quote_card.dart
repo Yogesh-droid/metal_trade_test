@@ -8,8 +8,8 @@ import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 import '../../data/models/rfq_enquiry_model.dart';
 import 'package:intl/intl.dart';
 
-class HomePageCard extends StatelessWidget {
-  const HomePageCard(
+class HomePageQuoteCard extends StatelessWidget {
+  const HomePageQuoteCard(
       {super.key,
       this.itemList,
       this.uuid,
@@ -60,8 +60,18 @@ class HomePageCard extends StatelessWidget {
             ),
             Row(
               children: [
-                Text(uuid ?? ''),
-                const SizedBox(width: appPadding),
+                Text(
+                  "${content!.uuid} on ${content!.enquiry!.uuid}",
+                  style: secMed12,
+                ),
+              ],
+            ),
+            const Divider(),
+            itemListWidget(context),
+            const Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
                 Row(children: [
                   Icon(
                     Icons.brightness_1,
@@ -71,7 +81,7 @@ class HomePageCard extends StatelessWidget {
                             ? Colors.red
                             : content!.status == "Inreview"
                                 ? Colors.orange
-                                : Colors.white,
+                                : Colors.blue[900],
                     size: 8,
                   ),
                   const SizedBox(width: appPadding),
@@ -84,17 +94,10 @@ class HomePageCard extends StatelessWidget {
                                 ? Colors.red
                                 : content!.status == "Inreview"
                                     ? Colors.orange
-                                    : Colors.white),
+                                    : Colors.blue[900]),
                   )
-                ])
-              ],
-            ),
-            const Divider(),
-            itemListWidget(context),
-            const Divider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
+                ]),
+                const Spacer(),
                 if (borderedBtnTitle != null)
                   OutlinedIconButtonWidget(
                     icon: const Icon(Icons.add),
@@ -140,16 +143,37 @@ class HomePageCard extends StatelessWidget {
   Widget getItemListTile(Item e, BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.zero,
-      title: Text(e.sku!.title ?? ''),
-      subtitle: Text(e.remarks ?? ''),
-      trailing: RichText(
-          text: TextSpan(children: [
-        TextSpan(
-            text: "${e.quantity} ",
-            style: secMed12.copyWith(
-                color: Theme.of(context).colorScheme.onSurface),
-            children: [TextSpan(text: "${e.quantityUnit}", style: secMed12)]),
-      ])),
+      title: Text(
+        e.sku!.title ?? '',
+        style: secMed14.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant),
+      ),
+      subtitle: Text(e.remarks ?? '',
+          style: secMed12.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant)),
+      trailing: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "\$ ${e.price}",
+            style: secMed14.copyWith(fontWeight: FontWeight.w700),
+          ),
+          RichText(
+              text: TextSpan(children: [
+            TextSpan(
+                text: "${e.quantity} ",
+                style: secMed12.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant),
+                children: [
+                  TextSpan(
+                      text: "${e.quantityUnit}",
+                      style: secMed12.copyWith(
+                          color:
+                              Theme.of(context).colorScheme.onSurfaceVariant))
+                ]),
+          ])),
+        ],
+      ),
     );
   }
 }

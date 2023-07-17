@@ -29,6 +29,8 @@ class DisabledTextField extends StatelessWidget {
         controller: textEditingController,
         validator: onValidate,
         decoration: InputDecoration(
+            fillColor: Theme.of(context).colorScheme.onPrimary,
+            filled: true,
             border: OutlineInputBorder(
                 borderSide:
                     BorderSide(color: Theme.of(context).colorScheme.primary),

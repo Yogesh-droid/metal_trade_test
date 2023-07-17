@@ -38,6 +38,8 @@ class BorderedTextField extends StatelessWidget {
       focusNode: focusNode,
       keyboardType: textInputType,
       decoration: InputDecoration(
+        fillColor: Theme.of(context).colorScheme.onPrimary,
+        filled: true,
         //border: const UnderlineInputBorder(),
         border: OutlineInputBorder(
             borderSide:

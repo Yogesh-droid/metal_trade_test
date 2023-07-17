@@ -20,6 +20,8 @@ class AppDropdownFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
         decoration: InputDecoration(
+          fillColor: Theme.of(context).colorScheme.onPrimary,
+          filled: true,
           hintText: hintText,
           border: OutlineInputBorder(
               borderSide:

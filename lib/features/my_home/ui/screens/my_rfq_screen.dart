@@ -81,7 +81,7 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
                 return const Center(child: Text("Some Error"));
               }
             }),
-            if (isLoadMore) const SizedBox(height: 60, child: LoadingDots())
+            if (isLoadMore) const SizedBox(height: 100, child: LoadingDots())
           ],
         ),
       ),

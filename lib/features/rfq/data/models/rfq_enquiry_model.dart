@@ -54,6 +54,7 @@ class Content {
   int? quoteCount;
   String? uuid;
   int? matchingEnquiries;
+  Enquiry? enquiry;
 
   Content(
       {this.id,
@@ -68,7 +69,8 @@ class Content {
       this.status,
       this.quoteCount,
       this.matchingEnquiries,
-      this.uuid});
+      this.uuid,
+      this.enquiry});
 
   Content.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -91,6 +93,8 @@ class Content {
     quoteCount = json["quoteCount"];
     uuid = json["uuid"];
     matchingEnquiries = json['matchingEnquiries'];
+    enquiry =
+        json["enquiry"] == null ? null : Enquiry.fromJson(json["enquiry"]);
   }
 }
 
@@ -106,17 +110,18 @@ class EnquiryCompany {
   String? locale;
   Country? country;
 
-  EnquiryCompany(
-      {this.lastModifiedDate,
-      this.id,
-      this.name,
-      this.address,
-      this.pinCode,
-      this.email,
-      this.phone,
-      this.status,
-      this.locale,
-      this.country});
+  EnquiryCompany({
+    this.lastModifiedDate,
+    this.id,
+    this.name,
+    this.address,
+    this.pinCode,
+    this.email,
+    this.phone,
+    this.status,
+    this.locale,
+    this.country,
+  });
 
   EnquiryCompany.fromJson(Map<String, dynamic> json) {
     lastModifiedDate = json["lastModifiedDate"];
@@ -171,6 +176,18 @@ class Sku {
   Sku.fromJson(Map<String, dynamic> json) {
     id = json["id"];
     title = json["title"];
+  }
+}
+
+class Enquiry {
+  int? id;
+  String? uuid;
+
+  Enquiry({this.id, this.uuid});
+
+  Enquiry.fromJson(Map<String, dynamic> json) {
+    id = json["id"];
+    uuid = json["uuid"];
   }
 }
 

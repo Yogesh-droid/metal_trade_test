@@ -33,6 +33,8 @@ class FilledTextFieldWidget extends StatelessWidget {
         controller: textEditingController,
         validator: onValidate,
         decoration: InputDecoration(
+            fillColor: Theme.of(context).colorScheme.onPrimary,
+            filled: true,
             prefix: prefix,
             contentPadding: const EdgeInsets.symmetric(horizontal: 20),
             enabledBorder:

@@ -72,7 +72,10 @@ class _BuyerRfqPageState extends State<BuyerRfqPage> {
                                           userId: 1,
                                           enquiryId: 6,
                                           page: 0));
-                                  context.pushNamed(chatPageName);
+                                  context.pushNamed(chatPageName,
+                                      queryParameters: {
+                                        "id": e.enquiryCompany!.id!
+                                      });
                                 },
                                 onFilledBtnTapped: () {
                                   context.pushNamed(submitQuotePageName,

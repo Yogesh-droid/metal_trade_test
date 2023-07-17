@@ -24,7 +24,12 @@ class MyQuoteBloc extends Bloc<MyQuoteEvent, MyQuoteState> {
             ? "&status=${event.status.join('&status=')}"
             : '';
         try {
-          emit(MyQuoteInitial());
+          if (event.page == 0) {
+            emit(MyQuoteInitial());
+          }
+          if (event.page == myQuoteListPage) {
+            myQuoteList.clear();
+          }
           final DataState<RfqEntity> dataState =
               await homePageEnquiryUsecase.call(RequestParams(
                   url:
@@ -33,7 +38,7 @@ class MyQuoteBloc extends Bloc<MyQuoteEvent, MyQuoteState> {
                   header: header));
           if (dataState.data != null) {
             isMyQuoteListEnd = dataState.data!.last!;
-            myQuoteListPage = (dataState.data!.number)! + 1;
+            myQuoteListPage = (dataState.data!.number)!;
             myQuoteList.addAll(dataState.data!.content!);
             emit(MyQuoteFetchedState(contentList: myQuoteList));
           } else {

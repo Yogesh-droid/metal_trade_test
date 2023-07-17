@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:metaltrade/features/chat/ui/screens/chat_test_page.dart';
+import 'package:metaltrade/features/chat/ui/screens/chat_home_page.dart';
 import 'package:metaltrade/features/dashboard/ui/widgets/destinations.dart';
 import 'package:metaltrade/features/my_home/ui/screens/my_home_page.dart';
 import 'package:metaltrade/features/profile/ui/screens/profile_screen.dart';
@@ -24,7 +24,7 @@ class DashBoard extends StatelessWidget {
       MyHomePage(),
       RfqHomePage(),
       NewsPage(),
-      ChatTestPage(),
+      ChatHomePage(),
       ProfileScreen()
     ];
     return BlocBuilder<BottomNavControllerCubit, int>(

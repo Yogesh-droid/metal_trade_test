@@ -7,7 +7,6 @@ import 'package:metaltrade/features/my_home/ui/widgets/app_dropdown_form.dart';
 import 'package:metaltrade/features/my_home/ui/widgets/sku_container.dart';
 import 'package:metaltrade/features/profile/ui/widgets/bordered_textfield.dart';
 import 'package:metaltrade/features/profile/ui/widgets/disabled_text_field.dart';
-import 'package:dotted_border/dotted_border.dart';
 
 class ItemListContainer extends StatefulWidget {
   const ItemListContainer(
@@ -42,70 +41,65 @@ class _ItemListContainerState extends State<ItemListContainer> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        DottedBorder(
-          color: Theme.of(context).colorScheme.outline,
-          padding: const EdgeInsets.all(appPadding),
-          borderPadding: const EdgeInsets.only(bottom: appPadding),
-          child: Column(
-            children: [
-              DisabledTextField(
-                onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (_) {
-                        return SkuContainer(onSelected: (value) {
-                          selectedSku = value;
-                          widget.onProductSelect(value);
-                          Navigator.pop(context);
-                          setState(() {});
-                        });
+        Column(
+          children: [
+            DisabledTextField(
+              onTap: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (_) {
+                      return SkuContainer(onSelected: (value) {
+                        selectedSku = value;
+                        widget.onProductSelect(value);
+                        Navigator.pop(context);
+                        setState(() {});
                       });
-                },
-                hintText: selectedSku.title ?? kItemName,
-                suffix: Icon(
-                  CupertinoIcons.chevron_down,
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                ),
+                    });
+              },
+              hintText: selectedSku.title ?? kItemName,
+              suffix: Icon(
+                CupertinoIcons.chevron_down,
+                color: Theme.of(context).colorScheme.primaryContainer,
               ),
-              const SizedBox(height: appPadding),
-              Row(
-                children: [
-                  Expanded(
-                      child: BorderedTextField(
-                    isObscureText: false,
-                    textEditingController: quantityController,
-                    radius: 4,
-                    hintText: kQuantity,
-                    textInputType: const TextInputType.numberWithOptions(),
-                    onDone: widget.onDone,
-                    focusNode: FocusNode(),
-                  )),
-                  const SizedBox(width: 5),
-                  Expanded(
-                      child: AppDropdownFormField(
-                    hintText: kUnit,
-                    items: const [
-                      DropdownMenuItem<String>(value: 'MT', child: Text("MT")),
-                      DropdownMenuItem<String>(value: 'T', child: Text("T")),
-                      DropdownMenuItem<String>(value: 'Kg', child: Text("KG")),
-                    ],
-                    onChange: widget.onChange,
-                  ))
-                ],
-              ),
-              const SizedBox(height: appPadding),
-              BorderedTextField(
-                isObscureText: false,
-                textEditingController: remarksController,
-                radius: 4,
-                hintText: kRemarks,
-                textInputType: TextInputType.text,
-                onDone: widget.onDone,
-                focusNode: FocusNode(),
-              ),
-              const SizedBox(height: appPadding * 2)
-            ],
-          ),
+            ),
+            const SizedBox(height: appPadding),
+            Row(
+              children: [
+                Expanded(
+                    child: BorderedTextField(
+                  isObscureText: false,
+                  textEditingController: quantityController,
+                  radius: 4,
+                  hintText: kQuantity,
+                  textInputType: const TextInputType.numberWithOptions(),
+                  onDone: widget.onDone,
+                  focusNode: FocusNode(),
+                )),
+                const SizedBox(width: 5),
+                Expanded(
+                    child: AppDropdownFormField(
+                  hintText: kUnit,
+                  items: const [
+                    DropdownMenuItem<String>(value: 'MT', child: Text("MT")),
+                    DropdownMenuItem<String>(value: 'T', child: Text("T")),
+                    DropdownMenuItem<String>(value: 'Kg', child: Text("KG")),
+                  ],
+                  onChange: widget.onChange,
+                ))
+              ],
+            ),
+            const SizedBox(height: appPadding),
+            BorderedTextField(
+              isObscureText: false,
+              textEditingController: remarksController,
+              radius: 4,
+              hintText: kRemarks,
+              textInputType: TextInputType.text,
+              onDone: widget.onDone,
+              focusNode: FocusNode(),
+            ),
+            const SizedBox(height: appPadding * 2)
+          ],
         ),
         Positioned(
             right: 0,

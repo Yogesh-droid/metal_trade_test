@@ -17,38 +17,12 @@ import '../widgets/chat_list.dart';
 const String EVENT = "CHAT PAGE EVENT";
 
 class ChatTestPage extends StatefulWidget {
-  const ChatTestPage({super.key});
+  const ChatTestPage({super.key, required this.recepentId});
+  final int recepentId;
 
   @override
   State<ChatTestPage> createState() => _ChatTestPageState();
 }
-
-/* final stompClient = StompClient(
-  config: StompConfig(
-      url: 'wss://api.metaltrade.io/ws',
-      onConnect: onConnect,
-      beforeConnect: () async {
-        log("Stomp Server Connecting", name: EVENT);
-      },
-      onWebSocketError: (dynamic error) => log('', error: error.toString()),
-      stompConnectHeaders: {
-        'Authorization': 'Bearer ${LocalStorage.instance.token}'
-      },
-      webSocketConnectHeaders: {
-        'Authorization': 'Bearer ${LocalStorage.instance.token}'
-      }),
-);
-
-void onConnect(StompFrame frame) {
-  stompClient.subscribe(
-    destination: '/company/1/queue/messages',
-    headers: {"Accept-Encoding": "gzip"},
-    callback: (frame) {
-      List<dynamic>? result = json.decode(frame.body!);
-      log(result.toString(), name: EVENT);
-    },
-  );
-} */
 
 class _ChatTestPageState extends State<ChatTestPage> {
   late ChatBloc chatBloc;
@@ -56,6 +30,7 @@ class _ChatTestPageState extends State<ChatTestPage> {
   late String token;
   late StompClient? stompClient;
   late ProfileBloc profileBloc;
+  late int companyId;
 
   @override
   void initState() {
@@ -68,9 +43,7 @@ class _ChatTestPageState extends State<ChatTestPage> {
             config: StompConfig(
                 url: 'wss://api.metaltrade.io/ws',
                 onConnect: onConnect,
-                beforeConnect: () async {
-                  log("Stomp Server Connecting", name: EVENT);
-                },
+                beforeConnect: () async {},
                 onWebSocketError: (dynamic error) =>
                     log('', error: error.toString()),
                 stompConnectHeaders: {
@@ -131,7 +104,7 @@ class _ChatTestPageState extends State<ChatTestPage> {
                                 stompClient!.send(
                                   destination: '/mtp/chat',
                                   body: json.encode({
-                                    "senderCompanyId": 1,
+                                    "senderCompanyId": companyId,
                                     "recipientCompanyId": 1,
                                     "body": {
                                       "text":
@@ -140,9 +113,6 @@ class _ChatTestPageState extends State<ChatTestPage> {
                                   }),
                                 );
                               }
-                              // channel.sink.add(textEditingController.text);
-                              // chatBloc.add(ChatInitiateEvent(
-                              //     message: textEditingController.text, receiverId: 3));
                             },
                             icon: const Icon(Icons.send))
                       ],
@@ -165,6 +135,7 @@ class _ChatTestPageState extends State<ChatTestPage> {
       destination: '/company/1/queue/messages',
       headers: {"Accept-Encoding": "gzip"},
       callback: (frame) {
+        print(frame.body.toString());
         List<dynamic>? result = json.decode(frame.body!);
         log(result.toString(), name: EVENT);
       },
@@ -173,7 +144,6 @@ class _ChatTestPageState extends State<ChatTestPage> {
 
   @override
   void dispose() {
-    //channel.sink.close();
     super.dispose();
   }
 }

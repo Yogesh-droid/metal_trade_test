@@ -87,3 +87,4 @@ const String kView = "View";
 const String kQuote = "Quote";
 const String kCloseRfq = "Close RFQ";
 const String kRemarks = "Remarks";
+const String kChats = "Chats";

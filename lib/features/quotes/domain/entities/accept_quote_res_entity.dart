@@ -1,5 +1,4 @@
 import '../../../rfq/data/models/rfq_enquiry_model.dart';
-import '../../data/models/quote_res_model.dart';
 
 class AcceptQuoteResEntity {
   final String? lastModifiedDate;

@@ -34,8 +34,11 @@ class EnquiryCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text(DateFormat('hh:mm a')
-                  .format(DateTime.parse(content.lastModifiedDate!))),
+              Text(
+                  DateFormat('hh:mm a')
+                      .format(DateTime.parse(content.lastModifiedDate!)),
+                  style: secMed12.copyWith(
+                      color: Theme.of(context).colorScheme.secondary)),
               const SizedBox(width: appPadding),
               Icon(
                 content.status == "Seen" ? Icons.done_all : Icons.check,

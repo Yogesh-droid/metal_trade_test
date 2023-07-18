@@ -74,7 +74,7 @@ class _BuyerRfqPageState extends State<BuyerRfqPage> {
                                           page: 0));
                                   context.pushNamed(chatPageName,
                                       queryParameters: {
-                                        "id": e.enquiryCompany!.id!
+                                        "id": e.enquiryCompany!.id!.toString()
                                       });
                                 },
                                 onFilledBtnTapped: () {

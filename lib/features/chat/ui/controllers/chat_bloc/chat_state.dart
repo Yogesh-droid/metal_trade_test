@@ -42,3 +42,5 @@ class PreviousChatFailed extends ChatState {
 
   PreviousChatFailed(this.exception);
 }
+
+class PreviousChatLoading extends ChatState {}

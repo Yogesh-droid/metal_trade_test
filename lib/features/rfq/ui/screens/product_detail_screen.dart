@@ -7,62 +7,74 @@ import '../../../../core/constants/text_tyles.dart';
 import '../../../landing/ui/widgets/get_started_btn.dart';
 import '../../data/models/rfq_enquiry_model.dart';
 
-class ProductDetailScreen extends StatelessWidget {
+class ProductDetailScreen extends StatefulWidget {
   const ProductDetailScreen({super.key, required this.item});
   final Content item;
+
+  @override
+  State<ProductDetailScreen> createState() => _ProductDetailScreenState();
+}
+
+class _ProductDetailScreenState extends State<ProductDetailScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController tabController;
+  @override
+  void initState() {
+    tabController = TabController(length: 2, vsync: this);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
         appBar: const ContextMenuAppBar(title: kEnquiryDetail),
-        body: SingleChildScrollView(
-            child: Container(
-          color: Theme.of(context).colorScheme.tertiaryContainer,
-          child: Padding(
-            padding: const EdgeInsets.all(appPadding),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              DateTime.tryParse(item.lastModifiedDate ?? '') != null
-                  ? Text(
-                      "$kPosted : ${DateFormat('dd MMM yyyy - hh:mm a').format(DateTime.tryParse(item.lastModifiedDate ?? '')!)}",
-                      style: secMed12.copyWith(
-                          color: Theme.of(context).colorScheme.secondary),
-                    )
-                  : const SizedBox(),
-              Text(
-                '${item.uuid ?? ''}, ${item.enquiryCompany!.country!.name ?? ''}',
-                style: secMed12.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface),
-              ),
-              const Divider(),
-              itemListWidget(context),
-              const SizedBox(height: appWidgetGap),
-              const Divider(),
-              termsRow(context, kPaymentTerms, item.paymentTerms),
-              const Divider(),
-              termsRow(context, kTransportTerms, item.transportationTerms),
-              const Divider(),
-              termsRow(context, kDeliveryTerms, item.deliveryTerms),
-              const SizedBox(height: appWidgetGap),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  OutlinedIconButtonWidget(
-                    icon: const Icon(Icons.add),
-                    title: kChat,
-                    onPressed: () {},
-                  ),
-                  const SizedBox(width: appPadding),
-                  FilledButtonWidget(
-                    title: kSubmit,
-                    onPressed: () {},
+        body: Padding(
+          padding: const EdgeInsets.all(appPadding),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            DateTime.tryParse(widget.item.lastModifiedDate ?? '') != null
+                ? Text(
+                    "$kPosted : ${DateFormat('dd MMM yyyy - hh:mm a').format(DateTime.tryParse(widget.item.lastModifiedDate ?? '')!)}",
+                    style: secMed12.copyWith(
+                        color: Theme.of(context).colorScheme.secondary),
                   )
-                ],
-              )
-            ]),
-          ),
-        )));
+                : const SizedBox(),
+            Text(
+              '${widget.item.uuid ?? ''}, ${widget.item.enquiryCompany!.country!.name ?? ''}',
+              style: secMed12.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface),
+            ),
+            const Divider(),
+            TabBar(
+                controller: tabController,
+                tabs: const [Tab(text: "Detail"), Tab(text: "Quote")]),
+            Expanded(
+              child: TabBarView(
+                  controller: tabController,
+                  children: [getProductDetail(widget.item), Container()]),
+            )
+          ]),
+        ));
+  }
+
+  Widget getProductDetail(Content item) {
+    return Column(children: [
+      itemListWidget(context),
+      const SizedBox(height: appWidgetGap),
+      const Divider(),
+      termsRow(context, kPaymentTerms, item.paymentTerms),
+      const Divider(),
+      termsRow(context, kTransportTerms, item.transportationTerms),
+      const Divider(),
+      termsRow(context, kDeliveryTerms, item.deliveryTerms),
+      const SizedBox(height: appWidgetGap),
+      OutlinedIconButtonWidget(
+          width: MediaQuery.of(context).size.width,
+          title: kCloseRfq,
+          onPressed: () {},
+          icon: const Icon(Icons.add))
+    ]);
   }
 
   Widget itemListWidget(BuildContext context) {
@@ -76,7 +88,7 @@ class ProductDetailScreen extends StatelessWidget {
                   .textTheme
                   .labelSmall!
                   .copyWith(color: Theme.of(context).colorScheme.secondary)),
-          getItemListTile(context, item.item!),
+          getItemListTile(context, widget.item.item!),
         ],
       ),
     );
@@ -115,7 +127,13 @@ class ProductDetailScreen extends StatelessWidget {
         style: secMed14.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant),
       ),
-      Text(terms ?? '')
+      Container(
+          alignment: Alignment.centerRight,
+          width: MediaQuery.of(context).size.width / 2,
+          child: Text(
+            terms ?? '',
+            textAlign: TextAlign.end,
+          ))
     ]);
   }
 }

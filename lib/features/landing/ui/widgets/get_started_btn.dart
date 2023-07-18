@@ -56,8 +56,11 @@ class OutlinedIconButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton.icon(
-        onPressed: onPressed, icon: icon, label: Text(title));
+    return SizedBox(
+      width: width,
+      child: OutlinedButton.icon(
+          onPressed: onPressed, icon: icon, label: Text(title)),
+    );
   }
 }
 

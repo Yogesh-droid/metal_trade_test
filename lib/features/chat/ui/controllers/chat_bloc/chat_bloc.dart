@@ -21,6 +21,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     on<ChatEvent>((event, emit) async {
       if (event is GetPreviousChatEvent) {
+        emit(PreviousChatLoading());
         try {
           String url = '';
           if (event.chatType == ChatType.enquiry.name) {
@@ -34,11 +35,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           if (dataState.data != null) {
             emit(PreviousChatLoaded(chatList: dataState.data!.content!));
           } else {
-            print(dataState.exception);
             emit(PreviousChatFailed(Exception(dataState.exception)));
           }
         } on Exception catch (e) {
-          print(e.toString());
           emit(PreviousChatFailed(e));
         }
       }

@@ -5,6 +5,7 @@ import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/core/routes/routes.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
+import 'package:metaltrade/features/rfq/ui/widgets/quote_list_item.dart';
 import '../../data/models/rfq_enquiry_model.dart';
 import 'package:intl/intl.dart';
 
@@ -128,7 +129,7 @@ class HomePageQuoteCard extends StatelessWidget {
                   .textTheme
                   .labelSmall!
                   .copyWith(color: Theme.of(context).colorScheme.secondary)),
-          getItemListTile(itemList![0], context),
+          QuoteListItem(item: itemList![0]),
           if (itemList!.length > 1)
             TextButton(
                 onPressed: () {

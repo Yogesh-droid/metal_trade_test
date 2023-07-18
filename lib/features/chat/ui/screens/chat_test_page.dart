@@ -37,6 +37,7 @@ class _ChatTestPageState extends State<ChatTestPage> {
     token = LocalStorage.instance.token ?? '';
     profileBloc = context.read<ProfileBloc>();
     profileBloc.stream.listen((state) {
+      print(state);
       if (state is ProfileSuccessState) {
         if (state.profileEntity.company != null) {
           stompClient = StompClient(
@@ -75,7 +76,6 @@ class _ChatTestPageState extends State<ChatTestPage> {
                 children: [
                   BlocBuilder<ChatBloc, ChatState>(
                     builder: (context, state) {
-                      print(state);
                       if (state is PreviousChatLoaded) {
                         return Expanded(
                             child: ChatList(chatList: state.chatList));
@@ -135,7 +135,6 @@ class _ChatTestPageState extends State<ChatTestPage> {
       destination: '/company/1/queue/messages',
       headers: {"Accept-Encoding": "gzip"},
       callback: (frame) {
-        print(frame.body.toString());
         List<dynamic>? result = json.decode(frame.body!);
         log(result.toString(), name: EVENT);
       },

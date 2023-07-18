@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
-import 'package:metaltrade/core/routes/routes.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
+
 import '../../data/models/rfq_enquiry_model.dart';
-import 'package:intl/intl.dart';
 
 class HomePageCard extends StatelessWidget {
   const HomePageCard(
@@ -18,13 +17,15 @@ class HomePageCard extends StatelessWidget {
       required this.onBorderedBtnTapped,
       required this.onFilledBtnTapped,
       required this.borderedBtnTitle,
-      required this.filledBtnTitle});
+      required this.filledBtnTitle,
+      this.onDetailTapped});
   final Content? content;
   final List<Item>? itemList;
   final String? uuid;
   final String? country;
   final Function()? onBorderedBtnTapped;
   final Function()? onFilledBtnTapped;
+  final Function()? onDetailTapped;
   final String? borderedBtnTitle;
   final String? filledBtnTitle;
 
@@ -51,10 +52,7 @@ class HomePageCard extends StatelessWidget {
                     : const SizedBox(),
                 IconButton(
                   icon: const Icon(Icons.arrow_right),
-                  onPressed: () {
-                    context.pushNamed(productDetailPageRouteName,
-                        extra: content);
-                  },
+                  onPressed: onDetailTapped,
                 )
               ],
             ),
@@ -128,9 +126,7 @@ class HomePageCard extends StatelessWidget {
           getItemListTile(itemList![0], context),
           if (itemList!.length > 1)
             TextButton(
-                onPressed: () {
-                  context.pushNamed(productDetailPageRouteName, extra: content);
-                },
+                onPressed: onDetailTapped,
                 child: Text("+ ${itemList!.length - 1} more"))
         ],
       ),

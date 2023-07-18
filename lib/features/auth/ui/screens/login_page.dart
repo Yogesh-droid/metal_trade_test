@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             const SizedBox(height: appWidgetGap * 1.5),
             Image.asset(
-              Assets.assetsWelcomeAppIcon,
+              Assets.assetsWelcomeMetalTradeLogo,
               height: 100,
               width: 100,
             ),
@@ -64,6 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Expanded(
                       child: FilledTextFieldWidget(
+                    textInputType: TextInputType.phone,
                     textEditingController: phoneNoController,
                     prefix: CountryChooserIconBtn(countryList: _countryList),
                   ))

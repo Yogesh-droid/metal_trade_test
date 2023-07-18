@@ -47,25 +47,42 @@ class _ChatHomePageState extends State<ChatHomePage> {
         body: SingleChildScrollView(
           controller: scrollController,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              BlocBuilder<ChatHomeBloc, ChatHomeState>(
-                  builder: (context, state) {
-                if (state is ChatHomeInitial) {
-                  return const Center(child: LoadingDots());
-                }
-                if (state is ChatHomeListFetched) {
-                  return ListView(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: chatHomeBloc.chatList
-                        .map((e) => BlocListener<ChatBloc, ChatState>(
-                              listener: (context, state) {
-                                if (state is PreviousChatLoaded) {
-                                  context.pushNamed(chatPageName,
-                                      queryParameters: {"id": "1"});
-                                }
-                              },
-                              child: ListTile(
+              BlocListener<ChatBloc, ChatState>(
+                listener: (context, state) {
+                  if (state is PreviousChatLoaded) {
+                    context.pop();
+                    context
+                        .pushNamed(chatPageName, queryParameters: {"id": "1"});
+                  }
+                  if (state is PreviousChatLoading) {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const Dialog.fullscreen(
+                              backgroundColor: Colors.transparent,
+                              child: LoadingDots());
+                        });
+                  }
+                },
+                child: BlocBuilder<ChatHomeBloc, ChatHomeState>(
+                    builder: (context, state) {
+                  if (state is ChatHomeInitial) {
+                    return const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 400),
+                        Center(child: LoadingDots()),
+                      ],
+                    );
+                  }
+                  if (state is ChatHomeListFetched) {
+                    return ListView(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: chatHomeBloc.chatList
+                          .map((e) => ListTile(
                                 onTap: () {
                                   context.read<ChatBloc>().add(
                                       GetPreviousChatEvent(
@@ -78,14 +95,14 @@ class _ChatHomePageState extends State<ChatHomePage> {
                                 leading: CircleAvatar(
                                     radius: 20,
                                     child: Text(e.enquiryId.toString())),
-                              ),
-                            ))
-                        .toList(),
-                  );
-                } else {
-                  return const Center(child: Text("Some Error"));
-                }
-              }),
+                              ))
+                          .toList(),
+                    );
+                  } else {
+                    return const Center(child: Text("Some Error"));
+                  }
+                }),
+              ),
               if (loadMore) const SizedBox(height: 100, child: LoadingDots())
             ],
           ),

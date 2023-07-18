@@ -6,6 +6,7 @@ import 'package:metaltrade/features/chat/ui/screens/chat_test_page.dart';
 import 'package:metaltrade/features/landing/ui/screens/landing_page.dart';
 import 'package:metaltrade/features/profile/ui/screens/kyc_screen.dart';
 import 'package:metaltrade/features/profile/ui/screens/profile_screen.dart';
+import 'package:metaltrade/features/rfq/ui/screens/my_enquiry_detail.dart';
 import 'package:metaltrade/features/rfq/ui/screens/my_quote_page.dart';
 import 'package:metaltrade/features/rfq/ui/screens/submit_quote_screen.dart';
 import '../../features/dashboard/ui/screens/dashboard.dart';
@@ -34,6 +35,8 @@ const String chatPageRoute = "/chatPage";
 const String chatPageName = "ChatPageName";
 const String myQuotePageScreenName = "MyQuotePageRouteName";
 const String myQuotePageRoute = "/myQuotePageRoute";
+const String myEnqiryDetailPageName = "MyEnquiryDetailsPage";
+const String myEnquiryPageRoute = "/myEnuiryPageRoute";
 
 final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
   GoRoute(
@@ -115,6 +118,16 @@ final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
     pageBuilder: (context, state) {
       return getTransition(
           child: ProductDetailScreen(item: state.extra as Content),
+          animationType: TransitionType.slide,
+          duration: const Duration(milliseconds: 200));
+    },
+  ),
+  GoRoute(
+    path: myEnquiryPageRoute,
+    name: myEnqiryDetailPageName,
+    pageBuilder: (context, state) {
+      return getTransition(
+          child: MyEnquiryDetail(item: state.extra as Content),
           animationType: TransitionType.slide,
           duration: const Duration(milliseconds: 200));
     },

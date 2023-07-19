@@ -16,3 +16,5 @@ class MyRfqFailedState extends MyRfqState {
 
   MyRfqFailedState({required this.exception});
 }
+
+class MyRfqLoadMore extends MyRfqState {}

@@ -17,7 +17,7 @@ class QuoteDetailCard extends StatelessWidget {
       this.onOutlinedBtnTapped,
       this.outlinedBtnText,
       this.lastDateModified});
-  final Item item;
+  final List<Item> item;
   final String uuid;
   final String? filledBtnText;
   final Function()? onFilledBtnTapped;
@@ -65,7 +65,8 @@ class QuoteDetailCard extends StatelessWidget {
         ),
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: appPadding),
-            child: QuoteListItem(item: item))
+            child: Column(
+                children: item.map((e) => QuoteListItem(item: e)).toList()))
       ]),
     );
   }

@@ -9,3 +9,5 @@ class GetMyRfqList extends MyRfqEvent {
 
   GetMyRfqList({this.status, required this.page});
 }
+
+class GetMyRfqLoadMore extends MyRfqEvent {}

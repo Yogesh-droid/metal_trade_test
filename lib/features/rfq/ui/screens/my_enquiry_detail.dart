@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:metaltrade/features/rfq/ui/controllers/quote_detail_list_bloc/quote_detail_list_bloc.dart';
 import 'package:metaltrade/features/rfq/ui/screens/quote_detail_screen.dart';
 import 'package:metaltrade/features/rfq/ui/widgets/enquiry_detail_heading.dart';
 import 'package:metaltrade/features/rfq/ui/widgets/enquiry_detail_list.dart';
@@ -22,6 +24,9 @@ class _MyEnquiryDetailState extends State<MyEnquiryDetail>
 
   @override
   void initState() {
+    context
+        .read<QuoteDetailListBloc>()
+        .add(GetQuoteDetailList(page: 0, enquiryId: widget.item.id!));
     tabController = TabController(length: 2, vsync: this);
     super.initState();
   }

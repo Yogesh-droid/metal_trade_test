@@ -32,12 +32,16 @@ import 'package:metaltrade/features/profile/ui/controllers/kyc_bloc/kyc_bloc.dar
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import 'package:metaltrade/features/quotes/domain/usecases/accept_quote_res_usecase.dart';
 import 'package:metaltrade/features/quotes/ui/controllers/accept_quote_bloc/accept_quote_bloc.dart';
+import 'package:metaltrade/features/rfq/data/repo/quote_detail_list_repo_impl.dart';
 import 'package:metaltrade/features/rfq/data/repo/rfq_enquiry_repo_impl.dart';
 import 'package:metaltrade/features/rfq/data/repo/submit_quote_repo_impl.dart';
+import 'package:metaltrade/features/rfq/domain/repo/quote_detail_list_repo.dart';
 import 'package:metaltrade/features/rfq/domain/repo/rfq_enquiry_repo.dart';
 import 'package:metaltrade/features/rfq/domain/repo/submit_quote_repo.dart';
+import 'package:metaltrade/features/rfq/domain/usecases/quote_detail_list_usecase.dart';
 import 'package:metaltrade/features/rfq/domain/usecases/rfq_usecase.dart';
 import 'package:metaltrade/features/rfq/domain/usecases/submit_quote_usecase.dart';
+import 'package:metaltrade/features/rfq/ui/controllers/quote_detail_list_bloc/quote_detail_list_bloc.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/rfq_buyer_enquiry_bloc/rfq_buyer_enquiry_bloc.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/rfq_seller_enquiry_bloc/rfq_seller_enquiry_bloc.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/submit_quote/submit_quote_bloc.dart';
@@ -166,4 +170,13 @@ void setup() {
   getIt.registerFactory<ChatHomeListUsecase>(
       () => ChatHomeListUsecase(chatHomeListRepo: getIt()));
   getIt.registerFactory<ChatHomeBloc>(() => ChatHomeBloc(getIt()));
+
+  // set up for quote list on enquiry detail //
+
+  getIt.registerFactory<QuoteDetailListRepo>(
+      () => QuoteDetailListRepoImpl(networkManager: getIt()));
+  getIt.registerFactory<QuoteDetailListUsecase>(
+      () => QuoteDetailListUsecase(quoteDetailListRepo: getIt()));
+  getIt
+      .registerFactory<QuoteDetailListBloc>(() => QuoteDetailListBloc(getIt()));
 }

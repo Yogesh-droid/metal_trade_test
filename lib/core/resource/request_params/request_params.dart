@@ -12,12 +12,8 @@ class RequestParams {
 
 enum ApiMethods { get, post, delete, put, patch }
 
-// Map<String, String> header = {
-//   "Authorization": "Bearer ${LocalStorage.instance.token}",
-//   "Content-Type": "application/json",
-// };
-
 Map<String, String> header = {
   "Authorization": "Bearer ${LocalStorage.instance.token}",
   "Content-Type": "application/json",
+  "Accept-Encoding": "gzip"
 };

@@ -12,3 +12,7 @@ Command to check if flutter setup is ok:
 
 ``flutter doctor``
 
+Command to build the android apk:
+
+``flutter build apk --no-tree-shake-icons --release``
+

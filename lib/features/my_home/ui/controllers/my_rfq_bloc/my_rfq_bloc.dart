@@ -16,9 +16,6 @@ class MyRfqBloc extends Bloc<MyRfqEvent, MyRfqState> {
   bool isMyRfqListEnd = false;
   MyRfqBloc({required this.homePageEnquiryUsecase}) : super(MyRfqInitial()) {
     on<MyRfqEvent>((event, emit) async {
-      if (event is GetMyRfqLoadMore) {
-        emit(MyRfqLoadMore());
-      }
       if (event is GetMyRfqList) {
         String statusQuery = event.status != null
             ? event.status!.isNotEmpty
@@ -31,6 +28,9 @@ class MyRfqBloc extends Bloc<MyRfqEvent, MyRfqState> {
           }
           if (event.page == myRfqListPage) {
             myRfqList.clear();
+          }
+          if (event.isLoadMore) {
+            emit(MyRfqLoadMore());
           }
           final DataState<RfqEntity> dataState =
               await homePageEnquiryUsecase.call(RequestParams(

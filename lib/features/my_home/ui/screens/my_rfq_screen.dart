@@ -21,7 +21,6 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
   late ScrollController scrollController = ScrollController();
   late MyRfqBloc myRfqBloc;
   late FilterStatusCubit filterStatusCubit;
-  bool isLoadMore = false;
 
   @override
   void initState() {
@@ -31,15 +30,10 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
       if (scrollController.position.pixels ==
               scrollController.position.maxScrollExtent &&
           !myRfqBloc.isMyRfqListEnd) {
-        setState(() {
-          isLoadMore = true;
-        });
         myRfqBloc.add(GetMyRfqList(
             page: myRfqBloc.myRfqListPage + 1,
-            status: filterStatusCubit.statusList));
-        setState(() {
-          isLoadMore = false;
-        });
+            status: filterStatusCubit.statusList,
+            isLoadMore: true));
       }
     });
     super.initState();
@@ -57,11 +51,11 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
             BlocBuilder<MyRfqBloc, MyRfqState>(builder: (context, state) {
               if (state is MyRfqInitial) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (state is MyRfqFetchedState) {
+              } else if (state is MyRfqFetchedState || state is MyRfqLoadMore) {
                 return ListView(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  children: state.contentList
+                  children: myRfqBloc.myRfqList
                       .map((e) => HomePageCard(
                           content: e,
                           itemList: e.item,
@@ -82,10 +76,20 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
                       .toList(),
                 );
               } else {
-                return const Center(child: Text("Some Error"));
+                return const SizedBox();
               }
             }),
-            if (isLoadMore) const SizedBox(height: 100, child: LoadingDots())
+            SizedBox(
+              height: 100,
+              child: BlocBuilder<MyRfqBloc, MyRfqState>(
+                builder: (context, state) {
+                  if (state is MyRfqLoadMore) {
+                    return const LoadingDots();
+                  }
+                  return const SizedBox();
+                },
+              ),
+            )
           ],
         ),
       ),

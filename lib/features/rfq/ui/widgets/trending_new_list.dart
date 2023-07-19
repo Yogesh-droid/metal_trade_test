@@ -17,7 +17,7 @@ class TrendingNewsList extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             width: 60,
-            child: const Text(kTopNews, style: secMed14),
+            child: const Text(kNews, style: secMed14),
           ),
           Expanded(
             child: ListView(

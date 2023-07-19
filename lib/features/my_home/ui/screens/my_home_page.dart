@@ -29,7 +29,7 @@ class _MyHomePageState extends State<MyHomePage>
     myRfqBloc = context.read<MyRfqBloc>();
     myQuoteBloc = context.read<MyQuoteBloc>();
     _tabController = TabController(length: 3, vsync: this);
-    myRfqBloc.add(GetMyRfqList(page: 0));
+    myRfqBloc.add(GetMyRfqList(page: 0, isLoadMore: false));
     super.initState();
   }
 
@@ -55,7 +55,8 @@ class _MyHomePageState extends State<MyHomePage>
                   myRfqBloc.add(GetMyRfqList(
                       page:
                           0, // we are hitting page 0 to make load same page data with filters
-                      status: [EnquiryStatus.Active.name]));
+                      status: [EnquiryStatus.Active.name],
+                      isLoadMore: false));
                 }
               } else {
                 if (myQuoteBloc.myQuoteList.isEmpty &&

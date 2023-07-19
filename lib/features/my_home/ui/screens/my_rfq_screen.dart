@@ -18,7 +18,7 @@ class MyRfqScreen extends StatefulWidget {
 }
 
 class _MyRfqScreenState extends State<MyRfqScreen> {
-  late ScrollController scrollController = ScrollController();
+  ScrollController scrollController = ScrollController();
   late MyRfqBloc myRfqBloc;
   late FilterStatusCubit filterStatusCubit;
 

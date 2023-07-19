@@ -27,6 +27,9 @@ class QuoteDetailListBloc
           if (event.page == 0) {
             emit(QuoteDetailListInitial());
           }
+          if (event.isLoadMore) {
+            emit(QuoteDetailListLoadMore());
+          }
           DataState<RfqEntity> dataState = await quoteDetailListUsecase.call(
               RequestParams(
                   url:
@@ -38,6 +41,7 @@ class QuoteDetailListBloc
             contentList.addAll(dataState.data!.content!);
             quoteListPage = dataState.data!.number!;
             isQuoteListEnd = dataState.data!.last!;
+            emit(QuoteDetailListSuccess(contentList: contentList));
           } else {
             emit(QuoteDetailListFailed(dataState.exception!));
           }

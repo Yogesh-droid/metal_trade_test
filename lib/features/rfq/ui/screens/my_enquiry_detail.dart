@@ -24,9 +24,8 @@ class _MyEnquiryDetailState extends State<MyEnquiryDetail>
 
   @override
   void initState() {
-    context
-        .read<QuoteDetailListBloc>()
-        .add(GetQuoteDetailList(page: 0, enquiryId: widget.item.id!));
+    context.read<QuoteDetailListBloc>().add(GetQuoteDetailList(
+        page: 0, enquiryId: widget.item.id!, isLoadMore: false));
     tabController = TabController(length: 2, vsync: this);
     super.initState();
   }

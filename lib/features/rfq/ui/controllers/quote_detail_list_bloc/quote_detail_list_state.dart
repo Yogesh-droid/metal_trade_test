@@ -16,3 +16,5 @@ class QuoteDetailListFailed extends QuoteDetailListState {
 
   QuoteDetailListFailed(this.exception);
 }
+
+class QuoteDetailListLoadMore extends QuoteDetailListState {}

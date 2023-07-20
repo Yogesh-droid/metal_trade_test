@@ -62,14 +62,16 @@ class Item {
   int? quantity;
   String? quantityUnit;
   String? remarks;
+  double? price;
   Country? sku;
 
-  Item({this.quantity, this.quantityUnit, this.remarks, this.sku});
+  Item({this.quantity, this.quantityUnit, this.remarks, this.sku, this.price});
 
   Item.fromJson(Map<String, dynamic> json) {
     quantity = json['quantity'];
     quantityUnit = json['quantityUnit'];
     remarks = json['remarks'];
+    price = json['price'];
     sku = json['sku'] != null ? Country.fromJson(json['sku']) : null;
   }
 
@@ -78,6 +80,7 @@ class Item {
     data['quantity'] = quantity;
     data['quantityUnit'] = quantityUnit;
     data['remarks'] = remarks;
+    data["price"] = price;
     if (sku != null) {
       data['sku'] = sku!.toJson();
     }

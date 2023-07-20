@@ -8,6 +8,7 @@ import 'package:metaltrade/core/routes/routes.dart';
 import 'package:metaltrade/features/my_home/data/models/post_enquiry_req_model.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_quote_bloc/my_quote_bloc.dart';
 import 'package:metaltrade/features/rfq/data/models/rfq_enquiry_model.dart';
+import 'package:metaltrade/features/rfq/ui/controllers/select_product_to_quote_cubit/select_product_to_quote_cubit.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/submit_quote/submit_quote_bloc.dart';
 import 'package:metaltrade/features/rfq/ui/widgets/item_container.dart';
 import 'package:metaltrade/features/rfq/ui/widgets/total_price_box.dart';
@@ -21,14 +22,15 @@ class SubmitQuoteScreen extends StatefulWidget {
 }
 
 class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
+  late final SelectProductToQuoteCubit selectProductToQuoteCubit;
   late Content content;
-  List<int> selectedIndex = [];
-  double totalPrice = 0;
+  // List<int> selectedIndex = [];
   late SubmitQuoteBloc submitQuoteBloc;
 
   @override
   void initState() {
     submitQuoteBloc = context.read<SubmitQuoteBloc>();
+    selectProductToQuoteCubit = context.read<SelectProductToQuoteCubit>();
     content = widget.content;
     super.initState();
   }
@@ -36,59 +38,73 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ContextMenuAppBar(title: kSubmitQuote, subtitle: content.uuid),
-      body: SingleChildScrollView(
-        child: _buildPanel(),
-      ),
-      floatingActionButton: selectedIndex.isNotEmpty
-          ? BlocListener<SubmitQuoteBloc, SubmitQuoteState>(
-              listener: (context, state) {
-                if (state is SubmitQuoteSuccessful) {
-                  context.read<MyQuoteBloc>().add(GetQuoteList(
-                      page: 0, status: const [], isLoadMore: false));
-                  context.pushNamed(myQuotePageScreenName);
-                }
-              },
-              child: TotalPriceBox(
-                  onPressed: () {
-                    List<Map<String, dynamic>> selectedItems = [];
-                    Map<String, dynamic> submitQuote = {};
-                    for (var element in content.item!) {
-                      if (selectedIndex.contains(element.id)) {
-                        selectedItems.add({
-                          "quantity": element.quantity,
-                          "quantityUnit": element.quantityUnit,
-                          "price": element.price,
-                          "remarks": element.remarks,
-                          "sku": {"id": element.sku!.id}
-                        });
+        appBar: ContextMenuAppBar(title: kSubmitQuote, subtitle: content.uuid),
+        body: SingleChildScrollView(
+          child: _buildPanel(),
+        ),
+        floatingActionButton:
+            BlocBuilder<SelectProductToQuoteCubit, SelectProductToQuoteState>(
+          builder: (context, state) {
+            return selectProductToQuoteCubit.selectedIndex.isNotEmpty
+                ? BlocListener<SubmitQuoteBloc, SubmitQuoteState>(
+                    listener: (context, state) {
+                      if (state is SubmitQuoteSuccessful) {
+                        context.read<MyQuoteBloc>().add(GetQuoteList(
+                            page: 0, status: const [], isLoadMore: false));
+                        context.pushNamed(myQuotePageScreenName);
                       }
-                      submitQuote['transportationTerms'] =
-                          content.transportationTerms;
-                      submitQuote['paymentTerms'] = content.paymentTerms;
-                      submitQuote['deliveryTerms'] = content.deliveryTerms;
-                      submitQuote['item'] = selectedItems;
-                    }
-                    final PostEnquiryModel postEnquiryModel =
-                        PostEnquiryModel.fromJson(submitQuote);
-
-                    submitQuoteBloc.add(SubmitQuote(
-                        postEnquiryModel: postEnquiryModel,
-                        quoteId: content.id!));
-                  },
-                  price: totalPrice),
-            )
-          : const SizedBox(),
-    );
+                    },
+                    child: TotalPriceBox(
+                        onPressed: () {
+                          if (selectProductToQuoteCubit.price == 0) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text("Please add valid price")));
+                            return;
+                          }
+                          List<Map<String, dynamic>> selectedItems = [];
+                          Map<String, dynamic> submitQuote = {};
+                          for (var element in content.item!) {
+                            if (selectProductToQuoteCubit.selectedIndex
+                                .contains(element.id)) {
+                              selectedItems.add({
+                                "quantity": element.quantity,
+                                "quantityUnit": element.quantityUnit,
+                                "price": element.price,
+                                "remarks": element.remarks,
+                                "sku": {"id": element.sku!.id}
+                              });
+                            }
+                            submitQuote['transportationTerms'] =
+                                content.transportationTerms;
+                            submitQuote['paymentTerms'] = content.paymentTerms;
+                            submitQuote['deliveryTerms'] =
+                                content.deliveryTerms;
+                            submitQuote['item'] = selectedItems;
+                          }
+                          final PostEnquiryModel postEnquiryModel =
+                              PostEnquiryModel.fromJson(submitQuote);
+                          print(postEnquiryModel.toJson());
+                          // submitQuoteBloc.add(SubmitQuote(
+                          //     postEnquiryModel: postEnquiryModel,
+                          //     quoteId: content.id!));
+                        },
+                        price: selectProductToQuoteCubit.price))
+                : const SizedBox();
+          },
+        ));
   }
 
   Widget _buildPanel() {
     return Column(
       children: content.item!
           .map((e) => AnimatedSize(
-                duration: const Duration(milliseconds: 500),
-                child: selectedIndex.contains(e.id)
-                    ? ItemContainer(
+              duration: const Duration(milliseconds: 500),
+              child: BlocBuilder<SelectProductToQuoteCubit,
+                  SelectProductToQuoteState>(
+                builder: (context, state) {
+                  if (selectProductToQuoteCubit.selectedIndex.contains(e.id)) {
+                    return ItemContainer(
                         item: e,
                         onPriceChange: (value) {
                           if (value.isNotEmpty) {
@@ -96,8 +112,10 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
                                 .where((element) => element.id == e.id)
                                 .first
                                 .price = double.parse(value);
-                            totalPrice += double.parse(value);
-                            setState(() {});
+
+                            selectProductToQuoteCubit.changePrice(
+                                selectProductToQuoteCubit.quantity *
+                                    double.parse(value));
                           }
                         },
                         onQuantityChange: (value) {
@@ -105,16 +123,17 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
                               .where((element) => element.id == e.id)
                               .first
                               .quantity = int.parse(value);
+
+                          if (value.isNotEmpty) {
+                            selectProductToQuoteCubit
+                                .changeQuantity(int.parse(value));
+                          }
                         },
                         onChange: (value) {
-                          setState(() {
-                            selectedIndex.contains(e.id)
-                                ? selectedIndex.remove(e.id)
-                                : selectedIndex.add(e.id!);
-                            totalPrice -= (e.price! * e.quantity!);
-                          });
-                        })
-                    : CheckboxListTile(
+                          selectProductToQuoteCubit.selectItem(e.id ?? 0, e);
+                        });
+                  } else {
+                    return CheckboxListTile(
                         title: Text(e.sku!.title ?? '',
                             style:
                                 secMed14.copyWith(fontWeight: FontWeight.w700)),
@@ -125,14 +144,11 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
                         ),
                         value: false,
                         onChanged: (value) {
-                          setState(() {
-                            selectedIndex.contains(e.id)
-                                ? selectedIndex.remove(e.id)
-                                : selectedIndex.add(e.id!);
-                            totalPrice += (e.price! * e.quantity!);
-                          });
-                        }),
-              ))
+                          selectProductToQuoteCubit.selectItem(e.id ?? 0, e);
+                        });
+                  }
+                },
+              )))
           .toList(),
     );
   }

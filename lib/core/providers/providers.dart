@@ -7,6 +7,7 @@ import 'package:metaltrade/features/my_home/ui/controllers/quote_filter_cubit/qu
 import 'package:metaltrade/features/news/ui/controllers/news_filter_status_cubit/news_filter_status_cubit.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/rfq_buyer_enquiry_bloc/rfq_buyer_enquiry_bloc.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/rfq_seller_enquiry_bloc/rfq_seller_enquiry_bloc.dart';
+import 'package:metaltrade/features/rfq/ui/controllers/select_product_to_quote_cubit/select_product_to_quote_cubit.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/submit_quote/submit_quote_bloc.dart';
 import '../../features/auth/data/models/country_code_model.dart';
 import '../../features/auth/ui/controllers/country_code_controller.dart';
@@ -52,6 +53,7 @@ class AppBlocProviders {
         BlocProvider<SubmitQuoteBloc>(create: (_) => getIt()),
         BlocProvider(create: (_) => QuoteFilterCubit()),
         BlocProvider<ChatHomeBloc>(create: (_) => getIt()),
-        BlocProvider<QuoteDetailListBloc>(create: (_) => getIt())
+        BlocProvider<QuoteDetailListBloc>(create: (_) => getIt()),
+        BlocProvider(create: (_) => SelectProductToQuoteCubit())
       ];
 }

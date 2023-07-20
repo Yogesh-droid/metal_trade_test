@@ -39,6 +39,7 @@ const String kShowLess = "Show less";
 const String kClose = "Close";
 const String kReopen = "Reopen";
 const String kViewQuotes = "View Quote(s)";
+const String kQuoteDetails = "Quote Details";
 const String kBuy = "Buy";
 const String kSell = "Sell";
 const String kEnquiryType = "Enquiry Type";

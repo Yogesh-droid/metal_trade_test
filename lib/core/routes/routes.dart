@@ -6,14 +6,14 @@ import 'package:metaltrade/features/chat/ui/screens/chat_test_page.dart';
 import 'package:metaltrade/features/landing/ui/screens/landing_page.dart';
 import 'package:metaltrade/features/profile/ui/screens/kyc_screen.dart';
 import 'package:metaltrade/features/profile/ui/screens/profile_screen.dart';
-import 'package:metaltrade/features/rfq/ui/screens/my_enquiry_detail.dart';
-import 'package:metaltrade/features/rfq/ui/screens/my_quote_page.dart';
+import 'package:metaltrade/features/my_home/ui/screens/my_enquiry_detail.dart';
+import 'package:metaltrade/features/my_home/ui/screens/my_quote_page.dart';
+import 'package:metaltrade/features/rfq/ui/screens/rfq_detail_page.dart';
 import 'package:metaltrade/features/rfq/ui/screens/submit_quote_screen.dart';
 import '../../features/dashboard/ui/screens/dashboard.dart';
 import '../../features/my_home/ui/screens/create_enquiry_screen.dart';
 import '../../features/onboarding/screens/welcome_page.dart';
 import '../../features/rfq/data/models/rfq_enquiry_model.dart';
-import '../../features/rfq/ui/screens/product_detail_screen.dart';
 
 const String welcomePageRoute = '/';
 const String landingPageRoute = '/landingPage';
@@ -27,8 +27,8 @@ const String profilePageRoute = '/profilePageRoute';
 const String profilePageName = 'ProfilePageName';
 const String kycPageName = 'KycPageName';
 const String kycPageRoute = '/kycPageRoute';
-const String productDetailPageRoute = "/productDetailPageRoute";
-const String productDetailPageRouteName = "ProductDetailPageRouteName";
+const String enquiryDetailPageRoute = "/enquiryDetailPageRoute";
+const String enquiryDetailPageName = "EnquiryDEtailPageName";
 const String submitQuotePageName = "SubmitQuotePageName";
 const String submitQuotePageRoute = "/submitQuotePage";
 const String chatPageRoute = "/chatPage";
@@ -113,11 +113,11 @@ final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
     },
   ),
   GoRoute(
-    path: productDetailPageRoute,
-    name: productDetailPageRouteName,
+    path: enquiryDetailPageRoute,
+    name: enquiryDetailPageName,
     pageBuilder: (context, state) {
       return getTransition(
-          child: ProductDetailScreen(item: state.extra as Content),
+          child: RfqDetailPage(content: state.extra as Content),
           animationType: TransitionType.slide,
           duration: const Duration(milliseconds: 200));
     },

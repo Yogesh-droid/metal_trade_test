@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:metaltrade/features/rfq/ui/controllers/quote_detail_list_bloc/quote_detail_list_bloc.dart';
-import 'package:metaltrade/features/rfq/ui/screens/quote_detail_screen.dart';
+import 'package:metaltrade/features/my_home/ui/screens/quote_detail_screen.dart';
 import 'package:metaltrade/features/rfq/ui/widgets/enquiry_detail_heading.dart';
 import 'package:metaltrade/features/rfq/ui/widgets/enquiry_detail_list.dart';
 
 import '../../../../core/constants/app_widgets/context_menu_app_bar.dart';
 import '../../../../core/constants/spaces.dart';
 import '../../../../core/constants/strings.dart';
-import '../../data/models/rfq_enquiry_model.dart';
+import '../controllers/quote_detail_list_bloc/quote_detail_list_bloc.dart';
+import '../../../rfq/data/models/rfq_enquiry_model.dart';
 
 class MyEnquiryDetail extends StatefulWidget {
   const MyEnquiryDetail({super.key, required this.item});

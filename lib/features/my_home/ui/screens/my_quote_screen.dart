@@ -6,7 +6,7 @@ import 'package:metaltrade/features/my_home/ui/controllers/quote_filter_cubit/qu
 import 'package:metaltrade/features/my_home/ui/widgets/quote_filters.dart';
 
 import '../../../../core/constants/app_widgets/loading_dots.dart';
-import '../../../rfq/ui/widgets/quote_card.dart';
+import '../widgets/quote_card.dart';
 
 class MyQuoteScreen extends StatefulWidget {
   const MyQuoteScreen({super.key});
@@ -30,15 +30,10 @@ class _MyQuoteScreenState extends State<MyQuoteScreen> {
       if (scrollController.position.pixels ==
               scrollController.position.maxScrollExtent &&
           !myQuoteBloc.isMyQuoteListEnd) {
-        setState(() {
-          isLoadMore = true;
-        });
         myQuoteBloc.add(GetQuoteList(
+            isLoadMore: true,
             page: myQuoteBloc.myQuoteListPage + 1,
             status: quoteFilterCubit.statusList));
-        setState(() {
-          isLoadMore = false;
-        });
       }
     });
     super.initState();
@@ -54,11 +49,12 @@ class _MyQuoteScreenState extends State<MyQuoteScreen> {
           BlocBuilder<MyQuoteBloc, MyQuoteState>(builder: (context, state) {
             if (state is MyQuoteInitial) {
               return const Center(child: CircularProgressIndicator());
-            } else if (state is MyQuoteFetchedState) {
+            } else if (state is MyQuoteFetchedState ||
+                state is MyQuoteLoadMore) {
               return ListView(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                children: state.contentList
+                children: myQuoteBloc.myQuoteList
                     .map((e) => HomePageQuoteCard(
                           content: e,
                           itemList: e.item,
@@ -76,7 +72,17 @@ class _MyQuoteScreenState extends State<MyQuoteScreen> {
               return const Center(child: Text("Some Error"));
             }
           }),
-          if (isLoadMore) const SizedBox(height: 100, child: LoadingDots())
+          SizedBox(
+            height: 100,
+            child: BlocBuilder<MyQuoteBloc, MyQuoteState>(
+              builder: (context, state) {
+                if (state is MyQuoteLoadMore) {
+                  return const LoadingDots();
+                }
+                return const SizedBox();
+              },
+            ),
+          )
         ],
       ),
     );

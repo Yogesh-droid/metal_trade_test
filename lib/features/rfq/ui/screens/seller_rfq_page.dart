@@ -50,35 +50,39 @@ class _SellerRfqPageState extends State<SellerRfqPage> {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is RfqSellerEnquiryFetchedState ||
                   state is RfqSellerEnquiryLoadMore) {
-                return Stack(
+                return Column(
                   children: [
-                    ListView(
-                      controller: scrollController,
-                      shrinkWrap: true,
-                      children: homePageSellerEnquiryBloc.sellerRfqList
-                          .map((e) => HomePageCard(
-                                content: e,
-                                itemList: e.item,
-                                country: e.enquiryCompany!.country!.name,
-                                uuid: e.uuid,
-                                borderedBtnTitle: kChat,
-                                filledBtnTitle: "+ $kSubmitQuote",
-                                onBorderedBtnTapped: () {},
-                                onFilledBtnTapped: () {
-                                  context.pushNamed(submitQuotePageName,
-                                      extra: e);
-                                },
-                              ))
-                          .toList(),
+                    Expanded(
+                      child: ListView(
+                        controller: scrollController,
+                        shrinkWrap: true,
+                        children: homePageSellerEnquiryBloc.sellerRfqList
+                            .map((e) => HomePageCard(
+                                  content: e,
+                                  itemList: e.item,
+                                  country: e.enquiryCompany!.country!.name,
+                                  uuid: e.uuid,
+                                  borderedBtnTitle: kChat,
+                                  filledBtnTitle: "+ $kSubmitQuote",
+                                  onBorderedBtnTapped: () {},
+                                  onFilledBtnTapped: () {
+                                    context.pushNamed(submitQuotePageName,
+                                        extra: e);
+                                  },
+                                  onDetailTapped: () {
+                                    context.pushNamed(enquiryDetailPageName,
+                                        extra: e);
+                                  },
+                                ))
+                            .toList(),
+                      ),
                     ),
                     if (state is RfqSellerEnquiryLoadMore)
-                      Positioned(
-                          bottom: 0,
-                          child: Container(
-                              color: Theme.of(context).colorScheme.onPrimary,
-                              height: 50,
-                              width: MediaQuery.of(context).size.width,
-                              child: const LoadingDots())),
+                      Container(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          height: 50,
+                          width: MediaQuery.of(context).size.width,
+                          child: const LoadingDots()),
                   ],
                 );
               } else if (state is RfqSellerEnquiryFailed) {

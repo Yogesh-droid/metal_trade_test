@@ -4,7 +4,7 @@ import 'package:metaltrade/core/resource/network/network_manager.dart';
 import 'package:metaltrade/core/resource/request_params/request_params.dart';
 import 'package:metaltrade/features/rfq/data/models/rfq_enquiry_model.dart';
 import 'package:metaltrade/features/rfq/domain/entities/rfq_enquiry_entity.dart';
-import '../../domain/repo/quote_detail_list_repo.dart';
+import '../../../my_home/domain/repo/quote_detail_list_repo.dart';
 
 class QuoteDetailListRepoImpl implements QuoteDetailListRepo {
   final NetworkManager networkManager;

@@ -46,11 +46,12 @@ class EnquiryDetailList extends StatelessWidget {
                 ? Expanded(
                     child: OutlinedIconButtonWidget(
                         width: MediaQuery.of(context).size.width,
-                        title: kCloseRfq,
+                        title: outlinedButtonText ?? '',
                         onPressed: onOutlineTapped!,
                         icon: const Icon(Icons.add)),
                   )
                 : const SizedBox(),
+            const SizedBox(width: appPadding * 2),
             filledBtnText != null
                 ? Expanded(
                     child: FilledButtonWidget(

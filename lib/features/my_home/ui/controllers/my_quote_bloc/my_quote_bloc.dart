@@ -30,6 +30,9 @@ class MyQuoteBloc extends Bloc<MyQuoteEvent, MyQuoteState> {
           if (event.page == myQuoteListPage) {
             myQuoteList.clear();
           }
+          if (event.isLoadMore) {
+            emit(MyQuoteLoadMore());
+          }
           final DataState<RfqEntity> dataState =
               await homePageEnquiryUsecase.call(RequestParams(
                   url:

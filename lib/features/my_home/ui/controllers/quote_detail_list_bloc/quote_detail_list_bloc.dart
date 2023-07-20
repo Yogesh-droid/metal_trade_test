@@ -5,7 +5,7 @@ import 'package:metaltrade/core/resource/data_state/data_state.dart';
 import 'package:metaltrade/core/resource/request_params/request_params.dart';
 import 'package:metaltrade/features/rfq/data/models/rfq_enquiry_model.dart';
 import 'package:metaltrade/features/rfq/domain/entities/rfq_enquiry_entity.dart';
-import 'package:metaltrade/features/rfq/domain/usecases/quote_detail_list_usecase.dart';
+import 'package:metaltrade/features/my_home/domain/usecases/quote_detail_list_usecase.dart';
 
 part 'quote_detail_list_event.dart';
 part 'quote_detail_list_state.dart';

@@ -5,7 +5,6 @@ import 'package:metaltrade/features/my_home/ui/controllers/my_quote_bloc/my_quot
 import 'package:metaltrade/features/my_home/ui/controllers/my_rfq_bloc/my_rfq_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/quote_filter_cubit/quote_filter_cubit.dart';
 import 'package:metaltrade/features/news/ui/controllers/news_filter_status_cubit/news_filter_status_cubit.dart';
-import 'package:metaltrade/features/rfq/ui/controllers/quote_detail_list_bloc/quote_detail_list_bloc.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/rfq_buyer_enquiry_bloc/rfq_buyer_enquiry_bloc.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/rfq_seller_enquiry_bloc/rfq_seller_enquiry_bloc.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/submit_quote/submit_quote_bloc.dart';
@@ -17,6 +16,7 @@ import '../../features/chat/ui/controllers/chat_bloc/chat_bloc.dart';
 import '../../features/dashboard/ui/controllers/bottom_bar_controller_cubit.dart';
 import '../../features/my_home/ui/controllers/create_enquiry_bloc/create_enquiry_bloc.dart';
 import '../../features/my_home/ui/controllers/get_sku/get_sku_bloc.dart';
+import '../../features/my_home/ui/controllers/quote_detail_list_bloc/quote_detail_list_bloc.dart';
 import '../../features/news/ui/controllers/news_bloc/news_bloc.dart';
 import '../../features/profile/ui/controllers/country_cubit/country_cubit.dart';
 import '../../features/profile/ui/controllers/kyc_bloc/kyc_bloc.dart';

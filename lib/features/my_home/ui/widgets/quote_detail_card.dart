@@ -5,7 +5,8 @@ import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 import 'package:metaltrade/features/rfq/data/models/rfq_enquiry_model.dart';
-import 'package:metaltrade/features/rfq/ui/widgets/quote_list_item.dart';
+
+import 'quote_list_item.dart';
 
 class QuoteDetailCard extends StatelessWidget {
   const QuoteDetailCard(

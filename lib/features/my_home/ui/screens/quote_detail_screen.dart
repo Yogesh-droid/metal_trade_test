@@ -4,7 +4,7 @@ import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/features/rfq/data/models/rfq_enquiry_model.dart';
-import 'package:metaltrade/features/rfq/ui/widgets/quote_detail_card.dart';
+import 'package:metaltrade/features/my_home/ui/widgets/quote_detail_card.dart';
 
 import '../controllers/quote_detail_list_bloc/quote_detail_list_bloc.dart';
 
@@ -51,21 +51,25 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
                 }
                 if (state is QuoteDetailListSuccess ||
                     state is QuoteDetailListLoadMore) {
-                  return ListView.separated(
-                      physics: const NeverScrollableScrollPhysics(),
-                      separatorBuilder: (context, index) =>
-                          Container(height: appPadding),
-                      shrinkWrap: true,
-                      itemCount: quoteDetailListBloc.contentList.length,
-                      itemBuilder: (context, index) => QuoteDetailCard(
-                            item: quoteDetailListBloc.contentList[index].item!,
-                            uuid: widget.content.uuid!,
-                            lastDateModified: widget.content.lastModifiedDate,
-                            outlinedBtnText: kChat,
-                            onOutlinedBtnTapped: () {},
-                            filledBtnText: kAccept,
-                            onFilledBtnTapped: () {},
-                          ));
+                  return quoteDetailListBloc.contentList.isEmpty
+                      ? noItemCard()
+                      : ListView.separated(
+                          physics: const NeverScrollableScrollPhysics(),
+                          separatorBuilder: (context, index) =>
+                              Container(height: appPadding),
+                          shrinkWrap: true,
+                          itemCount: quoteDetailListBloc.contentList.length,
+                          itemBuilder: (context, index) => QuoteDetailCard(
+                                item: quoteDetailListBloc
+                                    .contentList[index].item!,
+                                uuid: widget.content.uuid!,
+                                lastDateModified:
+                                    widget.content.lastModifiedDate,
+                                outlinedBtnText: kChat,
+                                onOutlinedBtnTapped: () {},
+                                filledBtnText: kAccept,
+                                onFilledBtnTapped: () {},
+                              ));
                 }
                 if (state is QuoteDetailListFailed) {
                   return Center(child: Text(state.exception.toString()));
@@ -87,6 +91,18 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget noItemCard() {
+    return Card(
+      margin: const EdgeInsets.only(top: 70),
+      color: Theme.of(context).colorScheme.onPrimary,
+      child: Container(
+          alignment: Alignment.center,
+          height: MediaQuery.of(context).size.height - 400,
+          width: MediaQuery.of(context).size.width,
+          child: const Text("No Quote Yet", textAlign: TextAlign.center)),
     );
   }
 }

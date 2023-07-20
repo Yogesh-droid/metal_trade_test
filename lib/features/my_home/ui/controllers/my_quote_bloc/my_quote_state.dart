@@ -16,3 +16,5 @@ class MyQuoteFailedState extends MyQuoteState {
 
   MyQuoteFailedState({required this.exception});
 }
+
+class MyQuoteLoadMore extends MyQuoteState {}

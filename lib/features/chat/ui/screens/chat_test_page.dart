@@ -36,28 +36,26 @@ class _ChatTestPageState extends State<ChatTestPage> {
   void initState() {
     token = LocalStorage.instance.token ?? '';
     profileBloc = context.read<ProfileBloc>();
-    profileBloc.stream.listen((state) {
-      print(state);
-      if (state is ProfileSuccessState) {
-        if (state.profileEntity.company != null) {
-          stompClient = StompClient(
-            config: StompConfig(
-                url: 'wss://api.metaltrade.io/ws',
-                onConnect: onConnect,
-                beforeConnect: () async {},
-                onWebSocketError: (dynamic error) =>
-                    log('', error: error.toString()),
-                stompConnectHeaders: {
-                  'Authorization': 'Bearer ${LocalStorage.instance.token}'
-                },
-                webSocketConnectHeaders: {
-                  'Authorization': 'Bearer ${LocalStorage.instance.token}'
-                }),
-          );
-          stompClient!.activate();
-        }
+
+    if (profileBloc.state is ProfileSuccessState) {
+      if (profileBloc.profileEntity!.company != null) {
+        stompClient = StompClient(
+          config: StompConfig(
+              url: 'wss://api.metaltrade.io/ws',
+              onConnect: onConnect,
+              beforeConnect: () async {},
+              onWebSocketError: (dynamic error) =>
+                  log('', error: error.toString()),
+              stompConnectHeaders: {
+                'Authorization': 'Bearer ${LocalStorage.instance.token}'
+              },
+              webSocketConnectHeaders: {
+                'Authorization': 'Bearer ${LocalStorage.instance.token}'
+              }),
+        );
+        stompClient!.activate();
       }
-    });
+    }
     super.initState();
   }
 
@@ -84,7 +82,6 @@ class _ChatTestPageState extends State<ChatTestPage> {
                           child: Text("No Previous Chat Found"));
                     },
                   ),
-                  const Spacer(),
                   Container(
                     decoration: BoxDecoration(
                         border: Border.all(
@@ -135,7 +132,7 @@ class _ChatTestPageState extends State<ChatTestPage> {
       destination: '/company/1/queue/messages',
       headers: {"Accept-Encoding": "gzip"},
       callback: (frame) {
-        List<dynamic>? result = json.decode(frame.body!);
+        Map<String, dynamic> result = json.decode(frame.body!);
         log(result.toString(), name: EVENT);
       },
     );

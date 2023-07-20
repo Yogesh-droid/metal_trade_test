@@ -62,7 +62,9 @@ class _MyHomePageState extends State<MyHomePage>
                 if (myQuoteBloc.myQuoteList.isEmpty &&
                     !myQuoteBloc.isMyQuoteListEnd) {
                   myQuoteBloc.add(GetQuoteList(
-                      page: myQuoteBloc.myQuoteListPage, status: const []));
+                      page: myQuoteBloc.myQuoteListPage,
+                      status: const [],
+                      isLoadMore: false));
                 }
               }
             }),

@@ -44,9 +44,8 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
           ? BlocListener<SubmitQuoteBloc, SubmitQuoteState>(
               listener: (context, state) {
                 if (state is SubmitQuoteSuccessful) {
-                  context
-                      .read<MyQuoteBloc>()
-                      .add(GetQuoteList(page: 0, status: const []));
+                  context.read<MyQuoteBloc>().add(GetQuoteList(
+                      page: 0, status: const [], isLoadMore: false));
                   context.pushNamed(myQuotePageScreenName);
                 }
               },

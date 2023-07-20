@@ -5,9 +5,10 @@ import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/core/routes/routes.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
-import 'package:metaltrade/features/rfq/ui/widgets/quote_list_item.dart';
-import '../../data/models/rfq_enquiry_model.dart';
+import '../../../rfq/data/models/rfq_enquiry_model.dart';
 import 'package:intl/intl.dart';
+
+import 'quote_list_item.dart';
 
 class HomePageQuoteCard extends StatelessWidget {
   const HomePageQuoteCard(
@@ -53,8 +54,7 @@ class HomePageQuoteCard extends StatelessWidget {
                 IconButton(
                   icon: const Icon(Icons.arrow_right),
                   onPressed: () {
-                    context.pushNamed(productDetailPageRouteName,
-                        extra: content);
+                    context.pushNamed(enquiryDetailPageName, extra: content);
                   },
                 )
               ],
@@ -133,7 +133,7 @@ class HomePageQuoteCard extends StatelessWidget {
           if (itemList!.length > 1)
             TextButton(
                 onPressed: () {
-                  context.pushNamed(productDetailPageRouteName, extra: content);
+                  context.pushNamed(enquiryDetailPageName, extra: content);
                 },
                 child: Text("+ ${itemList!.length - 1} more"))
         ],

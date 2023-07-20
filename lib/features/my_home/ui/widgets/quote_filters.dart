@@ -33,7 +33,9 @@ class QuoteFilters extends StatelessWidget {
                           selected: state.statusList.contains(e.name),
                           onSelected: (value) {
                             myQuoteBloc.add(GetQuoteList(
-                                page: 0, status: state.statusList));
+                                isLoadMore: false,
+                                page: 0,
+                                status: state.statusList));
                             context.read<QuoteFilterCubit>().addFilter(e.name);
                           })))
                   .toList(),
@@ -53,8 +55,8 @@ class QuoteFilters extends StatelessWidget {
                         label: Text(e.name),
                         selected: false,
                         onSelected: (value) {
-                          myQuoteBloc
-                              .add(GetQuoteList(page: 0, status: [e.name]));
+                          myQuoteBloc.add(GetQuoteList(
+                              page: 0, isLoadMore: false, status: [e.name]));
                           context.read<QuoteFilterCubit>().addFilter(e.name);
                         })))
                 .toList(),

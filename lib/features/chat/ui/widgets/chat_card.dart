@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:metaltrade/features/chat/data/models/chat_response_model.dart';
+import 'package:metaltrade/features/chat/ui/widgets/chat_pointed_container.dart';
 
+import 'chat_with_image.dart';
 import 'enquiry_card.dart';
 import 'quote_card.dart';
 
@@ -11,25 +13,28 @@ class ChatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.topLeft,
-      margin: isMyChat
-          ? const EdgeInsets.only(left: 20, bottom: 10, right: 10)
-          : const EdgeInsets.only(right: 20, bottom: 10, left: 10),
-      decoration: BoxDecoration(
-          border: Border.all(color: Theme.of(context).colorScheme.outline),
-          borderRadius: BorderRadius.only(
-            bottomLeft: const Radius.circular(14),
-            bottomRight: const Radius.circular(14),
-            topLeft: isMyChat ? const Radius.circular(14) : Radius.zero,
-            topRight: isMyChat ? Radius.zero : const Radius.circular(14),
-          )),
-      child: content.body!.chatMessageType == "Enquiry"
-          ? EnquiryCard(content: content)
-          : content.body!.chatMessageType == "Quote"
-              ? QuoteCard(content: content)
-              : const SizedBox(),
-    );
+    return content.body!.chatMessageType == "Enquiry"
+        ? ChatPointedContainer(
+            isMyChat: isMyChat,
+            color: isMyChat
+                ? Theme.of(context).colorScheme.tertiaryContainer
+                : Theme.of(context).colorScheme.onSecondary,
+            child: EnquiryCard(content: content))
+        : content.body!.chatMessageType == "Quote"
+            ? ChatPointedContainer(
+                isMyChat: isMyChat,
+                color: isMyChat
+                    ? Theme.of(context).colorScheme.tertiaryContainer
+                    : Theme.of(context).colorScheme.onSecondary,
+                child: QuoteCard(content: content))
+            : content.body!.chatMessageType == "Text"
+                ? ChatPointedContainer(
+                    isMyChat: isMyChat, child: Text(content.body!.text ?? ''))
+                : content.body!.chatMessageType == "Attachment"
+                    ? ChatWithImage(
+                        image: content.body!.attachment,
+                        caption: content.body!.text ?? '')
+                    : const SizedBox();
     // child: CustomPaint(
     //   painter: ChatContainer(),
     //   size: Size(MediaQuery.of(context).size.width,

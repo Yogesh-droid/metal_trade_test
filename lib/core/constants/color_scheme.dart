@@ -33,6 +33,8 @@ const lightColorScheme = ColorScheme(
   shadow: Color(0xFF000000),
   surfaceTint: Color(0xFF6750A4),
   outlineVariant: Color(0xFFE0E0E0),
+
+  ///  very light grey used in background
   scrim: Color(0xFF000000),
 );
 

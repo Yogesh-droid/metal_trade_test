@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/app_widgets/main_app_bar.dart';
 import 'package:metaltrade/core/constants/hive/local_storage.dart';
+import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import 'package:metaltrade/features/profile/ui/widgets/kyc_dialog.dart';
 import 'package:stomp_dart_client/stomp.dart';
@@ -55,14 +56,14 @@ class _ChatTestPageState extends State<ChatTestPage> {
         );
         stompClient!.activate();
       }
-    }
+    } else {}
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+      backgroundColor: Theme.of(context).colorScheme.outlineVariant,
       appBar: const MainAppBar(
         title: Text(kChat),
       ),
@@ -72,6 +73,7 @@ class _ChatTestPageState extends State<ChatTestPage> {
             if (state.profileEntity.company != null) {
               return Column(
                 children: [
+                  const SizedBox(height: appPadding * 2),
                   BlocBuilder<ChatBloc, ChatState>(
                     builder: (context, state) {
                       if (state is PreviousChatLoaded) {
@@ -101,7 +103,7 @@ class _ChatTestPageState extends State<ChatTestPage> {
                                 stompClient!.send(
                                   destination: '/mtp/chat',
                                   body: json.encode({
-                                    "senderCompanyId": companyId,
+                                    "senderCompanyId": 2,
                                     "recipientCompanyId": 1,
                                     "body": {
                                       "text":

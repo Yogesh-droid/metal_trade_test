@@ -14,13 +14,17 @@ class GetPreviousChatEvent extends ChatEvent {
   final String chatType;
   final int? page;
   final int? enquiryId;
-  final int? userId;
-  GetPreviousChatEvent(
-      {required this.chatType, this.page, this.enquiryId, this.userId});
+  GetPreviousChatEvent({required this.chatType, this.page, this.enquiryId});
 }
 
 class MessageReceived extends ChatEvent {
   final String message;
 
   MessageReceived(this.message);
+}
+
+class AddNewChat extends ChatEvent {
+  final Map<String, dynamic> chat;
+
+  AddNewChat(this.chat);
 }

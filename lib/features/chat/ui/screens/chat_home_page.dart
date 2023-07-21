@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/app_widgets/main_app_bar.dart';
 import 'package:metaltrade/core/constants/strings.dart';
-import 'package:metaltrade/core/routes/routes.dart';
 import 'package:metaltrade/features/chat/ui/controllers/chat_bloc/chat_bloc.dart';
 import 'package:metaltrade/features/chat/ui/controllers/chat_home/chat_home_bloc.dart';
+
 import '../../../../core/constants/app_widgets/loading_dots.dart';
+import '../../../../core/routes/routes.dart';
 
 class ChatHomePage extends StatefulWidget {
   const ChatHomePage({super.key});
@@ -49,8 +50,52 @@ class _ChatHomePageState extends State<ChatHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              BlocListener<ChatBloc, ChatState>(
-                listener: (context, state) {
+              BlocBuilder<ChatHomeBloc, ChatHomeState>(
+                  builder: (context, state) {
+                if (state is ChatHomeInitial) {
+                  return const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 400),
+                      Center(child: LoadingDots()),
+                    ],
+                  );
+                }
+                if (state is ChatHomeListFetched) {
+                  return ListView(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: chatHomeBloc.chatList
+                        .map((e) => ListTile(
+                              onTap: () {
+                                context.read<ChatBloc>().add(
+                                    GetPreviousChatEvent(
+                                        chatType: ChatType.enquiry.name,
+                                        enquiryId: e.enquiryId,
+                                        page: 0));
+                                context.pushNamed(chatPageName);
+                              },
+                              title: Text(e.heading ?? ''),
+                              leading: CircleAvatar(
+                                  radius: 20,
+                                  child: Text(e.enquiryId.toString())),
+                            ))
+                        .toList(),
+                  );
+                } else {
+                  return const Center(child: Text("Some Error"));
+                }
+              }),
+              if (loadMore) const SizedBox(height: 100, child: LoadingDots())
+            ],
+          ),
+        ));
+  }
+}
+
+
+
+/* listener: (context, state) {
                   if (state is PreviousChatLoaded) {
                     context.pop();
                     context
@@ -65,47 +110,4 @@ class _ChatHomePageState extends State<ChatHomePage> {
                               child: LoadingDots());
                         });
                   }
-                },
-                child: BlocBuilder<ChatHomeBloc, ChatHomeState>(
-                    builder: (context, state) {
-                  if (state is ChatHomeInitial) {
-                    return const Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(height: 400),
-                        Center(child: LoadingDots()),
-                      ],
-                    );
-                  }
-                  if (state is ChatHomeListFetched) {
-                    return ListView(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: chatHomeBloc.chatList
-                          .map((e) => ListTile(
-                                onTap: () {
-                                  context.read<ChatBloc>().add(
-                                      GetPreviousChatEvent(
-                                          chatType: ChatType.enquiry.name,
-                                          enquiryId: e.enquiryId,
-                                          userId: 1,
-                                          page: 0));
-                                },
-                                title: Text(e.heading ?? ''),
-                                leading: CircleAvatar(
-                                    radius: 20,
-                                    child: Text(e.enquiryId.toString())),
-                              ))
-                          .toList(),
-                    );
-                  } else {
-                    return const Center(child: Text("Some Error"));
-                  }
-                }),
-              ),
-              if (loadMore) const SizedBox(height: 100, child: LoadingDots())
-            ],
-          ),
-        ));
-  }
-}
+                }, */

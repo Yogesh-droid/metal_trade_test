@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
 import 'package:metaltrade/core/constants/app_widgets/main_app_bar.dart';
 import 'package:metaltrade/core/constants/hive/local_storage.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
@@ -18,8 +19,7 @@ import '../widgets/chat_list.dart';
 const String EVENT = "CHAT PAGE EVENT";
 
 class ChatTestPage extends StatefulWidget {
-  const ChatTestPage({super.key, required this.recepentId});
-  final int recepentId;
+  const ChatTestPage({super.key});
 
   @override
   State<ChatTestPage> createState() => _ChatTestPageState();
@@ -32,31 +32,37 @@ class _ChatTestPageState extends State<ChatTestPage> {
   late StompClient? stompClient;
   late ProfileBloc profileBloc;
   late int companyId;
+  int receiverId = 0;
+  late int senderId;
 
   @override
   void initState() {
     token = LocalStorage.instance.token ?? '';
+    chatBloc = context.read<ChatBloc>();
     profileBloc = context.read<ProfileBloc>();
+    senderId = profileBloc.profileEntity!.company!.id!;
 
-    if (profileBloc.state is ProfileSuccessState) {
-      if (profileBloc.profileEntity!.company != null) {
-        stompClient = StompClient(
-          config: StompConfig(
-              url: 'wss://api.metaltrade.io/ws',
-              onConnect: onConnect,
-              beforeConnect: () async {},
-              onWebSocketError: (dynamic error) =>
-                  log('', error: error.toString()),
-              stompConnectHeaders: {
-                'Authorization': 'Bearer ${LocalStorage.instance.token}'
-              },
-              webSocketConnectHeaders: {
-                'Authorization': 'Bearer ${LocalStorage.instance.token}'
-              }),
-        );
-        stompClient!.activate();
+    if (mounted) {
+      if (profileBloc.state is ProfileSuccessState) {
+        if (profileBloc.profileEntity!.company != null) {
+          stompClient = StompClient(
+            config: StompConfig(
+                url: 'wss://api.metaltrade.io/ws',
+                onConnect: onConnect,
+                beforeConnect: () async {},
+                onWebSocketError: (dynamic error) =>
+                    log('', error: error.toString()),
+                stompConnectHeaders: {
+                  'Authorization': 'Bearer ${LocalStorage.instance.token}'
+                },
+                webSocketConnectHeaders: {
+                  'Authorization': 'Bearer ${LocalStorage.instance.token}'
+                }),
+          );
+          stompClient!.activate();
+        }
       }
-    } else {}
+    }
     super.initState();
   }
 
@@ -76,9 +82,16 @@ class _ChatTestPageState extends State<ChatTestPage> {
                   const SizedBox(height: appPadding * 2),
                   BlocBuilder<ChatBloc, ChatState>(
                     builder: (context, state) {
+                      if (state is PreviousChatLoading) {
+                        return const Expanded(
+                            child: Center(child: LoadingDots()));
+                      }
                       if (state is PreviousChatLoaded) {
+                        if (state.chatList.isNotEmpty) {
+                          receiverId = state.chatList.first.senderCompanyId!;
+                        }
                         return Expanded(
-                            child: ChatList(chatList: state.chatList));
+                            child: ChatList(chatList: chatBloc.chatList));
                       }
                       return const Center(
                           child: Text("No Previous Chat Found"));
@@ -99,16 +112,19 @@ class _ChatTestPageState extends State<ChatTestPage> {
                                 controller: textEditingController)),
                         IconButton(
                             onPressed: () {
+                              print(senderId);
+                              print(receiverId);
+                              if (textEditingController.text.isEmpty) {
+                                return;
+                              }
                               if (stompClient != null) {
                                 stompClient!.send(
                                   destination: '/mtp/chat',
                                   body: json.encode({
-                                    "senderCompanyId": 2,
-                                    "recipientCompanyId": 1,
-                                    "body": {
-                                      "text":
-                                          "Hello, this is from your app only, so enjoy."
-                                    }
+                                    "senderCompanyId": senderId,
+                                    "enquiryId": 13,
+                                    "recipientCompanyId": receiverId,
+                                    "body": {"text": textEditingController.text}
                                   }),
                                 );
                               }
@@ -131,11 +147,12 @@ class _ChatTestPageState extends State<ChatTestPage> {
 
   void onConnect(StompFrame frame) {
     stompClient!.subscribe(
-      destination: '/company/1/queue/messages',
+      destination: '/company/$receiverId/queue/messages',
       headers: {"Accept-Encoding": "gzip"},
       callback: (frame) {
         Map<String, dynamic> result = json.decode(frame.body!);
         log(result.toString(), name: EVENT);
+        context.read<ChatBloc>().add(AddNewChat(result));
       },
     );
   }

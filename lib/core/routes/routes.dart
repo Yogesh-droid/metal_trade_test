@@ -147,8 +147,7 @@ final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
     name: chatPageName,
     pageBuilder: (context, state) {
       return getTransition(
-          child: ChatTestPage(
-              recepentId: int.parse(state.queryParameters["id"] ?? '0')),
+          child: const ChatTestPage(),
           animationType: TransitionType.slide,
           duration: const Duration(milliseconds: 200));
     },

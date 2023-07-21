@@ -61,7 +61,7 @@ class Content {
       this.status});
 
   Content.fromJson(Map<String, dynamic> json) {
-    lastModifiedDate = json["lastModifiedDate"];
+    //lastModifiedDate = json["lastModifiedDate"];
     id = json["id"];
     senderCompanyId = json["senderCompanyId"];
     recipientCompanyId = json["recipientCompanyId"];

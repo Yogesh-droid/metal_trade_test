@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_quote_bloc/my_quote_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/quote_filter_cubit/quote_filter_cubit.dart';
 import 'package:metaltrade/features/my_home/ui/widgets/quote_filters.dart';
 
 import '../../../../core/constants/app_widgets/loading_dots.dart';
+import '../../../../core/routes/routes.dart';
+import '../../../chat/ui/controllers/chat_bloc/chat_bloc.dart';
 import '../widgets/quote_card.dart';
 
 class MyQuoteScreen extends StatefulWidget {
@@ -63,7 +66,13 @@ class _MyQuoteScreenState extends State<MyQuoteScreen> {
                           filledBtnTitle:
                               e.status == 'Inreview' ? kCancel : null,
                           borderedBtnTitle: kChat,
-                          onBorderedBtnTapped: () {},
+                          onBorderedBtnTapped: () {
+                            context.read<ChatBloc>().add(GetPreviousChatEvent(
+                                chatType: ChatType.enquiry.name,
+                                enquiryId: e.enquiry!.id!,
+                                page: 0));
+                            context.pushNamed(chatPageName);
+                          },
                           onFilledBtnTapped: () {},
                         ))
                     .toList(),

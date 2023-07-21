@@ -69,9 +69,9 @@ class _BuyerRfqPageState extends State<BuyerRfqPage> {
                                     context.read<ChatBloc>().add(
                                         GetPreviousChatEvent(
                                             chatType: ChatType.enquiry.name,
-                                            userId: 1,
                                             enquiryId: 6,
                                             page: 0));
+                                    context.pushNamed(chatPageName);
                                   },
                                   onFilledBtnTapped: () {
                                     context.pushNamed(submitQuotePageName,

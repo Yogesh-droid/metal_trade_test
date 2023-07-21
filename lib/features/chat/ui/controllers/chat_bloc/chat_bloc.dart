@@ -16,23 +16,25 @@ enum ChatType { enquiry }
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final ChatListUsecase chatListUsecase;
+  final List<String> chats = [];
+  final List<Content> chatList = [];
   ChatBloc({required this.chatListUsecase}) : super(ChatInitial()) {
-    final List<String> chats = [];
-
     on<ChatEvent>((event, emit) async {
       if (event is GetPreviousChatEvent) {
+        chatList.clear();
         emit(PreviousChatLoading());
         try {
           String url = '';
           if (event.chatType == ChatType.enquiry.name) {
             url =
-                "${baseUrl}user/${event.userId}/enquiry/${event.enquiryId}/chat?page=${event.page}&size=20";
+                "${baseUrl}user/enquiry/${event.enquiryId}/chat?page=${event.page}&size=20";
           }
           DataState<ChatResponseEntity> dataState = await chatListUsecase.call(
               RequestParams(
                   url: url, apiMethods: ApiMethods.get, header: header));
 
           if (dataState.data != null) {
+            chatList.addAll(dataState.data!.content!);
             emit(PreviousChatLoaded(chatList: dataState.data!.content!));
           } else {
             emit(PreviousChatFailed(Exception(dataState.exception)));
@@ -41,6 +43,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           emit(PreviousChatFailed(e));
         }
       }
+
+      if (event is AddNewChat) {
+        chatList.add(Content.fromJson(event.chat));
+        emit(PreviousChatLoaded(chatList: chatList));
+      }
+
       if (event is ChatInitiateEvent) {
         chats.add(event.message);
         emit(ChatListSuccessState(chats: chats));

@@ -31,6 +31,7 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
   void initState() {
     submitQuoteBloc = context.read<SubmitQuoteBloc>();
     selectProductToQuoteCubit = context.read<SelectProductToQuoteCubit>();
+    selectProductToQuoteCubit.selectedItems.clear();
     content = widget.content;
     super.initState();
   }
@@ -45,7 +46,7 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
         floatingActionButton:
             BlocBuilder<SelectProductToQuoteCubit, SelectProductToQuoteState>(
           builder: (context, state) {
-            return selectProductToQuoteCubit.selectedIndex.isNotEmpty
+            return selectProductToQuoteCubit.selectedItems.isNotEmpty
                 ? BlocListener<SubmitQuoteBloc, SubmitQuoteState>(
                     listener: (context, state) {
                       if (state is SubmitQuoteSuccessful) {
@@ -64,17 +65,15 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
                           }
                           List<Map<String, dynamic>> selectedItems = [];
                           Map<String, dynamic> submitQuote = {};
-                          for (var element in content.item!) {
-                            if (selectProductToQuoteCubit.selectedIndex
-                                .contains(element.id)) {
-                              selectedItems.add({
-                                "quantity": element.quantity,
-                                "quantityUnit": element.quantityUnit,
-                                "price": element.price,
-                                "remarks": element.remarks,
-                                "sku": {"id": element.sku!.id}
-                              });
-                            }
+                          for (var element
+                              in selectProductToQuoteCubit.selectedItems) {
+                            selectedItems.add({
+                              "quantity": element.quantity,
+                              "quantityUnit": element.quantityUnit,
+                              "price": element.price,
+                              "remarks": element.remarks,
+                              "sku": {"id": element.sku!.id}
+                            });
                             submitQuote['transportationTerms'] =
                                 content.transportationTerms;
                             submitQuote['paymentTerms'] = content.paymentTerms;
@@ -84,12 +83,14 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
                           }
                           final PostEnquiryModel postEnquiryModel =
                               PostEnquiryModel.fromJson(submitQuote);
-                          print(postEnquiryModel.toJson());
-                          // submitQuoteBloc.add(SubmitQuote(
-                          //     postEnquiryModel: postEnquiryModel,
-                          //     quoteId: content.id!));
+                          submitQuoteBloc.add(SubmitQuote(
+                              postEnquiryModel: postEnquiryModel,
+                              quoteId: content.id!));
                         },
-                        price: selectProductToQuoteCubit.price))
+                        price: selectProductToQuoteCubit.selectedItems.fold(
+                            0,
+                            (previousValue, element) =>
+                                previousValue + element.price!)))
                 : const SizedBox();
           },
         ));
@@ -103,30 +104,25 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
               child: BlocBuilder<SelectProductToQuoteCubit,
                   SelectProductToQuoteState>(
                 builder: (context, state) {
-                  if (selectProductToQuoteCubit.selectedIndex.contains(e.id)) {
+                  if (selectProductToQuoteCubit.selectedItems.contains(e)) {
                     return ItemContainer(
                         item: e,
                         onPriceChange: (value) {
                           if (value.isNotEmpty) {
-                            content.item!
-                                .where((element) => element.id == e.id)
-                                .first
-                                .price = double.parse(value);
-
                             selectProductToQuoteCubit.changePrice(
-                                selectProductToQuoteCubit.quantity *
+                                e,
+                                selectProductToQuoteCubit
+                                        .selectedItems[selectProductToQuoteCubit
+                                            .selectedItems
+                                            .indexOf(e)]
+                                        .quantity! *
                                     double.parse(value));
                           }
                         },
                         onQuantityChange: (value) {
-                          content.item!
-                              .where((element) => element.id == e.id)
-                              .first
-                              .quantity = int.parse(value);
-
                           if (value.isNotEmpty) {
-                            selectProductToQuoteCubit
-                                .changeQuantity(int.parse(value));
+                            selectProductToQuoteCubit.changeQuantity(
+                                e, int.parse(value));
                           }
                         },
                         onChange: (value) {

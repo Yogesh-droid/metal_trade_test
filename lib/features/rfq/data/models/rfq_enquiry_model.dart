@@ -152,7 +152,7 @@ class Item {
       this.sku,
       this.quantity,
       this.quantityUnit,
-      this.price,
+      this.price = 0,
       this.remarks,
       this.lastModifiedDate});
 
@@ -162,7 +162,7 @@ class Item {
     sku = json["sku"] == null ? null : Sku.fromJson(json["sku"]);
     quantity = json["quantity"];
     quantityUnit = json["quantityUnit"];
-    price = json["price"];
+    price = json["price"] ?? 0;
     remarks = json["remarks"];
   }
 }

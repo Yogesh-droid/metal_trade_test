@@ -6,26 +6,30 @@ part 'select_product_to_quote_state.dart';
 
 class SelectProductToQuoteCubit extends Cubit<SelectProductToQuoteState> {
   SelectProductToQuoteCubit() : super(SelectProductToQuoteInitial());
-  List<int> selectedIndex = [];
+  // List<int> selectedIndex = [];
   List<Item> selectedItems = [];
   double price = 0;
   int quantity = 0;
 
-  void changePrice(double price1) {
-    print(price1);
+  void changePrice(Item item, double price1) {
     price = price1;
+    selectedItems.elementAt(selectedItems.indexOf(item)).price = price1;
     emit(SelectProductPriceChanged(price));
   }
 
-  void changeQuantity(int quantity1) {
+  void changeQuantity(Item item, int quantity1) {
     quantity = quantity1;
+    selectedItems.elementAt(selectedItems.indexOf(item)).quantity = quantity1;
     emit(SelectProductQuantityChanged(quantity));
   }
 
   void selectItem(int id, Item item) {
-    selectedIndex.contains(id)
-        ? selectedIndex.remove(id)
-        : selectedIndex.add(id);
-    emit(SelectedProductToQuoteChanged(selectedIndex: selectedIndex));
+    // selectedIndex.contains(id)
+    //     ? selectedIndex.remove(id)
+    //     : selectedIndex.add(id);
+    selectedItems.contains(item)
+        ? selectedItems.remove(item)
+        : selectedItems.add(item);
+    emit(SelectedProductToQuoteChanged(selectedIndex: []));
   }
 }

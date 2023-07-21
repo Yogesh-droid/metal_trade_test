@@ -5,7 +5,6 @@ import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/routes/routes.dart';
 import 'package:metaltrade/features/profile/ui/widgets/kyc_dialog.dart';
-
 import '../../../chat/ui/controllers/chat_bloc/chat_bloc.dart';
 import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import '../controllers/rfq_buyer_enquiry_bloc/rfq_buyer_enquiry_bloc.dart';

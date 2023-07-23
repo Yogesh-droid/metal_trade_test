@@ -63,6 +63,7 @@ const String kCheckProfile = "Check Profile";
 const String kBack = "Back";
 const String kPosted = "Posted";
 const String kVerified = "Verified";
+
 const String kProducts = "Products";
 const String kEnquiryDetail = "Enquiry Details";
 const String kPaymentTerms = "Payment terms";
@@ -85,3 +86,4 @@ const String kCloseRfq = "Close Enquiry";
 const String kRemarks = "Remarks";
 const String kChats = "Chats";
 const String kDetails = "Details";
+const String kOtpVerification = "OTP Verification";

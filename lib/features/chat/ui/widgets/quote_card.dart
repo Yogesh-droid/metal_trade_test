@@ -28,9 +28,9 @@ class QuoteCard extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .labelSmall!
-                  .copyWith(color: Theme.of(context).colorScheme.secondary)),
+                  .copyWith(color: Theme.of(context).colorScheme.outline)),
           const SizedBox(height: appPadding),
-          ItemList(item: content.body!.quote!.item!),
+          ItemList(item: content.body!.quote!.item!, isQuote: true),
           const SizedBox(height: appPadding * 2),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,

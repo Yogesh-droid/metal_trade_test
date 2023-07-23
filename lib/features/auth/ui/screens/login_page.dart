@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:metaltrade/core/constants/assets.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/routes/routes.dart';
@@ -49,26 +48,16 @@ class _LoginPageState extends State<LoginPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: appWidgetGap * 1.5),
-            Image.asset(
-              Assets.assetsWelcomeMetalTradeLogo,
-              height: 100,
-              width: 100,
-            ),
             const SizedBox(height: appWidgetGap),
             Text(kWhatsYourNo,
                 style: Theme.of(context).textTheme.headlineLarge),
             const SizedBox(height: appWidgetGap),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Expanded(
-                      child: FilledTextFieldWidget(
-                    textInputType: TextInputType.phone,
-                    textEditingController: phoneNoController,
-                    prefix: CountryChooserIconBtn(countryList: _countryList),
-                  ))
-                ],
+              child: FilledTextFieldWidget(
+                textInputType: TextInputType.phone,
+                textEditingController: phoneNoController,
+                prefix: CountryChooserIconBtn(countryList: _countryList),
               ),
             ),
             const SizedBox(height: appWidgetGap),
@@ -77,6 +66,7 @@ class _LoginPageState extends State<LoginPage> {
               child: BlocBuilder<CountryCodeController, CountryCodeModel>(
                 builder: (context, state) {
                   return FilledButtonWidget(
+                      width: MediaQuery.of(context).size.width,
                       title: kContinue.toUpperCase(),
                       onPressed: () {
                         if (state.dialCode != null) {

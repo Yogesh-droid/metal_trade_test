@@ -71,7 +71,8 @@ class _MyQuoteScreenState extends State<MyQuoteScreen> {
                                 chatType: ChatType.enquiry.name,
                                 enquiryId: e.enquiry!.id!,
                                 page: 0));
-                            context.pushNamed(chatPageName);
+                            context.pushNamed(chatPageName,
+                                queryParameters: {'room': e.uuid ?? ''});
                           },
                           onFilledBtnTapped: () {},
                         ))

@@ -70,7 +70,10 @@ class _BuyerRfqPageState extends State<BuyerRfqPage> {
                                             chatType: ChatType.enquiry.name,
                                             enquiryId: 6,
                                             page: 0));
-                                    context.pushNamed(chatPageName);
+                                    context.pushNamed(chatPageName,
+                                        queryParameters: {
+                                          'room': e.uuid ?? ''
+                                        });
                                   },
                                   onFilledBtnTapped: () {
                                     context.pushNamed(submitQuotePageName,

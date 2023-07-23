@@ -84,7 +84,8 @@ class _ChatHomePageState extends State<ChatHomePage> {
                                           chatType: ChatType.enquiry.name,
                                           enquiryId: e.enquiryId,
                                           page: 0));
-                                  context.pushNamed(chatPageName);
+                                  context.pushNamed(chatPageName,
+                                      queryParameters: {'room': e.heading});
                                 },
                                 title: Row(
                                   mainAxisAlignment:
@@ -110,7 +111,8 @@ class _ChatHomePageState extends State<ChatHomePage> {
                                 ),
                                 leading: CircleAvatar(
                                     radius: 25,
-                                    child: Text(e.enquiryId.toString())),
+                                    child: Text(
+                                        e.initial ?? e.enquiryId.toString())),
                               ),
                             ))
                         .toList(),

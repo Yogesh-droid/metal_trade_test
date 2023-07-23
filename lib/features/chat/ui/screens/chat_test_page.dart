@@ -18,8 +18,9 @@ import '../widgets/chat_list.dart';
 const String EVENT = "CHAT PAGE EVENT";
 
 class ChatTestPage extends StatefulWidget {
-  const ChatTestPage({Key? key, this.chatType}) : super(key: key);
-  final ChatType? chatType;
+  const ChatTestPage({Key? key, this.chatType, this.room}) : super(key: key);
+  final String? chatType;
+  final String? room;
   @override
   State<ChatTestPage> createState() => ChatTestPageState();
 }
@@ -70,8 +71,8 @@ class ChatTestPageState extends State<ChatTestPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.outlineVariant,
-      appBar: const MainAppBar(
-        title: Text(kChat),
+      appBar: MainAppBar(
+        title: Text(widget.room ?? kChat),
       ),
       body: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
@@ -124,46 +125,68 @@ class ChatTestPageState extends State<ChatTestPage> {
                       ),
                     ),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Theme.of(context).colorScheme.outline)),
-                    child: Row(
-                      children: [
-                        Expanded(
-                            child: TextFormField(
-                                decoration: const InputDecoration(
-                                    hintText: "Enter your message",
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.all(8)),
-                                controller: textEditingController)),
-                        IconButton(
-                            onPressed: () {
-                              debugPrint("sender id is $senderId");
-                              if (textEditingController.text.isEmpty) {
-                                return;
-                              }
-                              stompClient!.send(
-                                destination: '/mtp/chat',
-                                body: json.encode({
-                                  "enquiryId": enquiryId,
-                                  "body": {"text": textEditingController.text}
-                                }),
-                              );
-                              context.read<ChatBloc>().add(AddNewChat({
-                                    "lastModifiedDate":
-                                        DateTime.now().toString(),
-                                    "senderCompanyId": senderId,
-                                    "enquiryId": enquiryId,
-                                    "status": "Unseen",
-                                    "body": {
-                                      "chatMessageType": "Text",
-                                      "text": textEditingController.text,
-                                    }
-                                  }));
-                            },
-                            icon: const Icon(Icons.send))
-                      ],
+                  Card(
+                    elevation: 10,
+                    child: Container(
+                      padding: const EdgeInsets.all(appPadding),
+                      color: Colors.grey[100],
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: TextFormField(
+                                  decoration: InputDecoration(
+                                      hintText: "Enter your message",
+                                      border: InputBorder.none,
+                                      contentPadding: const EdgeInsets.all(8),
+                                      fillColor: Colors.grey[300],
+                                      filled: true,
+                                      enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          borderSide: BorderSide(
+                                              color: Colors.grey[300]!)),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          borderSide: BorderSide(
+                                              color: Colors.grey[300]!))),
+                                  controller: textEditingController)),
+                          const SizedBox(width: appPadding),
+                          CircleAvatar(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary,
+                            child: IconButton(
+                                onPressed: () {
+                                  debugPrint("sender id is $senderId");
+                                  if (textEditingController.text.isEmpty) {
+                                    return;
+                                  }
+                                  stompClient!.send(
+                                    destination: '/mtp/chat',
+                                    body: json.encode({
+                                      "enquiryId": enquiryId,
+                                      "body": {
+                                        "text": textEditingController.text
+                                      }
+                                    }),
+                                  );
+                                  context.read<ChatBloc>().add(AddNewChat({
+                                        "lastModifiedDate":
+                                            DateTime.now().toString(),
+                                        "senderCompanyId": senderId,
+                                        "enquiryId": enquiryId,
+                                        "status": "Unseen",
+                                        "body": {
+                                          "chatMessageType": "Text",
+                                          "text": textEditingController.text,
+                                        }
+                                      }));
+                                },
+                                color: Colors.white,
+                                icon: const Icon(Icons.send)),
+                          )
+                        ],
+                      ),
                     ),
                   )
                 ],

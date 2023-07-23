@@ -45,12 +45,14 @@ class Content {
   String? lastChatDate;
   String? heading;
   String? description;
+  String? initial;
 
   Content(
       {this.enquiryId,
       this.unseenChatCount,
       this.lastChatDate,
       this.heading,
+      this.initial,
       this.description});
 
   Content.fromJson(Map<String, dynamic> json) {
@@ -59,5 +61,6 @@ class Content {
     lastChatDate = json["lastChatDate"];
     heading = json["heading"];
     description = json['description'];
+    initial = json['initial'];
   }
 }

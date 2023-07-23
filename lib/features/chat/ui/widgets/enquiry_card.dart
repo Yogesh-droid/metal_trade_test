@@ -27,7 +27,7 @@ class EnquiryCard extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .labelSmall!
-                  .copyWith(color: Theme.of(context).colorScheme.secondary)),
+                  .copyWith(color: Theme.of(context).colorScheme.outline)),
           const SizedBox(height: appPadding),
           ItemList(item: content.body!.enquiry!.item!),
           const SizedBox(height: appPadding * 2),
@@ -55,31 +55,51 @@ class EnquiryCard extends StatelessWidget {
 }
 
 class ItemList extends StatelessWidget {
-  const ItemList({super.key, required this.item});
+  const ItemList({super.key, required this.item, this.isQuote});
   final List<rfq_model.Item> item;
+  final bool? isQuote;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: item
-          .map((e) => Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(e.sku!.title ?? '',
-                          style:
-                              secMed14.copyWith(fontWeight: FontWeight.w700)),
-                      Text("${e.quantity} ${e.quantityUnit}")
-                    ],
-                  ),
-                  Text(
-                    e.remarks ?? '',
-                    style: secMed12.copyWith(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant),
-                  ),
-                ],
+          .map((e) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: appPadding),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(e.sku!.title ?? '',
+                            style:
+                                secMed14.copyWith(fontWeight: FontWeight.w700)),
+                        Column(
+                          children: [
+                            if (isQuote != null)
+                              Text("\$ ${e.price}",
+                                  style: secMed14.copyWith(
+                                      fontWeight: FontWeight.w700)),
+                            Text("${e.quantity} ${e.quantityUnit}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelSmall!
+                                    .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .outline)),
+                          ],
+                        )
+                      ],
+                    ),
+                    Text(
+                      e.remarks ?? '',
+                      style: secMed12.copyWith(
+                          color:
+                              Theme.of(context).colorScheme.onSurfaceVariant),
+                    ),
+                  ],
+                ),
               ))
           .toList(),
     );

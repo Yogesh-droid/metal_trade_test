@@ -90,7 +90,7 @@ class FilledButtonWidget extends StatelessWidget {
               backgroundColor: MaterialStatePropertyAll(color),
               textStyle: MaterialStateProperty.all<TextStyle>(const TextStyle()
                   .copyWith(
-                      foreground: Paint()..color = textColor ?? Colors.black)),
+                      foreground: Paint()..color = textColor ?? Colors.white)),
             ),
             onPressed: onPressed,
             child: Text(title)));

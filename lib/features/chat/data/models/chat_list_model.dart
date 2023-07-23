@@ -44,14 +44,20 @@ class Content {
   int? unseenChatCount;
   String? lastChatDate;
   String? heading;
+  String? description;
 
   Content(
-      {this.enquiryId, this.unseenChatCount, this.lastChatDate, this.heading});
+      {this.enquiryId,
+      this.unseenChatCount,
+      this.lastChatDate,
+      this.heading,
+      this.description});
 
   Content.fromJson(Map<String, dynamic> json) {
     enquiryId = json["enquiryId"];
     unseenChatCount = json["unseenChatCount"];
     lastChatDate = json["lastChatDate"];
     heading = json["heading"];
+    description = json['description'];
   }
 }

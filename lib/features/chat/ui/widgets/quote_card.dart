@@ -35,12 +35,14 @@ class QuoteCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              // Text(
-              //   DateFormat('hh:mm a').format(
-              //       DateTime.parse(content.lastModifiedDate!.toString())),
-              //   style: secMed12.copyWith(
-              //       color: Theme.of(context).colorScheme.secondary),
-              // ),
+              if (DateTime.tryParse(content.lastModifiedDate!.toString()) !=
+                  null)
+                Text(
+                  DateFormat('hh:mm a').format(
+                      DateTime.parse(content.lastModifiedDate!.toString())),
+                  style: secMed12.copyWith(
+                      color: Theme.of(context).colorScheme.secondary),
+                ),
               const SizedBox(width: appPadding),
               Icon(
                 content.status == "Seen" ? Icons.done_all : Icons.check,

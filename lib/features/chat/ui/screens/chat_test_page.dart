@@ -82,6 +82,7 @@ class ChatTestPageState extends State<ChatTestPage> {
                   const SizedBox(height: appPadding * 2),
                   Expanded(
                     child: SingleChildScrollView(
+                      reverse: true,
                       controller: scrollController,
                       child: Column(
                         children: [
@@ -104,12 +105,6 @@ class ChatTestPageState extends State<ChatTestPage> {
                                 }
                                 return ChatList(chatList: chatBloc.chatList);
                               }
-                              // if (state is PreviousChatLoaded ||
-                              //     state is PreviousChatLoadMore) {
-                              //   return const SizedBox(
-                              //       height: 200,
-                              //       child: Center(child: LoadingDots()));
-                              // }
                               return const Center(
                                   child: Text("No Previous Chat Found"));
                             },
@@ -151,10 +146,21 @@ class ChatTestPageState extends State<ChatTestPage> {
                               stompClient!.send(
                                 destination: '/mtp/chat',
                                 body: json.encode({
-                                  "enquiryId": 13,
+                                  "enquiryId": enquiryId,
                                   "body": {"text": textEditingController.text}
                                 }),
                               );
+                              context.read<ChatBloc>().add(AddNewChat({
+                                    "lastModifiedDate":
+                                        DateTime.now().toString(),
+                                    "senderCompanyId": senderId,
+                                    "enquiryId": enquiryId,
+                                    "status": "Unseen",
+                                    "body": {
+                                      "chatMessageType": "Text",
+                                      "text": textEditingController.text,
+                                    }
+                                  }));
                             },
                             icon: const Icon(Icons.send))
                       ],

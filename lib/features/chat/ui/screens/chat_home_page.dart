@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:metaltrade/core/constants/app_widgets/main_app_bar.dart';
 import 'package:metaltrade/core/constants/strings.dart';
+import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/features/chat/ui/controllers/chat_bloc/chat_bloc.dart';
 import 'package:metaltrade/features/chat/ui/controllers/chat_home/chat_home_bloc.dart';
 
@@ -66,19 +68,50 @@ class _ChatHomePageState extends State<ChatHomePage> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     children: chatHomeBloc.chatList
-                        .map((e) => ListTile(
-                              onTap: () {
-                                context.read<ChatBloc>().add(
-                                    GetPreviousChatEvent(
-                                        chatType: ChatType.enquiry.name,
-                                        enquiryId: e.enquiryId,
-                                        page: 0));
-                                context.pushNamed(chatPageName);
-                              },
-                              title: Text(e.heading ?? ''),
-                              leading: CircleAvatar(
-                                  radius: 20,
-                                  child: Text(e.enquiryId.toString())),
+                        .map((e) => Container(
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .outlineVariant))),
+                              padding: const EdgeInsets.all(8.0),
+                              child: ListTile(
+                                titleAlignment: ListTileTitleAlignment.center,
+                                onTap: () {
+                                  context.read<ChatBloc>().add(
+                                      GetPreviousChatEvent(
+                                          chatType: ChatType.enquiry.name,
+                                          enquiryId: e.enquiryId,
+                                          page: 0));
+                                  context.pushNamed(chatPageName);
+                                },
+                                title: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(e.heading ?? ''),
+                                    Text(
+                                        DateFormat('dd MMM yyyy').format(
+                                            DateTime.parse(
+                                                e.lastChatDate ?? '')),
+                                        style: secMed10.copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .outline))
+                                  ],
+                                ),
+                                subtitle: Text(
+                                  e.description ?? '',
+                                  style: secMed11.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .outline),
+                                ),
+                                leading: CircleAvatar(
+                                    radius: 25,
+                                    child: Text(e.enquiryId.toString())),
+                              ),
                             ))
                         .toList(),
                   );

@@ -16,8 +16,6 @@ class ProfileTile extends StatelessWidget {
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, state) {
         if (state is ProfileSuccessState) {
-          // return state.profileEntity.company != null
-          //     ?
           return Container(
             color: Theme.of(context).colorScheme.primary,
             padding: const EdgeInsets.all(appPadding * 2),
@@ -58,7 +56,7 @@ class ProfileTile extends StatelessWidget {
                   ],
                 ),
                 Divider(
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: Theme.of(context).colorScheme.outline,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,11 +67,15 @@ class ProfileTile extends StatelessWidget {
                         CircleAvatar(
                           radius: 30,
                           backgroundColor: Colors.indigo,
-                          child: CircularProgressIndicator(
-                            color: Theme.of(context).colorScheme.onSecondary,
-                            value: state.profileEntity.company!
-                                    .profileCompletion!.completion! /
-                                100,
+                          child: SizedBox(
+                            height: 60,
+                            width: 60,
+                            child: CircularProgressIndicator(
+                              color: Colors.deepPurpleAccent,
+                              value: state.profileEntity.company!
+                                      .profileCompletion!.completion! /
+                                  100,
+                            ),
                           ),
                         ),
                         Text(
@@ -90,23 +92,14 @@ class ProfileTile extends StatelessWidget {
                                 .next ??
                             '',
                         textColor: Theme.of(context).colorScheme.primary,
-                        onPressed: () {})
+                        onPressed: () {
+                          context.pushNamed(kycPageName);
+                        })
                   ],
                 ),
               ],
             ),
           );
-          // : Center(
-          //     child: Padding(
-          //       padding: const EdgeInsets.all(appPadding),
-          //       child: GetStartedBtn(
-          //           title: kCompleteKyc,
-          //           width: MediaQuery.of(context).size.width / 1.5,
-          //           onPressed: () {
-          //             context.pushNamed(kycPageName);
-          //           }),
-          //     ),
-          //   );
         } else if (state is ProfileFailed) {
           return Center(child: Text(state.exception.toString()));
         } else {

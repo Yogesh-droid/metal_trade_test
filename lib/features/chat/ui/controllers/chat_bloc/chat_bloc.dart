@@ -44,7 +44,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
             chatList.addAll(dataState.data!.content!);
             chatListPage = dataState.data!.number!;
             isCHatListEnd = dataState.data!.last!;
-            emit(PreviousChatLoaded(chatList: dataState.data!.content!));
+            emit(PreviousChatLoaded(
+                chatList: dataState.data!.content!.reversed.toList()));
           } else {
             emit(PreviousChatFailed(Exception(dataState.exception)));
           }

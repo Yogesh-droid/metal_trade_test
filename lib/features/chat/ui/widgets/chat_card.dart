@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/features/chat/data/models/chat_response_model.dart';
 import 'package:metaltrade/features/chat/ui/widgets/chat_pointed_container.dart';
 
+import '../../../../core/constants/text_tyles.dart';
 import 'chat_with_image.dart';
 import 'enquiry_card.dart';
 import 'quote_card.dart';
@@ -33,14 +35,44 @@ class ChatCard extends StatelessWidget {
                     isMyChat: isMyChat,
                     child: Padding(
                       padding: const EdgeInsets.all(appPadding),
-                      child: Text(content.body!.text ?? ''),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(content.body!.text ?? ''),
+                          const SizedBox(height: appPadding),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                if (DateTime.tryParse(
+                                        content.lastModifiedDate!.toString()) !=
+                                    null)
+                                  Text(
+                                    DateFormat('hh:mm a').format(DateTime.parse(
+                                        content.lastModifiedDate!.toString())),
+                                    style: secMed12.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary),
+                                  ),
+                                const SizedBox(width: appPadding),
+                                Icon(
+                                  content.status == "Seen"
+                                      ? Icons.done_all
+                                      : Icons.check,
+                                  size: 16,
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ))
                 : content.body!.chatMessageType == "Attachment"
                     ? ChatPointedContainer(
                         isMyChat: isMyChat,
-                        child: ChatWithImage(
-                            image: content.body!.attachment,
-                            caption: content.body!.text ?? ''),
+                        child: ChatWithImage(content: content),
                       )
                     : const SizedBox();
     // child: CustomPaint(

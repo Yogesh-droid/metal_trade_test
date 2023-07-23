@@ -44,6 +44,10 @@ const String kBuy = "Buy";
 const String kSell = "Sell";
 const String kEnquiryType = "Enquiry Type";
 const String kMyProfile = "My Profile";
+const String kMyOrders = "My Orders";
+const String kAddMember = "Add Team members";
+const String kChangeLanguage = "Change Language";
+const String kRateUs = "RateUs";
 const String kCompleteKyc = "Complete KYC";
 const String kPleaseCompleteKyc =
     "Please complete your KYC to submit/view enquiries";

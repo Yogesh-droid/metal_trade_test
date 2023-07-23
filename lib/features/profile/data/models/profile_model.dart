@@ -85,6 +85,9 @@ class Company {
             .map((e) => SellInterest.fromJson(e))
             .toList();
     locale = json["locale"];
+    profileCompletion = json['profileCompletion'] != null
+        ? ProfileCompletion.fromJson(json['profileCompletion'])
+        : null;
   }
 }
 

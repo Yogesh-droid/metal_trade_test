@@ -22,6 +22,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
                   apiMethods: ApiMethods.get,
                   header: header));
           if (dataState.data != null) {
+            if (dataState.data!.company != null) {
+              LocalStorage.instance
+                  .saveUserCompanyId(dataState.data!.company!.id!);
+            }
             profileEntity = dataState.data!;
             emit(ProfileSuccessState(profileEntity: dataState.data!));
           } else {

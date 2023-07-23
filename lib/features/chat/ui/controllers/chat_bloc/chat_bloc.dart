@@ -12,17 +12,24 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 part 'chat_event.dart';
 part 'chat_state.dart';
 
-enum ChatType { enquiry }
+enum ChatType { enquiry, quote }
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final ChatListUsecase chatListUsecase;
   final List<String> chats = [];
   final List<Content> chatList = [];
+  int chatListPage = 0;
+  bool isCHatListEnd = false;
   ChatBloc({required this.chatListUsecase}) : super(ChatInitial()) {
     on<ChatEvent>((event, emit) async {
       if (event is GetPreviousChatEvent) {
-        chatList.clear();
-        emit(PreviousChatLoading());
+        if (event.page == 0) {
+          chatList.clear();
+          emit(PreviousChatLoading());
+        }
+        if (event.isLoadMore != null) {
+          emit(PreviousChatLoadMore());
+        }
         try {
           String url = '';
           if (event.chatType == ChatType.enquiry.name) {
@@ -35,6 +42,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
           if (dataState.data != null) {
             chatList.addAll(dataState.data!.content!);
+            chatListPage = dataState.data!.number!;
+            isCHatListEnd = dataState.data!.last!;
             emit(PreviousChatLoaded(chatList: dataState.data!.content!));
           } else {
             emit(PreviousChatFailed(Exception(dataState.exception)));

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/features/chat/data/models/chat_response_model.dart';
 import 'package:metaltrade/features/chat/ui/widgets/chat_pointed_container.dart';
 
@@ -29,11 +30,18 @@ class ChatCard extends StatelessWidget {
                 child: QuoteCard(content: content))
             : content.body!.chatMessageType == "Text"
                 ? ChatPointedContainer(
-                    isMyChat: isMyChat, child: Text(content.body!.text ?? ''))
+                    isMyChat: isMyChat,
+                    child: Padding(
+                      padding: const EdgeInsets.all(appPadding),
+                      child: Text(content.body!.text ?? ''),
+                    ))
                 : content.body!.chatMessageType == "Attachment"
-                    ? ChatWithImage(
-                        image: content.body!.attachment,
-                        caption: content.body!.text ?? '')
+                    ? ChatPointedContainer(
+                        isMyChat: isMyChat,
+                        child: ChatWithImage(
+                            image: content.body!.attachment,
+                            caption: content.body!.text ?? ''),
+                      )
                     : const SizedBox();
     // child: CustomPaint(
     //   painter: ChatContainer(),

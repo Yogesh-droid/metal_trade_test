@@ -35,14 +35,14 @@ class LocalStorage {
     return token!;
   }
 
-  Future<void> saveUserId(String userId) async {
+  Future<void> saveUserCompanyId(int userId) async {
     final enctriptedBox = await getEnctriptedBox();
-    await enctriptedBox.put(dotenv.env['user_id'], userId);
+    await enctriptedBox.put(dotenv.env['user_company_id'], userId);
   }
 
-  Future<String> getUserId() async {
+  Future<String> getUserCompanyId() async {
     final enctriptedBox = await getEnctriptedBox();
-    userId = await enctriptedBox.get(dotenv.env['user_id']) ?? '';
+    userId = await enctriptedBox.get(dotenv.env['user_company_id']) ?? '';
     return userId!;
   }
 

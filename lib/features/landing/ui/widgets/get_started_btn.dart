@@ -70,18 +70,30 @@ class FilledButtonWidget extends StatelessWidget {
       required this.title,
       required this.onPressed,
       this.height,
-      this.width});
+      this.color,
+      this.width,
+      this.textColor});
 
   final String title;
   final Function() onPressed;
   final double? height;
   final double? width;
+  final Color? color;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
         width: width,
-        child: FilledButton(onPressed: onPressed, child: Text(title)));
+        child: FilledButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStatePropertyAll(color),
+              textStyle: MaterialStateProperty.all<TextStyle>(const TextStyle()
+                  .copyWith(
+                      foreground: Paint()..color = textColor ?? Colors.black)),
+            ),
+            onPressed: onPressed,
+            child: Text(title)));
   }
 }
 

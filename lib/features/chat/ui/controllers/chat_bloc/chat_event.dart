@@ -14,7 +14,13 @@ class GetPreviousChatEvent extends ChatEvent {
   final String chatType;
   final int? page;
   final int? enquiryId;
-  GetPreviousChatEvent({required this.chatType, this.page, this.enquiryId});
+  final bool? isLoadMore;
+  GetPreviousChatEvent({
+    required this.chatType,
+    this.page,
+    this.enquiryId,
+    this.isLoadMore,
+  });
 }
 
 class MessageReceived extends ChatEvent {

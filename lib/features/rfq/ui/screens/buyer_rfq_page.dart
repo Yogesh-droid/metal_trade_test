@@ -20,7 +20,6 @@ class BuyerRfqPage extends StatefulWidget {
 class _BuyerRfqPageState extends State<BuyerRfqPage> {
   late ScrollController scrollController;
   late RfqBuyerEnquiryBloc homePageBuyerEnquiryBloc;
-  bool isFetchMore = false;
 
   @override
   void initState() {

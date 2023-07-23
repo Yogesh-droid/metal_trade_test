@@ -11,10 +11,10 @@ class ChatPointedContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment:
-          isMyChat ? MainAxisAlignment.end : MainAxisAlignment.start,
+          isMyChat ? MainAxisAlignment.start : MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (!isMyChat)
+        if (isMyChat)
           ClipPath(
             clipper: TriangleClipperLeft(),
             child: Container(
@@ -32,12 +32,12 @@ class ChatPointedContainer extends StatelessWidget {
               borderRadius: BorderRadius.only(
                 bottomLeft: const Radius.circular(14),
                 bottomRight: const Radius.circular(14),
-                topLeft: isMyChat ? const Radius.circular(14) : Radius.zero,
-                topRight: isMyChat ? Radius.zero : const Radius.circular(14),
+                topLeft: isMyChat ? Radius.zero : const Radius.circular(14),
+                topRight: isMyChat ? const Radius.circular(14) : Radius.zero,
               )),
           child: child,
         ),
-        if (isMyChat)
+        if (!isMyChat)
           ClipPath(
             clipper: TriangleClipperRight(),
             child: Container(

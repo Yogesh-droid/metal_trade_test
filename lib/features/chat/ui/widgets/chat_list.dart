@@ -12,6 +12,7 @@ class ChatList extends StatelessWidget {
   Widget build(BuildContext context) {
     return chatList.isNotEmpty
         ? ListView.separated(
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) => ChatCard(
               content: chatList[index],

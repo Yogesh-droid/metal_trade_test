@@ -14,7 +14,6 @@ class RfqBuyerEnquiryBloc extends Bloc<RfqEnquiryEvent, RfqBuyerEnquiryState> {
   List<Content> buyerRfqList = [];
   int buyerRfqListPage = 0;
   bool isBuyerRfqListEnd = false;
-  bool isFetchingMore = false;
   RfqBuyerEnquiryBloc({required this.homePageEnquiryUsecase})
       : super(RfqBuyerEnquiryInitial()) {
     on<RfqEnquiryEvent>((event, emit) async {

@@ -6,11 +6,10 @@ import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
 import 'package:metaltrade/core/constants/app_widgets/main_app_bar.dart';
 import 'package:metaltrade/core/constants/hive/local_storage.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
+import 'package:metaltrade/core/resource/stomp_client.dart';
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import 'package:metaltrade/features/profile/ui/widgets/kyc_dialog.dart';
 import 'package:stomp_dart_client/stomp.dart';
-import 'package:stomp_dart_client/stomp_config.dart';
-import 'package:stomp_dart_client/stomp_frame.dart';
 import '../../../../core/constants/strings.dart';
 import '../controllers/chat_bloc/chat_bloc.dart';
 import '../widgets/chat_list.dart';
@@ -19,21 +18,24 @@ import '../widgets/chat_list.dart';
 const String EVENT = "CHAT PAGE EVENT";
 
 class ChatTestPage extends StatefulWidget {
-  const ChatTestPage({super.key});
-
+  const ChatTestPage({Key? key, this.chatType}) : super(key: key);
+  final ChatType? chatType;
   @override
-  State<ChatTestPage> createState() => _ChatTestPageState();
+  State<ChatTestPage> createState() => ChatTestPageState();
 }
 
-class _ChatTestPageState extends State<ChatTestPage> {
+class ChatTestPageState extends State<ChatTestPage> {
+  GlobalKey<ChatTestPageState> myWidgetKey = GlobalKey();
   late ChatBloc chatBloc;
   final TextEditingController textEditingController = TextEditingController();
   late String token;
-  late StompClient? stompClient;
+  StompClient? stompClient;
   late ProfileBloc profileBloc;
   late int companyId;
   int receiverId = 0;
   late int senderId;
+  late int enquiryId;
+  final ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
@@ -41,27 +43,25 @@ class _ChatTestPageState extends State<ChatTestPage> {
     chatBloc = context.read<ChatBloc>();
     profileBloc = context.read<ProfileBloc>();
     senderId = profileBloc.profileEntity!.company!.id!;
+    stompClient = StompClientProvider.instance.stompCl;
 
-    if (mounted) {
-      if (profileBloc.state is ProfileSuccessState) {
-        if (profileBloc.profileEntity!.company != null) {
-          stompClient = StompClient(
-            config: StompConfig(
-                url: 'wss://api.metaltrade.io/ws',
-                onConnect: onConnect,
-                beforeConnect: () async {},
-                onWebSocketError: (dynamic error) =>
-                    log('', error: error.toString()),
-                stompConnectHeaders: {
-                  'Authorization': 'Bearer ${LocalStorage.instance.token}'
-                },
-                webSocketConnectHeaders: {
-                  'Authorization': 'Bearer ${LocalStorage.instance.token}'
-                }),
-          );
-          stompClient!.activate();
-        }
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+              scrollController.position.maxScrollExtent &&
+          !chatBloc.isCHatListEnd) {
+        chatBloc.add(GetPreviousChatEvent(
+            chatType: ChatType.enquiry.name,
+            enquiryId: enquiryId,
+            page: chatBloc.chatListPage + 1,
+            isLoadMore: true));
       }
+    });
+
+    if (stompClient != null) {
+      stompClient!.activate();
+      Future.delayed(const Duration(milliseconds: 2000), () {
+        onConnect();
+      });
     }
     super.initState();
   }
@@ -80,22 +80,54 @@ class _ChatTestPageState extends State<ChatTestPage> {
               return Column(
                 children: [
                   const SizedBox(height: appPadding * 2),
-                  BlocBuilder<ChatBloc, ChatState>(
-                    builder: (context, state) {
-                      if (state is PreviousChatLoading) {
-                        return const Expanded(
-                            child: Center(child: LoadingDots()));
-                      }
-                      if (state is PreviousChatLoaded) {
-                        if (state.chatList.isNotEmpty) {
-                          receiverId = state.chatList.first.senderCompanyId!;
-                        }
-                        return Expanded(
-                            child: ChatList(chatList: chatBloc.chatList));
-                      }
-                      return const Center(
-                          child: Text("No Previous Chat Found"));
-                    },
+                  Expanded(
+                    child: SingleChildScrollView(
+                      controller: scrollController,
+                      child: Column(
+                        children: [
+                          BlocBuilder<ChatBloc, ChatState>(
+                            builder: (context, state) {
+                              if (state is PreviousChatLoading) {
+                                return const Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(height: 200),
+                                    Center(child: LoadingDots()),
+                                  ],
+                                );
+                              }
+                              if (state is PreviousChatLoaded ||
+                                  state is PreviousChatLoadMore) {
+                                if (chatBloc.chatList.isNotEmpty) {
+                                  enquiryId =
+                                      chatBloc.chatList.first.enquiryId!;
+                                }
+                                return ChatList(chatList: chatBloc.chatList);
+                              }
+                              // if (state is PreviousChatLoaded ||
+                              //     state is PreviousChatLoadMore) {
+                              //   return const SizedBox(
+                              //       height: 200,
+                              //       child: Center(child: LoadingDots()));
+                              // }
+                              return const Center(
+                                  child: Text("No Previous Chat Found"));
+                            },
+                          ),
+                          SizedBox(
+                            height: 100,
+                            child: BlocBuilder<ChatBloc, ChatState>(
+                              builder: (context, state) {
+                                if (state is PreviousChatLoadMore) {
+                                  return const LoadingDots();
+                                }
+                                return const SizedBox();
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -112,22 +144,17 @@ class _ChatTestPageState extends State<ChatTestPage> {
                                 controller: textEditingController)),
                         IconButton(
                             onPressed: () {
-                              print(senderId);
-                              print(receiverId);
+                              debugPrint("sender id is $senderId");
                               if (textEditingController.text.isEmpty) {
                                 return;
                               }
-                              if (stompClient != null) {
-                                stompClient!.send(
-                                  destination: '/mtp/chat',
-                                  body: json.encode({
-                                    "senderCompanyId": senderId,
-                                    "enquiryId": 13,
-                                    "recipientCompanyId": receiverId,
-                                    "body": {"text": textEditingController.text}
-                                  }),
-                                );
-                              }
+                              stompClient!.send(
+                                destination: '/mtp/chat',
+                                body: json.encode({
+                                  "enquiryId": 13,
+                                  "body": {"text": textEditingController.text}
+                                }),
+                              );
                             },
                             icon: const Icon(Icons.send))
                       ],
@@ -145,14 +172,16 @@ class _ChatTestPageState extends State<ChatTestPage> {
     );
   }
 
-  void onConnect(StompFrame frame) {
+  void onConnect() {
     stompClient!.subscribe(
-      destination: '/company/$receiverId/queue/messages',
+      destination: '/company/$senderId/queue/messages',
       headers: {"Accept-Encoding": "gzip"},
       callback: (frame) {
         Map<String, dynamic> result = json.decode(frame.body!);
         log(result.toString(), name: EVENT);
-        context.read<ChatBloc>().add(AddNewChat(result));
+        if (mounted) {
+          context.read<ChatBloc>().add(AddNewChat(result));
+        }
       },
     );
   }

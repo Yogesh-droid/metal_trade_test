@@ -289,6 +289,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
                 TextButton(
                     onPressed: () {
                       context.pop();
+                      context.read<ProfileBloc>().add(GetUserProfileEvent());
                       context.pushReplacementNamed(profilePageName);
                     },
                     child: const Text(kMyProfile))

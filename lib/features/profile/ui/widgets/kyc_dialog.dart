@@ -6,9 +6,11 @@ import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/core/routes/routes.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
+import 'package:metaltrade/features/profile/domain/entities/profile_entity.dart';
 
 class KycDialog extends StatelessWidget {
-  const KycDialog({super.key});
+  const KycDialog({super.key, required this.profileEntity});
+  final ProfileEntity profileEntity;
 
   @override
   Widget build(BuildContext context) {

@@ -60,7 +60,6 @@ class _PinPutPageState extends State<PinPutPage> {
                   style: Theme.of(context).textTheme.headlineLarge),
             ),
             const SizedBox(height: appWidgetGap),
-            const SizedBox(height: appWidgetGap),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text("$kEnterOtp $phoneNo", style: secMed14),
@@ -78,7 +77,9 @@ class _PinPutPageState extends State<PinPutPage> {
                   return Pinput(
                     controller: pinTextController,
                     length: 4,
-                    onCompleted: (pin) => debugPrint(pin),
+                    onCompleted: (pin) => context
+                        .read<ValidateOtpBloc>()
+                        .add(GetValidateOtpEvent(phoneNo: phoneNo, otp: otp)),
                   );
                 },
               ),

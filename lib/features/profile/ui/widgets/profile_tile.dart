@@ -93,7 +93,8 @@ class ProfileTile extends StatelessWidget {
                             '',
                         textColor: Theme.of(context).colorScheme.primary,
                         onPressed: () {
-                          context.pushNamed(kycPageName);
+                          context.pushNamed(kycPageName,
+                              extra: state.profileEntity);
                         })
                   ],
                 ),

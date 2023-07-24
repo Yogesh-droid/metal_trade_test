@@ -7,6 +7,7 @@ import 'package:metaltrade/core/constants/app_widgets/main_app_bar.dart';
 import 'package:metaltrade/core/constants/hive/local_storage.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/resource/stomp_client.dart';
+import 'package:metaltrade/features/profile/domain/entities/profile_entity.dart';
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import 'package:metaltrade/features/profile/ui/widgets/kyc_dialog.dart';
 import 'package:stomp_dart_client/stomp.dart';
@@ -192,7 +193,9 @@ class ChatTestPageState extends State<ChatTestPage> {
                 ],
               );
             } else {
-              return const KycDialog();
+              return KycDialog(
+                profileEntity: ProfileEntity(),
+              );
             }
           }
           return const SizedBox();

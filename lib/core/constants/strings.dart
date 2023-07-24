@@ -49,6 +49,7 @@ const String kAddMember = "Team Members";
 const String kChangeLanguage = "Change Language";
 const String kRateUs = "Rate Us";
 const String kCompleteKyc = "Complete KYC";
+const String kCompleteProfile = "Complete Profile";
 const String kPleaseCompleteKyc =
     "Please complete your KYC to submit/view enquiries";
 const String kEmail = "Email";
@@ -58,6 +59,7 @@ const String kCompanyName = "Company name";
 const String kPinCode = "Pin code";
 const String kRepresentativeName = "Representative name";
 const String kChooseCountry = "Choose your country";
+const String kAccNo = "Enter your account Number";
 const String kRetry = "Retry";
 const String kCheckProfile = "Check Profile";
 const String kBack = "Back";

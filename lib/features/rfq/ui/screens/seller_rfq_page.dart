@@ -5,6 +5,7 @@ import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
 import 'package:metaltrade/features/profile/ui/widgets/kyc_dialog.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/routes/routes.dart';
+import '../../../profile/domain/entities/profile_entity.dart';
 import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import '../controllers/rfq_buyer_enquiry_bloc/rfq_buyer_enquiry_bloc.dart';
 import '../controllers/rfq_seller_enquiry_bloc/rfq_seller_enquiry_bloc.dart';
@@ -92,7 +93,7 @@ class _SellerRfqPageState extends State<SellerRfqPage> {
               }
             });
           } else {
-            return const KycDialog();
+            return KycDialog(profileEntity: ProfileEntity());
           }
         }
         return const SizedBox(

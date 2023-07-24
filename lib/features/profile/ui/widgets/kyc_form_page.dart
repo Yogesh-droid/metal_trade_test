@@ -15,8 +15,8 @@ import 'package:metaltrade/features/profile/ui/widgets/bordered_textfield.dart';
 import '../../../../core/constants/spaces.dart';
 
 class KycFormPage extends StatefulWidget {
-  const KycFormPage({super.key});
-
+  const KycFormPage({super.key, required this.profileEntity});
+  final ProfileEntity profileEntity;
   static final _formKey = GlobalKey<FormState>();
 
   @override
@@ -26,7 +26,6 @@ class KycFormPage extends StatefulWidget {
 class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
   late CountryCubit countryCubit;
   late ProfileBloc profileBloc;
-  late ProfileEntity profileEntity;
   final emailController = TextEditingController();
   final emailFocus = FocusNode();
 
@@ -39,8 +38,8 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
   final companyNameController = TextEditingController();
   final companyNameFocus = FocusNode();
 
-  final representativeNameController = TextEditingController();
-  final representativeNameFocus = FocusNode();
+  final accNoController = TextEditingController();
+  final accNoFocus = FocusNode();
 
   final pinController = TextEditingController();
   final pinFocus = FocusNode();
@@ -50,6 +49,8 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
 
   @override
   void initState() {
+    assignPrefilledText();
+
     countryCubit = context.read<CountryCubit>();
     profileBloc = context.read<ProfileBloc>();
     if (countryCubit.state is CountryInitial) {
@@ -81,32 +82,13 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
               textInputType: TextInputType.emailAddress,
               textInputAction: TextInputAction.done,
               onDone: (value) {
-                representativeNameFocus.requestFocus();
-              },
-              onValidate: (value) {
-                if (isNameValid(value!)) {
-                  return null;
-                } else {
-                  return 'Enter valid Company Name';
-                }
-              },
-            ),
-            const SizedBox(height: appFormFieldGap),
-            BorderedTextField(
-              isObscureText: false,
-              hintText: kRepresentativeName,
-              textEditingController: representativeNameController,
-              textInputType: TextInputType.name,
-              focusNode: representativeNameFocus,
-              textInputAction: TextInputAction.done,
-              onDone: (value) {
                 emailFocus.requestFocus();
               },
               onValidate: (value) {
                 if (isNameValid(value!)) {
                   return null;
                 } else {
-                  return 'Enter valid Name';
+                  return 'Enter valid Company Name';
                 }
               },
             ),
@@ -189,7 +171,26 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
             const SizedBox(height: appFormFieldGap),
             countryDropDown(),
             const SizedBox(height: appFormFieldGap),
-            GetStartedBtn(
+            BorderedTextField(
+              isObscureText: false,
+              hintText: kAccNo,
+              textEditingController: accNoController,
+              textInputType: TextInputType.name,
+              focusNode: accNoFocus,
+              textInputAction: TextInputAction.done,
+              onDone: (value) {
+                emailFocus.requestFocus();
+              },
+              onValidate: (value) {
+                if (isNameValid(value!)) {
+                  return null;
+                } else {
+                  return 'Enter valid Name';
+                }
+              },
+            ),
+            const SizedBox(height: appFormFieldGap),
+            FilledButtonWidget(
                 title: kSubmit,
                 onPressed: () {
                   if (KycFormPage._formKey.currentState!.validate()) {
@@ -198,14 +199,13 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
                         address: addressController.text,
                         companyNumber: phoneController.text,
                         email: emailController.text,
-                        legalRepresentativeName:
-                            representativeNameController.text,
                         name: companyNameController.text,
+                        bankAccountNumber: accNoController.text,
                         country: Country(id: selectedCountry),
                         pinCode: pinController.text)));
                   }
                 },
-                width: MediaQuery.of(context).size.width / 1.5)
+                width: MediaQuery.of(context).size.width)
           ]),
         ),
       ),
@@ -217,6 +217,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
       builder: (context, state) {
         if (state is CountrySuccess) {
           return DropdownButtonFormField<int>(
+              //hint: const Text(kChooseCountry),
               focusNode: countryFocus,
               validator: (value) {
                 if (value != null) {
@@ -252,7 +253,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
                     gapPadding: 8),
                 labelText: kChooseCountry,
                 labelStyle:
-                    TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+                    TextStyle(color: Theme.of(context).colorScheme.outline),
               ),
               items: state.countries
                   .map((e) =>
@@ -260,6 +261,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
                   .toList(),
               onChanged: (value) {
                 selectedCountry = value;
+                accNoFocus.requestFocus();
               });
         } else {
           return const SizedBox(
@@ -315,5 +317,18 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
                     child: const Text(kRetry))
               ],
             ));
+  }
+
+  void assignPrefilledText() {
+    if (widget.profileEntity.company != null) {
+      emailController.text = widget.profileEntity.company!.email ?? '';
+      companyNameController.text = widget.profileEntity.company!.name ?? '';
+      phoneController.text = widget.profileEntity.company!.phone ?? '';
+      addressController.text = widget.profileEntity.company!.address ?? '';
+      phoneController.text = widget.profileEntity.company!.pinCode ?? '';
+      selectedCountry = widget.profileEntity.company!.country!.id;
+      accNoController.text =
+          widget.profileEntity.company!.bankAccountNumber ?? '';
+    }
   }
 }

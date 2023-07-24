@@ -4,6 +4,7 @@ import 'package:metaltrade/features/auth/ui/screens/login_page.dart';
 import 'package:metaltrade/features/auth/ui/screens/pin_put_page.dart';
 import 'package:metaltrade/features/chat/ui/screens/chat_test_page.dart';
 import 'package:metaltrade/features/landing/ui/screens/landing_page.dart';
+import 'package:metaltrade/features/profile/domain/entities/profile_entity.dart';
 import 'package:metaltrade/features/profile/ui/screens/kyc_screen.dart';
 import 'package:metaltrade/features/profile/ui/screens/profile_screen.dart';
 import 'package:metaltrade/features/my_home/ui/screens/my_enquiry_detail.dart';
@@ -107,7 +108,7 @@ final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
     name: kycPageName,
     pageBuilder: (context, state) {
       return getTransition(
-          child: const KycScreen(),
+          child: KycScreen(profileEntity: state.extra as ProfileEntity),
           animationType: TransitionType.slide,
           duration: const Duration(milliseconds: 200));
     },

@@ -36,7 +36,7 @@ class KycDialog extends StatelessWidget {
                 GetStartedBtn(
                     title: kCompleteKyc,
                     onPressed: () {
-                      context.pushNamed(kycPageName);
+                      context.pushNamed(kycPageName, extra: ProfileEntity());
                     }),
               ],
             )),

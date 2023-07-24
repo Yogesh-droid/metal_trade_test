@@ -29,12 +29,12 @@ class _RfqHomePageState extends State<RfqHomePage>
   void initState() {
     profileBloc = context.read<ProfileBloc>();
     profileBloc.add(GetUserProfileEvent());
+    rfqBuyerEnquiryBloc = context.read<RfqBuyerEnquiryBloc>();
+    rfqSellerEnquiryBloc = context.read<RfqSellerEnquiryBloc>();
     _tabController = TabController(length: 2, vsync: this);
 
     profileBloc.stream.listen((state) {
       if (state is ProfileSuccessState && state.profileEntity.company != null) {
-        rfqBuyerEnquiryBloc = context.read<RfqBuyerEnquiryBloc>();
-        rfqSellerEnquiryBloc = context.read<RfqSellerEnquiryBloc>();
         rfqBuyerEnquiryBloc
             .add(GetRfqBuyerPageEnquiryEvent(page: 0, intent: UserIntent.Buy));
       }

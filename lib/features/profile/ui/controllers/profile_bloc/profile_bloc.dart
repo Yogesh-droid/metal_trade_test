@@ -20,7 +20,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
               await getProfileUsecase.call(RequestParams(
                   url: "${baseUrl}user",
                   apiMethods: ApiMethods.get,
-                  header: header));
+                  header: {
+                "Authorization": "Bearer ${LocalStorage.instance.token}",
+                "Content-Type": "application/json",
+                "Accept-Encoding": "gzip"
+              }));
           if (dataState.data != null) {
             if (dataState.data!.company != null) {
               LocalStorage.instance

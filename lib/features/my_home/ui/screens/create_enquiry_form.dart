@@ -8,7 +8,10 @@ import 'package:metaltrade/features/my_home/ui/controllers/create_enquiry_bloc/c
 import 'package:metaltrade/features/my_home/ui/widgets/app_dropdown_form.dart';
 import '../../../../core/constants/spaces.dart';
 import '../../../../core/constants/strings.dart';
+import '../../../profile/domain/entities/profile_entity.dart';
+import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import '../../../profile/ui/widgets/bordered_textfield.dart';
+import '../../../profile/ui/widgets/kyc_dialog.dart';
 import '../widgets/add_item_container.dart';
 import '../widgets/enquiry_type_radio.dart';
 
@@ -100,124 +103,148 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(appPadding),
-      child: Container(
-        padding: const EdgeInsets.all(appPadding),
-        decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.tertiaryContainer,
-            borderRadius: BorderRadius.circular(10)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              kEnquiryType,
-              style: secMed12,
-            ),
-            EnquiryTypeRadio(
-                onSelect: (value) {
-                  groupValue = value!;
-                  setState(() {});
-                },
-                groupValue: groupValue),
-            const SizedBox(height: appPadding * 2),
-            Column(children: itemContainers),
-            TextButton(
-                onPressed: () {
-                  itemCOntainerKey++;
-                  items.add({});
-                  int index = itemContainers.length;
-                  itemContainers.add(ItemListContainer(
-                    key: ValueKey(itemCOntainerKey),
-                    onChange: (value) {
-                      items[index]['quantityUnit'] = value!;
-                    },
-                    onProductSelect: (value) {
-                      items[index]['sku'] = {"id": value.id};
-                    },
-                    onDone: (value) {
-                      if (value.isNotEmpty) {
-                        items[index]['quantity'] = int.parse(value.toString());
-                      }
-                    },
-                    onRemarksSubmit: (value) {
-                      items[index]['remarks'] = value;
-                    },
-                    onRemoveTapped: () {
-                      itemContainers.remove(itemContainers[index]);
-                      items.remove(items[index]);
-                      setState(() {});
-                    },
-                  ));
-                  setState(() {});
-                },
-                child: const Text("+ $kAddProducts")),
-            const SizedBox(height: appPadding),
-            const Divider(),
-            AppDropdownFormField(
-              hintText: kDeliveryTerms,
-              items: deliveryTerms,
-              onChange: (value) {
-                termsOfDelivery = value.toString();
-              },
-            ),
-            const SizedBox(height: appPadding),
-            AppDropdownFormField(
-              hintText: kPaymentTerms,
-              items: paymentTerms,
-              onChange: (value) {
-                termsOfPayment = value.toString();
-              },
-            ),
-            const SizedBox(height: appPadding),
-            AppDropdownFormField(
-              hintText: kTransportTerms,
-              items: transportationTerms,
-              onChange: (value) {
-                termsOfTransport = value.toString();
-              },
-            ),
-            const SizedBox(height: appPadding),
-            BorderedTextField(
-              isObscureText: false,
-              textEditingController: remarksController,
-              radius: 4,
-              maxLines: 4,
-              hintText: kRemarks,
-              textInputType: TextInputType.text,
-              focusNode: FocusNode(),
-            ),
-            const SizedBox(height: appWidgetGap - 20),
-            BlocConsumer<CreateEnquiryBloc, CreateEnquiryState>(
-              listener: (context, state) {
-                if (state is PostEnquirySuccessful) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Enquiry created Successfully")));
-                }
-              },
-              builder: (context, state) {
-                if (state is PostEnquiryInProgress) {
-                  return const LoadingDots();
-                }
-                return FilledButtonIconWidget(
-                  title: kCreateEnquiry,
-                  onPressed: () {
-                    postEnquiryMap['enquiryType'] = groupValue;
-                    postEnquiryMap['transportationTerms'] = termsOfTransport;
-                    postEnquiryMap['paymentTerms'] = termsOfPayment;
-                    postEnquiryMap['deliveryTerms'] = termsOfDelivery;
-                    postEnquiryMap['item'] = items;
-                    postEnquiryMap['remarks'] = remarksController.text;
-                    PostEnquiryModel postEnquiryModel =
-                        PostEnquiryModel.fromJson(postEnquiryMap);
-                    context.read<CreateEnquiryBloc>().add(
-                        PostEnquiryEvent(postEnquiryModel: postEnquiryModel));
-                  },
-                  icon: const Icon(Icons.add),
-                  width: double.maxFinite,
-                );
-              },
-            )
-          ],
-        ),
+      child: BlocBuilder<ProfileBloc, ProfileState>(
+        builder: (context, state) {
+          if (state is ProfileSuccessState) {
+            if (state.profileEntity.company != null) {
+              return Container(
+                padding: const EdgeInsets.all(appPadding),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.tertiaryContainer,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      kEnquiryType,
+                      style: secMed12,
+                    ),
+                    EnquiryTypeRadio(
+                        onSelect: (value) {
+                          groupValue = value!;
+                          setState(() {});
+                        },
+                        groupValue: groupValue),
+                    const SizedBox(height: appPadding * 2),
+                    Column(children: itemContainers),
+                    TextButton(
+                        onPressed: () {
+                          itemCOntainerKey++;
+                          items.add({});
+                          int index = itemContainers.length;
+                          itemContainers.add(ItemListContainer(
+                            key: ValueKey(itemCOntainerKey),
+                            onChange: (value) {
+                              items[index]['quantityUnit'] = value!;
+                            },
+                            onProductSelect: (value) {
+                              items[index]['sku'] = {"id": value.id};
+                            },
+                            onDone: (value) {
+                              if (value.isNotEmpty) {
+                                items[index]['quantity'] =
+                                    int.parse(value.toString());
+                              }
+                            },
+                            onRemarksSubmit: (value) {
+                              items[index]['remarks'] = value;
+                            },
+                            onRemoveTapped: () {
+                              itemContainers.remove(itemContainers[index]);
+                              items.remove(items[index]);
+                              setState(() {});
+                            },
+                          ));
+                          setState(() {});
+                        },
+                        child: const Text("+ $kAddProducts")),
+                    const SizedBox(height: appPadding),
+                    const Divider(),
+                    AppDropdownFormField(
+                      hintText: kDeliveryTerms,
+                      items: deliveryTerms,
+                      onChange: (value) {
+                        termsOfDelivery = value.toString();
+                      },
+                    ),
+                    const SizedBox(height: appPadding),
+                    AppDropdownFormField(
+                      hintText: kPaymentTerms,
+                      items: paymentTerms,
+                      onChange: (value) {
+                        termsOfPayment = value.toString();
+                      },
+                    ),
+                    const SizedBox(height: appPadding),
+                    AppDropdownFormField(
+                      hintText: kTransportTerms,
+                      items: transportationTerms,
+                      onChange: (value) {
+                        termsOfTransport = value.toString();
+                      },
+                    ),
+                    const SizedBox(height: appPadding),
+                    BorderedTextField(
+                      isObscureText: false,
+                      textEditingController: remarksController,
+                      radius: 4,
+                      maxLines: 4,
+                      hintText: kRemarks,
+                      textInputType: TextInputType.text,
+                      focusNode: FocusNode(),
+                    ),
+                    const SizedBox(height: appWidgetGap - 20),
+                    BlocConsumer<CreateEnquiryBloc, CreateEnquiryState>(
+                      listener: (context, state) {
+                        if (state is PostEnquirySuccessful) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text("Enquiry created Successfully")));
+                        }
+                      },
+                      builder: (context, state) {
+                        if (state is PostEnquiryInProgress) {
+                          return const LoadingDots();
+                        }
+                        return FilledButtonIconWidget(
+                          title: kCreateEnquiry,
+                          onPressed: () {
+                            postEnquiryMap['enquiryType'] = groupValue;
+                            postEnquiryMap['transportationTerms'] =
+                                termsOfTransport;
+                            postEnquiryMap['paymentTerms'] = termsOfPayment;
+                            postEnquiryMap['deliveryTerms'] = termsOfDelivery;
+                            postEnquiryMap['item'] = items;
+                            postEnquiryMap['remarks'] = remarksController.text;
+                            PostEnquiryModel postEnquiryModel =
+                                PostEnquiryModel.fromJson(postEnquiryMap);
+                            context.read<CreateEnquiryBloc>().add(
+                                PostEnquiryEvent(
+                                    postEnquiryModel: postEnquiryModel));
+                          },
+                          icon: const Icon(Icons.add),
+                          width: double.maxFinite,
+                        );
+                      },
+                    )
+                  ],
+                ),
+              );
+            } else {
+              return KycDialog(
+                profileEntity: ProfileEntity(),
+              );
+            }
+          } else if (state is ProfileFailed) {
+            return const Center(
+                child: Text("Something went wrong !! \n Profile not found",
+                    textAlign: TextAlign.center));
+          }
+          return const SizedBox(
+            child: Center(child: LoadingDots()),
+          );
+        },
       ),
     );
   }

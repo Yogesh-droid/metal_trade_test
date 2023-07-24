@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/hive/local_storage.dart';
 import 'package:metaltrade/core/routes/routes.dart';
+import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import 'package:pinput/pinput.dart';
 import '../../../../core/constants/spaces.dart';
 import '../../../../core/constants/strings.dart';
@@ -90,10 +91,20 @@ class _PinPutPageState extends State<PinPutPage> {
               child: Align(
                 alignment: Alignment.center,
                 child: BlocConsumer<ValidateOtpBloc, ValidateOtpState>(
-                  listener: (context, state) {
+                  listener: (context, state) async {
                     if (state is ValidateOtpSuccess) {
-                      LocalStorage.instance.saveToken(state.token);
-                      context.push(dashBoardRoute);
+                      await LocalStorage.instance
+                          .saveToken(state.token)
+                          .then((value) {
+                        print(state.token);
+                        print(LocalStorage.instance.getToken());
+                        Future.delayed(const Duration(milliseconds: 200), () {
+                          context
+                              .read<ProfileBloc>()
+                              .add(GetUserProfileEvent());
+                          context.push(dashBoardRoute);
+                        });
+                      });
                     }
                   },
                   builder: (context, state) {

@@ -9,6 +9,9 @@ import 'package:metaltrade/features/my_home/ui/widgets/quote_filters.dart';
 import '../../../../core/constants/app_widgets/loading_dots.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../chat/ui/controllers/chat_bloc/chat_bloc.dart';
+import '../../../profile/domain/entities/profile_entity.dart';
+import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
+import '../../../profile/ui/widgets/kyc_dialog.dart';
 import '../widgets/quote_card.dart';
 
 class MyQuoteScreen extends StatefulWidget {
@@ -44,57 +47,80 @@ class _MyQuoteScreenState extends State<MyQuoteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      controller: scrollController,
-      child: Column(
-        children: [
-          const QuoteFilters(),
-          BlocBuilder<MyQuoteBloc, MyQuoteState>(builder: (context, state) {
-            if (state is MyQuoteInitial) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is MyQuoteFetchedState ||
-                state is MyQuoteLoadMore) {
-              return ListView(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                children: myQuoteBloc.myQuoteList
-                    .map((e) => HomePageQuoteCard(
-                          content: e,
-                          itemList: e.item,
-                          country: e.quoteCompany!.country!.name,
-                          uuid: e.uuid,
-                          filledBtnTitle:
-                              e.status == 'Inreview' ? kCancel : null,
-                          borderedBtnTitle: kChat,
-                          onBorderedBtnTapped: () {
-                            context.read<ChatBloc>().add(GetPreviousChatEvent(
-                                chatType: ChatType.enquiry.name,
-                                enquiryId: e.enquiry!.id!,
-                                page: 0));
-                            context.pushNamed(chatPageName,
-                                queryParameters: {'room': e.uuid ?? ''});
-                          },
-                          onFilledBtnTapped: () {},
-                        ))
-                    .toList(),
-              );
-            } else {
-              return const Center(child: Text("Some Error"));
-            }
-          }),
-          SizedBox(
-            height: 100,
-            child: BlocBuilder<MyQuoteBloc, MyQuoteState>(
-              builder: (context, state) {
-                if (state is MyQuoteLoadMore) {
-                  return const LoadingDots();
-                }
-                return const SizedBox();
-              },
-            ),
-          )
-        ],
-      ),
+    return BlocBuilder<ProfileBloc, ProfileState>(
+      builder: (context, state) {
+        if (state is ProfileSuccessState) {
+          if (state.profileEntity.company != null) {
+            return SingleChildScrollView(
+              controller: scrollController,
+              child: Column(
+                children: [
+                  const QuoteFilters(),
+                  BlocBuilder<MyQuoteBloc, MyQuoteState>(
+                      builder: (context, state) {
+                    if (state is MyQuoteInitial) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is MyQuoteFetchedState ||
+                        state is MyQuoteLoadMore) {
+                      return ListView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        children: myQuoteBloc.myQuoteList
+                            .map((e) => HomePageQuoteCard(
+                                  content: e,
+                                  itemList: e.item,
+                                  country: e.quoteCompany!.country!.name,
+                                  uuid: e.uuid,
+                                  filledBtnTitle:
+                                      e.status == 'Inreview' ? kCancel : null,
+                                  borderedBtnTitle: kChat,
+                                  onBorderedBtnTapped: () {
+                                    context.read<ChatBloc>().add(
+                                        GetPreviousChatEvent(
+                                            chatType: ChatType.enquiry.name,
+                                            enquiryId: e.enquiry!.id!,
+                                            page: 0));
+                                    context.pushNamed(chatPageName,
+                                        queryParameters: {
+                                          'room': e.uuid ?? ''
+                                        });
+                                  },
+                                  onFilledBtnTapped: () {},
+                                ))
+                            .toList(),
+                      );
+                    } else {
+                      return const Center(child: Text("Some Error"));
+                    }
+                  }),
+                  SizedBox(
+                    height: 100,
+                    child: BlocBuilder<MyQuoteBloc, MyQuoteState>(
+                      builder: (context, state) {
+                        if (state is MyQuoteLoadMore) {
+                          return const LoadingDots();
+                        }
+                        return const SizedBox();
+                      },
+                    ),
+                  )
+                ],
+              ),
+            );
+          } else {
+            return KycDialog(
+              profileEntity: ProfileEntity(),
+            );
+          }
+        } else if (state is ProfileFailed) {
+          return const Center(
+              child: Text("Something went wrong !! \n Profile not found",
+                  textAlign: TextAlign.center));
+        }
+        return const SizedBox(
+          child: Center(child: LoadingDots()),
+        );
+      },
     );
   }
 }

@@ -25,33 +25,29 @@ class ProfileTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Theme.of(context).colorScheme.onPrimary,
-                      child: Text(
-                        state.profileEntity.company!.name![0],
-                        style: secMed20.copyWith(
-                            color: Theme.of(context).colorScheme.primary),
-                      ),
-                    ),
+                        radius: 30,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onPrimary,
+                        child: const Icon(Icons.person_outlined)),
                     const SizedBox(width: appPadding * 2),
                     Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(state.profileEntity.company!.name ?? '',
+                          Text(
+                            "Hello !",
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall!
+                                .copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary),
+                          ),
+                          Text(state.profileEntity.mobileNumber ?? '',
                               style: secMed20.copyWith(
                                   fontWeight: FontWeight.bold,
                                   color:
                                       Theme.of(context).colorScheme.onPrimary)),
-                          Text(
-                            state.profileEntity.company!.email ?? '',
-                            style: secMed14.copyWith(
-                                color: Theme.of(context).colorScheme.onPrimary),
-                          ),
-                          Text(
-                            state.profileEntity.company!.phone ?? '',
-                            style: secMed14.copyWith(
-                                color: Theme.of(context).colorScheme.onPrimary),
-                          )
                         ]),
                   ],
                 ),
@@ -72,15 +68,19 @@ class ProfileTile extends StatelessWidget {
                             width: 60,
                             child: CircularProgressIndicator(
                               color: Colors.deepPurpleAccent,
-                              value: state.profileEntity.company!
-                                      .profileCompletion!.completion! /
-                                  100,
+                              value: state.profileEntity.company != null
+                                  ? state.profileEntity.company!
+                                          .profileCompletion!.completion! /
+                                      100
+                                  : 0,
                             ),
                           ),
                         ),
                         Text(
-                          "${((state.profileEntity.company!.profileCompletion!.completion! / 100) * 100).toInt()} %"
-                              .toString(),
+                          state.profileEntity.company != null
+                              ? "${((state.profileEntity.company!.profileCompletion!.completion! / 100) * 100).toInt()} %"
+                                  .toString()
+                              : "0 %",
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.onPrimary),
                         )
@@ -88,9 +88,11 @@ class ProfileTile extends StatelessWidget {
                     ),
                     FilledButtonWidget(
                         color: Theme.of(context).colorScheme.onPrimary,
-                        title: state.profileEntity.company!.profileCompletion!
-                                .next ??
-                            '',
+                        title: state.profileEntity.company != null
+                            ? state.profileEntity.company!.profileCompletion!
+                                    .next ??
+                                ''
+                            : "Edit Profile",
                         textColor: Theme.of(context).colorScheme.primary,
                         onPressed: () {
                           context.pushNamed(kycPageName,

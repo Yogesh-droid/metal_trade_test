@@ -5,7 +5,9 @@ import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/core/constants/validator_mixin.dart';
 import 'package:metaltrade/core/routes/routes.dart';
+import 'package:metaltrade/features/chat/ui/controllers/chat_home/chat_home_bloc.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
+import 'package:metaltrade/features/news/ui/controllers/news_bloc/news_bloc.dart';
 import 'package:metaltrade/features/profile/data/models/kyc_request_model.dart';
 import 'package:metaltrade/features/profile/domain/entities/profile_entity.dart';
 import 'package:metaltrade/features/profile/ui/controllers/country_cubit/country_cubit.dart';
@@ -275,26 +277,30 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
   void onKycDone(BuildContext context) {
     showDialog(
         context: context,
-        builder: (context) => AlertDialog(
-              content: Text(
-                "Congratulation! KYC is done",
-                style: secMed15.copyWith(fontWeight: FontWeight.w700),
-              ),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text(kBack)),
-                TextButton(
-                    onPressed: () {
-                      context.pop();
-                      context.read<ProfileBloc>().add(GetUserProfileEvent());
-                      context.pushReplacementNamed(profilePageName);
-                    },
-                    child: const Text(kMyProfile))
-              ],
-            ));
+        builder: (context) {
+          context.read<ProfileBloc>().add(GetUserProfileEvent());
+          context.read<ChatHomeBloc>().add(GetChatHomeList(page: 0));
+          context.read<NewsBloc>().add(GetAllNewsEvent(page: 0));
+          return AlertDialog(
+            content: Text(
+              "Congratulation! KYC is done",
+              style: secMed15.copyWith(fontWeight: FontWeight.w700),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(kBack)),
+              TextButton(
+                  onPressed: () {
+                    context.pop();
+                    context.pushReplacementNamed(profilePageName);
+                  },
+                  child: const Text(kMyProfile))
+            ],
+          );
+        });
   }
 
   void onKycFailed(Exception exception, BuildContext context) {

@@ -87,6 +87,17 @@ class ChatTestPageState extends State<ChatTestPage> {
                       controller: scrollController,
                       child: Column(
                         children: [
+                          SizedBox(
+                            height: 100,
+                            child: BlocBuilder<ChatBloc, ChatState>(
+                              builder: (context, state) {
+                                if (state is PreviousChatLoadMore) {
+                                  return const LoadingDots();
+                                }
+                                return const SizedBox();
+                              },
+                            ),
+                          ),
                           BlocBuilder<ChatBloc, ChatState>(
                             builder: (context, state) {
                               if (state is PreviousChatLoading) {
@@ -110,17 +121,6 @@ class ChatTestPageState extends State<ChatTestPage> {
                                   child: Text("No Previous Chat Found"));
                             },
                           ),
-                          SizedBox(
-                            height: 100,
-                            child: BlocBuilder<ChatBloc, ChatState>(
-                              builder: (context, state) {
-                                if (state is PreviousChatLoadMore) {
-                                  return const LoadingDots();
-                                }
-                                return const SizedBox();
-                              },
-                            ),
-                          )
                         ],
                       ),
                     ),

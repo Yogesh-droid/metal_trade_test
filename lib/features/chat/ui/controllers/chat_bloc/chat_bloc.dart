@@ -41,7 +41,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
                   url: url, apiMethods: ApiMethods.get, header: header));
 
           if (dataState.data != null) {
-            chatList.addAll(dataState.data!.content!);
+            chatList.insertAll(0, dataState.data!.content!.reversed.toList());
             chatListPage = dataState.data!.number!;
             isCHatListEnd = dataState.data!.last!;
             emit(PreviousChatLoaded(chatList: dataState.data!.content!));

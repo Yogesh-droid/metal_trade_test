@@ -31,6 +31,7 @@ class MetalTradeApp extends StatelessWidget {
         child: BlocBuilder<AppTheme, ThemeData>(
           builder: (context, state) {
             return MaterialApp.router(
+              debugShowCheckedModeBanner: false,
               title: 'Metal Trade',
               theme: state,
               routerConfig: router,

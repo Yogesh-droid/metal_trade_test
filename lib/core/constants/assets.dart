@@ -37,9 +37,29 @@ class Assets {
   /// assets/welcome/app_icon.png
   static const String assetsWelcomeAppIcon = "assets/welcome/app_icon.png";
 
+  /// Assets for assetsWelcomeAppLogoName
+  /// assets/welcome/app_logo_name.png
+  static const String assetsWelcomeAppLogoName = "assets/welcome/app_logo_name.png";
+
+  /// Assets for assetsWelcomeAppScreens
+  /// assets/welcome/app_screens.png
+  static const String assetsWelcomeAppScreens = "assets/welcome/app_screens.png";
+
   /// Assets for assetsWelcomeMetalTradeLogo
   /// assets/welcome/metal_trade_logo.png
   static const String assetsWelcomeMetalTradeLogo = "assets/welcome/metal_trade_logo.png";
+
+  /// Assets for assetsWelcomeWebBg
+  /// assets/welcome/web_bg.png
+  static const String assetsWelcomeWebBg = "assets/welcome/web_bg.png";
+
+  /// Assets for assetsWelcomeWebHeader
+  /// assets/welcome/web_header.png
+  static const String assetsWelcomeWebHeader = "assets/welcome/web_header.png";
+
+  /// Assets for assetsWelcomeWebImg2
+  /// assets/welcome/web_img2.png
+  static const String assetsWelcomeWebImg2 = "assets/welcome/web_img2.png";
 
   /// Assets for assetsWelcomeWelcomPage
   /// assets/welcome/welcom_page.png

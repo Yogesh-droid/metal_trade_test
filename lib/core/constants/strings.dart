@@ -89,3 +89,30 @@ const String kRemarks = "Remarks";
 const String kChats = "Chats";
 const String kDetails = "Details";
 const String kOtpVerification = "OTP Verification";
+const String kFeatures = "Features";
+const String kHowToUse = "How to Use";
+const String kReachUs = "Reach Us";
+const String kMyAcc = "My Account";
+const String kTradeOn = "Trade on raw metal and";
+const String kAllProductOfSteel = "all products of steel";
+const String kOurOneStop =
+    "Our one stop trading platform seamlessly manages your buying and selling efforts with a robust tech stack";
+const String kPowerFulFeatures = "Powerful features to";
+const String kAchieve = "achieve";
+const String kFaster = " faster time to";
+const String kTrade = "trade";
+const String kGetInstant = "Get instant competitive quotes";
+const String kChatWithCustomers =
+    "Chat with your customers and suppliers and get exactly what you need.";
+const String kGetMarketUpdate = "Get market updates";
+const String kStayUpdated =
+    "Stay updated with market news, price trends and quantity traded";
+const String kHowToUseMtApp = "How to use the MetalTrade App";
+const String kCreateYourRfq = "Create your RFQ";
+const String kMyRfq = "My RFQs and Quotes";
+const String kNeedMoreInfo =
+    "Need More Information? Get in Touch or Request a callback";
+const String kSteelTrade =
+    "The steel trade in Indonesia is very huge in size and highly competitive. But it is mostly un organised and unstructured. Our mission is to organize the trade with the help of technology and help all the stakeholders benefit from it and eventually bring growth in economy";
+const String kDownloadApp = "Download the App";
+const String kGetLink = "Get the link to download the app";

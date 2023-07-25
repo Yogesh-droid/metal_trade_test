@@ -78,7 +78,7 @@ final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
     name: otpPageName,
     pageBuilder: (context, state) {
       return getTransition(
-          child: PinPutPage(),
+          child: const PinPutPage(),
           animationType: TransitionType.slide,
           duration: const Duration(milliseconds: 200));
     },
@@ -149,8 +149,8 @@ final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
     pageBuilder: (context, state) {
       return getTransition(
           child: ChatTestPage(
-              chatType: state.queryParameters['chatType'],
-              room: state.queryParameters['room']),
+              chatType: state.uri.queryParameters['chatType'],
+              room: state.uri.queryParameters['room']),
           animationType: TransitionType.slide,
           duration: const Duration(milliseconds: 200));
     },

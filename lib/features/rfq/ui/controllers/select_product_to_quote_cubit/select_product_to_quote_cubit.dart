@@ -30,6 +30,6 @@ class SelectProductToQuoteCubit extends Cubit<SelectProductToQuoteState> {
     selectedItems.contains(item)
         ? selectedItems.remove(item)
         : selectedItems.add(item);
-    emit(SelectedProductToQuoteChanged(selectedIndex: []));
+    emit(SelectedProductToQuoteChanged(selectedIndex: const []));
   }
 }

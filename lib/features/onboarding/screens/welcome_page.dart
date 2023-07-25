@@ -36,10 +36,10 @@ class _WelcomePageState extends State<WelcomePage> {
             backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
             body: Center(
               child: Image.asset(
-                Assets.assetsWelcomeAppIcon,
-                fit: BoxFit.contain,
-                height: 200,
-                width: 200,
+                Assets.assetsWelcomeWelcomPage,
+                fit: BoxFit.fill,
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
               ),
             ),
           );
@@ -47,11 +47,12 @@ class _WelcomePageState extends State<WelcomePage> {
 
   Future<void> appStartUp(BuildContext context) async {
     if (!kIsWeb) {
-      await LocalStorage.instance.getToken().then((value) {
-        if (value.isEmpty) {
+      String token = await LocalStorage.instance.getToken();
+      Future.delayed(const Duration(seconds: 2), () async {
+        if (token.isEmpty) {
           context.go(landingPageRoute);
         } else {
-          debugPrint("token is =>=>=>=>  $value");
+          debugPrint("token is =>=>=>=>  $token");
           context.go(dashBoardRoute);
         }
       });

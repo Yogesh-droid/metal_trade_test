@@ -41,6 +41,10 @@ class Assets {
   /// assets/welcome/metal_trade_logo.png
   static const String assetsWelcomeMetalTradeLogo = "assets/welcome/metal_trade_logo.png";
 
+  /// Assets for assetsWelcomeWelcomPage
+  /// assets/welcome/welcom_page.png
+  static const String assetsWelcomeWelcomPage = "assets/welcome/welcom_page.png";
+
   /// Assets for assetsWelcomeWelcome1
   /// assets/welcome/welcome_1.png
   static const String assetsWelcomeWelcome1 = "assets/welcome/welcome_1.png";

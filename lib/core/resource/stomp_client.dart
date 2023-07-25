@@ -14,10 +14,14 @@ class StompClientProvider {
         },
         onWebSocketError: (dynamic error) => log('', error: error.toString()),
         stompConnectHeaders: {
-          'Authorization': 'Bearer ${LocalStorage.instance.token}'
+          'Authorization': 'Bearer ${LocalStorage.instance.token}',
+          'Content-Type': 'application/json',
+          'Accept-Encoding': 'gzip'
         },
         webSocketConnectHeaders: {
-          'Authorization': 'Bearer ${LocalStorage.instance.token}'
+          'Authorization': 'Bearer ${LocalStorage.instance.token}',
+          'Content-Type': 'application/json',
+          'Accept-Encoding': 'gzip'
         }),
   );
 

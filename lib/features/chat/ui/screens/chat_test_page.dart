@@ -164,7 +164,7 @@ class ChatTestPageState extends State<ChatTestPage> {
                                   }
                                   stompClient!.send(
                                     destination: '/mtp/chat',
-                                    headers: {'Accept-Encoding': 'gzip', 'Authorization': 'Bearer ${LocalStorage.instance.token}'},
+                                    headers: {'Authorization': 'Bearer ${LocalStorage.instance.token}'},
                                     body: json.encode({
                                       "enquiryId": enquiryId,
                                       "body": {
@@ -208,7 +208,7 @@ class ChatTestPageState extends State<ChatTestPage> {
   void onConnect() {
     stompClient!.subscribe(
       destination: '/company/$senderId/queue/messages',
-      headers: {'Accept-Encoding': 'gzip', 'Authorization': 'Bearer ${LocalStorage.instance.token}'},
+      headers: {'Authorization': 'Bearer ${LocalStorage.instance.token}'},
       callback: (frame) {
         Map<String, dynamic> result = json.decode(frame.body!);
         log(result.toString(), name: EVENT);

@@ -17,18 +17,14 @@ class HomePageAppbarBottom extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TabBar(
-            isScrollable: isScrollable ?? false,
-            tabs: tabList,
-            indicatorSize: TabBarIndicatorSize.tab,
-            controller: tabController,
-            onTap: (value) {
-              onTap(value);
-            }),
-      ],
-    );
+    return TabBar(
+        isScrollable: isScrollable ?? false,
+        tabs: tabList,
+        indicatorSize: TabBarIndicatorSize.tab,
+        controller: tabController,
+        onTap: (value) {
+          onTap(value);
+        });
   }
 
   @override

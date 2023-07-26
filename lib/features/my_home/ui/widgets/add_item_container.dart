@@ -14,13 +14,13 @@ class ItemListContainer extends StatefulWidget {
       this.onChange,
       required this.onProductSelect,
       this.onDone,
-      required this.onRemoveTapped,
+      this.onRemoveTapped,
       this.onRemarksSubmit});
   final Function(Object? value)? onChange;
   final Function(Content content) onProductSelect;
   final Function(String s)? onDone;
   final Function(String s)? onRemarksSubmit;
-  final Function() onRemoveTapped;
+  final Function()? onRemoveTapped;
 
   @override
   State<ItemListContainer> createState() => _ItemListContainerState();
@@ -72,7 +72,7 @@ class _ItemListContainerState extends State<ItemListContainer> {
                   radius: 4,
                   hintText: kQuantity,
                   textInputType: const TextInputType.numberWithOptions(),
-                  onDone: widget.onDone,
+                  onChange: widget.onDone,
                   focusNode: FocusNode(),
                 )),
                 const SizedBox(width: 5),
@@ -95,23 +95,24 @@ class _ItemListContainerState extends State<ItemListContainer> {
               radius: 4,
               hintText: kRemarks,
               textInputType: TextInputType.text,
-              onDone: widget.onDone,
+              onChange: widget.onRemarksSubmit,
               focusNode: FocusNode(),
             ),
             const SizedBox(height: appPadding * 2)
           ],
         ),
-        Positioned(
-            right: 0,
-            child: InkWell(
-              onTap: () {
-                widget.onRemoveTapped();
-              },
-              child: const Icon(
-                Icons.remove_circle,
-                color: Colors.red,
-              ),
-            ))
+        if (widget.onRemoveTapped != null)
+          Positioned(
+              right: 0,
+              child: InkWell(
+                onTap: () {
+                  widget.onRemoveTapped!();
+                },
+                child: const Icon(
+                  Icons.remove_circle,
+                  color: Colors.red,
+                ),
+              ))
       ],
     );
   }

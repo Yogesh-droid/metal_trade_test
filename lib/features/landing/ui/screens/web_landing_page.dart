@@ -15,14 +15,27 @@ class WebLandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController scrollController = ScrollController();
     return Scaffold(
       appBar: AppBar(
         titleSpacing: appWidgetGap,
         title: Image.asset(Assets.assetsWelcomeAppLogoName),
         actions: [
-          appBarTextButton(context, kFeatures, () {}),
-          appBarTextButton(context, kHowToUse, () {}),
-          appBarTextButton(context, kReachUs, () {}),
+          appBarTextButton(context, kFeatures, () {
+            scrollController.animateTo(MediaQuery.of(context).size.height / 1.5,
+                curve: Curves.linear,
+                duration: const Duration(milliseconds: 500));
+          }),
+          appBarTextButton(context, kHowToUse, () {
+            scrollController.animateTo(MediaQuery.of(context).size.height * 1.8,
+                curve: Curves.linear,
+                duration: const Duration(milliseconds: 700));
+          }),
+          appBarTextButton(context, kReachUs, () {
+            scrollController.animateTo(MediaQuery.of(context).size.height * 3,
+                curve: Curves.linear,
+                duration: const Duration(milliseconds: 1000));
+          }),
           FilledButtonWidget(
               title: kMyAcc,
               onPressed: () async {
@@ -39,13 +52,15 @@ class WebLandingPage extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
+        controller: scrollController,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: appFormFieldGap * 3),
             SizedBox(
-              height: 400,
+              height: MediaQuery.of(context).size.height / 1.5,
+              width: MediaQuery.of(context).size.width,
               child: Row(
                 children: [
                   Expanded(
@@ -108,16 +123,33 @@ class WebLandingPage extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 700,
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
               child: Stack(
+                alignment: Alignment.center,
                 children: [
-                  Image.asset(Assets.assetsWelcomeWebBg, fit: BoxFit.cover),
-                  Container(
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(Assets.assetsWelcomeZigZagLayer),
-                            fit: BoxFit.cover,
-                            opacity: 0.1)),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: Image.asset(
+                      Assets.assetsWelcomeWebBg,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                    child: Image.asset(
+                      Assets.assetsWelcomeZigZagLayer,
+                      fit: BoxFit.fill,
+                      opacity: const AlwaysStoppedAnimation(0.1),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: appWidgetGap,
+                        left: appWidgetGap,
+                        right: appWidgetGap / 2),
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -172,8 +204,14 @@ class WebLandingPage extends StatelessWidget {
               ),
             ),
             Container(
-              color: Theme.of(context).colorScheme.tertiaryContainer,
-              padding: const EdgeInsets.all(appWidgetGap),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.tertiaryContainer,
+              ),
+              padding: const EdgeInsets.only(
+                  top: appWidgetGap * 2,
+                  left: appWidgetGap,
+                  right: appWidgetGap,
+                  bottom: appWidgetGap * 2),
               width: MediaQuery.of(context).size.width,
               child: Row(children: [
                 Padding(
@@ -205,7 +243,13 @@ class WebLandingPage extends StatelessWidget {
                 Expanded(child: appWorkingDemo(context))
               ]),
             ),
-            Image.asset(Assets.assetsWelcomeWebImg2),
+            Image.asset(
+              Assets.assetsWelcomeWebImg2,
+              fit: BoxFit.cover,
+              height: MediaQuery.of(context).size.height / 1.5,
+              width: MediaQuery.of(context).size.width,
+            ),
+            const SizedBox(height: appWidgetGap * 2),
             const NeedMoreInfoWidget(),
             const SizedBox(height: appWidgetGap * 2),
             const WebFooter()
@@ -269,7 +313,8 @@ class WebLandingPage extends StatelessWidget {
       height: 70,
       decoration: BoxDecoration(
           color: Colors.white,
-          border: Border.all(color: Theme.of(context).colorScheme.outline),
+          border:
+              Border.all(color: Theme.of(context).colorScheme.outlineVariant),
           borderRadius: BorderRadius.circular(12)),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Text(title,

@@ -32,7 +32,6 @@ class _PinPutPageState extends State<PinPutPage> {
   void initState() {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       start = start - 1;
-      print(start);
       setState(() {});
       if (start == 0) {
         timer.cancel();
@@ -96,8 +95,6 @@ class _PinPutPageState extends State<PinPutPage> {
                       await LocalStorage.instance
                           .saveToken(state.token)
                           .then((value) {
-                        print(state.token);
-                        print(LocalStorage.instance.getToken());
                         Future.delayed(const Duration(milliseconds: 200), () {
                           context
                               .read<ProfileBloc>()

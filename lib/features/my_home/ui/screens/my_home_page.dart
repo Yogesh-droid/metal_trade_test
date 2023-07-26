@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:metaltrade/features/my_home/ui/controllers/create_enquiry_bloc/create_enquiry_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_quote_bloc/my_quote_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/screens/create_enquiry_screen.dart';
 import 'package:metaltrade/features/my_home/ui/screens/my_quote_screen.dart';
@@ -50,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage>
             tabController: _tabController,
             isScrollable: true,
             onTap: (value) {
-              if (value == 0) {
+              if (value == 1) {
                 if (myRfqBloc.myRfqList.isEmpty && !myRfqBloc.isMyRfqListEnd) {
                   myRfqBloc.add(GetMyRfqList(
                       page:
@@ -58,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage>
                       status: [EnquiryStatus.Active.name],
                       isLoadMore: false));
                 }
-              } else {
+              } else if (value == 2) {
                 if (myQuoteBloc.myQuoteList.isEmpty &&
                     !myQuoteBloc.isMyQuoteListEnd) {
                   myQuoteBloc.add(GetQuoteList(
@@ -72,10 +73,22 @@ class _MyHomePageState extends State<MyHomePage>
       body: Column(
         children: [
           Expanded(
-              child: TabBarView(controller: _tabController, children: const [
-            CreateEnquiryScreen(),
-            MyRfqScreen(),
-            MyQuoteScreen()
+              child: TabBarView(controller: _tabController, children: [
+            BlocListener<CreateEnquiryBloc, CreateEnquiryState>(
+              listener: (context, state) {
+                if (state is PostEnquirySuccessful) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text("Enquiry created Successfully")));
+                  context
+                      .read<MyRfqBloc>()
+                      .add(GetMyRfqList(isLoadMore: false, page: 0));
+                  _tabController.animateTo(1);
+                }
+              },
+              child: const CreateEnquiryScreen(),
+            ),
+            const MyRfqScreen(),
+            const MyQuoteScreen()
           ]))
         ],
       ),

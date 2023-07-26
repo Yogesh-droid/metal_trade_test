@@ -22,6 +22,7 @@ class NeedMoreInfoWidget extends StatelessWidget {
           Text(kNeedMoreInfo,
               style: secMed36.copyWith(
                   fontWeight: FontWeight.w700, fontFamily: "Nunito")),
+          const SizedBox(height: appWidgetGap),
           Row(
             children: [
               Expanded(
@@ -64,7 +65,7 @@ class NeedMoreInfoWidget extends StatelessWidget {
           FilledButtonWidget(
             title: kSubmit,
             onPressed: () {},
-            width: MediaQuery.of(context).size.width / 2,
+            width: MediaQuery.of(context).size.width / 4,
           )
         ],
       ),

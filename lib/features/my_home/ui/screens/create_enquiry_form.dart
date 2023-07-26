@@ -6,6 +6,7 @@ import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 import 'package:metaltrade/features/my_home/data/models/post_enquiry_req_model.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/create_enquiry_bloc/create_enquiry_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/widgets/app_dropdown_form.dart';
+
 import '../../../../core/constants/spaces.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../profile/domain/entities/profile_entity.dart';
@@ -93,7 +94,6 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
         onRemarksSubmit: (value) {
           items[0]['remarks'] = value;
         },
-        onRemoveTapped: () {},
       ),
     ];
     super.initState();
@@ -194,15 +194,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                       focusNode: FocusNode(),
                     ),
                     const SizedBox(height: appWidgetGap - 20),
-                    BlocConsumer<CreateEnquiryBloc, CreateEnquiryState>(
-                      listener: (context, state) {
-                        if (state is PostEnquirySuccessful) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content:
-                                      Text("Enquiry created Successfully")));
-                        }
-                      },
+                    BlocBuilder<CreateEnquiryBloc, CreateEnquiryState>(
                       builder: (context, state) {
                         if (state is PostEnquiryInProgress) {
                           return const LoadingDots();

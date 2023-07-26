@@ -22,8 +22,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
                   apiMethods: ApiMethods.get,
                   header: {
                 "Authorization": "Bearer ${LocalStorage.instance.token}",
-                "Content-Type": "application/json",
-                "Accept-Encoding": "gzip"
+                "Content-Type": "application/json"
               }));
           if (dataState.data != null) {
             if (dataState.data!.company != null) {

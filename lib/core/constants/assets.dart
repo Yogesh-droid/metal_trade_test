@@ -33,10 +33,6 @@ class Assets {
   /// assets/country.json
   static const String assetsCountry = "assets/country.json";
 
-  /// Assets for assetsWelcomeAppIcon
-  /// assets/welcome/app_icon.png
-  static const String assetsWelcomeAppIcon = "assets/welcome/app_icon.png";
-
   /// Assets for assetsWelcomeAppLogoName
   /// assets/welcome/app_logo_name.png
   static const String assetsWelcomeAppLogoName = "assets/welcome/app_logo_name.png";
@@ -44,6 +40,14 @@ class Assets {
   /// Assets for assetsWelcomeAppScreens
   /// assets/welcome/app_screens.png
   static const String assetsWelcomeAppScreens = "assets/welcome/app_screens.png";
+
+  /// Assets for assetsWelcomeAppstoreBadge
+  /// assets/welcome/appstore-badge.png
+  static const String assetsWelcomeAppstoreBadge = "assets/welcome/appstore-badge.png";
+
+  /// Assets for assetsWelcomeGooglePlayBadge
+  /// assets/welcome/google-play-badge.png
+  static const String assetsWelcomeGooglePlayBadge = "assets/welcome/google-play-badge.png";
 
   /// Assets for assetsWelcomeMetalTradeLogo
   /// assets/welcome/metal_trade_logo.png
@@ -76,4 +80,8 @@ class Assets {
   /// Assets for assetsWelcomeWelcome3
   /// assets/welcome/welcome_3.png
   static const String assetsWelcomeWelcome3 = "assets/welcome/welcome_3.png";
+
+  /// Assets for assetsWelcomeZigZagLayer
+  /// assets/welcome/zig_zag_layer.png
+  static const String assetsWelcomeZigZagLayer = "assets/welcome/zig_zag_layer.png";
 }

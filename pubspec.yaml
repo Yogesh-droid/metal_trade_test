@@ -51,6 +51,9 @@ flutter:
     - family: Inter
       fonts:
         - asset: fonts/Inter-Regular.ttf
+    - family: Nunito
+      fonts:
+        - asset: fonts/Nunito-Regular.ttf
         
   assets:
     - dotenv

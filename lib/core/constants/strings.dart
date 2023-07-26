@@ -116,3 +116,15 @@ const String kSteelTrade =
     "The steel trade in Indonesia is very huge in size and highly competitive. But it is mostly un organised and unstructured. Our mission is to organize the trade with the help of technology and help all the stakeholders benefit from it and eventually bring growth in economy";
 const String kDownloadApp = "Download the App";
 const String kGetLink = "Get the link to download the app";
+const String kMetalTradeApp = "MetalTrade App";
+const String kWeAreEndToEnd =
+    "We are the end-to-end solution for buying, selling metal globally";
+const String kAcceptAQuote = "Accept a Quote";
+const String kMyRfqAndQuotes = "My RFQs and Quotes";
+const String kAdditionalInfo = "Any Additional message..";
+const String kSteelTradeInIndonasia =
+    '''The steel trade in Indonesia is very huge 
+in size and highly competitive. But it is mostly 
+un organised and unstructured. Our mission is to organize the 
+trade with the help of technology and help all the stakeholders
+ benefit from it and eventually bring growth in economy''';

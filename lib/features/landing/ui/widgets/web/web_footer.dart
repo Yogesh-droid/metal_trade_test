@@ -20,7 +20,7 @@ class WebFooter extends StatelessWidget {
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           mission(context),
           const SizedBox(height: appWidgetGap * 2),
-          Text("© MetalTrade 2023, All Rights Reserved",
+          Text("© Metal Trading Platform Pte Ltd. 2023, All Rights Reserved",
               style: secMed12.copyWith(color: Colors.white))
         ]),
         Column(

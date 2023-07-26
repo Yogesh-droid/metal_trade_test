@@ -108,8 +108,8 @@ const String kGetMarketUpdate = "Get market updates";
 const String kStayUpdated =
     "Stay updated with market news, price trends and quantity traded";
 const String kHowToUseMtApp = "How to use the MetalTrade App";
-const String kCreateYourRfq = "Create your RFQ";
-const String kMyRfq = "My RFQs and Quotes";
+const String kCreateYourRfq = "Create your Enquiries";
+const String kMyRfq = "My Enquiries and Quotes";
 const String kNeedMoreInfo =
     "Need More Information? Get in Touch or Request a callback";
 const String kSteelTrade =
@@ -120,7 +120,7 @@ const String kMetalTradeApp = "MetalTrade App";
 const String kWeAreEndToEnd =
     "We are the end-to-end solution for buying, selling metal globally";
 const String kAcceptAQuote = "Accept a Quote";
-const String kMyRfqAndQuotes = "My RFQs and Quotes";
+const String kMyRfqAndQuotes = "My Enquiries and Quotes";
 const String kAdditionalInfo = "Any Additional message..";
 const String kSteelTradeInIndonasia =
     '''The steel trade in Indonesia is very huge 

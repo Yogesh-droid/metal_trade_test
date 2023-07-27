@@ -161,7 +161,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                     const SizedBox(height: appPadding),
                     const Divider(),
                     AppDropdownFormField(
-                      hintText: kDeliveryTerms,
+                      hintText: kAddDeliveryTerms,
                       items: deliveryTerms,
                       onChange: (value) {
                         termsOfDelivery = value.toString();
@@ -169,7 +169,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                     ),
                     const SizedBox(height: appPadding),
                     AppDropdownFormField(
-                      hintText: kPaymentTerms,
+                      hintText: kAddPaymentTerms,
                       items: paymentTerms,
                       onChange: (value) {
                         termsOfPayment = value.toString();
@@ -177,7 +177,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                     ),
                     const SizedBox(height: appPadding),
                     AppDropdownFormField(
-                      hintText: kTransportTerms,
+                      hintText: kAddTransportTerms,
                       items: transportationTerms,
                       onChange: (value) {
                         termsOfTransport = value.toString();

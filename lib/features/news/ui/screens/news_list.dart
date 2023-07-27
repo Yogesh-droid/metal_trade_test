@@ -25,7 +25,7 @@ class NewsList extends StatelessWidget {
         } else {
           return Center(
               child: Text(
-            "Sorry !! No New Event \n Keep An Eye 👁️",
+            "No new News",
             textAlign: TextAlign.center,
             style: secMed18.copyWith(fontWeight: FontWeight.w700),
           ));

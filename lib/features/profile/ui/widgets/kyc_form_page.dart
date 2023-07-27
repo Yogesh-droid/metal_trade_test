@@ -267,7 +267,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
               });
         } else {
           return const SizedBox(
-            child: Center(child: Text("Sorry No countries found")),
+            child: Center(child: Text("No country found")),
           );
         }
       },

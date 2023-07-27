@@ -22,7 +22,7 @@ class EnquiryDetailHeading extends StatelessWidget {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         DateTime.tryParse(datePosted) != null
             ? Text(
-                "$kPosted : ${DateFormat('dd MMM yyyy - hh:mm a').format(DateTime.tryParse(datePosted)!)}",
+                "$kPosted: ${DateFormat('dd MMM yyyy - hh:mm a').format(DateTime.tryParse(datePosted)!)}",
                 style: secMed12.copyWith(
                     color: Theme.of(context).colorScheme.secondary),
               )

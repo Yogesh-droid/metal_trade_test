@@ -45,7 +45,7 @@ class HomePageCard extends StatelessWidget {
               children: [
                 DateTime.tryParse(content!.lastModifiedDate ?? '') != null
                     ? Text(
-                        "$kPosted : ${DateFormat('dd MMM yyyy - hh:mm a').format(DateTime.tryParse(content!.lastModifiedDate ?? '')!)}",
+                        "$kPosted: ${DateFormat('dd MMM yyyy - hh:mm a').format(DateTime.tryParse(content!.lastModifiedDate ?? '')!)}",
                         style: secMed12.copyWith(
                             color: Theme.of(context).colorScheme.secondary),
                       )

@@ -23,7 +23,7 @@ class ChatList extends StatelessWidget {
                 const SizedBox(height: appPadding * 2),
           )
         : const Center(
-            child: Text("Sorry No chat found"),
+            child: Text("No chat found"),
           );
   }
 }

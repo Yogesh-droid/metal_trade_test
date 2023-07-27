@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
+import 'package:metaltrade/features/landing/ui/controllers/cubit/request_callback_cubit.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 import 'package:metaltrade/features/landing/ui/widgets/web/need_more_info_tc.dart';
 
@@ -62,10 +64,31 @@ class NeedMoreInfoWidget extends StatelessWidget {
               hint: kAdditionalInfo,
               textEditingController: additionalMsgController),
           const SizedBox(height: appWidgetGap),
-          FilledButtonWidget(
-            title: kSubmit,
-            onPressed: () {},
-            width: MediaQuery.of(context).size.width / 4,
+          BlocConsumer<RequestCallbackCubit, RequestCallbackState>(
+            listener: (context, state) {
+              if (state is RequestCallbackSuccess) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Request sent Successfully")));
+              }
+            },
+            builder: (context, state) {
+              if (state is RequestCallbackLoading) {
+                return FilledButtonLoading(
+                  width: MediaQuery.of(context).size.width / 4,
+                );
+              }
+              return FilledButtonWidget(
+                title: kSubmit,
+                onPressed: () {
+                  context.read<RequestCallbackCubit>().requestCallback({
+                    "name": nameController.text,
+                    "mobileNumber": contactNoController.text,
+                    "message": additionalMsgController.text
+                  });
+                },
+                width: MediaQuery.of(context).size.width / 4,
+              );
+            },
           )
         ],
       ),

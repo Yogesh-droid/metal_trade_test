@@ -4,6 +4,8 @@ import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
+import 'package:metaltrade/features/landing/ui/widgets/web/app_bar_textbutton.dart';
+import 'package:metaltrade/features/landing/ui/widgets/web/web_app_bar.dart';
 import 'package:metaltrade/features/landing/ui/widgets/web/web_footer.dart';
 import '../../../../core/constants/assets.dart';
 import '../../../../core/constants/hive/local_storage.dart';
@@ -17,40 +19,7 @@ class WebLandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController();
     return Scaffold(
-      appBar: AppBar(
-        titleSpacing: appWidgetGap,
-        title: Image.asset(Assets.assetsWelcomeAppLogoName),
-        actions: [
-          appBarTextButton(context, kFeatures, () {
-            scrollController.animateTo(MediaQuery.of(context).size.height / 1.5,
-                curve: Curves.linear,
-                duration: const Duration(milliseconds: 500));
-          }),
-          appBarTextButton(context, kHowToUse, () {
-            scrollController.animateTo(MediaQuery.of(context).size.height * 1.8,
-                curve: Curves.linear,
-                duration: const Duration(milliseconds: 700));
-          }),
-          appBarTextButton(context, kReachUs, () {
-            scrollController.animateTo(MediaQuery.of(context).size.height * 3,
-                curve: Curves.linear,
-                duration: const Duration(milliseconds: 1000));
-          }),
-          FilledButtonWidget(
-              title: kMyAcc,
-              onPressed: () async {
-                await LocalStorage.instance.getToken().then((value) {
-                  if (value.isEmpty) {
-                    context.go(landingPageRoute);
-                  } else {
-                    debugPrint("token is =>=>=>=>  $value");
-                    context.go(dashBoardRoute);
-                  }
-                });
-              }),
-          const SizedBox(width: appWidgetGap)
-        ],
-      ),
+      appBar: appBar(context, scrollController),
       body: SingleChildScrollView(
         controller: scrollController,
         child: Column(
@@ -259,18 +228,18 @@ class WebLandingPage extends StatelessWidget {
     );
   }
 
-  Widget appBarTextButton(
-      BuildContext context, String text, Function onPressed) {
-    return TextButton(
-        onPressed: () {
-          onPressed();
-        },
-        child: Text(text,
-            style: secMed14.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-                fontWeight: FontWeight.w700,
-                fontFamily: "Nunito")));
-  }
+  // Widget appBarTextButton(
+  //     BuildContext context, String text, Function onPressed) {
+  //   return TextButton(
+  //       onPressed: () {
+  //         onPressed();
+  //       },
+  //       child: Text(text,
+  //           style: secMed14.copyWith(
+  //               color: Theme.of(context).colorScheme.onSurfaceVariant,
+  //               fontWeight: FontWeight.w700,
+  //               fontFamily: "Nunito")));
+  // }
 
   Widget appDescriptionText(
       BuildContext context, String title, String subtitle) {
@@ -322,6 +291,49 @@ class WebLandingPage extends StatelessWidget {
                 fontFamily: "Nunito", fontWeight: FontWeight.w700)),
         const Icon(Icons.arrow_drop_down)
       ]),
+    );
+  }
+
+  WebAppBar appBar(BuildContext context, ScrollController scrollController) {
+    return WebAppBar(
+      actions: [
+        AppBarTextButton(
+            text: kFeatures,
+            onPressed: () {
+              scrollController.animateTo(
+                  MediaQuery.of(context).size.height / 1.5,
+                  curve: Curves.linear,
+                  duration: const Duration(milliseconds: 500));
+            }),
+        AppBarTextButton(
+            text: kHowToUse,
+            onPressed: () {
+              scrollController.animateTo(
+                  MediaQuery.of(context).size.height * 1.8,
+                  curve: Curves.linear,
+                  duration: const Duration(milliseconds: 700));
+            }),
+        AppBarTextButton(
+            text: kReachUs,
+            onPressed: () {
+              scrollController.animateTo(MediaQuery.of(context).size.height * 3,
+                  curve: Curves.linear,
+                  duration: const Duration(milliseconds: 1000));
+            }),
+        FilledButtonWidget(
+            title: kMyAcc,
+            onPressed: () async {
+              await LocalStorage.instance.getToken().then((value) {
+                if (value.isEmpty) {
+                  context.go(landingPageRoute);
+                } else {
+                  debugPrint("token is =>=>=>=>  $value");
+                  context.go(dashBoardRoute);
+                }
+              });
+            }),
+        const SizedBox(width: appWidgetGap)
+      ],
     );
   }
 }

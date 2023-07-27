@@ -6,8 +6,8 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'core/constants/app_theme.dart';
-import 'core/di/get_it_setup.dart';
-import 'core/providers/providers.dart';
+import 'core/di/get_it_imports.dart';
+import 'core/providers/provider_import.dart';
 import 'core/routes/routes.dart';
 
 Future<void> main(List<String> args) async {

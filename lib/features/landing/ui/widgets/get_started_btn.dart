@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
 
 class GetStartedBtn extends StatelessWidget {
   const GetStartedBtn(
@@ -94,6 +95,24 @@ class FilledButtonWidget extends StatelessWidget {
             ),
             onPressed: onPressed,
             child: Text(title)));
+  }
+}
+
+class FilledButtonLoading extends StatelessWidget {
+  const FilledButtonLoading({super.key, this.height, this.width});
+
+  final double? height;
+  final double? width;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        width: width,
+        child: FilledButton(
+            style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(Colors.grey[400])),
+            onPressed: null,
+            child: const LoadingDots()));
   }
 }
 

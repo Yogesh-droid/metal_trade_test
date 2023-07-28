@@ -38,7 +38,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 const ProfileTile(),
                 const SizedBox(height: appPadding),
-                const OptionTile(title: kMyOrders),
+                OptionTile(
+                    title: kMyOrders,
+                    onTap: () {
+                      context.pushNamed(myOrderScreenName);
+                    }),
                 const SizedBox(height: appPadding),
                 const OptionTile(title: kAddMember),
                 const SizedBox(height: appPadding),

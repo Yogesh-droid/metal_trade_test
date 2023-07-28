@@ -52,7 +52,7 @@ class Content {
   String? paymentTerms;
   String? deliveryTerms;
   String? status;
-  int? totalValue;
+  double? totalValue;
   String? uuid;
 
   Content(
@@ -83,32 +83,6 @@ class Content {
     status = json["status"];
     totalValue = json["totalValue"];
     uuid = json["uuid"];
-  }
-}
-
-class Item {
-  int? id;
-  Sku? sku;
-  int? quantity;
-  String? quantityUnit;
-  int? price;
-  String? remarks;
-
-  Item(
-      {this.id,
-      this.sku,
-      this.quantity,
-      this.quantityUnit,
-      this.price,
-      this.remarks});
-
-  Item.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    sku = json["sku"] == null ? null : Sku.fromJson(json["sku"]);
-    quantity = json["quantity"];
-    quantityUnit = json["quantityUnit"];
-    price = json["price"];
-    remarks = json["remarks"];
   }
 }
 

@@ -4,6 +4,7 @@ import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
+import 'package:metaltrade/features/rfq/ui/widgets/home_card_itemlist_widget.dart';
 
 import '../../data/models/rfq_enquiry_model.dart';
 
@@ -115,21 +116,22 @@ class HomePageCard extends StatelessWidget {
   Widget itemListWidget(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(kProducts,
-              style: Theme.of(context)
-                  .textTheme
-                  .labelSmall!
-                  .copyWith(color: Theme.of(context).colorScheme.secondary)),
-          getItemListTile(itemList![0], context),
-          if (itemList!.length > 1)
-            TextButton(
-                onPressed: onDetailTapped,
-                child: Text("+ ${itemList!.length - 1} more"))
-        ],
-      ),
+      child: HomeCardItemListWidget(itemList: itemList),
+      // child: Column(
+      //   crossAxisAlignment: CrossAxisAlignment.start,
+      //   children: [
+      //     Text(kProducts,
+      //         style: Theme.of(context)
+      //             .textTheme
+      //             .labelSmall!
+      //             .copyWith(color: Theme.of(context).colorScheme.secondary)),
+      //     getItemListTile(itemList![0], context),
+      //     if (itemList!.length > 1)
+      //       TextButton(
+      //           onPressed: onDetailTapped,
+      //           child: Text("+ ${itemList!.length - 1} more"))
+      //   ],
+      // ),
     );
   }
 

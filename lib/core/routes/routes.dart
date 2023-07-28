@@ -6,6 +6,7 @@ import 'package:metaltrade/features/chat/ui/screens/chat_test_page.dart';
 import 'package:metaltrade/features/landing/ui/screens/landing_page.dart';
 import 'package:metaltrade/features/profile/domain/entities/profile_entity.dart';
 import 'package:metaltrade/features/profile/ui/screens/kyc_screen.dart';
+import 'package:metaltrade/features/profile/ui/screens/my_order_screen.dart';
 import 'package:metaltrade/features/profile/ui/screens/profile_screen.dart';
 import 'package:metaltrade/features/my_home/ui/screens/my_enquiry_detail.dart';
 import 'package:metaltrade/features/my_home/ui/screens/my_quote_page.dart';
@@ -38,6 +39,8 @@ const String myQuotePageScreenName = "MyQuotePageRouteName";
 const String myQuotePageRoute = "/myQuotePageRoute";
 const String myEnqiryDetailPageName = "MyEnquiryDetailsPage";
 const String myEnquiryPageRoute = "/myEnuiryPageRoute";
+const String myOrderScreenRoute = "/myOrderPage";
+const String myOrderScreenName = "MyOrderScreenName";
 
 final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
   GoRoute(
@@ -161,6 +164,16 @@ final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
     pageBuilder: (context, state) {
       return getTransition(
           child: const MyQuotesPage(),
+          animationType: TransitionType.slide,
+          duration: const Duration(milliseconds: 200));
+    },
+  ),
+  GoRoute(
+    path: myOrderScreenRoute,
+    name: myOrderScreenName,
+    pageBuilder: (context, state) {
+      return getTransition(
+          child: const MyOrderScreen(),
           animationType: TransitionType.slide,
           duration: const Duration(milliseconds: 200));
     },

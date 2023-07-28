@@ -12,9 +12,9 @@ class OptionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      // onTap: () {
-      //   onTap!();
-      // },
+      onTap: () {
+        onTap!();
+      },
       title: Text(title, style: secMed14.copyWith(fontWeight: FontWeight.w700)),
       leading: leading,
       trailing: trailing ?? const Icon(Icons.chevron_right),

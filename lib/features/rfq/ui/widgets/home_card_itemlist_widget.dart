@@ -21,11 +21,13 @@ class HomeCardItemListWidget extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .labelSmall!
-                  .copyWith(color: Theme.of(context).colorScheme.secondary)),
-          ItemListTile(item: itemList![0]),
+                  .copyWith(color: Theme.of(context).colorScheme.outline)),
+          ItemListTile(item: itemList![0], price: itemList![0].price!.toInt()),
           if (itemList!.length > 1)
             TextButton(
-                onPressed: onDetailTapped,
+                onPressed: () {
+                  onDetailTapped!();
+                },
                 child: Text("+ ${itemList!.length - 1} more"))
         ],
       ),

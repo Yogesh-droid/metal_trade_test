@@ -37,10 +37,10 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+      backgroundColor: Theme.of(context).colorScheme.outlineVariant,
       appBar: MainAppBar(
-        height: 100,
-        title: const Text(kHome),
+        //height: 100,
+        //title: const Text(kHome),
         elevation: 5,
         bottomWidget: HomePageAppbarBottom(
             tabList: const [

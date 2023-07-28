@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_quote_bloc/my_quote_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/quote_filter_cubit/quote_filter_cubit.dart';
@@ -12,7 +13,7 @@ import '../../../chat/ui/controllers/chat_bloc/chat_bloc.dart';
 import '../../../profile/domain/entities/profile_entity.dart';
 import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import '../../../profile/ui/widgets/kyc_dialog.dart';
-import '../widgets/quote_card.dart';
+import '../widgets/home_page_quote_card.dart';
 
 class MyQuoteScreen extends StatefulWidget {
   const MyQuoteScreen({super.key});
@@ -55,7 +56,9 @@ class _MyQuoteScreenState extends State<MyQuoteScreen> {
               controller: scrollController,
               child: Column(
                 children: [
+                  const SizedBox(height: appFormFieldGap),
                   const QuoteFilters(),
+                  const SizedBox(height: appFormFieldGap),
                   BlocBuilder<MyQuoteBloc, MyQuoteState>(
                       builder: (context, state) {
                     if (state is MyQuoteInitial) {

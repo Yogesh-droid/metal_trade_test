@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/filter_status_cubit/filter_status_cubit.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_rfq_bloc/my_rfq_bloc.dart';
 
@@ -12,12 +13,15 @@ class FilterChipList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MyRfqBloc myRfqBloc = context.read<MyRfqBloc>();
-    return SizedBox(
+    return Container(
+      color: Theme.of(context).colorScheme.onPrimary,
+      width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.065,
       child: BlocBuilder<FilterStatusCubit, FilterStatusState>(
         builder: (context, state) {
           if (state is FilterStatusUpdate) {
             return ListView(
+              padding: const EdgeInsets.only(left: appPadding),
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               children: EnquiryStatus.values
@@ -42,6 +46,7 @@ class FilterChipList extends StatelessWidget {
             );
           }
           return ListView(
+            padding: const EdgeInsets.only(left: appPadding),
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             children: EnquiryStatus.values

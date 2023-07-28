@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
+import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/routes/routes.dart';
 import 'package:metaltrade/features/profile/ui/widgets/kyc_dialog.dart';
@@ -55,6 +56,7 @@ class _BuyerRfqPageState extends State<BuyerRfqPage> {
                   children: [
                     Expanded(
                       child: ListView(
+                        padding: const EdgeInsets.only(top: appFormFieldGap),
                         controller: scrollController,
                         shrinkWrap: true,
                         children: homePageBuyerEnquiryBloc.buyerRfqList

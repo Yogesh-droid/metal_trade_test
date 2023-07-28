@@ -17,43 +17,66 @@ class MyOrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(appPadding),
-        child: Card(
-            color: Theme.of(context).colorScheme.onPrimary,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            child: Padding(
-                padding: const EdgeInsets.all(appPadding),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          DateTime.tryParse(content!.lastModifiedDate ?? '') !=
-                                  null
-                              ? Text(
-                                  "$kPosted: ${DateFormat('dd MMM yyyy - hh:mm a').format(DateTime.tryParse(content!.lastModifiedDate ?? '')!)}",
-                                  style: secMed12.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary),
-                                )
-                              : const SizedBox()
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "${content!.uuid} on ${content!.enquiry!.uuid}",
-                            style: secMed12,
-                          ),
-                        ],
-                      ),
-                      const Divider(),
-                      itemListWidget(context),
-                    ]))));
+    return Container(
+      margin: const EdgeInsets.only(top: appPadding * 2),
+      color: Theme.of(context).colorScheme.onPrimary,
+      child: Padding(
+          padding: const EdgeInsets.all(appPadding * 2),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                DateTime.tryParse(content!.lastModifiedDate ?? '') != null
+                    ? Text(
+                        "${content!.uuid} on: ${DateFormat('dd MMM yyyy - hh:mm a').format(DateTime.tryParse(content!.lastModifiedDate ?? '')!)}",
+                        style: secMed12.copyWith(
+                            color: Theme.of(context).colorScheme.secondary),
+                      )
+                    : const SizedBox()
+              ],
+            ),
+            Row(
+              children: [
+                Text(
+                  "${content!.quote!.uuid} on ${content!.enquiry!.uuid}",
+                  style: secMed12,
+                ),
+              ],
+            ),
+            const Divider(),
+            itemListWidget(context),
+            const Divider(),
+            Row(children: [
+              Icon(
+                Icons.brightness_1,
+                color: content!.status == "Active"
+                    ? Colors.green
+                    : content!.status == "Expired"
+                        ? Colors.red
+                        : content!.status == "Inreview"
+                            ? Colors.orange
+                            : Colors.blue[900],
+                size: 8,
+              ),
+              const SizedBox(width: appPadding),
+              Text(
+                content!.status ?? '',
+                style: secMed12.copyWith(
+                    color: content!.status == "Active"
+                        ? Colors.green
+                        : content!.status == "Expired"
+                            ? Colors.red
+                            : content!.status == "Inreview"
+                                ? Colors.orange
+                                : Colors.blue[900]),
+              ),
+              const Spacer(),
+              Text("\$ ${content!.totalValue}",
+                  style: secMed15.copyWith(fontWeight: FontWeight.w800))
+            ]),
+          ])),
+    );
   }
 
   Widget itemListWidget(BuildContext context) {
@@ -66,7 +89,7 @@ class MyOrderCard extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .labelSmall!
-                  .copyWith(color: Theme.of(context).colorScheme.secondary)),
+                  .copyWith(color: Theme.of(context).colorScheme.outline)),
           Column(
               children: itemList!.map((e) => QuoteListItem(item: e)).toList())
         ],

@@ -48,7 +48,7 @@ class BorderedTextField extends StatelessWidget {
             gapPadding: 8),
         focusedBorder: OutlineInputBorder(
             borderSide:
-                BorderSide(color: Theme.of(context).colorScheme.primary),
+                BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
             borderRadius: BorderRadius.circular(radius ?? appPadding),
             gapPadding: 8),
         disabledBorder: OutlineInputBorder(
@@ -58,7 +58,7 @@ class BorderedTextField extends StatelessWidget {
             gapPadding: 8),
         enabledBorder: OutlineInputBorder(
             borderSide:
-                BorderSide(color: Theme.of(context).colorScheme.primary),
+                BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
             borderRadius: BorderRadius.circular(radius ?? appPadding),
             gapPadding: 8),
         labelText: hintText,

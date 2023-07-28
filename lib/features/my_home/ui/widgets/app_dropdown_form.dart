@@ -23,9 +23,13 @@ class AppDropdownFormField extends StatelessWidget {
           fillColor: Theme.of(context).colorScheme.onPrimary,
           filled: true,
           hintText: hintText,
-          border: OutlineInputBorder(
-              borderSide:
-                  BorderSide(color: Theme.of(context).colorScheme.primary),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.outlineVariant),
+              gapPadding: 8),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.outlineVariant),
               gapPadding: 8),
         ),
         items: items,

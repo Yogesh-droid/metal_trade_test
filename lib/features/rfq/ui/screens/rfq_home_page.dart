@@ -6,9 +6,9 @@ import 'package:metaltrade/features/rfq/ui/controllers/rfq_buyer_enquiry_bloc/rf
 import 'package:metaltrade/features/rfq/ui/controllers/rfq_seller_enquiry_bloc/rfq_seller_enquiry_bloc.dart';
 import 'package:metaltrade/features/rfq/ui/screens/buyer_rfq_page.dart';
 import 'package:metaltrade/features/rfq/ui/screens/seller_rfq_page.dart';
+
 import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import '../widgets/home_page_appbar_bottom.dart';
-import '../widgets/search_bar_widget.dart';
 
 class RfqHomePage extends StatefulWidget {
   const RfqHomePage({super.key});
@@ -45,7 +45,7 @@ class _RfqHomePageState extends State<RfqHomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+        backgroundColor: Theme.of(context).colorScheme.outlineVariant,
         appBar: mainAppBar(context),
         body: Column(
           children: [
@@ -59,8 +59,8 @@ class _RfqHomePageState extends State<RfqHomePage>
 
   mainAppBar(BuildContext context) {
     return MainAppBar(
-      height: 100,
-      title: SearchBarWidget(searchController: searchController),
+      // height: 100,
+      // title: SearchBarWidget(searchController: searchController),
       elevation: 5,
       bottomWidget: HomePageAppbarBottom(
           tabList: const [

@@ -32,12 +32,12 @@ class DisabledTextField extends StatelessWidget {
             fillColor: Theme.of(context).colorScheme.onPrimary,
             filled: true,
             border: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: Theme.of(context).colorScheme.primary),
+                borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.outlineVariant),
                 gapPadding: 8),
             disabledBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: Theme.of(context).colorScheme.primary),
+                borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.outlineVariant),
                 gapPadding: 8),
             suffix: suffix,
             hintText: hintText),

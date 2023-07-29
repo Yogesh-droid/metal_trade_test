@@ -70,14 +70,21 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
                                 enquiryType: e.enquiryType,
                                 country: e.enquiryCompany!.country!.name,
                                 uuid: e.uuid,
-                                borderedBtnTitle:
-                                    e.status == "Expired" ? kReopen : kCloseRfq,
+                                borderedBtnTitle: e.status == "Complete"
+                                    ? kReopen
+                                    : kCloseRfq,
                                 filledBtnTitle: e.status != "Inreview"
                                     ? e.quoteCount! > 0
                                         ? "$kView ${e.quoteCount} $kQuote"
                                         : null
                                     : null,
-                                onBorderedBtnTapped: () {},
+                                onBorderedBtnTapped: () {
+                                  myRfqBloc.add(UpdateMyRfq(
+                                      status: e.status != "Inreview"
+                                          ? "Complete"
+                                          : "Active",
+                                      id: e.id!));
+                                },
                                 onFilledBtnTapped: () {},
                                 onDetailTapped: () {
                                   context.pushNamed(myEnqiryDetailPageName,

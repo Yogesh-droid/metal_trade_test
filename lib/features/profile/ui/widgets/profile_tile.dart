@@ -39,15 +39,16 @@ class ProfileTile extends StatelessWidget {
                                 .textTheme
                                 .displaySmall!
                                 .copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary),
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                    fontFamily: "Nunito"),
                           ),
                           Text(state.profileEntity.mobileNumber ?? '',
                               style: secMed20.copyWith(
                                   fontWeight: FontWeight.bold,
                                   color:
-                                      Theme.of(context).colorScheme.onPrimary)),
+                                      Theme.of(context).colorScheme.onPrimary,
+                                  fontFamily: "Nunito")),
                         ]),
                   ],
                 ),

@@ -14,6 +14,7 @@ class AppTheme extends Cubit<ThemeData> {
 ThemeData get lightTheme => ThemeData(
     useMaterial3: true,
     colorScheme: lightColorScheme,
+    fontFamily: 'Roboto',
     //  For App Bar  /////
     appBarTheme: AppBarTheme(
         iconTheme: const IconThemeData().copyWith(),
@@ -21,7 +22,7 @@ ThemeData get lightTheme => ThemeData(
         surfaceTintColor: const Color(0xFFFEFDFF),
         titleTextStyle: secMed14.copyWith(
             color: const Color(0xFF6750A4),
-            fontFamily: "Inter-Regular",
+            fontFamily: "Roboto",
             fontWeight: FontWeight.w500)),
     bottomAppBarTheme: const BottomAppBarTheme(
       color: Color(0xFFFEFDFF),

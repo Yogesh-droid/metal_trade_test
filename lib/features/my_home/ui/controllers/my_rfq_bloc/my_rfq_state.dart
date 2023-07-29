@@ -18,3 +18,11 @@ class MyRfqFailedState extends MyRfqState {
 }
 
 class MyRfqLoadMore extends MyRfqState {}
+
+//  update rfq's //
+
+class UpdateRfqFailed extends MyRfqState {
+  final Exception exception;
+
+  UpdateRfqFailed(this.exception);
+}

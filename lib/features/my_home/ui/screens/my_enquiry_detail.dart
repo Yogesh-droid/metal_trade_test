@@ -57,7 +57,7 @@ class _MyEnquiryDetailState extends State<MyEnquiryDetail>
               deliveryTerms: widget.item.deliveryTerms ?? '',
               itemList: widget.item.item!,
               outlinedButtonText:
-                  widget.item.status == "Active" ? kCloseRfq : kReopen,
+                  widget.item.status == "Complete" ? kReopen : kCloseRfq,
               onOutlineTapped: () {},
             ),
             QuoteDetailScreen(content: widget.item)

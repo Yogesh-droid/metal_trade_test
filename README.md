@@ -16,3 +16,5 @@ Command to build the android apk:
 
 ``flutter build apk --no-tree-shake-icons --release``
 
+This app has enquiry == RFQ, So search enquiry with Rfq
+ eg : MyEnquiryScreen == MyRfqScreen

@@ -54,6 +54,9 @@ flutter:
     - family: Nunito
       fonts:
         - asset: fonts/Nunito-Regular.ttf
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Regular.ttf
         
   assets:
     - dotenv

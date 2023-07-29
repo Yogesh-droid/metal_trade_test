@@ -11,4 +11,11 @@ class GetMyRfqList extends MyRfqEvent {
   GetMyRfqList({this.status, required this.isLoadMore, required this.page});
 }
 
+class UpdateMyRfq extends MyRfqEvent {
+  final String status;
+  final int id;
+
+  UpdateMyRfq({required this.status, required this.id});
+}
+
 class GetMyRfqLoadMore extends MyRfqEvent {}

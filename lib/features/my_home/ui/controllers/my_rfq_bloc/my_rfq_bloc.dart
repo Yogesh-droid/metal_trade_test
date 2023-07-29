@@ -50,6 +50,19 @@ class MyRfqBloc extends Bloc<MyRfqEvent, MyRfqState> {
           emit(MyRfqFailedState(exception: e));
         }
       }
+      if (event is UpdateMyRfq) {
+        print(event);
+        try {
+          for (var element in myRfqList) {
+            if (event.id == element.id) {
+              element.status = event.status;
+            }
+          }
+          emit(MyRfqFetchedState(contentList: myRfqList));
+        } on Exception catch (e) {
+          emit(UpdateRfqFailed(e));
+        }
+      }
     });
   }
 }

@@ -58,7 +58,6 @@ class _MyQuoteScreenState extends State<MyQuoteScreen> {
                 children: [
                   const SizedBox(height: appFormFieldGap),
                   const QuoteFilters(),
-                  const SizedBox(height: appFormFieldGap),
                   BlocBuilder<MyQuoteBloc, MyQuoteState>(
                       builder: (context, state) {
                     if (state is MyQuoteInitial) {

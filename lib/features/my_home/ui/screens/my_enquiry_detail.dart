@@ -47,7 +47,10 @@ class _MyEnquiryDetailState extends State<MyEnquiryDetail>
             indicatorSize: TabBarIndicatorSize.tab,
             automaticIndicatorColorAdjustment: true,
             indicatorPadding: EdgeInsets.zero,
-            tabs: const [Tab(text: kDetails), Tab(text: kQuote)]),
+            tabs: [
+              const Tab(text: kDetails),
+              Tab(text: ("$kQuote (${widget.item.quoteCount})"))
+            ]),
         const SizedBox(height: appPadding),
         Expanded(
           child: TabBarView(controller: tabController, children: [

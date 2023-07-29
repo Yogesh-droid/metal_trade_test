@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:metaltrade/core/constants/app_widgets/main_app_bar.dart';
-import 'package:metaltrade/core/constants/strings.dart';
+import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/features/chat/ui/controllers/chat_bloc/chat_bloc.dart';
 import 'package:metaltrade/features/chat/ui/controllers/chat_home/chat_home_bloc.dart';
@@ -48,110 +47,106 @@ class _ChatHomePageState extends State<ChatHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: const MainAppBar(title: Text(kChats)),
-        body: BlocBuilder<ProfileBloc, ProfileState>(
-          builder: (context, state) {
-            if (state is ProfileSuccessState) {
-              if (state.profileEntity.company != null) {
-                return SingleChildScrollView(
-                  controller: scrollController,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      BlocBuilder<ChatHomeBloc, ChatHomeState>(
-                          builder: (context, state) {
-                        if (state is ChatHomeInitial) {
-                          return const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(height: 400),
-                              Center(child: LoadingDots()),
-                            ],
-                          );
-                        }
-                        if (state is ChatHomeListFetched) {
-                          return ListView(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            children: chatHomeBloc.chatList
-                                .map((e) => Container(
-                                      decoration: BoxDecoration(
-                                          border: Border(
-                                              bottom: BorderSide(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .outlineVariant))),
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: ListTile(
-                                        titleAlignment:
-                                            ListTileTitleAlignment.center,
-                                        onTap: () {
-                                          context.read<ChatBloc>().add(
-                                              GetPreviousChatEvent(
-                                                  chatType:
-                                                      ChatType.enquiry.name,
-                                                  enquiryId: e.enquiryId,
-                                                  page: 0));
-                                          context.pushNamed(chatPageName,
-                                              queryParameters: {
-                                                'room': e.heading
-                                              });
-                                        },
-                                        title: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(e.heading ?? ''),
-                                            Text(
-                                                DateFormat('dd MMM yyyy')
-                                                    .format(DateTime.parse(
-                                                        e.lastChatDate ?? '')),
-                                                style: secMed10.copyWith(
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .outline))
-                                          ],
-                                        ),
-                                        subtitle: Text(
-                                          e.description ?? '',
-                                          style: secMed11.copyWith(
+    return Scaffold(body: BlocBuilder<ProfileBloc, ProfileState>(
+      builder: (context, state) {
+        if (state is ProfileSuccessState) {
+          if (state.profileEntity.company != null) {
+            return SingleChildScrollView(
+              controller: scrollController,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: appWidgetGap),
+                  BlocBuilder<ChatHomeBloc, ChatHomeState>(
+                      builder: (context, state) {
+                    if (state is ChatHomeInitial) {
+                      return const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(height: 400),
+                          Center(child: LoadingDots()),
+                        ],
+                      );
+                    }
+                    if (state is ChatHomeListFetched) {
+                      return ListView(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: chatHomeBloc.chatList
+                            .map((e) => Container(
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
                                               color: Theme.of(context)
                                                   .colorScheme
-                                                  .outline),
-                                        ),
-                                        leading: CircleAvatar(
-                                            radius: 25,
-                                            child: Text(e.initial ??
-                                                e.enquiryId.toString())),
-                                      ),
-                                    ))
-                                .toList(),
-                          );
-                        } else {
-                          return const Center(child: Text("Some Error"));
-                        }
-                      }),
-                      if (loadMore)
-                        const SizedBox(height: 100, child: LoadingDots())
-                    ],
-                  ),
-                );
-              } else {
-                return KycDialog(
-                  profileEntity: ProfileEntity(),
-                );
-              }
-            } else if (state is ProfileFailed) {
-              return const Center(
-                  child: Text("Something went wrong !! \n Profile not found",
-                      textAlign: TextAlign.center));
-            }
-            return const SizedBox(
-              child: Center(child: LoadingDots()),
+                                                  .outlineVariant))),
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ListTile(
+                                    titleAlignment:
+                                        ListTileTitleAlignment.center,
+                                    onTap: () {
+                                      context.read<ChatBloc>().add(
+                                          GetPreviousChatEvent(
+                                              chatType: ChatType.enquiry.name,
+                                              enquiryId: e.enquiryId,
+                                              page: 0));
+                                      context.pushNamed(chatPageName,
+                                          queryParameters: {'room': e.heading});
+                                    },
+                                    title: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(e.heading ?? ''),
+                                        Text(
+                                            DateFormat('dd MMM yyyy').format(
+                                                DateTime.parse(
+                                                    e.lastChatDate ?? '')),
+                                            style: secMed10.copyWith(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .outline))
+                                      ],
+                                    ),
+                                    subtitle: Text(
+                                      e.description ?? '',
+                                      style: secMed11.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .outline),
+                                    ),
+                                    leading: CircleAvatar(
+                                        radius: 25,
+                                        child: Text(e.initial ??
+                                            e.enquiryId.toString())),
+                                  ),
+                                ))
+                            .toList(),
+                      );
+                    } else {
+                      return const Center(child: Text("Some Error"));
+                    }
+                  }),
+                  if (loadMore)
+                    const SizedBox(height: 100, child: LoadingDots())
+                ],
+              ),
             );
-          },
-        ));
+          } else {
+            return KycDialog(
+              profileEntity: ProfileEntity(),
+            );
+          }
+        } else if (state is ProfileFailed) {
+          return const Center(
+              child: Text("Something went wrong !! \n Profile not found",
+                  textAlign: TextAlign.center));
+        }
+        return const SizedBox(
+          child: Center(child: LoadingDots()),
+        );
+      },
+    ));
   }
 }
 

@@ -1,27 +1,27 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:metaltrade/core/constants/assets.dart';
 import '../../../../core/constants/strings.dart';
 
-List<NavigationDestination> destinations = const [
+List<NavigationDestination> destinations = [
   NavigationDestination(
-      icon: Icon(Icons.home_outlined),
-      selectedIcon: Icon(Icons.home),
+      icon: SvgPicture.asset(Assets.assetsDashboardHome),
+      selectedIcon: SvgPicture.asset(Assets.assetsDashboardHomeActive),
       label: kHome),
   NavigationDestination(
-      icon: Icon(Icons.description_outlined),
-      selectedIcon: Icon(Icons.description),
+      icon: SvgPicture.asset(Assets.assetsDashboardRFQs),
+      selectedIcon: SvgPicture.asset(Assets.assetsDashboardRFQsActive),
       label: kEnquiry),
   NavigationDestination(
-      icon: Icon(Icons.newspaper_outlined),
-      selectedIcon: Icon(Icons.newspaper_rounded),
+      icon: SvgPicture.asset(Assets.assetsDashboardMarketNews),
+      selectedIcon: SvgPicture.asset(Assets.assetsDashboardMarketNewsActive),
       label: kNews),
   NavigationDestination(
-      icon: Icon(Icons.chat_bubble_outline),
-      selectedIcon: Icon(Icons.chat),
+      icon: SvgPicture.asset(Assets.assetsDashboardChat),
+      selectedIcon: SvgPicture.asset(Assets.assetsDashboardChatActive),
       label: kChat),
   NavigationDestination(
-      icon: Icon(CupertinoIcons.person_alt_circle),
-      selectedIcon: Icon(CupertinoIcons.person_alt_circle_fill),
+      icon: SvgPicture.asset(Assets.assetsDashboardProfile),
+      selectedIcon: SvgPicture.asset(Assets.assetsDashboardProfileActive),
       label: kMyProfile),
 ];

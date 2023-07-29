@@ -33,49 +33,53 @@ class BorderedTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      autocorrect: true,
-      focusNode: focusNode,
-      keyboardType: textInputType,
-      decoration: InputDecoration(
-        fillColor: Theme.of(context).colorScheme.onPrimary,
-        filled: true,
-        //border: const UnderlineInputBorder(),
-        border: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: Theme.of(context).colorScheme.primary),
-            borderRadius: BorderRadius.circular(radius ?? appPadding),
-            gapPadding: 8),
-        focusedBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
-            borderRadius: BorderRadius.circular(radius ?? appPadding),
-            gapPadding: 8),
-        disabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.tertiaryContainer),
-            borderRadius: BorderRadius.circular(radius ?? appPadding),
-            gapPadding: 8),
-        enabledBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
-            borderRadius: BorderRadius.circular(radius ?? appPadding),
-            gapPadding: 8),
-        labelText: hintText,
-        labelStyle: TextStyle(color: Theme.of(context).colorScheme.outline),
-        prefix: prefix,
-        suffix: suffix,
+    return SizedBox(
+      height: 48,
+      child: TextFormField(
+        autocorrect: true,
+        focusNode: focusNode,
+        keyboardType: textInputType,
+        decoration: InputDecoration(
+          fillColor: Theme.of(context).colorScheme.onPrimary,
+          filled: true,
+          //border: const UnderlineInputBorder(),
+          border: OutlineInputBorder(
+              borderSide:
+                  BorderSide(color: Theme.of(context).colorScheme.primary),
+              borderRadius: BorderRadius.circular(radius ?? appPadding),
+              gapPadding: 8),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.outlineVariant),
+              borderRadius: BorderRadius.circular(radius ?? appPadding),
+              gapPadding: 8),
+          disabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.tertiaryContainer),
+              borderRadius: BorderRadius.circular(radius ?? appPadding),
+              gapPadding: 8),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.outlineVariant),
+              borderRadius: BorderRadius.circular(radius ?? appPadding),
+              gapPadding: 8),
+          labelText: hintText,
+          labelStyle: TextStyle(color: Theme.of(context).disabledColor),
+
+          prefix: prefix,
+          suffix: suffix,
+        ),
+        cursorColor: Theme.of(context).colorScheme.scrim,
+        style: TextStyle(color: Theme.of(context).colorScheme.scrim),
+        textInputAction: textInputAction,
+        onFieldSubmitted: onDone,
+        onChanged: onChange,
+        maxLines: maxLines ?? 1,
+        obscureText: isObscureText,
+        controller: textEditingController,
+        validator: onValidate,
+        enableIMEPersonalizedLearning: true,
       ),
-      cursorColor: Theme.of(context).colorScheme.scrim,
-      style: TextStyle(color: Theme.of(context).colorScheme.scrim),
-      textInputAction: textInputAction,
-      onFieldSubmitted: onDone,
-      onChanged: onChange,
-      maxLines: maxLines ?? 1,
-      obscureText: isObscureText,
-      controller: textEditingController,
-      validator: onValidate,
-      enableIMEPersonalizedLearning: true,
     );
   }
 }

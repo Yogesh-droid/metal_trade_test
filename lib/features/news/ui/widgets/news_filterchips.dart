@@ -28,13 +28,23 @@ class NewsFilterChips extends StatelessWidget {
                   .map((e) => Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: FilterChip(
-                          disabledColor: Theme.of(context).colorScheme.tertiary,
-                          backgroundColor:
-                              Theme.of(context).colorScheme.background,
+                          backgroundColor: const Color(0xFFE8DEF8),
                           labelPadding:
                               const EdgeInsets.symmetric(horizontal: 8),
                           label: Text(e),
-                          selected: state.statusList.contains(filterStatus[e]!),
+                          selectedColor: Theme.of(context).colorScheme.primary,
+                          labelStyle: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Roboto',
+                              color: state.status == filterStatus[e]!
+                                  ? Colors.white
+                                  : null),
+                          selected:
+                              state.status == filterStatus[e]! ? true : false,
+                          checkmarkColor: state.status == filterStatus[e]!
+                              ? Colors.white
+                              : null,
                           onSelected: (value) {
                             context
                                 .read<NewsFilterStatusCubit>()
@@ -43,7 +53,7 @@ class NewsFilterChips extends StatelessWidget {
                                 page: 0,
                                 filters: context
                                     .read<NewsFilterStatusCubit>()
-                                    .statusList));
+                                    .status));
                           })))
                   .toList(),
             );
@@ -69,7 +79,7 @@ class NewsFilterChips extends StatelessWidget {
                               page: 0,
                               filters: context
                                   .read<NewsFilterStatusCubit>()
-                                  .statusList));
+                                  .status));
                         })))
                 .toList(),
           );

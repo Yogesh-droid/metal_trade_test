@@ -27,6 +27,7 @@ class RfqDetailPage extends StatelessWidget {
               transportationTerms: content.transportationTerms ?? '',
               deliveryTerms: content.deliveryTerms ?? '',
               itemList: content.item ?? [],
+              otherTerms: content.otherTerms,
               filledBtnText: content.enquiry == null
                   ? kSubmitQuote
                   : content.status == 'Inreview'

@@ -6,8 +6,7 @@ import 'package:metaltrade/features/news/ui/controllers/news_bloc/news_bloc.dart
 import 'package:metaltrade/features/news/ui/widgets/news_card.dart';
 
 class NewsList extends StatelessWidget {
-  const NewsList({super.key, required this.scrollController});
-  final ScrollController scrollController;
+  const NewsList({super.key});
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NewsBloc, NewsState>(builder: (context, state) {
@@ -15,7 +14,6 @@ class NewsList extends StatelessWidget {
         if (state.newsList.isNotEmpty) {
           return ListView(
             shrinkWrap: true,
-            controller: scrollController,
             children: state.newsList
                 .map((e) => NewsCard(
                       news: e,

@@ -51,6 +51,7 @@ class Content {
   String? paymentTerms;
   String? deliveryTerms;
   String? status;
+  String? otherTerms;
   int? quoteCount;
   String? uuid;
   int? matchingEnquiries;
@@ -70,6 +71,7 @@ class Content {
       this.quoteCount,
       this.matchingEnquiries,
       this.uuid,
+      this.otherTerms,
       this.enquiry});
 
   Content.fromJson(Map<String, dynamic> json) {
@@ -90,6 +92,7 @@ class Content {
     paymentTerms = json["paymentTerms"];
     deliveryTerms = json["deliveryTerms"];
     status = json["status"];
+    otherTerms = json['otherTerms'];
     quoteCount = json["quoteCount"];
     uuid = json["uuid"];
     matchingEnquiries = json['matchingEnquiries'];

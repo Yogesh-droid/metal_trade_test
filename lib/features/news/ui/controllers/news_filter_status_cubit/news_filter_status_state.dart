@@ -6,6 +6,6 @@ abstract class NewsFilterStatusState {}
 class NewsFilterStatusInitial extends NewsFilterStatusState {}
 
 class NewsFilterStatusUpdate extends NewsFilterStatusState {
-  final List<String> statusList;
-  NewsFilterStatusUpdate({required this.statusList});
+  final String status;
+  NewsFilterStatusUpdate({required this.status});
 }

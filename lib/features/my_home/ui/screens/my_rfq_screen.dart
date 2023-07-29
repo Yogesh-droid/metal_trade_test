@@ -54,7 +54,6 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
                 children: [
                   const SizedBox(height: appFormFieldGap),
                   const FilterChipList(),
-                  const SizedBox(height: appFormFieldGap),
                   BlocBuilder<MyRfqBloc, MyRfqState>(builder: (context, state) {
                     if (state is MyRfqInitial) {
                       return const Center(child: CircularProgressIndicator());
@@ -87,8 +86,12 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
                                 },
                                 onFilledBtnTapped: () {},
                                 onDetailTapped: () {
-                                  context.pushNamed(myEnqiryDetailPageName,
-                                      extra: e);
+                                  e.status == "Inreview"
+                                      ? context.pushNamed(enquiryDetailPageName,
+                                          extra: e)
+                                      : context.pushNamed(
+                                          myEnqiryDetailPageName,
+                                          extra: e);
                                 }))
                             .toList(),
                       );

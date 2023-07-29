@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:metaltrade/core/constants/app_widgets/main_app_bar.dart';
-import 'package:metaltrade/core/constants/strings.dart';
+import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/features/news/ui/controllers/news_bloc/news_bloc.dart';
 import 'package:metaltrade/features/news/ui/controllers/news_filter_status_cubit/news_filter_status_cubit.dart';
 import 'package:metaltrade/features/news/ui/widgets/news_filterchips.dart';
@@ -26,34 +25,18 @@ class _NewsPageState extends State<NewsPage> {
     newsBloc = context.read<NewsBloc>();
     newsFilterStatusCubit = context.read<NewsFilterStatusCubit>();
     newsFilterStatusCubit.addFilter('rb');
-    newsBloc.add(GetAllNewsEvent(page: 0, filters: const ['rb']));
-    scrollController = ScrollController();
-    scrollController.addListener(() {
-      if (scrollController.position.pixels ==
-              scrollController.position.maxScrollExtent &&
-          !newsBloc.isNewsListEnd) {
-        setState(() {
-          isLoadMore = true;
-        });
-        newsBloc.add(GetAllNewsEvent(
-            page: newsBloc.newsListPage + 1,
-            filters: newsFilterStatusCubit.statusList));
-        setState(() {
-          isLoadMore = false;
-        });
-      }
-    });
+    newsBloc.add(GetAllNewsEvent(page: 0, filters: 'rb'));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MainAppBar(title: Text(kNews)),
       body: Column(
         children: [
+          const SizedBox(height: appWidgetGap),
           const NewsFilterChips(),
-          Expanded(child: NewsList(scrollController: scrollController)),
+          const Expanded(child: NewsList()),
           if (isLoadMore) const SizedBox(height: 60, child: LoadingDots())
         ],
       ),

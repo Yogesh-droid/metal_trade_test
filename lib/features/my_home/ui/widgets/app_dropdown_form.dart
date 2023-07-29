@@ -18,21 +18,26 @@ class AppDropdownFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonFormField<String>(
-        decoration: InputDecoration(
-          fillColor: Theme.of(context).colorScheme.onPrimary,
-          filled: true,
-          hintText: hintText,
-          enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.outlineVariant),
-              gapPadding: 8),
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.outlineVariant),
-              gapPadding: 8),
-        ),
-        items: items,
-        onChanged: onChange);
+    return SizedBox(
+      height: 48,
+      child: DropdownButtonFormField<String>(
+          decoration: InputDecoration(
+            fillColor: Theme.of(context).colorScheme.onPrimary,
+            filled: true,
+            hintText: hintText,
+            hintStyle: TextStyle(color: Theme.of(context).disabledColor),
+            contentPadding: const EdgeInsets.only(left: 8, top: 5),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.outlineVariant),
+                gapPadding: 8),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.outlineVariant),
+                gapPadding: 8),
+          ),
+          items: items,
+          onChanged: onChange),
+    );
   }
 }

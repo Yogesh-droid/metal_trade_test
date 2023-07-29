@@ -66,6 +66,7 @@ flutter:
     - assets/home/
     - assets/bottom_bar/
     - assets/profile/
+    - assets/dashboard/
 
     
 flutter_assets:

@@ -15,6 +15,7 @@ class EnquiryDetailList extends StatelessWidget {
   final Function()? onOutlineTapped;
   final Function()? onFilledTapped;
   final List<Item> itemList;
+  final String? otherTerms;
   const EnquiryDetailList(
       {super.key,
       required this.paymentTerms,
@@ -24,12 +25,13 @@ class EnquiryDetailList extends StatelessWidget {
       this.onOutlineTapped,
       this.onFilledTapped,
       this.filledBtnText,
-      required this.itemList});
+      required this.itemList,
+      this.otherTerms});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(appPadding * 2),
+      padding: const EdgeInsets.symmetric(horizontal: appPadding * 2),
       child: Column(children: [
         itemListWidget(context),
         const SizedBox(height: appPadding),
@@ -39,6 +41,8 @@ class EnquiryDetailList extends StatelessWidget {
         termsRow(context, kTransportTerms, transportationTerms),
         const Divider(),
         termsRow(context, kDeliveryTerms, deliveryTerms),
+        const Divider(),
+        termsRow(context, "Remarks", otherTerms),
         const SizedBox(height: appWidgetGap),
         Row(
           children: [

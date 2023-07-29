@@ -17,11 +17,6 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   NewsBloc({required this.newUsecase}) : super(NewsInitial()) {
     on<NewsEvent>((event, emit) async {
       if (event is GetAllNewsEvent) {
-        String statusQuery = event.filters != null
-            ? event.filters!.isNotEmpty
-                ? "&future=${event.filters!.join('&future=')}"
-                : ''
-            : '';
         try {
           if (event.page == 0) {
             emit(NewsInitial());
@@ -30,7 +25,8 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
             newsList.clear();
           }
           DataState<NewsEntity> dataState = await newUsecase.call(RequestParams(
-              url: "${baseUrl}user/news?page=${event.page}&size=12$statusQuery",
+              url:
+                  "${baseUrl}user/news?page=${event.page}&size=12&q=${event.filters}",
               apiMethods: ApiMethods.get,
               header: header));
           if (dataState.data != null) {

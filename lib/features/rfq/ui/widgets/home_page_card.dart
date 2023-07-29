@@ -34,9 +34,13 @@ class HomePageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: Theme.of(context).colorScheme.onPrimary,
+      elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
-        padding: const EdgeInsets.all(appPadding * 2),
+        padding: const EdgeInsets.only(
+            bottom: appPadding * 2,
+            left: appPadding * 2,
+            right: appPadding * 2),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           HomePageCardUpSection(
             dateTime: content!.lastModifiedDate ?? '',

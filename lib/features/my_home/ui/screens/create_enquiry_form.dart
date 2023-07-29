@@ -123,10 +123,10 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                         setState(() {});
                       },
                       groupValue: groupValue),
-                  const SizedBox(height: appPadding * 2),
+                  const SizedBox(height: appPadding),
                   Column(children: itemContainers),
-                  TextButton(
-                      onPressed: () {
+                  InkWell(
+                      onTap: () {
                         itemCOntainerKey++;
                         items.add({});
                         int index = itemContainers.length;
@@ -155,8 +155,11 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                         ));
                         setState(() {});
                       },
-                      child: const Text("+ $kAddProducts")),
-                  const SizedBox(height: appPadding),
+                      child: Text(
+                        "+ $kAddProducts",
+                        style: secMed14.copyWith(
+                            color: Theme.of(context).colorScheme.primary),
+                      )),
                   const Divider(),
                   AppDropdownFormField(
                     hintText: kAddDeliveryTerms,
@@ -191,7 +194,8 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                     textInputType: TextInputType.text,
                     focusNode: FocusNode(),
                   ),
-                  const SizedBox(height: appWidgetGap - 20),
+                  const SizedBox(height: appFormFieldGap),
+                  const Divider(),
                   BlocBuilder<CreateEnquiryBloc, CreateEnquiryState>(
                     builder: (context, state) {
                       if (state is PostEnquiryInProgress) {

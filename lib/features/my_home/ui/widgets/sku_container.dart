@@ -13,7 +13,8 @@ class SkuContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Padding(
+      child: Container(
+        color: Theme.of(context).colorScheme.onPrimary,
         padding: const EdgeInsets.all(14.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,6 +29,7 @@ class SkuContainer extends StatelessWidget {
                     spacing: 5,
                     children: state.skuList
                         .map((e) => ChoiceChip(
+                              backgroundColor: const Color(0xFFE8DEF8),
                               label: Text(e.title ?? ''),
                               selected: false,
                               onSelected: (_) {

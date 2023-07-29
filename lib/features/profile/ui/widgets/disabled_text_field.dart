@@ -24,23 +24,25 @@ class DisabledTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: TextFormField(
-        enabled: false,
-        controller: textEditingController,
-        validator: onValidate,
-        decoration: InputDecoration(
-            fillColor: Theme.of(context).colorScheme.onPrimary,
-            filled: true,
-            border: OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.outlineVariant),
-                gapPadding: 8),
-            disabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.outlineVariant),
-                gapPadding: 8),
-            suffix: suffix,
-            hintText: hintText),
+      child: SizedBox(
+        height: 48,
+        child: TextFormField(
+          enabled: false,
+          controller: textEditingController,
+          validator: onValidate,
+          decoration: InputDecoration(
+              contentPadding: const EdgeInsets.only(top: 5, left: 8),
+              fillColor: Theme.of(context).colorScheme.onPrimary,
+              filled: true,
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.outlineVariant)),
+              disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.outlineVariant)),
+              suffix: suffix,
+              hintText: hintText),
+        ),
       ),
     );
   }

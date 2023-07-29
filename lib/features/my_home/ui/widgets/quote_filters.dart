@@ -27,13 +27,22 @@ class QuoteFilters extends StatelessWidget {
                   .map((e) => Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: FilterChip(
-                          disabledColor: Theme.of(context).colorScheme.tertiary,
-                          backgroundColor:
-                              Theme.of(context).colorScheme.background,
+                          backgroundColor: const Color(0xFFE8DEF8),
                           labelPadding:
                               const EdgeInsets.symmetric(horizontal: 8),
                           label: Text(e.name),
+                          selectedColor: Theme.of(context).colorScheme.primary,
+                          labelStyle: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Roboto',
+                              color: state.statusList.contains(e.name)
+                                  ? Colors.white
+                                  : null),
                           selected: state.statusList.contains(e.name),
+                          checkmarkColor: state.statusList.contains(e.name)
+                              ? Colors.white
+                              : null,
                           onSelected: (value) {
                             myQuoteBloc.add(GetQuoteList(
                                 isLoadMore: false,
@@ -52,9 +61,7 @@ class QuoteFilters extends StatelessWidget {
                 .map((e) => Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: FilterChip(
-                        disabledColor: Theme.of(context).colorScheme.tertiary,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.background,
+                        backgroundColor: const Color(0xFFE8DEF8),
                         labelPadding: const EdgeInsets.symmetric(horizontal: 8),
                         label: Text(e.name),
                         selected: false,

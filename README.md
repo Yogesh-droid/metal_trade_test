@@ -14,7 +14,7 @@ Command to check if flutter setup is ok:
 
 Command to build the android apk:
 
-Flutter build apk --split-per-abi
+``flutter build apk --split-per-abi``
 
 This app has enquiry == RFQ, So search enquiry with Rfq
  eg : MyEnquiryScreen == MyRfqScreen

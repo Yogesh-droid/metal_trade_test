@@ -1,4 +1,6 @@
-import 'dart:async';
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,8 +9,9 @@ import 'package:metaltrade/core/resource/data_state/data_state.dart';
 import 'package:metaltrade/core/resource/request_params/request_params.dart';
 import 'package:metaltrade/features/chat/data/models/chat_response_model.dart';
 import 'package:metaltrade/features/chat/domain/entities/chat_response_entity.dart';
+import 'package:metaltrade/features/chat/domain/usecases/chat_file_upload_usecase.dart';
 import 'package:metaltrade/features/chat/domain/usecases/chat_list_usecase.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
+
 part 'chat_event.dart';
 part 'chat_state.dart';
 
@@ -16,11 +19,13 @@ enum ChatType { enquiry, quote }
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final ChatListUsecase chatListUsecase;
+  final ChatFileUploadUsecase chatFileUploadUsecase;
   final List<String> chats = [];
   final List<Content> chatList = [];
   int chatListPage = 0;
   bool isCHatListEnd = false;
-  ChatBloc({required this.chatListUsecase}) : super(ChatInitial()) {
+  ChatBloc({required this.chatListUsecase, required this.chatFileUploadUsecase})
+      : super(ChatInitial()) {
     on<ChatEvent>((event, emit) async {
       if (event is GetPreviousChatEvent) {
         if (event.page == 0) {
@@ -63,8 +68,26 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         emit(ChatListSuccessState(chats: chats));
       }
 
-      if (event is MessageReceived) {
-        emit(MessageReceivedState(event.message));
+      if (event is UploadChatFile) {
+        try {
+          DataState<String> dataState = await chatFileUploadUsecase.call(
+              RequestParams(
+                  url: '${baseUrl}user/file/upload',
+                  apiMethods: ApiMethods.multipart,
+                  filePath: event.file!.path,
+                  fileName: event.file!.path.split('/').last,
+                  header: header));
+          if (dataState.data != null) {
+            emit(ChatFileUploaded(imgUrl: dataState.data!));
+          } else {
+            log(dataState.exception.toString());
+            emit(ChatFileUpdalodFailed(
+                exception: Exception(dataState.exception), file: event.file));
+          }
+        } on Exception catch (e) {
+          log(e.toString());
+          emit(ChatFileUpdalodFailed(exception: e, file: event.file));
+        }
       }
     });
   }

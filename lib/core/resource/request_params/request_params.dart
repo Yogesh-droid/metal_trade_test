@@ -5,12 +5,19 @@ class RequestParams {
   final ApiMethods apiMethods;
   final Map<String, dynamic>? body;
   final Map<String, dynamic>? header;
+  final String? filePath;
+  final String? fileName;
 
   const RequestParams(
-      {required this.url, required this.apiMethods, this.body, this.header});
+      {required this.url,
+      required this.apiMethods,
+      this.body,
+      this.header,
+      this.filePath,
+      this.fileName});
 }
 
-enum ApiMethods { get, post, delete, put, patch }
+enum ApiMethods { get, post, delete, put, patch, multipart }
 
 Map<String, String> header = {
   "Authorization": "Bearer ${LocalStorage.instance.token}",

@@ -7,6 +7,7 @@ import 'package:metaltrade/core/constants/app_widgets/main_app_bar.dart';
 import 'package:metaltrade/core/constants/hive/local_storage.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/resource/stomp_client.dart';
+import 'package:metaltrade/features/chat/ui/widgets/chat_send_btn.dart';
 import 'package:metaltrade/features/profile/domain/entities/profile_entity.dart';
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import 'package:metaltrade/features/profile/ui/widgets/kyc_dialog.dart';
@@ -29,7 +30,6 @@ class ChatTestPage extends StatefulWidget {
 class ChatTestPageState extends State<ChatTestPage> {
   GlobalKey<ChatTestPageState> myWidgetKey = GlobalKey();
   late ChatBloc chatBloc;
-  final TextEditingController textEditingController = TextEditingController();
   late String token;
   StompClient? stompClient;
   late ProfileBloc profileBloc;
@@ -111,7 +111,10 @@ class ChatTestPageState extends State<ChatTestPage> {
                                 );
                               }
                               if (state is PreviousChatLoaded ||
-                                  state is PreviousChatLoadMore) {
+                                  state is PreviousChatLoadMore ||
+                                  state is ChatFileuploading ||
+                                  state is ChatFileUpdalodFailed ||
+                                  state is ChatFileUploaded) {
                                 if (chatBloc.chatList.isNotEmpty) {
                                   enquiryId =
                                       chatBloc.chatList.first.enquiryId!;
@@ -126,71 +129,9 @@ class ChatTestPageState extends State<ChatTestPage> {
                       ),
                     ),
                   ),
-                  Card(
-                    elevation: 10,
-                    child: Container(
-                      padding: const EdgeInsets.all(appPadding),
-                      color: Colors.grey[100],
-                      child: Row(
-                        children: [
-                          Expanded(
-                              child: TextFormField(
-                                  decoration: InputDecoration(
-                                      hintText: "Enter your message",
-                                      border: InputBorder.none,
-                                      contentPadding: const EdgeInsets.all(8),
-                                      fillColor: Colors.grey[300],
-                                      filled: true,
-                                      enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                          borderSide: BorderSide(
-                                              color: Colors.grey[300]!)),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                          borderSide: BorderSide(
-                                              color: Colors.grey[300]!))),
-                                  controller: textEditingController)),
-                          const SizedBox(width: appPadding),
-                          CircleAvatar(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.primary,
-                            child: IconButton(
-                                onPressed: () {
-                                  debugPrint("sender id is $senderId");
-                                  if (textEditingController.text.isEmpty) {
-                                    return;
-                                  }
-                                  stompClient!.send(
-                                    destination: '/mtp/chat',
-                                    headers: {'Authorization': 'Bearer ${LocalStorage.instance.token}'},
-                                    body: json.encode({
-                                      "enquiryId": enquiryId,
-                                      "body": {
-                                        "text": textEditingController.text
-                                      }
-                                    }),
-                                  );
-                                  context.read<ChatBloc>().add(AddNewChat({
-                                        "lastModifiedDate":
-                                            DateTime.now().toString(),
-                                        "senderCompanyId": senderId,
-                                        "enquiryId": enquiryId,
-                                        "status": "Unseen",
-                                        "body": {
-                                          "chatMessageType": "Text",
-                                          "text": textEditingController.text,
-                                        }
-                                      }));
-                                },
-                                color: Colors.white,
-                                icon: const Icon(Icons.send)),
-                          )
-                        ],
-                      ),
-                    ),
-                  )
+                  ChatSendBtn(onSendBtnTapped: (text, imageUrl) {
+                    onSendBtnTapped(text, imageUrl);
+                  })
                 ],
               );
             } else {
@@ -217,6 +158,42 @@ class ChatTestPageState extends State<ChatTestPage> {
         }
       },
     );
+  }
+
+  onSendBtnTapped(String text, String? imageUrl) {
+    debugPrint("sender id is $senderId");
+    if (text.isEmpty) {
+      return;
+    }
+    stompClient!.send(
+      destination: '/mtp/chat',
+      headers: {'Authorization': 'Bearer ${LocalStorage.instance.token}'},
+      body: json.encode({
+        "enquiryId": enquiryId,
+        "body": {
+          "text": text,
+          "chatMessageType": imageUrl != null ? "Attachment" : "Text",
+          "attachmentUrl": imageUrl ?? ''
+        }
+      }),
+    );
+    Map<String, dynamic> body = imageUrl != null
+        ? {
+            "chatMessageType": "Attachment",
+            "text": text,
+            "attachmentUrl": imageUrl
+          }
+        : {
+            "chatMessageType": "Text",
+            "text": text,
+          };
+    context.read<ChatBloc>().add(AddNewChat({
+          "lastModifiedDate": DateTime.now().toString(),
+          "senderCompanyId": senderId,
+          "enquiryId": enquiryId,
+          "status": "Unseen",
+          "body": body
+        }));
   }
 
   @override

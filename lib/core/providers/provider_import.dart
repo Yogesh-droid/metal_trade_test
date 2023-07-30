@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/features/auth/ui/controllers/login_bloc/login_bloc.dart';
 import 'package:metaltrade/features/auth/ui/controllers/validate_otp/validate_otp_bloc.dart';
 import 'package:metaltrade/features/chat/ui/controllers/chat_bloc/chat_bloc.dart';
+import 'package:metaltrade/features/chat/ui/controllers/chat_file_pick_cubit/chat_file_pick_cubit.dart';
 import 'package:metaltrade/features/chat/ui/controllers/chat_home/chat_home_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_quote_bloc/my_quote_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_rfq_bloc/my_rfq_bloc.dart';

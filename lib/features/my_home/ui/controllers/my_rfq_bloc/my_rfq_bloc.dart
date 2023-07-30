@@ -51,7 +51,6 @@ class MyRfqBloc extends Bloc<MyRfqEvent, MyRfqState> {
         }
       }
       if (event is UpdateMyRfq) {
-        print(event);
         try {
           for (var element in myRfqList) {
             if (event.id == element.id) {

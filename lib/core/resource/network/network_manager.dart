@@ -38,6 +38,23 @@ class NetworkManager {
               ? e.response!.data['message']
               : e.message);
         }
+
+      case ApiMethods.multipart:
+        debugPrint("file name network manager ${requestParams.fileName}");
+        debugPrint("file path network manager ${requestParams.filePath}");
+        try {
+          FormData formData = FormData.fromMap({
+            "file": await MultipartFile.fromFile(requestParams.filePath ?? '',
+                filename: requestParams.fileName),
+          });
+          response = await _dio.post(requestParams.url,
+              data: formData, options: options);
+          return response;
+        } on DioException catch (e) {
+          throw Exception(e.response != null && e.response!.data != null
+              ? e.response!.data['message']
+              : e.message);
+        }
       default:
         return null;
     }

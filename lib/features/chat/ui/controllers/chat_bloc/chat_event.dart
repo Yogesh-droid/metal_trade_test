@@ -23,14 +23,13 @@ class GetPreviousChatEvent extends ChatEvent {
   });
 }
 
-class MessageReceived extends ChatEvent {
-  final String message;
-
-  MessageReceived(this.message);
-}
-
 class AddNewChat extends ChatEvent {
   final Map<String, dynamic> chat;
 
   AddNewChat(this.chat);
+}
+
+class UploadChatFile extends ChatEvent {
+  final File? file;
+  UploadChatFile({required this.file});
 }

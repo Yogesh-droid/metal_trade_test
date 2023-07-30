@@ -4,6 +4,7 @@ GetIt getIt = GetIt.I;
 void setup() {
   /// Network calls
   getIt.registerLazySingleton(() => NetworkManager());
+  getIt.registerLazySingleton(() => ImagePickerManager());
 
   /// For Rfq Page Banners
   getIt.registerFactory<RfqEnquiryRepo>(
@@ -98,13 +99,26 @@ void setup() {
   getIt.registerFactory<SubmitQuoteBloc>(
       () => SubmitQuoteBloc(submitQuoteUsecase: getIt()));
 
+  // chat file upload setup
+
+  getIt.registerFactory<ChatFilePickRepo>(() => ChatFilePickRepoImpl(getIt()));
+  getIt
+      .registerFactory<ChatFilePickUsecsse>(() => ChatFilePickUsecsse(getIt()));
+  getIt.registerFactory<ChatFilePickCubit>(() => ChatFilePickCubit(getIt()));
+
   // CHat list Bloc setup //
+
+  getIt.registerFactory<ChatFileUploadRepo>(
+      () => ChatFileUploadRepoImpl(getIt()));
+  getIt.registerFactory<ChatFileUploadUsecase>(
+      () => ChatFileUploadUsecase(getIt()));
 
   getIt.registerFactory<ChatListRepo>(
       () => ChatListRepoImpl(networkManager: getIt()));
   getIt.registerFactory<ChatListUsecase>(
       () => ChatListUsecase(chatListRepo: getIt()));
-  getIt.registerFactory<ChatBloc>(() => ChatBloc(chatListUsecase: getIt()));
+  getIt.registerFactory<ChatBloc>(
+      () => ChatBloc(chatListUsecase: getIt(), chatFileUploadUsecase: getIt()));
 
   getIt.registerFactory<ChatHomeListRepo>(
       () => ChatHomeListRepoImpl(networkManager: getIt()));

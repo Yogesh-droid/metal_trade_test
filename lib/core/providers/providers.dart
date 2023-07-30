@@ -17,6 +17,7 @@ class AppBlocProviders {
         BlocProvider<NewsBloc>(create: (_) => getIt()),
         BlocProvider<AcceptQuoteBloc>(create: (_) => getIt()),
         BlocProvider<ProfileBloc>(create: (_) => getIt()),
+        BlocProvider<ChatFilePickCubit>(create: (_) => getIt()),
         BlocProvider<ChatBloc>(create: (_) => getIt()),
         BlocProvider<KycBloc>(create: (_) => getIt()),
         BlocProvider<CountryCubit>(create: (_) => getIt()),
@@ -29,6 +30,6 @@ class AppBlocProviders {
         BlocProvider<QuoteDetailListBloc>(create: (_) => getIt()),
         BlocProvider(create: (_) => SelectProductToQuoteCubit()),
         BlocProvider<RequestCallbackCubit>(create: (_) => getIt()),
-        BlocProvider<MyOrderBloc>(create: (_) => getIt())
+        BlocProvider<MyOrderBloc>(create: (_) => getIt()),
       ];
 }

@@ -6,6 +6,13 @@ void setup() {
   getIt.registerLazySingleton(() => NetworkManager());
   getIt.registerLazySingleton(() => ImagePickerManager());
 
+  // chat file upload setup
+
+  getIt.registerFactory<ChatFilePickRepo>(() => ChatFilePickRepoImpl(getIt()));
+  getIt
+      .registerFactory<ChatFilePickUsecsse>(() => ChatFilePickUsecsse(getIt()));
+  getIt.registerFactory<ChatFilePickCubit>(() => ChatFilePickCubit(getIt()));
+
   /// For Rfq Page Banners
   getIt.registerFactory<RfqEnquiryRepo>(
       () => RfqEnquiryImpl(networkManager: getIt()));
@@ -48,11 +55,17 @@ void setup() {
 
   // setup for create enquiry bloc //
 
+  getIt.registerFactory<ChatFileUploadRepo>(
+      () => ChatFileUploadRepoImpl(getIt()));
+  getIt.registerFactory<ChatFileUploadUsecase>(
+      () => ChatFileUploadUsecase(getIt()));
+
   getIt.registerFactory<PostEnquiryRepo>(
       () => PostEnquiryRepoImpl(networkManager: getIt()));
   getIt.registerFactory<PostEnquiryUsecase>(
       () => PostEnquiryUsecase(postEnquiryRepo: getIt()));
-  getIt.registerFactory<CreateEnquiryBloc>(() => CreateEnquiryBloc(getIt()));
+  getIt.registerFactory<CreateEnquiryBloc>(() => CreateEnquiryBloc(
+      chatFileUploadUsecase: getIt(), postEnquiryUsecase: getIt()));
 
   // Sku Fetch on post enquiry for setup //
   getIt.registerFactory<SkuRepo>(() => SkuRepoImpl(networkManager: getIt()));
@@ -99,19 +112,10 @@ void setup() {
   getIt.registerFactory<SubmitQuoteBloc>(
       () => SubmitQuoteBloc(submitQuoteUsecase: getIt()));
 
-  // chat file upload setup
-
-  getIt.registerFactory<ChatFilePickRepo>(() => ChatFilePickRepoImpl(getIt()));
-  getIt
-      .registerFactory<ChatFilePickUsecsse>(() => ChatFilePickUsecsse(getIt()));
-  getIt.registerFactory<ChatFilePickCubit>(() => ChatFilePickCubit(getIt()));
-
   // CHat list Bloc setup //
 
-  getIt.registerFactory<ChatFileUploadRepo>(
-      () => ChatFileUploadRepoImpl(getIt()));
-  getIt.registerFactory<ChatFileUploadUsecase>(
-      () => ChatFileUploadUsecase(getIt()));
+  getIt.registerFactory<EnquiryFilePickCubit>(
+      () => EnquiryFilePickCubit(getIt()));
 
   getIt.registerFactory<ChatListRepo>(
       () => ChatListRepoImpl(networkManager: getIt()));

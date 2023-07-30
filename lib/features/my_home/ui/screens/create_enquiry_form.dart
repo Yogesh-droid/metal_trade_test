@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
+import 'package:metaltrade/features/chat/ui/controllers/chat_bloc/chat_bloc.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 import 'package:metaltrade/features/my_home/data/models/post_enquiry_req_model.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/create_enquiry_bloc/create_enquiry_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/widgets/app_dropdown_form.dart';
+import 'package:metaltrade/features/profile/ui/widgets/disabled_text_field.dart';
 
 import '../../../../core/constants/spaces.dart';
 import '../../../../core/constants/strings.dart';
@@ -13,6 +15,7 @@ import '../../../profile/domain/entities/profile_entity.dart';
 import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import '../../../profile/ui/widgets/bordered_textfield.dart';
 import '../../../profile/ui/widgets/kyc_dialog.dart';
+import '../controllers/enquiry_file_pick_cubit/enquiry_file_pick_cubit.dart';
 import '../widgets/add_item_container.dart';
 import '../widgets/enquiry_type_radio.dart';
 
@@ -194,7 +197,37 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                     textInputType: TextInputType.text,
                     focusNode: FocusNode(),
                   ),
-                  const SizedBox(height: appFormFieldGap),
+                  const SizedBox(height: appPadding),
+                  BlocBuilder<EnquiryFilePickCubit, EnquiryFilePickState>(
+                    builder: (context, state) {
+                      if (state is EnquiryFilePickSuccess) {
+                        context.read<CreateEnquiryBloc>().add(
+                            UploadEnquiryAttachment(
+                                filaName: state.file.path.split('/').last,
+                                filePath: state.file.path));
+                        return DisabledTextField(
+                          onTap: () {
+                            context
+                                .read<EnquiryFilePickCubit>()
+                                .getImageFromLib();
+                          },
+                          hintText: "Attach",
+                          textEditingController: TextEditingController()
+                            ..text = state.file.path.split('/').last,
+                          suffix: const Icon(Icons.attachment_outlined),
+                        );
+                      }
+                      return DisabledTextField(
+                        onTap: () {
+                          context
+                              .read<EnquiryFilePickCubit>()
+                              .getImageFromLib();
+                        },
+                        hintText: "Attach",
+                        suffix: const Icon(Icons.attachment_outlined),
+                      );
+                    },
+                  ),
                   const Divider(),
                   BlocBuilder<CreateEnquiryBloc, CreateEnquiryState>(
                     builder: (context, state) {
@@ -221,7 +254,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                         width: double.maxFinite,
                       );
                     },
-                  )
+                  ),
                 ],
               ),
             );

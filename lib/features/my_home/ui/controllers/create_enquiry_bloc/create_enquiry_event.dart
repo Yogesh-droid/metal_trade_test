@@ -8,3 +8,10 @@ class PostEnquiryEvent extends CreateEnquiryEvent {
 
   PostEnquiryEvent({required this.postEnquiryModel});
 }
+
+class UploadEnquiryAttachment extends CreateEnquiryEvent {
+  final String filaName;
+  final String filePath;
+
+  UploadEnquiryAttachment({required this.filaName, required this.filePath});
+}

@@ -26,6 +26,7 @@ import 'package:metaltrade/features/landing/data/repo/request_callback_repo_impl
 import 'package:metaltrade/features/landing/domain/repo/request_callback_repo.dart';
 import 'package:metaltrade/features/landing/domain/usecases/request_callback_usecase.dart';
 import 'package:metaltrade/features/landing/ui/controllers/cubit/request_callback_cubit.dart';
+import 'package:metaltrade/features/my_home/ui/controllers/enquiry_file_pick_cubit/enquiry_file_pick_cubit.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_quote_bloc/my_quote_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_rfq_bloc/my_rfq_bloc.dart';
 import 'package:metaltrade/features/news/data/repo/news_repo_impl.dart';

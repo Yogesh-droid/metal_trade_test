@@ -31,6 +31,7 @@ class DisabledTextField extends StatelessWidget {
           controller: textEditingController,
           validator: onValidate,
           decoration: InputDecoration(
+              suffixIcon: suffix,
               contentPadding: const EdgeInsets.only(top: 5, left: 8),
               fillColor: Theme.of(context).colorScheme.onPrimary,
               filled: true,

@@ -18,3 +18,16 @@ class PostEnquiryFailed extends CreateEnquiryState {
 }
 
 class PostEnquiryInProgress extends CreateEnquiryState {}
+
+class EnquiryFileUploading extends CreateEnquiryState {}
+
+class EnquiryFileUploadSuccess extends CreateEnquiryState {
+  final String url;
+  EnquiryFileUploadSuccess(this.url);
+}
+
+class EnquiryFileUploadFailed extends CreateEnquiryState {
+  final Exception exception;
+
+  EnquiryFileUploadFailed(this.exception);
+}

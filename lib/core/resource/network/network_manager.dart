@@ -51,7 +51,10 @@ class NetworkManager {
               data: formData, options: options);
           return response;
         } on DioException catch (e) {
-          throw Exception(e.response != null && e.response!.data != null
+          print(e.message);
+          throw Exception(e.response != null &&
+                  e.response!.data.isNotEmpty &&
+                  e.response!.data != null
               ? e.response!.data['message']
               : e.message);
         }

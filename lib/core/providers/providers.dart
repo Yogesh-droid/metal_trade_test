@@ -18,6 +18,7 @@ class AppBlocProviders {
         BlocProvider<AcceptQuoteBloc>(create: (_) => getIt()),
         BlocProvider<ProfileBloc>(create: (_) => getIt()),
         BlocProvider<ChatFilePickCubit>(create: (_) => getIt()),
+        BlocProvider<EnquiryFilePickCubit>(create: (_) => getIt()),
         BlocProvider<ChatBloc>(create: (_) => getIt()),
         BlocProvider<KycBloc>(create: (_) => getIt()),
         BlocProvider<CountryCubit>(create: (_) => getIt()),

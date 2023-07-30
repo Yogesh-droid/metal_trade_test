@@ -49,6 +49,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 const SizedBox(height: appPadding),
                 const OptionTile(title: kRateUs),
                 const SizedBox(height: appPadding),
+                const OptionTile(title: kTermsOfUse),
+                const SizedBox(height: appPadding),
+                const OptionTile(title: kPrivacyPolicy),
+                const SizedBox(height: appPadding),
+                const OptionTile(title: kDeleteAccount),
+                const SizedBox(height: appPadding),
                 GetStartedBtn(
                     title: kLogout,
                     onPressed: () {

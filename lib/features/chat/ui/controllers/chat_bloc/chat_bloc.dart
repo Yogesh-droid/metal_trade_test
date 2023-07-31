@@ -76,7 +76,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
                   apiMethods: ApiMethods.multipart,
                   filePath: event.file!.path,
                   fileName: event.file!.path.split('/').last,
-                  header: header));
+                  header: header), onReceiveProgress: (value) {
+            emit(ChatFileuploading(value));
+          }, onSendProgress: (value) {
+            emit(ChatFileuploading(value));
+          });
           if (dataState.data != null) {
             emit(ChatFileUploaded(imgUrl: dataState.data!));
           } else {

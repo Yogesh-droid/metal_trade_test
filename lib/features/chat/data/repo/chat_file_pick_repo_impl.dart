@@ -9,8 +9,10 @@ class ChatFilePickRepoImpl implements ChatFilePickRepo {
   ChatFilePickRepoImpl(this.imagePickerManager);
 
   @override
-  Future<DataState<XFile?>> getImage() async {
-    xFile = await imagePickerManager.pickImageFromGallery();
+  Future<DataState<XFile?>> getImage({ImageSource? imageSource}) async {
+    xFile = imageSource != null && imageSource == ImageSource.camera
+        ? await imagePickerManager.pickImageFromCamera()
+        : await imagePickerManager.pickImageFromGallery();
     try {
       if (xFile != null) {
         return DataSuccess(data: xFile);

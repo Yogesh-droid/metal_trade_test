@@ -34,7 +34,7 @@ class BorderedTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 48,
+      height: maxLines != null ? null : 48,
       child: TextFormField(
         autocorrect: true,
         focusNode: focusNode,

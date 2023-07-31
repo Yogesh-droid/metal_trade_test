@@ -12,6 +12,8 @@ import 'package:metaltrade/features/profile/domain/entities/profile_entity.dart'
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import 'package:metaltrade/features/profile/ui/widgets/kyc_dialog.dart';
 import 'package:stomp_dart_client/stomp.dart';
+import 'package:stomp_dart_client/stomp_exception.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 import '../../../../core/constants/strings.dart';
 import '../controllers/chat_bloc/chat_bloc.dart';
 import '../widgets/chat_list.dart';
@@ -147,17 +149,27 @@ class ChatTestPageState extends State<ChatTestPage> {
   }
 
   void onConnect() {
-    stompClient!.subscribe(
-      destination: '/company/$senderId/queue/messages',
-      headers: {'Authorization': 'Bearer ${LocalStorage.instance.token}'},
-      callback: (frame) {
-        Map<String, dynamic> result = json.decode(frame.body!);
-        log(result.toString(), name: EVENT);
-        if (mounted) {
-          context.read<ChatBloc>().add(AddNewChat(result));
-        }
-      },
-    );
+    try {
+      stompClient!.subscribe(
+        destination: '/company/$senderId/queue/messages',
+        headers: {'Authorization': 'Bearer ${LocalStorage.instance.token}'},
+        callback: (frame) {
+          Map<String, dynamic> result = json.decode(frame.body!);
+          log(result.toString(), name: EVENT);
+          if (mounted) {
+            context.read<ChatBloc>().add(AddNewChat(result));
+          }
+        },
+      );
+    } on Exception catch (e) {
+      if (e is WebSocketChannelException) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Your Network is seems weak or not connected")));
+      } else if (e is StompBadStateException) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Cannot connect with server")));
+      }
+    }
   }
 
   onSendBtnTapped(String text, String? imageUrl) {

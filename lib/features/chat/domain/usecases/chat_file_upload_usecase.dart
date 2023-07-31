@@ -7,7 +7,9 @@ class ChatFileUploadUsecase extends Usecase {
 
   ChatFileUploadUsecase(this.chatFileUploadRepo);
   @override
-  Future<DataState<String>> call(params) {
-    return chatFileUploadRepo.uploadFile(params);
+  Future<DataState<String>> call(params,
+      {Function(int)? onReceiveProgress, Function(int)? onSendProgress}) {
+    return chatFileUploadRepo.uploadFile(params,
+        onReceiveProgress: onReceiveProgress, onSendProgress: onSendProgress);
   }
 }

@@ -1,9 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/features/chat/ui/controllers/chat_bloc/chat_bloc.dart';
 import 'package:metaltrade/features/chat/ui/widgets/chat_pointed_container.dart';
-
 import '../../../../core/constants/spaces.dart';
 import '../controllers/chat_file_pick_cubit/chat_file_pick_cubit.dart';
 
@@ -70,17 +71,49 @@ class ChatSendBtn extends StatelessWidget {
             return const SizedBox.shrink();
           }
           if (state is ChatFilePickSuccess) {
-            return ChatPointedContainer(
-              isMyChat: true,
-              color: Theme.of(context).colorScheme.tertiaryContainer,
-              child: Padding(
-                padding: const EdgeInsets.all(appPadding),
-                child: Image.file(
-                  state.file!,
-                  height: 250,
-                  width: 150,
-                ),
-              ),
+            return BlocBuilder<ChatBloc, ChatState>(
+              builder: (context, chatState) {
+                if (chatState is ChatFileuploading) {
+                  return Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      ChatPointedContainer(
+                        isMyChat: true,
+                        color: Theme.of(context).colorScheme.tertiaryContainer,
+                        child: Padding(
+                          padding: const EdgeInsets.all(appPadding),
+                          child: Image.file(
+                            state.file!,
+                            height: 250,
+                            width: 150,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        color: Colors.black.withOpacity(0.5),
+                        height: 250,
+                        width: MediaQuery.of(context).size.width / 1.3,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Center(
+                              child: CircularProgressIndicator(
+                                value: chatState.progress / 100,
+                                backgroundColor: Colors.black.withOpacity(0.5),
+                                valueColor:
+                                    const AlwaysStoppedAnimation(Colors.white),
+                              ),
+                            ),
+                            Text("${chatState.progress} %",
+                                style: secMed12.copyWith(color: Colors.white))
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                }
+                return const SizedBox.shrink();
+              },
             );
           }
           return const SizedBox.shrink();
@@ -99,13 +132,6 @@ class ChatSendBtn extends StatelessWidget {
                             border: InputBorder.none,
                             contentPadding: const EdgeInsets.all(8),
                             fillColor: Colors.grey[300],
-                            suffix: InkWell(
-                                onTap: () {
-                                  context
-                                      .read<ChatFilePickCubit>()
-                                      .getImageFromLib();
-                                },
-                                child: const Icon(Icons.attachment)),
                             filled: true,
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
@@ -116,6 +142,12 @@ class ChatSendBtn extends StatelessWidget {
                                 borderSide:
                                     BorderSide(color: Colors.grey[300]!))),
                         controller: textEditingController)),
+                const SizedBox(width: appPadding),
+                InkWell(
+                    onTap: () {
+                      openChooseImageSourceSheet(context);
+                    },
+                    child: const Icon(Icons.attachment)),
                 const SizedBox(width: appPadding),
                 CircleAvatar(
                   backgroundColor: Theme.of(context).colorScheme.primary,
@@ -132,5 +164,40 @@ class ChatSendBtn extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  openChooseImageSourceSheet(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            height: 200,
+            color: Colors.white,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        context
+                            .read<ChatFilePickCubit>()
+                            .getImageFromLib(ImageSource.gallery);
+                      },
+                      icon: const Icon(
+                        Icons.photo_library,
+                        size: 50,
+                      )),
+                  IconButton(
+                      onPressed: () {
+                        context
+                            .read<ChatFilePickCubit>()
+                            .getImageFromLib(ImageSource.camera);
+                      },
+                      icon: const Icon(
+                        Icons.camera,
+                        size: 50,
+                      ))
+                ]),
+          );
+        });
   }
 }

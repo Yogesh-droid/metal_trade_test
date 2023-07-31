@@ -35,7 +35,11 @@ class ChatFileUpdalodFailed extends ChatState {
   ChatFileUpdalodFailed({required this.exception, this.file});
 }
 
-class ChatFileuploading extends ChatState {}
+class ChatFileuploading extends ChatState {
+  final int progress;
+
+  ChatFileuploading(this.progress);
+}
 
 class PreviousChatLoading extends ChatState {}
 

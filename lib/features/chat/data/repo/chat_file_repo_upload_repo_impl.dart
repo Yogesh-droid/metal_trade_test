@@ -10,9 +10,11 @@ class ChatFileUploadRepoImpl implements ChatFileUploadRepo {
 
   ChatFileUploadRepoImpl(this.networkManager);
   @override
-  Future<DataState<String>> uploadFile(RequestParams params) async {
+  Future<DataState<String>> uploadFile(RequestParams params,
+      {Function(int)? onReceiveProgress, Function(int)? onSendProgress}) async {
     try {
-      response = await networkManager.makeNetworkRequest(params);
+      response = await networkManager.makeNetworkRequest(params,
+          onReceiveProgress: onReceiveProgress, onsendProgress: onSendProgress);
       if (response!.data != null) {
         return DataSuccess(data: response!.data!);
       } else {

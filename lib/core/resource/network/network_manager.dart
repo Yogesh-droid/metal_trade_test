@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -9,7 +10,8 @@ import 'client.dart';
 class NetworkManager {
   final Dio _dio = Client().dio;
 
-  Future<Response?> makeNetworkRequest(RequestParams requestParams) async {
+  Future<Response?> makeNetworkRequest(RequestParams requestParams,
+      {Function(int)? onsendProgress, Function(int)? onReceiveProgress}) async {
     Response? response;
     Options options = Options(headers: requestParams.header);
     switch (requestParams.apiMethods) {
@@ -47,11 +49,23 @@ class NetworkManager {
             "file": await MultipartFile.fromFile(requestParams.filePath ?? '',
                 filename: requestParams.fileName),
           });
-          response = await _dio.post(requestParams.url,
-              data: formData, options: options);
+          response = await _dio.post(
+            requestParams.url,
+            data: formData,
+            options: options,
+            onReceiveProgress: (count, total) {
+              if (onReceiveProgress != null) {
+                onReceiveProgress(((count / total) * 100).toInt());
+              }
+            },
+            onSendProgress: (count, total) {
+              if (onsendProgress != null) {
+                onsendProgress(((count / total) * 100).toInt());
+              }
+            },
+          );
           return response;
         } on DioException catch (e) {
-          print(e.message);
           throw Exception(e.response != null &&
                   e.response!.data.isNotEmpty &&
                   e.response!.data != null

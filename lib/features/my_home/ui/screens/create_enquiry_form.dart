@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
-import 'package:metaltrade/features/chat/ui/controllers/chat_bloc/chat_bloc.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 import 'package:metaltrade/features/my_home/data/models/post_enquiry_req_model.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/create_enquiry_bloc/create_enquiry_bloc.dart';

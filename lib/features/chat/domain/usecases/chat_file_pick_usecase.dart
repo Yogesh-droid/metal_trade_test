@@ -6,10 +6,9 @@ import '../../../../core/usecase/usecase.dart';
 
 class ChatFilePickUsecsse extends Usecase {
   final ChatFilePickRepo chatFilePickRepo;
-
   ChatFilePickUsecsse(this.chatFilePickRepo);
   @override
-  Future<DataState<XFile?>> call(params) async {
-    return await chatFilePickRepo.getImage();
+  Future<DataState<XFile?>> call(params, {ImageSource? imageSource}) async {
+    return await chatFilePickRepo.getImage(imageSource: imageSource);
   }
 }

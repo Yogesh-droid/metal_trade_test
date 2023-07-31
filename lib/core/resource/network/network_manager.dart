@@ -21,7 +21,9 @@ class NetworkManager {
           response = await _dio.get(requestParams.url, options: options);
           return response;
         } on DioException catch (e) {
-          throw Exception(e.response != null && e.response!.data != null
+          throw Exception(e.response != null &&
+                  e.response!.data.isNotEmpty &&
+                  e.response!.data != null
               ? e.response!.data['message']
               : e.message);
         }
@@ -36,7 +38,9 @@ class NetworkManager {
               data: requestParams.body, options: options);
           return response;
         } on DioException catch (e) {
-          throw Exception(e.response != null && e.response!.data != null
+          throw Exception(e.response != null &&
+                  e.response!.data.isNotEmpty &&
+                  e.response!.data != null
               ? e.response!.data['message']
               : e.message);
         }

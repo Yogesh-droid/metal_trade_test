@@ -6,6 +6,7 @@ import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/features/chat/ui/controllers/chat_bloc/chat_bloc.dart';
 import 'package:metaltrade/features/chat/ui/controllers/chat_home/chat_home_bloc.dart';
+import 'package:metaltrade/features/chat/ui/widgets/animated_emoji.dart';
 
 import '../../../../core/constants/app_widgets/loading_dots.dart';
 import '../../../../core/routes/routes.dart';
@@ -69,60 +70,82 @@ class _ChatHomePageState extends State<ChatHomePage> {
                       );
                     }
                     if (state is ChatHomeListFetched) {
-                      return ListView(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: chatHomeBloc.chatList
-                            .map((e) => Container(
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .outlineVariant))),
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ListTile(
-                                    titleAlignment:
-                                        ListTileTitleAlignment.center,
-                                    onTap: () {
-                                      context.read<ChatBloc>().add(
-                                          GetPreviousChatEvent(
-                                              chatType: ChatType.enquiry.name,
-                                              enquiryId: e.enquiryId,
-                                              page: 0));
-                                      context.pushNamed(chatPageName,
-                                          queryParameters: {'room': e.heading});
-                                    },
-                                    title: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(e.heading ?? ''),
-                                        Text(
-                                            DateFormat('dd MMM yyyy').format(
-                                                DateTime.parse(
-                                                    e.lastChatDate ?? '')),
-                                            style: secMed10.copyWith(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .outline))
-                                      ],
-                                    ),
-                                    subtitle: Text(
-                                      e.description ?? '',
-                                      style: secMed11.copyWith(
+                      return chatHomeBloc.chatList.isEmpty
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const SizedBox(height: 300),
+                                const AnimatedEmoji(),
+                                const SizedBox(height: appPadding),
+                                Center(
+                                  child: Text(
+                                      "No Chats found\n Start chat by submitting quote",
+                                      style: secMed20.copyWith(
                                           color: Theme.of(context)
                                               .colorScheme
                                               .outline),
-                                    ),
-                                    leading: CircleAvatar(
-                                        radius: 25,
-                                        child: Text(e.initial ??
-                                            e.enquiryId.toString())),
-                                  ),
-                                ))
-                            .toList(),
-                      );
+                                      textAlign: TextAlign.center),
+                                ),
+                              ],
+                            )
+                          : ListView(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              children: chatHomeBloc.chatList
+                                  .map((e) => Container(
+                                        decoration: BoxDecoration(
+                                            border: Border(
+                                                bottom: BorderSide(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .outlineVariant))),
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: ListTile(
+                                          titleAlignment:
+                                              ListTileTitleAlignment.center,
+                                          onTap: () {
+                                            context.read<ChatBloc>().add(
+                                                GetPreviousChatEvent(
+                                                    chatType:
+                                                        ChatType.enquiry.name,
+                                                    enquiryId: e.enquiryId,
+                                                    page: 0));
+                                            context.pushNamed(chatPageName,
+                                                queryParameters: {
+                                                  'room': e.heading
+                                                });
+                                          },
+                                          title: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(e.heading ?? ''),
+                                              Text(
+                                                  DateFormat('dd MMM yyyy')
+                                                      .format(DateTime.parse(
+                                                          e.lastChatDate ??
+                                                              '')),
+                                                  style: secMed10.copyWith(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .outline))
+                                            ],
+                                          ),
+                                          subtitle: Text(
+                                            e.description ?? '',
+                                            style: secMed11.copyWith(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .outline),
+                                          ),
+                                          leading: CircleAvatar(
+                                              radius: 25,
+                                              child: Text(e.initial ??
+                                                  e.enquiryId.toString())),
+                                        ),
+                                      ))
+                                  .toList(),
+                            );
                     } else {
                       return const Center(child: Text("Some Error"));
                     }

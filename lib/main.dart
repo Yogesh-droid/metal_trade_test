@@ -18,7 +18,7 @@ Future<void> main(List<String> args) async {
     Hive.init(directory.path);
   }
   // StompClientProvider.instance.stompCl.activate();
-  runApp(const MetalTradeApp());
+  runApp(const RestartWidget(child: MetalTradeApp()));
 }
 
 class MetalTradeApp extends StatelessWidget {
@@ -37,5 +37,38 @@ class MetalTradeApp extends StatelessWidget {
             );
           },
         ));
+  }
+}
+
+class RestartWidget extends StatefulWidget {
+  final Widget child;
+
+  const RestartWidget({super.key, required this.child});
+
+  static void restartApp(BuildContext context) {
+    final _RestartWidgetState? state =
+        context.findAncestorStateOfType<_RestartWidgetState>();
+    state?.restartApp();
+  }
+
+  @override
+  State<RestartWidget> createState() => _RestartWidgetState();
+}
+
+class _RestartWidgetState extends State<RestartWidget> {
+  Key key = UniqueKey();
+
+  void restartApp() {
+    setState(() {
+      key = UniqueKey();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return KeyedSubtree(
+      key: key,
+      child: widget.child,
+    );
   }
 }

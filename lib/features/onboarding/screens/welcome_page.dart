@@ -48,9 +48,15 @@ class _WelcomePageState extends State<WelcomePage> {
   Future<void> appStartUp(BuildContext context) async {
     if (!kIsWeb) {
       String token = await LocalStorage.instance.getToken();
+      int? noOfTimesAppOpening =
+          await LocalStorage.instance.getIsUserFirstTime();
+      await LocalStorage.instance.saveIsUserFirstTime(noOfTimesAppOpening + 1);
       Future.delayed(const Duration(seconds: 3), () async {
+        print("Token is ${token}");
         if (token.isEmpty) {
-          context.go(landingPageRoute);
+          noOfTimesAppOpening > 0
+              ? context.go(loginPageRoute)
+              : context.go(landingPageRoute);
         } else {
           debugPrint("token is =>=>=>=>  $token");
           context.go(dashBoardRoute);

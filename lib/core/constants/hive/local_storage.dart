@@ -18,6 +18,7 @@ class LocalStorage {
 
   // This method stores the token in encrypted form
   Future<void> saveToken(String token) async {
+    this.token = token;
     final enctriptedBox = await getEnctriptedBox();
     await enctriptedBox.put(dotenv.env['token_value'], token);
   }
@@ -44,6 +45,17 @@ class LocalStorage {
     final enctriptedBox = await getEnctriptedBox();
     userId = await enctriptedBox.get(dotenv.env['user_company_id']) ?? '';
     return userId!;
+  }
+
+  Future<void> saveIsUserFirstTime(int noOfTimesappOpening) async {
+    final enctriptedBox = await getEnctriptedBox();
+    await enctriptedBox.put(
+        dotenv.env['is_user_first_time'], noOfTimesappOpening);
+  }
+
+  Future<int> getIsUserFirstTime() async {
+    final enctriptedBox = await getEnctriptedBox();
+    return await enctriptedBox.get(dotenv.env['is_user_first_time']) ?? 0;
   }
 
   Future<Box<E>> getEnctriptedBox<E>() async {

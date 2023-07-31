@@ -16,12 +16,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ProfileEvent>((event, emit) async {
       if (event is GetUserProfileEvent) {
         try {
+          final String token = await LocalStorage.instance.getToken();
+          print("This is token saved in Hive $token");
           final DataState<ProfileEntity> dataState =
               await getProfileUsecase.call(RequestParams(
                   url: "${baseUrl}user",
                   apiMethods: ApiMethods.get,
                   header: {
-                "Authorization": "Bearer ${LocalStorage.instance.token}",
+                "Authorization": "Bearer $token",
                 "Content-Type": "application/json"
               }));
           if (dataState.data != null) {

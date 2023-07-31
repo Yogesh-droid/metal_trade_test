@@ -155,4 +155,10 @@ void setup() {
   getIt.registerFactory<MyOrderUsecase>(
       () => MyOrderUsecase(myOrderRepo: getIt()));
   getIt.registerFactory<MyOrderBloc>(() => MyOrderBloc(getIt()));
+
+  // add member setup
+
+  getIt.registerFactory<AddMemberRepo>(() => AddMemberRepoImpl(getIt()));
+  getIt.registerFactory<AddMemberUsecase>(() => AddMemberUsecase(getIt()));
+  getIt.registerFactory<AddMemberCubit>(() => AddMemberCubit(getIt()));
 }

@@ -35,6 +35,7 @@ dependencies:
   stomp_dart_client: ^0.4.4
   dotted_border: ^2.0.0+3
   image_picker: ^1.0.1
+  file_picker: ^5.3.3
 
 dev_dependencies:
   flutter_test:

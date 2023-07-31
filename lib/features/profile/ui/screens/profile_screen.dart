@@ -5,7 +5,9 @@ import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/routes/routes.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
+import 'package:metaltrade/features/profile/ui/controllers/add_member_cubit/add_member_cubit.dart';
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
+import 'package:metaltrade/features/profile/ui/widgets/add_member_widget.dart';
 import 'package:metaltrade/features/profile/ui/widgets/option_tile.dart';
 
 import '../widgets/profile_tile.dart';
@@ -43,7 +45,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       context.pushNamed(myOrderScreenName);
                     }),
                 const SizedBox(height: appPadding),
-                const OptionTile(title: kAddMember),
+                BlocListener<AddMemberCubit, AddMemberState>(
+                  listener: (context, state) {
+                    if (state is AddMemberSuccess) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Member added successfully")));
+                    } else if (state is AddMemberFailed) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(state.exception.toString())));
+                    }
+                  },
+                  child: OptionTile(
+                      title: kAddMember,
+                      onTap: () {
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return AddMemberWidget(onSendClick: (phNo) {
+                                context.read<AddMemberCubit>().addMember(phNo);
+                              });
+                            });
+                      }),
+                ),
                 const SizedBox(height: appPadding),
                 const OptionTile(title: kChangeLanguage),
                 const SizedBox(height: appPadding),

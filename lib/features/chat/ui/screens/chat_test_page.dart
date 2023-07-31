@@ -174,7 +174,7 @@ class ChatTestPageState extends State<ChatTestPage> {
 
   onSendBtnTapped(String text, String? imageUrl) {
     debugPrint("sender id is $senderId");
-    if (text.isEmpty) {
+    if (text.isEmpty && imageUrl == null) {
       return;
     }
     stompClient!.send(

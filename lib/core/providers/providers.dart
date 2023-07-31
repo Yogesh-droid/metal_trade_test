@@ -32,5 +32,6 @@ class AppBlocProviders {
         BlocProvider(create: (_) => SelectProductToQuoteCubit()),
         BlocProvider<RequestCallbackCubit>(create: (_) => getIt()),
         BlocProvider<MyOrderBloc>(create: (_) => getIt()),
+        BlocProvider<AddMemberCubit>(create: (_) => getIt())
       ];
 }

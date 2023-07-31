@@ -132,3 +132,4 @@ in size and highly competitive. But it is mostly
 un organised and unstructured. Our mission is to organize the 
 trade with the help of technology and help all the stakeholders
  benefit from it and eventually bring growth in economy''';
+const String kAddYourMember = "Add your team members";

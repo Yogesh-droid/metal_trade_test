@@ -91,8 +91,6 @@ class _PinPutPageState extends State<PinPutPage> {
                 child: BlocConsumer<ValidateOtpBloc, ValidateOtpState>(
                   listener: (context, state) async {
                     if (state is ValidateOtpSuccess) {
-                      print(
-                          "This is token in validateOtpSuccess ${state.token}");
                       await LocalStorage.instance
                           .saveToken(state.token)
                           .then((value) {

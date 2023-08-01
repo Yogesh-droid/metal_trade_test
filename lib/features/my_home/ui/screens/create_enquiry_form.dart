@@ -6,7 +6,7 @@ import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 import 'package:metaltrade/features/my_home/data/models/post_enquiry_req_model.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/create_enquiry_bloc/create_enquiry_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/widgets/app_dropdown_form.dart';
-import 'package:metaltrade/features/profile/ui/widgets/disabled_text_field.dart';
+import 'package:metaltrade/features/my_home/ui/widgets/attachment_box.dart';
 
 import '../../../../core/constants/spaces.dart';
 import '../../../../core/constants/strings.dart';
@@ -14,40 +14,21 @@ import '../../../profile/domain/entities/profile_entity.dart';
 import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import '../../../profile/ui/widgets/bordered_textfield.dart';
 import '../../../profile/ui/widgets/kyc_dialog.dart';
-import '../controllers/enquiry_file_pick_cubit/enquiry_file_pick_cubit.dart';
 import '../widgets/add_item_container.dart';
 import '../widgets/enquiry_type_radio.dart';
 
 const paymentTerms = [
-  DropdownMenuItem<String>(value: 'ADVANCE', child: Text("Advance")),
-  DropdownMenuItem<String>(
-      value: 'AGAINST_LOADING', child: Text("Against loading")),
-  DropdownMenuItem<String>(value: 'NEXT_DAY', child: Text("Next day")),
-  DropdownMenuItem<String>(value: 'SAME_DAY', child: Text("Same day")),
-  DropdownMenuItem<String>(
-      value: 'WITHIN_7_DAYS', child: Text("Within 7 days")),
-  DropdownMenuItem<String>(value: 'NO_TERMS', child: Text("No terms")),
-];
-
-const deliveryTerms = [
-  DropdownMenuItem<String>(value: 'READY_STOCK', child: Text("Ready stock")),
-  DropdownMenuItem<String>(
-      value: 'WITHIN_7_DAYS', child: Text("Within 7 days")),
-  DropdownMenuItem<String>(
-      value: 'WITHIN_10_DAYS', child: Text("Within 10 days")),
-  DropdownMenuItem<String>(value: 'NO_TERMS', child: Text("No terms")),
+  DropdownMenuItem<String>(value: 'OTHERS', child: Text("Others")),
+  DropdownMenuItem<String>(value: 'LC_AT_SITE', child: Text("LC at site")),
+  DropdownMenuItem<String>(value: 'ADVANCE', child: Text("Advance"))
 ];
 
 const transportationTerms = [
-  DropdownMenuItem<String>(value: 'EX_FACTORY', child: Text("Ex factory")),
   DropdownMenuItem<String>(
-      value: 'EX_SELLER_LOCATION', child: Text("Ex seller's location")),
-  DropdownMenuItem<String>(
-      value: 'FOR_BUYER_LOCATION', child: Text("F.O.R buyer's location")),
-  DropdownMenuItem<String>(
-      value: 'FOR_BUYER_LOCATION_FREIGHT_ON_ACTUAL',
-      child: Text("F.O.R buyer's location (freight on actual)")),
-  DropdownMenuItem<String>(value: 'NO_TERMS', child: Text("No terms")),
+      value: 'CIF', child: Text("CIF (Cost, Freight and Insurance)")),
+  DropdownMenuItem<String>(value: 'OTHERS', child: Text("Others")),
+  DropdownMenuItem<String>(value: 'FOB', child: Text("FOB (Freight on Board)")),
+  DropdownMenuItem<String>(value: 'CFR', child: Text("CFR (Cost and Freight)")),
 ];
 
 class CreateEnquiryForm extends StatefulWidget {
@@ -164,14 +145,6 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                       )),
                   const Divider(),
                   AppDropdownFormField(
-                    hintText: kAddDeliveryTerms,
-                    items: deliveryTerms,
-                    onChange: (value) {
-                      termsOfDelivery = value.toString();
-                    },
-                  ),
-                  const SizedBox(height: appPadding),
-                  AppDropdownFormField(
                     hintText: kAddPaymentTerms,
                     items: paymentTerms,
                     onChange: (value) {
@@ -197,36 +170,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                     focusNode: FocusNode(),
                   ),
                   const SizedBox(height: appPadding),
-                  BlocBuilder<EnquiryFilePickCubit, EnquiryFilePickState>(
-                    builder: (context, state) {
-                      if (state is EnquiryFilePickSuccess) {
-                        context.read<CreateEnquiryBloc>().add(
-                            UploadEnquiryAttachment(
-                                filaName: state.file.path.split('/').last,
-                                filePath: state.file.path));
-                        return DisabledTextField(
-                          onTap: () {
-                            context
-                                .read<EnquiryFilePickCubit>()
-                                .getImageFromLib();
-                          },
-                          hintText: "Attach",
-                          textEditingController: TextEditingController()
-                            ..text = state.file.path.split('/').last,
-                          suffix: const Icon(Icons.attachment_outlined),
-                        );
-                      }
-                      return DisabledTextField(
-                        onTap: () {
-                          context
-                              .read<EnquiryFilePickCubit>()
-                              .getImageFromLib();
-                        },
-                        hintText: "Attach",
-                        suffix: const Icon(Icons.attachment_outlined),
-                      );
-                    },
-                  ),
+                  const AttachmentBox(),
                   const Divider(),
                   BlocBuilder<CreateEnquiryBloc, CreateEnquiryState>(
                     builder: (context, state) {
@@ -240,7 +184,8 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                           postEnquiryMap['transportationTerms'] =
                               termsOfTransport;
                           postEnquiryMap['paymentTerms'] = termsOfPayment;
-                          postEnquiryMap['deliveryTerms'] = termsOfDelivery;
+                          postEnquiryMap['otherAttachmentsUrl'] =
+                              context.read<CreateEnquiryBloc>().url ?? '';
                           postEnquiryMap['item'] = items;
                           postEnquiryMap['remarks'] = remarksController.text;
                           PostEnquiryModel postEnquiryModel =

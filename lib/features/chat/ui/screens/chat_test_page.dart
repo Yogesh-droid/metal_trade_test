@@ -7,6 +7,8 @@ import 'package:metaltrade/core/constants/app_widgets/main_app_bar.dart';
 import 'package:metaltrade/core/constants/hive/local_storage.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/resource/stomp_client.dart';
+import 'package:metaltrade/features/chat/ui/controllers/chat_file_pick_cubit/chat_file_pick_cubit.dart';
+import 'package:metaltrade/features/chat/ui/widgets/chat_file_pick_upload/chat_image_dialog.dart';
 import 'package:metaltrade/features/chat/ui/widgets/chat_send_btn.dart';
 import 'package:metaltrade/features/profile/domain/entities/profile_entity.dart';
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
@@ -81,60 +83,77 @@ class ChatTestPageState extends State<ChatTestPage> {
         builder: (context, state) {
           if (state is ProfileSuccessState) {
             if (state.profileEntity.company != null) {
-              return Column(
-                children: [
-                  const SizedBox(height: appPadding * 2),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      reverse: true,
-                      controller: scrollController,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 100,
-                            child: BlocBuilder<ChatBloc, ChatState>(
+              return BlocListener<ChatFilePickCubit, ChatFilePickState>(
+                listener: (context, state) {
+                  if (state is ChatFilePickSuccess) {
+                    context
+                        .read<ChatBloc>()
+                        .add(UploadChatFile(file: state.file));
+                    showDialog(
+                        context: context,
+                        builder: (_) {
+                          return ChatImageDialog(
+                              onSendBtnTapped: (text, imagUrl) {
+                            onSendBtnTapped(text, imagUrl);
+                          });
+                        });
+                  }
+                },
+                child: Column(
+                  children: [
+                    const SizedBox(height: appPadding * 2),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        reverse: true,
+                        controller: scrollController,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 100,
+                              child: BlocBuilder<ChatBloc, ChatState>(
+                                builder: (context, state) {
+                                  if (state is PreviousChatLoadMore) {
+                                    return const LoadingDots();
+                                  }
+                                  return const SizedBox();
+                                },
+                              ),
+                            ),
+                            BlocBuilder<ChatBloc, ChatState>(
                               builder: (context, state) {
-                                if (state is PreviousChatLoadMore) {
-                                  return const LoadingDots();
+                                if (state is PreviousChatLoading) {
+                                  return const Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(height: 200),
+                                      Center(child: LoadingDots()),
+                                    ],
+                                  );
                                 }
-                                return const SizedBox();
+                                if (state is PreviousChatLoaded ||
+                                    state is PreviousChatLoadMore ||
+                                    state is ChatFileuploading ||
+                                    state is ChatFileUpdalodFailed ||
+                                    state is ChatFileUploaded) {
+                                  if (chatBloc.chatList.isNotEmpty) {
+                                    enquiryId =
+                                        chatBloc.chatList.first.enquiryId!;
+                                  }
+                                  return ChatList(chatList: chatBloc.chatList);
+                                }
+                                return const Center(
+                                    child: Text("No Previous Chat Found"));
                               },
                             ),
-                          ),
-                          BlocBuilder<ChatBloc, ChatState>(
-                            builder: (context, state) {
-                              if (state is PreviousChatLoading) {
-                                return const Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(height: 200),
-                                    Center(child: LoadingDots()),
-                                  ],
-                                );
-                              }
-                              if (state is PreviousChatLoaded ||
-                                  state is PreviousChatLoadMore ||
-                                  state is ChatFileuploading ||
-                                  state is ChatFileUpdalodFailed ||
-                                  state is ChatFileUploaded) {
-                                if (chatBloc.chatList.isNotEmpty) {
-                                  enquiryId =
-                                      chatBloc.chatList.first.enquiryId!;
-                                }
-                                return ChatList(chatList: chatBloc.chatList);
-                              }
-                              return const Center(
-                                  child: Text("No Previous Chat Found"));
-                            },
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  ChatSendBtn(onSendBtnTapped: (text, imageUrl) {
-                    onSendBtnTapped(text, imageUrl);
-                  })
-                ],
+                    ChatSendBtn(onSendBtnTapped: (text, imageUrl) {
+                      onSendBtnTapped(text, imageUrl);
+                    })
+                  ],
+                ),
               );
             } else {
               return KycDialog(

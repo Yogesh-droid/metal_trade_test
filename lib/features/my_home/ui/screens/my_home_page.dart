@@ -83,6 +83,10 @@ class _MyHomePageState extends State<MyHomePage>
                       .read<MyRfqBloc>()
                       .add(GetMyRfqList(isLoadMore: false, page: 0));
                   _tabController.animateTo(1);
+                } else if (state is PostEnquiryFailed) {
+                  print(state.exception.toString());
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(state.exception.toString())));
                 }
               },
               child: const CreateEnquiryScreen(),

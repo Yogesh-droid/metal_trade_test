@@ -85,7 +85,6 @@ class _ItemListContainerState extends State<ItemListContainer> {
                     hintText: kUnit,
                     items: const [
                       DropdownMenuItem<String>(value: 'MT', child: Text("MT")),
-                      DropdownMenuItem<String>(value: 'T', child: Text("T")),
                       DropdownMenuItem<String>(value: 'Kg', child: Text("KG")),
                     ],
                     onChange: widget.onChange,

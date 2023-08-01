@@ -15,6 +15,7 @@ class AddMemberCubit extends Cubit<AddMemberState> {
       DataState<bool> dataState = await addMemberUsecase.call(RequestParams(
           url: "${baseUrl}user/employee",
           apiMethods: ApiMethods.post,
+          header: header,
           body: {"mobileNumber": phoneNo}));
 
       if (dataState.data != null) {

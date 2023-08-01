@@ -5,10 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:metaltrade/core/resource/data_state/data_state.dart';
 import 'package:metaltrade/features/chat/domain/usecases/chat_file_pick_usecase.dart';
+
 part 'chat_file_pick_state.dart';
 
 class ChatFilePickCubit extends Cubit<ChatFilePickState> {
   final ChatFilePickUsecsse chatFilePickUsecsse;
+  File? pickedImage;
 
   ChatFilePickCubit(this.chatFilePickUsecsse) : super(ChatFilePickInitial());
 
@@ -23,7 +25,8 @@ class ChatFilePickCubit extends Cubit<ChatFilePickState> {
           await chatFilePickUsecsse.call(null, imageSource: imageSource);
       if (dataState.data != null) {
         XFile file = dataState.data!;
-        emit(ChatFilePickSuccess(File(file.path)));
+        pickedImage = File(file.path);
+        emit(ChatFilePickSuccess(pickedImage));
       } else {
         emit(ChatFilePickFailed(Exception("Something went wrong")));
       }

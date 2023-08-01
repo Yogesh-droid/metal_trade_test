@@ -20,6 +20,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final TextEditingController phoneNoFieldController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -61,9 +62,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         showModalBottomSheet(
                             context: context,
                             builder: (context) {
-                              return AddMemberWidget(onSendClick: (phNo) {
-                                context.read<AddMemberCubit>().addMember(phNo);
-                              });
+                              return AddMemberWidget(
+                                  textEditingController: phoneNoFieldController,
+                                  onSendClick: () {
+                                    context
+                                        .read<AddMemberCubit>()
+                                        .addMember(phoneNoFieldController.text);
+                                  });
                             });
                       }),
                 ),

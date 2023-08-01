@@ -96,6 +96,7 @@ class _ItemListContainerState extends State<ItemListContainer> {
                 isObscureText: false,
                 textEditingController: remarksController,
                 radius: 4,
+                maxLines: 2,
                 hintText: kProductRemarks,
                 textInputType: TextInputType.text,
                 onChange: widget.onRemarksSubmit,

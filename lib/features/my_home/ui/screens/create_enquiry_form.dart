@@ -164,7 +164,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                     isObscureText: false,
                     textEditingController: remarksController,
                     radius: 4,
-                    maxLines: 4,
+                    maxLines: 2,
                     hintText: kRemarks,
                     textInputType: TextInputType.text,
                     focusNode: FocusNode(),

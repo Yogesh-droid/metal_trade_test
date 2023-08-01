@@ -8,7 +8,6 @@ class AcceptQuoteResEntity {
   final List<Item>? item;
   final String? transportationTerms;
   final String? paymentTerms;
-  final String? deliveryTerms;
   final String? status;
   final String? uuid;
 
@@ -20,7 +19,6 @@ class AcceptQuoteResEntity {
       this.item,
       this.transportationTerms,
       this.paymentTerms,
-      this.deliveryTerms,
       this.status,
       this.uuid});
 }

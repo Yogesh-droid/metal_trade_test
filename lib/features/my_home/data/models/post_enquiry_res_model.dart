@@ -11,13 +11,11 @@ class PostEnquiryResModel extends PostEnquiryResEntity {
       String? enquiryType,
       String? transportationTerms,
       String? paymentTerms,
-      String? deliveryTerms,
       String? status,
       int? quoteCount,
       String? uuid})
       : super(
             country: country,
-            deliveryTerms: deliveryTerms,
             enquiryCompany: enquiryCompany,
             enquiryType: enquiryType,
             id: id,
@@ -47,7 +45,6 @@ class PostEnquiryResModel extends PostEnquiryResEntity {
         enquiryType: json["enquiryType"],
         transportationTerms: json["transportationTerms"],
         paymentTerms: json["paymentTerms"],
-        deliveryTerms: json["deliveryTerms"],
         status: json["status"],
         quoteCount: json["quoteCount"],
         uuid: json["uuid"]);

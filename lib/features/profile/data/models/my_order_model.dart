@@ -50,7 +50,6 @@ class Content {
   List<Item>? item;
   String? transportationTerms;
   String? paymentTerms;
-  String? deliveryTerms;
   String? status;
   double? totalValue;
   String? uuid;
@@ -63,7 +62,6 @@ class Content {
       this.item,
       this.transportationTerms,
       this.paymentTerms,
-      this.deliveryTerms,
       this.status,
       this.totalValue,
       this.uuid});
@@ -79,7 +77,6 @@ class Content {
         : (json["item"] as List).map((e) => Item.fromJson(e)).toList();
     transportationTerms = json["transportationTerms"];
     paymentTerms = json["paymentTerms"];
-    deliveryTerms = json["deliveryTerms"];
     status = json["status"];
     totalValue = json["totalValue"];
     uuid = json["uuid"];

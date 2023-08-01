@@ -77,8 +77,6 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
                             submitQuote['transportationTerms'] =
                                 content.transportationTerms;
                             submitQuote['paymentTerms'] = content.paymentTerms;
-                            submitQuote['deliveryTerms'] =
-                                content.deliveryTerms;
                             submitQuote['item'] = selectedItems;
                           }
                           final PostEnquiryModel postEnquiryModel =

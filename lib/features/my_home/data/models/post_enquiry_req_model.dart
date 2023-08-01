@@ -2,7 +2,6 @@ class PostEnquiryModel {
   String? enquiryType;
   String? transportationTerms;
   String? paymentTerms;
-  String? deliveryTerms;
   List<Item>? item;
   String? remarks;
   String? otherAttachmentsUrl;
@@ -11,7 +10,6 @@ class PostEnquiryModel {
       {this.enquiryType,
       this.transportationTerms,
       this.paymentTerms,
-      this.deliveryTerms,
       this.item,
       this.remarks,
       this.otherAttachmentsUrl});
@@ -21,7 +19,6 @@ class PostEnquiryModel {
     transportationTerms = json['transportationTerms'];
     paymentTerms = json['paymentTerms'];
     remarks = json['remarks'];
-    deliveryTerms = json['deliveryTerms'];
     otherAttachmentsUrl = json['otherAttachmentsUrl'];
     if (json['item'] != null) {
       item = <Item>[];
@@ -36,7 +33,6 @@ class PostEnquiryModel {
     data['enquiryType'] = enquiryType;
     data['transportationTerms'] = transportationTerms;
     data['paymentTerms'] = paymentTerms;
-    data['deliveryTerms'] = deliveryTerms;
     data['remarks'] = remarks;
     data['otherAttachmentsUrl'] = otherAttachmentsUrl;
     if (item != null) {

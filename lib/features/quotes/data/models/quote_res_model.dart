@@ -52,7 +52,6 @@ class Content extends AcceptQuoteResEntity {
       List<Item>? item,
       String? transportationTerms,
       String? paymentTerms,
-      String? deliveryTerms,
       String? status,
       String? uuid});
 
@@ -70,7 +69,6 @@ class Content extends AcceptQuoteResEntity {
             : (json["item"] as List).map((e) => Item.fromJson(e)).toList(),
         transportationTerms: json["transportationTerms"],
         paymentTerms: json["paymentTerms"],
-        deliveryTerms: json["deliveryTerms"],
         status: json["status"],
         uuid: json["uuid"]);
   }
@@ -85,7 +83,6 @@ class Enquiry {
   String? enquiryType;
   String? transportationTerms;
   String? paymentTerms;
-  String? deliveryTerms;
   String? status;
   int? quoteCount;
   String? uuid;
@@ -100,7 +97,6 @@ class Enquiry {
       this.enquiryType,
       this.transportationTerms,
       this.paymentTerms,
-      this.deliveryTerms,
       this.status,
       this.quoteCount,
       this.uuid,
@@ -121,7 +117,6 @@ class Enquiry {
     enquiryType = json["enquiryType"];
     transportationTerms = json["transportationTerms"];
     paymentTerms = json["paymentTerms"];
-    deliveryTerms = json["deliveryTerms"];
     status = json["status"];
     quoteCount = json["quoteCount"];
     uuid = json["uuid"];

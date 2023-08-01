@@ -49,7 +49,6 @@ class Content {
   String? enquiryType;
   String? transportationTerms;
   String? paymentTerms;
-  String? deliveryTerms;
   String? status;
   String? otherTerms;
   int? quoteCount;
@@ -66,7 +65,6 @@ class Content {
       this.enquiryType,
       this.transportationTerms,
       this.paymentTerms,
-      this.deliveryTerms,
       this.status,
       this.quoteCount,
       this.matchingEnquiries,
@@ -90,7 +88,6 @@ class Content {
     enquiryType = json["enquiryType"];
     transportationTerms = json["transportationTerms"];
     paymentTerms = json["paymentTerms"];
-    deliveryTerms = json["deliveryTerms"];
     status = json["status"];
     otherTerms = json['otherTerms'];
     quoteCount = json["quoteCount"];

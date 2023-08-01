@@ -70,7 +70,7 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
                                 country: e.enquiryCompany!.country!.name,
                                 uuid: e.uuid,
                                 borderedBtnTitle: e.status == "Complete"
-                                    ? kReopen
+                                    ? kViewOrder
                                     : kCloseRfq,
                                 filledBtnTitle: e.status != "Inreview"
                                     ? e.quoteCount! > 0

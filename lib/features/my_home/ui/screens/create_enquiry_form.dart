@@ -43,14 +43,12 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
   final TextEditingController quantityController = TextEditingController();
   final TextEditingController remarksController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController deliveryTermsContriller = TextEditingController();
-  final TextEditingController paymentTemsController = TextEditingController();
+  final TextEditingController paymentTermsController = TextEditingController();
   final TextEditingController transportTermsController =
       TextEditingController();
   late List<ItemListContainer> itemContainers;
   String groupValue = "Buy";
   String termsOfPayment = '';
-  String termsOfDelivery = '';
   String termsOfTransport = '';
   String remarks = '';
   int selectedProductSku = 0;
@@ -165,7 +163,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                     textEditingController: remarksController,
                     radius: 4,
                     maxLines: 2,
-                    hintText: kRemarks,
+                    hintText: kOtherTerms,
                     textInputType: TextInputType.text,
                     focusNode: FocusNode(),
                   ),

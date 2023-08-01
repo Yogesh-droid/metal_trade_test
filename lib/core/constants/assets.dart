@@ -73,6 +73,10 @@ class Assets {
   /// assets/dashboard/RFQs__active.svg
   static const String assetsDashboardRFQsActive = "assets/dashboard/RFQs__active.svg";
 
+  /// Assets for assetsProfileDeleteIcon
+  /// assets/profile/delete_icon.svg
+  static const String assetsProfileDeleteIcon = "assets/profile/delete_icon.svg";
+
   /// Assets for assetsWelcomeAppLogoName
   /// assets/welcome/app_logo_name.png
   static const String assetsWelcomeAppLogoName = "assets/welcome/app_logo_name.png";

@@ -24,7 +24,7 @@ class GetPreviousChatEvent extends ChatEvent {
 }
 
 class AddNewChat extends ChatEvent {
-  final Map<String, dynamic> chat;
+  final Content chat;
 
   AddNewChat(this.chat);
 }

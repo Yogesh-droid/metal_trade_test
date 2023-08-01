@@ -16,3 +16,15 @@ class AddMemberFailed extends AddMemberState {
 
   AddMemberFailed(this.exception);
 }
+
+class GetAllEmployeeFailed extends AddMemberState {
+  final Exception exception;
+
+  GetAllEmployeeFailed(this.exception);
+}
+
+class GetAllEmployeeSuccess extends AddMemberState {
+  final List<ProfileEntity> employeeList;
+
+  GetAllEmployeeSuccess(this.employeeList);
+}

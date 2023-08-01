@@ -1,5 +1,7 @@
 import 'package:metaltrade/features/rfq/domain/entities/rfq_enquiry_entity.dart';
 
+import '../../../quotes/data/models/quote_res_model.dart';
+
 class RfqEnquiryModel extends RfqEntity {
   RfqEnquiryModel(
       {List<Content>? content,
@@ -179,18 +181,6 @@ class Sku {
   Sku.fromJson(Map<String, dynamic> json) {
     id = json["id"];
     title = json["title"];
-  }
-}
-
-class Enquiry {
-  int? id;
-  String? uuid;
-
-  Enquiry({this.id, this.uuid});
-
-  Enquiry.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    uuid = json["uuid"];
   }
 }
 

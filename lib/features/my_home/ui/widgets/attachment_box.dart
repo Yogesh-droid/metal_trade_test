@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,13 +34,12 @@ class AttachmentBox extends StatelessWidget {
                 );
               }
               return DisabledTextField(
-                onTap: () {
-                  context.read<CreateEnquiryBloc>().url = '';
-                  context.read<EnquiryFilePickCubit>().emitInitiaState();
-                },
-                hintText: state.file.path.split('/').last,
-                suffix: const Icon(Icons.delete_forever),
-              );
+                  onTap: () {
+                    context.read<CreateEnquiryBloc>().url = '';
+                    context.read<EnquiryFilePickCubit>().emitInitiaState();
+                  },
+                  hintText: state.file.path.split('/').last,
+                  suffix: const Icon(CupertinoIcons.delete));
             },
           );
         }

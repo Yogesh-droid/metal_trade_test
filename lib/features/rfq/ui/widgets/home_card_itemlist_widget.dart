@@ -7,9 +7,10 @@ import '../../data/models/rfq_enquiry_model.dart';
 
 class HomeCardItemListWidget extends StatelessWidget {
   const HomeCardItemListWidget(
-      {super.key, required this.itemList, this.onDetailTapped});
+      {super.key, required this.itemList, this.onDetailTapped, this.isQuote});
   final List<Item>? itemList;
   final Function()? onDetailTapped;
+  final bool? isQuote;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,10 @@ class HomeCardItemListWidget extends StatelessWidget {
                   .textTheme
                   .labelSmall!
                   .copyWith(color: Theme.of(context).colorScheme.outline)),
-          ItemListTile(item: itemList![0], price: itemList![0].price!.toInt()),
+          ItemListTile(
+              item: itemList![0],
+              price: itemList![0].price!.toInt(),
+              isQuote: isQuote),
           if (itemList!.length > 1)
             InkWell(
                 onTap: () {

@@ -6,11 +6,15 @@ import 'package:metaltrade/features/profile/ui/widgets/kyc_dialog.dart';
 import '../../../../core/constants/spaces.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/routes/routes.dart';
+import '../../../chat/ui/controllers/chat_bloc/chat_bloc.dart';
 import '../../../profile/domain/entities/profile_entity.dart';
 import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
+import '../../../quotes/data/models/quote_res_model.dart';
 import '../controllers/rfq_buyer_enquiry_bloc/rfq_buyer_enquiry_bloc.dart';
 import '../controllers/rfq_seller_enquiry_bloc/rfq_seller_enquiry_bloc.dart';
 import '../widgets/home_page_card.dart';
+import 'package:metaltrade/features/chat/data/models/chat_response_model.dart'
+    as chat_res;
 
 class SellerRfqPage extends StatefulWidget {
   const SellerRfqPage({super.key});
@@ -67,7 +71,29 @@ class _SellerRfqPageState extends State<SellerRfqPage> {
                                   uuid: e.uuid,
                                   borderedBtnTitle: kChat,
                                   filledBtnTitle: "+ $kSubmitQuote",
-                                  onBorderedBtnTapped: () {},
+                                  onBorderedBtnTapped: () {
+                                    context.read<ChatBloc>().add(
+                                        GetPreviousChatEvent(
+                                            chatType: ChatType.enquiry.name,
+                                            enquiryId: e.id,
+                                            page: 0));
+                                    context.pushNamed(chatPageName,
+                                        queryParameters: {'room': e.uuid ?? ''},
+                                        extra: chat_res.Content(
+                                            body: chat_res.Body(
+                                              chatMessageType: "Enquiry",
+                                              enquiry: Enquiry(
+                                                lastModifiedDate:
+                                                    DateTime.now().toString(),
+                                                id: e.id,
+                                                item: e.item,
+                                                uuid: e.uuid,
+                                              ),
+                                            ),
+                                            enquiryId: e.id,
+                                            lastModifiedDate: DateTime.now(),
+                                            status: "Unseen"));
+                                  },
                                   onFilledBtnTapped: () {
                                     context.pushNamed(submitQuotePageName,
                                         extra: e);

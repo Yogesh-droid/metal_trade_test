@@ -52,7 +52,6 @@ class CreateEnquiryBloc extends Bloc<CreateEnquiryEvent, CreateEnquiryState> {
           });
 
           if (dataState.data != null) {
-            print(dataState.data);
             url = dataState.data!;
             emit(EnquiryFileUploadSuccess(dataState.data!));
           } else {

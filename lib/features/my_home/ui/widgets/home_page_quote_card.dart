@@ -101,6 +101,7 @@ class HomePageQuoteCard extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       child: HomeCardItemListWidget(
           itemList: itemList,
+          isQuote: true,
           onDetailTapped: () {
             context.pushNamed(enquiryDetailPageName, extra: content);
           }),

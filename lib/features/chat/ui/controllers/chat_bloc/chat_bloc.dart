@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +10,6 @@ import 'package:metaltrade/features/chat/data/models/chat_response_model.dart';
 import 'package:metaltrade/features/chat/domain/entities/chat_response_entity.dart';
 import 'package:metaltrade/features/chat/domain/usecases/chat_file_upload_usecase.dart';
 import 'package:metaltrade/features/chat/domain/usecases/chat_list_usecase.dart';
-
 part 'chat_event.dart';
 part 'chat_state.dart';
 
@@ -59,7 +57,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       }
 
       if (event is AddNewChat) {
-        chatList.add(Content.fromJson(event.chat));
+        chatList.add(event.chat);
         emit(PreviousChatLoaded(chatList: chatList));
       }
 

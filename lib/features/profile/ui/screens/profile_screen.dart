@@ -23,6 +23,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController phoneNoFieldController = TextEditingController();
   @override
   void initState() {
+    if (context.read<AddMemberCubit>().allEmployeeList.isEmpty) {
+      context.read<AddMemberCubit>().getAllEmployees();
+    }
     super.initState();
   }
 
@@ -64,6 +67,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             builder: (context) {
                               return AddMemberWidget(
                                   textEditingController: phoneNoFieldController,
+                                  allEmplyeeList: context
+                                      .read<AddMemberCubit>()
+                                      .allEmployeeList,
                                   onSendClick: () {
                                     context
                                         .read<AddMemberCubit>()

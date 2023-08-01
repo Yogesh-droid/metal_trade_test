@@ -5,7 +5,10 @@ import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/routes/routes.dart';
+import 'package:metaltrade/features/chat/data/models/chat_response_model.dart'
+    as chat_res;
 import 'package:metaltrade/features/profile/ui/widgets/kyc_dialog.dart';
+import 'package:metaltrade/features/quotes/data/models/quote_res_model.dart';
 import '../../../chat/ui/controllers/chat_bloc/chat_bloc.dart';
 import '../../../profile/domain/entities/profile_entity.dart';
 import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
@@ -71,12 +74,24 @@ class _BuyerRfqPageState extends State<BuyerRfqPage> {
                                     context.read<ChatBloc>().add(
                                         GetPreviousChatEvent(
                                             chatType: ChatType.enquiry.name,
-                                            enquiryId: 6,
+                                            enquiryId: e.id,
                                             page: 0));
                                     context.pushNamed(chatPageName,
-                                        queryParameters: {
-                                          'room': e.uuid ?? ''
-                                        });
+                                        queryParameters: {'room': e.uuid ?? ''},
+                                        extra: chat_res.Content(
+                                            body: chat_res.Body(
+                                              chatMessageType: "Enquiry",
+                                              enquiry: Enquiry(
+                                                lastModifiedDate:
+                                                    DateTime.now().toString(),
+                                                id: e.id,
+                                                item: e.item,
+                                                uuid: e.uuid,
+                                              ),
+                                            ),
+                                            enquiryId: e.id,
+                                            lastModifiedDate: DateTime.now(),
+                                            status: "Unseen"));
                                   },
                                   onFilledBtnTapped: () {
                                     context.pushNamed(submitQuotePageName,

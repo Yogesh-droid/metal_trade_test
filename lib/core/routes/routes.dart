@@ -16,6 +16,7 @@ import '../../features/dashboard/ui/screens/dashboard.dart';
 import '../../features/my_home/ui/screens/create_enquiry_screen.dart';
 import '../../features/onboarding/screens/welcome_page.dart';
 import '../../features/rfq/data/models/rfq_enquiry_model.dart';
+import '../../features/chat/data/models/chat_response_model.dart' as chat_res;
 
 const String welcomePageRoute = '/';
 const String landingPageRoute = '/landingPage';
@@ -152,8 +153,11 @@ final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
     pageBuilder: (context, state) {
       return getTransition(
           child: ChatTestPage(
-              chatType: state.uri.queryParameters['chatType'],
-              room: state.uri.queryParameters['room']),
+            chatType: state.uri.queryParameters['chatType'],
+            room: state.uri.queryParameters['room'],
+            content:
+                state.extra != null ? state.extra as chat_res.Content : null,
+          ),
           animationType: TransitionType.slide,
           duration: const Duration(milliseconds: 200));
     },

@@ -160,5 +160,9 @@ void setup() {
 
   getIt.registerFactory<AddMemberRepo>(() => AddMemberRepoImpl(getIt()));
   getIt.registerFactory<AddMemberUsecase>(() => AddMemberUsecase(getIt()));
-  getIt.registerFactory<AddMemberCubit>(() => AddMemberCubit(getIt()));
+  getIt.registerFactory<GetAllEmployeeRepo>(
+      () => GetAllEmployeeRepoImpl(networkManager: getIt()));
+  getIt.registerFactory<GetAllEmployeeUsecase>(
+      () => GetAllEmployeeUsecase(getAllEmployeeRepo: getIt()));
+  getIt.registerFactory<AddMemberCubit>(() => AddMemberCubit(getIt(), getIt()));
 }

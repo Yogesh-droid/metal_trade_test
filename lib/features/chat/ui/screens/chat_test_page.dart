@@ -7,7 +7,9 @@ import 'package:metaltrade/core/constants/app_widgets/main_app_bar.dart';
 import 'package:metaltrade/core/constants/hive/local_storage.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/resource/stomp_client.dart';
+import 'package:metaltrade/features/chat/data/models/chat_response_model.dart';
 import 'package:metaltrade/features/chat/ui/controllers/chat_file_pick_cubit/chat_file_pick_cubit.dart';
+import 'package:metaltrade/features/chat/ui/controllers/chat_home/chat_home_bloc.dart';
 import 'package:metaltrade/features/chat/ui/widgets/chat_file_pick_upload/chat_image_dialog.dart';
 import 'package:metaltrade/features/chat/ui/widgets/chat_send_btn.dart';
 import 'package:metaltrade/features/profile/domain/entities/profile_entity.dart';
@@ -24,8 +26,10 @@ import '../widgets/chat_list.dart';
 const String EVENT = "CHAT PAGE EVENT";
 
 class ChatTestPage extends StatefulWidget {
-  const ChatTestPage({Key? key, this.chatType, this.room}) : super(key: key);
+  const ChatTestPage({Key? key, this.chatType, this.room, this.content})
+      : super(key: key);
   final String? chatType;
+  final Content? content;
   final String? room;
   @override
   State<ChatTestPage> createState() => ChatTestPageState();
@@ -138,6 +142,40 @@ class ChatTestPageState extends State<ChatTestPage> {
                                   if (chatBloc.chatList.isNotEmpty) {
                                     enquiryId =
                                         chatBloc.chatList.first.enquiryId!;
+                                  } else if (chatBloc.chatList.isEmpty &&
+                                      widget.content != null &&
+                                      widget.content!.body!.chatMessageType ==
+                                          "Enquiry") {
+                                    if (widget.content != null) {
+                                      context
+                                          .read<ChatBloc>()
+                                          .add(AddNewChat(widget.content!));
+                                      stompClient!.send(
+                                        destination: '/mtp/chat',
+                                        headers: {
+                                          'Authorization':
+                                              'Bearer ${LocalStorage.instance.token}'
+                                        },
+                                        body: json.encode({
+                                          "senderCompanyId": senderId,
+                                          "enquiryId":
+                                              widget.content!.enquiryId,
+                                          "body": {
+                                            "chatMessageType": "Enquiry",
+                                            "enquiry": {
+                                              "id": widget.content!.enquiryId
+                                            }
+                                          }
+                                        }),
+                                      );
+                                      context
+                                          .read<ChatHomeBloc>()
+                                          .chatList
+                                          .clear();
+                                      context
+                                          .read<ChatHomeBloc>()
+                                          .add(GetChatHomeList(page: 0));
+                                    }
                                   }
                                   return ChatList(chatList: chatBloc.chatList);
                                 }
@@ -176,7 +214,7 @@ class ChatTestPageState extends State<ChatTestPage> {
           Map<String, dynamic> result = json.decode(frame.body!);
           log(result.toString(), name: EVENT);
           if (mounted) {
-            context.read<ChatBloc>().add(AddNewChat(result));
+            context.read<ChatBloc>().add(AddNewChat(Content.fromJson(result)));
           }
         },
       );
@@ -203,12 +241,13 @@ class ChatTestPageState extends State<ChatTestPage> {
         "enquiryId": enquiryId,
         "body": {
           "text": text,
-          "chatMessageType": imageUrl != null ? "Attachment" : "Text",
+          "chatMessageType":
+              imageUrl != null && imageUrl.isNotEmpty ? "Attachment" : "Text",
           "attachmentUrl": imageUrl ?? ''
         }
       }),
     );
-    Map<String, dynamic> body = imageUrl != null
+    Map<String, dynamic> body = imageUrl != null && imageUrl.isNotEmpty
         ? {
             "chatMessageType": "Attachment",
             "text": text,
@@ -218,13 +257,12 @@ class ChatTestPageState extends State<ChatTestPage> {
             "chatMessageType": "Text",
             "text": text,
           };
-    context.read<ChatBloc>().add(AddNewChat({
-          "lastModifiedDate": DateTime.now().toString(),
-          "senderCompanyId": senderId,
-          "enquiryId": enquiryId,
-          "status": "Unseen",
-          "body": body
-        }));
+    context.read<ChatBloc>().add(AddNewChat(Content(
+          body: Body.fromJson(body),
+          enquiryId: enquiryId,
+          lastModifiedDate: DateTime.now().toString(),
+          senderCompanyId: senderId,
+        )));
   }
 
   @override

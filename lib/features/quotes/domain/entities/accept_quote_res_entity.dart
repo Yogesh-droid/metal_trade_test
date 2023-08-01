@@ -1,3 +1,5 @@
+import 'package:metaltrade/features/quotes/data/models/quote_res_model.dart';
+
 import '../../../rfq/data/models/rfq_enquiry_model.dart';
 
 class AcceptQuoteResEntity {

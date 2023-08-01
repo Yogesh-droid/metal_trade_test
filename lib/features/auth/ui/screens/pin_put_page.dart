@@ -25,7 +25,7 @@ class _PinPutPageState extends State<PinPutPage> {
   String phoneNo = '';
   String otp = '';
   late Timer timer;
-  int start = 5;
+  int start = 60;
   bool showResendBtn = false;
   @override
   void initState() {

@@ -7,8 +7,8 @@ import '../../../../core/constants/text_tyles.dart';
 import '../../../landing/ui/widgets/get_started_btn.dart';
 
 class EnquiryDetailList extends StatelessWidget {
-  final String paymentTerms;
-  final String transportationTerms;
+  final String paymentTermsDisplay;
+  final String transportationTermsDisplay;
   final String? outlinedButtonText;
   final String? filledBtnText;
   final Function()? onOutlineTapped;
@@ -17,8 +17,8 @@ class EnquiryDetailList extends StatelessWidget {
   final String? otherTerms;
   const EnquiryDetailList(
       {super.key,
-      required this.paymentTerms,
-      required this.transportationTerms,
+      required this.paymentTermsDisplay,
+      required this.transportationTermsDisplay,
       this.outlinedButtonText,
       this.onOutlineTapped,
       this.onFilledTapped,
@@ -34,9 +34,9 @@ class EnquiryDetailList extends StatelessWidget {
         itemListWidget(context),
         const SizedBox(height: appPadding),
         const Divider(),
-        termsRow(context, kPaymentTerms, paymentTerms),
+        termsRow(context, kPaymentTerms, paymentTermsDisplay),
         const Divider(),
-        termsRow(context, kTransportTerms, transportationTerms),
+        termsRow(context, kTransportTerms, transportationTermsDisplay),
         const Divider(),
         termsRow(context, kRemarks, otherTerms),
         const SizedBox(height: appWidgetGap),

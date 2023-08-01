@@ -49,7 +49,9 @@ class Content {
   EnquiryCompany? enquiryCompany;
   EnquiryCompany? quoteCompany;
   String? enquiryType;
+  String? transportationTermsDisplay;
   String? transportationTerms;
+  String? paymentTermsDisplay;
   String? paymentTerms;
   String? status;
   String? otherTerms;
@@ -65,7 +67,9 @@ class Content {
       this.enquiryCompany,
       this.quoteCompany,
       this.enquiryType,
+      this.transportationTermsDisplay,
       this.transportationTerms,
+      this.paymentTermsDisplay,
       this.paymentTerms,
       this.status,
       this.quoteCount,
@@ -89,7 +93,9 @@ class Content {
         : EnquiryCompany.fromJson(json["quoteCompany"]);
     enquiryType = json["enquiryType"];
     transportationTerms = json["transportationTerms"];
+    transportationTermsDisplay = json["transportationTermsDisplay"];
     paymentTerms = json["paymentTerms"];
+    paymentTermsDisplay = json["paymentTermsDisplay"];
     status = json["status"];
     otherTerms = json['otherTerms'];
     quoteCount = json["quoteCount"];

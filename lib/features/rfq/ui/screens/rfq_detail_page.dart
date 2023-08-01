@@ -23,8 +23,8 @@ class RfqDetailPage extends StatelessWidget {
             const Divider(),
             Expanded(
                 child: EnquiryDetailList(
-              paymentTerms: content.paymentTerms ?? '',
-              transportationTerms: content.transportationTerms ?? '',
+              paymentTermsDisplay: content.paymentTermsDisplay ?? '',
+              transportationTermsDisplay: content.transportationTermsDisplay ?? '',
               itemList: content.item ?? [],
               otherTerms: content.otherTerms,
               filledBtnText: content.enquiry == null

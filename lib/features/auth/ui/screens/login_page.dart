@@ -82,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                           }
                         } else {
                           showSnackBar(
-                              context, "Please enter corrrect country code");
+                              context, "Enter correct country code");
                         }
                       });
                 },

@@ -55,8 +55,8 @@ class _MyEnquiryDetailState extends State<MyEnquiryDetail>
         Expanded(
           child: TabBarView(controller: tabController, children: [
             EnquiryDetailList(
-              paymentTerms: widget.item.paymentTerms ?? '',
-              transportationTerms: widget.item.transportationTerms ?? '',
+              paymentTermsDisplay: widget.item.paymentTermsDisplay ?? '',
+              transportationTermsDisplay: widget.item.transportationTermsDisplay ?? '',
               itemList: widget.item.item!,
               outlinedButtonText:
                   widget.item.status == "Complete" ? kReopen : kCloseRfq,

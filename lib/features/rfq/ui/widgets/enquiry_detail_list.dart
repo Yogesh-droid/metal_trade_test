@@ -9,7 +9,6 @@ import '../../../landing/ui/widgets/get_started_btn.dart';
 class EnquiryDetailList extends StatelessWidget {
   final String paymentTerms;
   final String transportationTerms;
-  final String deliveryTerms;
   final String? outlinedButtonText;
   final String? filledBtnText;
   final Function()? onOutlineTapped;
@@ -20,7 +19,6 @@ class EnquiryDetailList extends StatelessWidget {
       {super.key,
       required this.paymentTerms,
       required this.transportationTerms,
-      required this.deliveryTerms,
       this.outlinedButtonText,
       this.onOutlineTapped,
       this.onFilledTapped,
@@ -40,9 +38,7 @@ class EnquiryDetailList extends StatelessWidget {
         const Divider(),
         termsRow(context, kTransportTerms, transportationTerms),
         const Divider(),
-        termsRow(context, kDeliveryTerms, deliveryTerms),
-        const Divider(),
-        termsRow(context, "Remarks", otherTerms),
+        termsRow(context, kRemarks, otherTerms),
         const SizedBox(height: appWidgetGap),
         Row(
           children: [

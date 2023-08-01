@@ -25,7 +25,6 @@ class RfqDetailPage extends StatelessWidget {
                 child: EnquiryDetailList(
               paymentTerms: content.paymentTerms ?? '',
               transportationTerms: content.transportationTerms ?? '',
-              deliveryTerms: content.deliveryTerms ?? '',
               itemList: content.item ?? [],
               otherTerms: content.otherTerms,
               filledBtnText: content.enquiry == null

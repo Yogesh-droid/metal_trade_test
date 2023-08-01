@@ -77,7 +77,9 @@ class HomePageCardUpSection extends StatelessWidget {
                         ? Colors.red
                         : status == "Inreview"
                             ? Colors.orange
-                            : Colors.white,
+                            : status == "Complete"
+                                ? Colors.indigo
+                                : Colors.white,
                 size: 8,
               ),
               const SizedBox(width: appPadding),
@@ -90,7 +92,9 @@ class HomePageCardUpSection extends StatelessWidget {
                             ? Colors.red
                             : status == "Inreview"
                                 ? Colors.orange
-                                : Colors.white),
+                                : status == "Complete"
+                                    ? Colors.indigo
+                                    : Colors.white),
               )
             ])
         ],

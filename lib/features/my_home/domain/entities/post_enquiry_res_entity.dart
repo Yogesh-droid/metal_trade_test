@@ -9,7 +9,6 @@ class PostEnquiryResEntity {
   final String? enquiryType;
   final String? transportationTerms;
   final String? paymentTerms;
-  final String? deliveryTerms;
   final String? status;
   final int? quoteCount;
   final String? uuid;
@@ -23,7 +22,6 @@ class PostEnquiryResEntity {
       this.enquiryType,
       this.transportationTerms,
       this.paymentTerms,
-      this.deliveryTerms,
       this.status,
       this.quoteCount,
       this.uuid});

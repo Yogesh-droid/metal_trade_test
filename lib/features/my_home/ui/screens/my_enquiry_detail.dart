@@ -57,7 +57,6 @@ class _MyEnquiryDetailState extends State<MyEnquiryDetail>
             EnquiryDetailList(
               paymentTerms: widget.item.paymentTerms ?? '',
               transportationTerms: widget.item.transportationTerms ?? '',
-              deliveryTerms: widget.item.deliveryTerms ?? '',
               itemList: widget.item.item!,
               outlinedButtonText:
                   widget.item.status == "Complete" ? kReopen : kCloseRfq,

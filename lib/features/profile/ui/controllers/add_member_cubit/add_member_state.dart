@@ -28,3 +28,21 @@ class GetAllEmployeeSuccess extends AddMemberState {
 
   GetAllEmployeeSuccess(this.employeeList);
 }
+
+class DeleteEmpSuccess extends AddMemberState {
+  final String success;
+  final String mobileNo;
+
+  DeleteEmpSuccess({required this.success, required this.mobileNo});
+}
+
+class DeletingEmp extends AddMemberState {
+  final String mobileNo;
+  DeletingEmp(this.mobileNo);
+}
+
+class DeleteEmpFailed extends AddMemberState {
+  final Exception exception;
+
+  DeleteEmpFailed(this.exception);
+}

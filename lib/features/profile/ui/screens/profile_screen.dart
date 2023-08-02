@@ -67,9 +67,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             builder: (context) {
                               return AddMemberWidget(
                                   textEditingController: phoneNoFieldController,
-                                  allEmplyeeList: context
-                                      .read<AddMemberCubit>()
-                                      .allEmployeeList,
                                   onSendClick: () {
                                     context
                                         .read<AddMemberCubit>()

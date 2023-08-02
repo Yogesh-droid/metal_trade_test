@@ -38,7 +38,7 @@ class QuoteCard extends StatelessWidget {
               if (DateTime.tryParse(content.lastModifiedDate!.toString()) !=
                   null)
                 Text(
-                  DateFormat('hh:mm a').format(
+                  DateFormat('dd MMM yyyy hh:mm a').format(
                       DateTime.parse(content.lastModifiedDate!.toString())),
                   style: secMed12.copyWith(
                       color: Theme.of(context).colorScheme.secondary),

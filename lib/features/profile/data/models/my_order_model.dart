@@ -81,6 +81,29 @@ class Content {
     totalValue = json["totalValue"];
     uuid = json["uuid"];
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['lastModifiedDate'] = lastModifiedDate;
+    data['id'] = id;
+    if (quote != null) {
+      data['quote'] = quote!.toJson();
+    }
+    if (enquiry != null) {
+      data['enquiry'] = enquiry!.toJson();
+    }
+    if (item != null) {
+      data['item'] = item!.map((v) => v.toJson()).toList();
+    }
+    data['transportationTerms'] = transportationTerms;
+    data['transportationTermsDisplay'] = transportationTerms;
+    data['paymentTerms'] = paymentTerms;
+    data['paymentTermsDisplay'] = paymentTerms;
+    data['status'] = status;
+    data['totalValue'] = totalValue;
+    data['uuid'] = uuid;
+    return data;
+  }
 }
 
 class Enquiry {
@@ -99,6 +122,16 @@ class Enquiry {
     enquiryType = json["enquiryType"];
     uuid = json["uuid"];
   }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    if (enquiryCompany != null) {
+      data['enquiryCompany'] = enquiryCompany!.toJson();
+    }
+    data['enquiryType'] = enquiryType;
+    data['uuid'] = uuid;
+    return data;
+  }
 }
 
 class Quote {
@@ -114,5 +147,14 @@ class Quote {
         ? null
         : EnquiryCompany.fromJson(json["quoteCompany"]);
     uuid = json["uuid"];
+  }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    if (quoteCompany != null) {
+      data['quoteCompany'] = quoteCompany!.toJson();
+    }
+    data['uuid'] = uuid;
+    return data;
   }
 }

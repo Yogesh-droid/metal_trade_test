@@ -44,11 +44,15 @@ void setup() {
   getIt.registerFactory<ValidateOtpBloc>(
       () => ValidateOtpBloc(validateOtpUsecase: getIt()));
 
+  // update rfq state
+  getIt.registerFactory<UpdateRfqRepo>(() => UpdateMyRfqRepoImpl(getIt()));
+  getIt.registerFactory<UpdateRfqUsecase>(() => UpdateRfqUsecase(getIt()));
+
   // THis is My Enquiry bloc setup //
   // homePage usecase and repo is used in this as they have same data //
 
-  getIt.registerFactory<MyRfqBloc>(
-      () => MyRfqBloc(homePageEnquiryUsecase: getIt()));
+  getIt.registerFactory<MyRfqBloc>(() =>
+      MyRfqBloc(homePageEnquiryUsecase: getIt(), updateRfqUsecase: getIt()));
 
   getIt.registerFactory<MyQuoteBloc>(
       () => MyQuoteBloc(homePageEnquiryUsecase: getIt()));
@@ -83,7 +87,9 @@ void setup() {
 
   getIt.registerFactory<KycRepo>(() => KycRepoImpl(networkManager: getIt()));
   getIt.registerFactory<KycUsecase>(() => KycUsecase(kycRepo: getIt()));
-  getIt.registerFactory<KycBloc>(() => KycBloc(getIt()));
+  getIt.registerFactory<KycBloc>(() => KycBloc(getIt(), getIt()));
+
+  getIt.registerFactory<KycFilePickCubit>(() => KycFilePickCubit(getIt()));
 
   //  Country setup  for kyc  //
 

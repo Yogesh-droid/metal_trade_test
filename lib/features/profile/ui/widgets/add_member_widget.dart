@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
@@ -50,7 +51,7 @@ class AddMemberWidget extends StatelessWidget with InputValidationMixin {
                           onPressed: () {
                             if (textEditingController.text.isNotEmpty) {
                               onSendClick();
-                              //context.pop();
+                              context.pop();
                             } else {
                               Fluttertoast.showToast(
                                   msg: "Please Enter mobile no.",

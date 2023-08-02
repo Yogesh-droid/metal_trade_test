@@ -122,7 +122,9 @@ final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
     name: enquiryDetailPageName,
     pageBuilder: (context, state) {
       return getTransition(
-          child: RfqDetailPage(content: state.extra as Content),
+          child: RfqDetailPage(
+              content: state.extra as Content,
+              title: state.uri.queryParameters['title']!),
           animationType: TransitionType.slide,
           duration: const Duration(milliseconds: 200));
     },

@@ -75,14 +75,14 @@ class _LoginPageState extends State<LoginPage> {
                           } else {
                             context.read<LoginBloc>().add(GetOtpEvent(
                                 mobNo:
-                                    "${state.dialCode}${phoneNoController.text}"));
+                                    "${state.dialCode}${phoneNoController.text}",
+                                via: 'sms'));
                             context.pushNamed(
                               otpPageName,
                             );
                           }
                         } else {
-                          showSnackBar(
-                              context, "Enter correct country code");
+                          showSnackBar(context, "Enter correct country code");
                         }
                       });
                 },

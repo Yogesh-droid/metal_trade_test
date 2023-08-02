@@ -144,6 +144,20 @@ class EnquiryCompany {
     country =
         json["country"] == null ? null : Country.fromJson(json["country"]);
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['address'] = address;
+    data['email'] = email;
+    data['phone'] = phone;
+
+    if (country != null) {
+      data['country'] = country!.toJson();
+    }
+    return data;
+  }
 }
 
 class Item {
@@ -173,6 +187,17 @@ class Item {
     price = json["price"] ?? 0;
     remarks = json["remarks"];
   }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    if (sku != null) {
+      data['sku'] = sku!.toJson();
+    }
+    data['quantity'] = quantity;
+    data['quantityUnit'] = quantityUnit;
+    data['remarks'] = remarks;
+    return data;
+  }
 }
 
 class Sku {
@@ -185,6 +210,12 @@ class Sku {
     id = json["id"];
     title = json["title"];
   }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    return data;
+  }
 }
 
 class Country {
@@ -196,5 +227,11 @@ class Country {
   Country.fromJson(Map<String, dynamic> json) {
     id = json["id"];
     name = json["name"];
+  }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    return data;
   }
 }

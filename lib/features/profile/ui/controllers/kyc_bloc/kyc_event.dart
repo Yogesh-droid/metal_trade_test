@@ -8,3 +8,10 @@ class DoKycEvent extends KycEvent {
 
   DoKycEvent(this.kycRequestModel);
 }
+
+class UploadKycDoc extends KycEvent {
+  final String fileName;
+  final String filePath;
+
+  UploadKycDoc({required this.fileName, required this.filePath});
+}

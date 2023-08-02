@@ -21,6 +21,14 @@ class MyRfqLoadMore extends MyRfqState {}
 
 //  update rfq's //
 
+class UpdateRfqSuccess extends MyRfqState {
+  final Content content;
+
+  UpdateRfqSuccess(this.content);
+}
+
+class UpdatingRfq extends MyRfqState {}
+
 class UpdateRfqFailed extends MyRfqState {
   final Exception exception;
 

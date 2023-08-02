@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
+import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/core/routes/routes.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
@@ -43,7 +44,9 @@ class HomePageQuoteCard extends StatelessWidget {
                 dateTime: content!.lastModifiedDate ?? '',
                 uuidTitle: "${content!.uuid} on ${content!.enquiry!.uuid}",
                 onDetailTapped: () {
-                  context.pushNamed(enquiryDetailPageName, extra: content);
+                  context.pushNamed(enquiryDetailPageName,
+                      extra: content,
+                      queryParameters: {'title': kQuoteDetails});
                 },
               ),
               const Divider(),
@@ -103,7 +106,8 @@ class HomePageQuoteCard extends StatelessWidget {
           itemList: itemList,
           isQuote: true,
           onDetailTapped: () {
-            context.pushNamed(enquiryDetailPageName, extra: content);
+            context.pushNamed(enquiryDetailPageName,
+                extra: content, queryParameters: {'title': kQuoteDetails});
           }),
     );
   }

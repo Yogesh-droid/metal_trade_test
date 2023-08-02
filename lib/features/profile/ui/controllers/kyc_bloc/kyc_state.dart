@@ -16,3 +16,21 @@ class KycFailedState extends KycState {
 
   KycFailedState(this.exception);
 }
+
+class KycFIleUploadSuccess extends KycState {
+  final String url;
+
+  KycFIleUploadSuccess(this.url);
+}
+
+class KycFileUploadFailed extends KycState {
+  final Exception exception;
+
+  KycFileUploadFailed(this.exception);
+}
+
+class KycFileUploading extends KycState {
+  final int? progress;
+
+  KycFileUploading(this.progress);
+}

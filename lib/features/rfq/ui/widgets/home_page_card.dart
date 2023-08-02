@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 import 'package:metaltrade/features/my_home/ui/widgets/home_page_card_up_section.dart';
 import 'package:metaltrade/features/rfq/ui/widgets/home_card_itemlist_widget.dart';
 
+import '../../../my_home/ui/controllers/my_rfq_bloc/my_rfq_bloc.dart';
 import '../../data/models/rfq_enquiry_model.dart';
 
 class HomePageCard extends StatelessWidget {
@@ -56,10 +58,21 @@ class HomePageCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               if (borderedBtnTitle != null)
-                OutlinedIconButtonWidget(
-                  icon: const Icon(Icons.add),
-                  title: borderedBtnTitle!,
-                  onPressed: onBorderedBtnTapped ?? () {},
+                BlocBuilder<MyRfqBloc, MyRfqState>(
+                  builder: (context, state) {
+                    if (state is UpdatingRfq) {
+                      return OutlinedIconButtonWidget(
+                        icon: const CircularProgressIndicator(),
+                        title: '',
+                        onPressed: () {},
+                      );
+                    }
+                    return OutlinedIconButtonWidget(
+                      icon: const Icon(Icons.add),
+                      title: borderedBtnTitle!,
+                      onPressed: onBorderedBtnTapped ?? () {},
+                    );
+                  },
                 ),
               const SizedBox(width: appPadding),
               if (filledBtnTitle != null)

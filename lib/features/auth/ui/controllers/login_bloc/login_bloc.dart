@@ -17,7 +17,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           DataState<String> dataState = await loginUsecase.call(RequestParams(
               url: "${baseUrl}auth/generate",
               apiMethods: ApiMethods.post,
-              body: {"mobileNumber": event.mobNo}));
+              body: {"mobileNumber": event.mobNo, "via": event.via}));
 
           if (dataState.data != null) {
             emit(

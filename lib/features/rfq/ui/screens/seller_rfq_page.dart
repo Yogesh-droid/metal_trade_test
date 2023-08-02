@@ -100,7 +100,10 @@ class _SellerRfqPageState extends State<SellerRfqPage> {
                                   },
                                   onDetailTapped: () {
                                     context.pushNamed(enquiryDetailPageName,
-                                        extra: e);
+                                        extra: e,
+                                        queryParameters: {
+                                          'title': kEnquiryDetail
+                                        });
                                   },
                                 ))
                             .toList(),

@@ -45,6 +45,23 @@ class NetworkManager {
               : e.message);
         }
 
+      case ApiMethods.put:
+        debugPrint(requestParams.url);
+        debugPrint(requestParams.header.toString());
+        debugPrint(jsonEncode(requestParams.body));
+
+        try {
+          response = await _dio.put(requestParams.url,
+              data: requestParams.body, options: options);
+          return response;
+        } on DioException catch (e) {
+          throw Exception(e.response != null &&
+                  e.response!.data.isNotEmpty &&
+                  e.response!.data != null
+              ? e.response!.data['message']
+              : e.message);
+        }
+
       case ApiMethods.delete:
         debugPrint(requestParams.url);
         debugPrint(requestParams.header.toString());

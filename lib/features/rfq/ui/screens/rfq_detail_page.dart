@@ -6,14 +6,14 @@ import 'package:metaltrade/features/rfq/ui/widgets/enquiry_detail_heading.dart';
 import 'package:metaltrade/features/rfq/ui/widgets/enquiry_detail_list.dart';
 
 class RfqDetailPage extends StatelessWidget {
-  const RfqDetailPage({super.key, required this.content});
+  const RfqDetailPage({super.key, required this.content, required this.title});
   final Content content;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: ContextMenuAppBar(
-            title: content.enquiry == null ? kEnquiryDetail : kQuoteDetails),
+        appBar: ContextMenuAppBar(title: title),
         body: Column(
           children: [
             EnquiryDetailHeading(
@@ -24,10 +24,11 @@ class RfqDetailPage extends StatelessWidget {
             Expanded(
                 child: EnquiryDetailList(
               paymentTermsDisplay: content.paymentTermsDisplay ?? '',
-              transportationTermsDisplay: content.transportationTermsDisplay ?? '',
+              transportationTermsDisplay:
+                  content.transportationTermsDisplay ?? '',
               itemList: content.item ?? [],
               otherTerms: content.otherTerms,
-              filledBtnText: content.enquiry == null
+              filledBtnText: content.enquiry != null
                   ? kSubmitQuote
                   : content.status == 'Inreview'
                       ? kCancel

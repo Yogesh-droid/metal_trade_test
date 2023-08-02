@@ -37,7 +37,7 @@ class EnquiryCard extends StatelessWidget {
               if (DateTime.tryParse(content.lastModifiedDate!.toString()) !=
                   null)
                 Text(
-                    DateFormat('hh:mm a').format(DateTime.tryParse(
+                    DateFormat('dd MMM yyyy hh:mm a').format(DateTime.tryParse(
                         content.lastModifiedDate!.toString())!),
                     style: secMed12.copyWith(
                         color: Theme.of(context).colorScheme.secondary)),

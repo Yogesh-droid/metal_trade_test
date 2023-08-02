@@ -58,7 +58,9 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
                     if (state is MyRfqInitial) {
                       return const Center(child: CircularProgressIndicator());
                     } else if (state is MyRfqFetchedState ||
-                        state is MyRfqLoadMore) {
+                        state is MyRfqLoadMore ||
+                        state is UpdatingRfq ||
+                        state is UpdateRfqFailed) {
                       return ListView(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
@@ -71,24 +73,37 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
                                 uuid: e.uuid,
                                 borderedBtnTitle: e.status == "Complete"
                                     ? kViewOrder
-                                    : kCloseRfq,
+                                    : e.status == "Inreview" ||
+                                            e.status == "Active"
+                                        ? kCloseRfq
+                                        : null,
                                 filledBtnTitle: e.status != "Inreview"
                                     ? e.quoteCount! > 0
                                         ? "$kView ${e.quoteCount} $kQuote"
                                         : null
                                     : null,
                                 onBorderedBtnTapped: () {
-                                  myRfqBloc.add(UpdateMyRfq(
-                                      status: e.status != "Inreview"
-                                          ? "Complete"
-                                          : "Active",
-                                      id: e.id!));
+                                  if (e.status == "Inreview" ||
+                                      e.status == "Active") {
+                                    myRfqBloc.add(UpdateMyRfq(
+                                        status: e.status == "Inreview" ||
+                                                e.status == "Active"
+                                            ? "Closed"
+                                            : "Active",
+                                        id: e.id!));
+                                  }
+                                  if (e.status == "Complete") {
+                                    context.pushNamed(myOrderScreenName);
+                                  }
                                 },
                                 onFilledBtnTapped: () {},
                                 onDetailTapped: () {
                                   e.status == "Inreview"
                                       ? context.pushNamed(enquiryDetailPageName,
-                                          extra: e)
+                                          extra: e,
+                                          queryParameters: {
+                                              'title': kEnquiryDetail
+                                            })
                                       : context.pushNamed(
                                           myEnqiryDetailPageName,
                                           extra: e);

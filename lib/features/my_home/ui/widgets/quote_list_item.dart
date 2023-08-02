@@ -20,7 +20,7 @@ class QuoteListItem extends StatelessWidget {
           style: secMed12.copyWith(
               color: Theme.of(context).colorScheme.onSurfaceVariant)),
       trailing: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
             "\$ ${item.price}",
@@ -29,7 +29,7 @@ class QuoteListItem extends StatelessWidget {
           RichText(
               text: TextSpan(children: [
             TextSpan(
-                text: "${item.quantity} ",
+                text: "QTY ${item.quantity} ",
                 style: secMed12.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant),
                 children: [

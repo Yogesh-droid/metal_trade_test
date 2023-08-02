@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -76,9 +77,9 @@ class _PinPutPageState extends State<PinPutPage> {
                   return Pinput(
                     controller: pinTextController,
                     length: 4,
-                    onCompleted: (pin) => context
-                        .read<ValidateOtpBloc>()
-                        .add(GetValidateOtpEvent(phoneNo: phoneNo, otp: otp)),
+                    // onCompleted: (pin) => context
+                    //     .read<ValidateOtpBloc>()
+                    //     .add(GetValidateOtpEvent(phoneNo: phoneNo, otp: otp)),
                   );
                 },
               ),
@@ -120,16 +121,47 @@ class _PinPutPageState extends State<PinPutPage> {
                   alignment: Alignment.center,
                   child: Text("Resend Otp in $start seconds"))
             else
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                const Text("Didn't received code ?"),
-                TextButton(
-                    onPressed: () {
-                      context
-                          .read<LoginBloc>()
-                          .add(GetOtpEvent(mobNo: phoneNo));
-                    },
-                    child: const Text("Resend"))
-              ]),
+              // Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              //   const Text("Didn't received code ?"),
+              //   TextButton(
+              //       onPressed: () {
+              //         context
+              //             .read<LoginBloc>()
+              //             .add(GetOtpEvent(mobNo: phoneNo));
+              //       },
+              //       child: const Text("Resend"))
+              // ]),
+              Align(
+                alignment: Alignment.center,
+                child: RichText(
+                    text: TextSpan(children: [
+                  TextSpan(
+                      text: "Didn't received code ? Resend via",
+                      style: secMed12.copyWith(color: Colors.grey)),
+                  TextSpan(
+                      text: " SMS ",
+                      style: secMed15.copyWith(
+                          color: Colors.indigo, fontWeight: FontWeight.bold),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          context
+                              .read<LoginBloc>()
+                              .add(GetOtpEvent(mobNo: phoneNo, via: 'sms'));
+                        }),
+                  TextSpan(
+                      text: " OR ",
+                      style: secMed12.copyWith(color: Colors.grey)),
+                  TextSpan(
+                      text: " WhatsApp ",
+                      style: secMed15.copyWith(
+                          color: Colors.indigo, fontWeight: FontWeight.bold),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          context.read<LoginBloc>().add(
+                              GetOtpEvent(mobNo: phoneNo, via: 'whatsapp'));
+                        })
+                ])),
+              ),
             const SizedBox(height: 200),
           ],
         ),

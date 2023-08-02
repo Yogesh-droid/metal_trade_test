@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:metaltrade/features/my_home/domain/usecases/update_rfq_usecase.dart';
 import 'package:metaltrade/features/rfq/domain/entities/rfq_enquiry_entity.dart';
 import 'package:metaltrade/features/rfq/domain/usecases/rfq_usecase.dart';
 import '../../../../../core/constants/api_constants.dart';
@@ -11,10 +12,13 @@ part 'my_rfq_event.dart';
 
 class MyRfqBloc extends Bloc<MyRfqEvent, MyRfqState> {
   final RfqUsecase homePageEnquiryUsecase;
+  final UpdateRfqUsecase updateRfqUsecase;
   List<Content> myRfqList = [];
   int myRfqListPage = 0;
   bool isMyRfqListEnd = false;
-  MyRfqBloc({required this.homePageEnquiryUsecase}) : super(MyRfqInitial()) {
+  MyRfqBloc(
+      {required this.updateRfqUsecase, required this.homePageEnquiryUsecase})
+      : super(MyRfqInitial()) {
     on<MyRfqEvent>((event, emit) async {
       if (event is GetMyRfqList) {
         String statusQuery = event.status != null
@@ -52,10 +56,21 @@ class MyRfqBloc extends Bloc<MyRfqEvent, MyRfqState> {
       }
       if (event is UpdateMyRfq) {
         try {
-          for (var element in myRfqList) {
-            if (event.id == element.id) {
-              element.status = event.status;
+          DataState<Content> dataState = await updateRfqUsecase.call(
+              RequestParams(
+                  url: "${baseUrl}user/enquiry/${event.id}",
+                  apiMethods: ApiMethods.put,
+                  body: {"status": event.status},
+                  header: header));
+          if (dataState.data != null) {
+            for (var element in myRfqList) {
+              if (event.id == element.id) {
+                element.status = dataState.data!.status;
+              }
             }
+            emit(MyRfqFetchedState(contentList: myRfqList));
+          } else {
+            UpdateRfqFailed(Exception(dataState.exception));
           }
           emit(MyRfqFetchedState(contentList: myRfqList));
         } on Exception catch (e) {

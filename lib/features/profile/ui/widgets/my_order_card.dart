@@ -1,9 +1,11 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-
 import '../../../../core/constants/spaces.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/constants/text_tyles.dart';
+import '../../../../core/routes/routes.dart';
 import '../../../my_home/ui/widgets/quote_list_item.dart';
 import '../../../rfq/data/models/rfq_enquiry_model.dart';
 import '../../data/models/my_order_model.dart' as order_model;
@@ -31,19 +33,34 @@ class MyOrderCard extends StatelessWidget {
                     ? Text(
                         "${content!.uuid} on: ${DateFormat('dd MMM yyyy - hh:mm a').format(DateTime.tryParse(content!.lastModifiedDate ?? '')!)}",
                         style: secMed12.copyWith(
-                            color: Theme.of(context).colorScheme.secondary),
+                            color: Theme.of(context).colorScheme.outline),
                       )
                     : const SizedBox()
               ],
             ),
-            Row(
-              children: [
-                Text(
-                  "${content!.quote!.uuid} on ${content!.enquiry!.uuid}",
-                  style: secMed12,
-                ),
-              ],
-            ),
+            RichText(
+                text: TextSpan(children: [
+              TextSpan(
+                  text: "${content!.quote!.uuid}",
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      context.pushNamed(enquiryDetailPageName,
+                          extra: Content.fromJson(content!.toJson()),
+                          queryParameters: {'title': kQuoteDetails});
+                    },
+                  style: secMed11.copyWith(color: Colors.blue)),
+              TextSpan(
+                  text: " on ", style: secMed11.copyWith(color: Colors.black)),
+              TextSpan(
+                  text: "${content!.enquiry!.uuid}",
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      context.pushNamed(enquiryDetailPageName,
+                          extra: Content.fromJson(content!.toJson()),
+                          queryParameters: {'title': kEnquiryDetail});
+                    },
+                  style: secMed11.copyWith(color: Colors.blue)),
+            ])),
             const Divider(),
             itemListWidget(context),
             const Divider(),
@@ -72,8 +89,18 @@ class MyOrderCard extends StatelessWidget {
                                 : Colors.blue[900]),
               ),
               const Spacer(),
-              Text("\$ ${content!.totalValue}",
-                  style: secMed15.copyWith(fontWeight: FontWeight.w800))
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text("\$ ${content!.totalValue}",
+                      style: secMed15.copyWith(fontWeight: FontWeight.w800)),
+                  Text(
+                    'Total',
+                    style: secMed12.copyWith(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  )
+                ],
+              )
             ]),
           ])),
     );

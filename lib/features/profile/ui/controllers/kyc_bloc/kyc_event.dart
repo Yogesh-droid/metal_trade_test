@@ -15,3 +15,9 @@ class UploadKycDoc extends KycEvent {
 
   UploadKycDoc({required this.fileName, required this.filePath});
 }
+
+class RemoveKycDoc extends KycEvent {
+  final int index;
+
+  RemoveKycDoc(this.index);
+}

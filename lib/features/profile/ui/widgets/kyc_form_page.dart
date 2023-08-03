@@ -13,8 +13,8 @@ import 'package:metaltrade/features/profile/domain/entities/profile_entity.dart'
 import 'package:metaltrade/features/profile/ui/controllers/country_cubit/country_cubit.dart';
 import 'package:metaltrade/features/profile/ui/controllers/kyc_bloc/kyc_bloc.dart';
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
+import 'package:metaltrade/features/profile/ui/widgets/attachment/attachment_list.dart';
 import 'package:metaltrade/features/profile/ui/widgets/bordered_textfield.dart';
-import 'package:metaltrade/features/profile/ui/widgets/kyc_attachment_box.dart';
 
 import '../../../../core/constants/spaces.dart';
 
@@ -49,20 +49,11 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
   final pinFocus = FocusNode();
 
   int? selectedCountry;
-  int attachmentBoxKey = 0;
   final countryFocus = FocusNode();
-
-  final List<KycAttachmentBox> attachmentBocList = [];
 
   @override
   void initState() {
     assignPrefilledText();
-    attachmentBocList.clear();
-    attachmentBocList.add(KycAttachmentBox(
-      key: const ValueKey(0),
-      index: 0,
-      onDelete: (index) {},
-    ));
     countryCubit = context.read<CountryCubit>();
     profileBloc = context.read<ProfileBloc>();
     if (countryCubit.state is CountryInitial) {
@@ -86,6 +77,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
         key: KycFormPage._formKey,
         child: SingleChildScrollView(
           child: Column(children: [
+            const SizedBox(height: appPadding),
             BorderedTextField(
               isObscureText: false,
               hintText: kCompanyName,
@@ -173,11 +165,12 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
                 countryFocus.requestFocus();
               },
               onValidate: (value) {
-                if (isPinValid(value!)) {
-                  return null;
-                } else {
-                  return 'Enter valid Pin';
-                }
+                return null;
+                // if (isPinValid(value!)) {
+                //   return null;
+                // } else {
+                //   return 'Enter valid Pin';
+                // }
               },
             ),
             const SizedBox(height: appFormFieldGap),
@@ -194,14 +187,14 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
                 emailFocus.requestFocus();
               },
               onValidate: (value) {
-                if (isNameValid(value!)) {
-                  return null;
-                } else {
-                  return 'Enter valid Name';
-                }
+                return null;
+                // if (isNameValid(value!)) {
+                //   return null;
+                // } else {
+                //   return 'Enter valid Name';
+                // }
               },
             ),
-            const SizedBox(height: appFormFieldGap),
             const SizedBox(height: appFormFieldGap),
             const Divider(),
             Padding(
@@ -213,33 +206,18 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
                         color: Theme.of(context).colorScheme.outline)),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(appPadding),
-              child: Column(children: attachmentBocList),
-            ),
-            // Align(
-            //   alignment: Alignment.centerLeft,
-            //   child: TextButton(
-            //       onPressed: () {
-            //         attachmentBocList.add(KycAttachmentBox(
-            //           key: ValueKey(Random().nextInt(30)),
-            //           index: attachmentBocList.length,
-            //           onDelete: (index) {
-            //             attachmentBocList
-            //                 .removeWhere((element) => element.index == index);
-            //             setState(() {});
-            //           },
-            //         ));
-            //         setState(() {});
-            //       },
-            //       child: const Text("Add Kyc Docs")),
-            // ),
+            const AttachmentList(),
             const SizedBox(height: appFormFieldGap),
             FilledButtonWidget(
                 title: kSubmit,
                 onPressed: () {
                   if (KycFormPage._formKey.currentState!.validate()) {
-                    context.read<KycBloc>().add(DoKycEvent(KycRequestModel(
+                    final KycBloc kycBloc = context.read<KycBloc>();
+                    List<KycDocument> docList = [];
+                    for (var element in kycBloc.url) {
+                      docList.add(KycDocument.fromJson({"imageUrl": element}));
+                    }
+                    kycBloc.add(DoKycEvent(KycRequestModel(
                         id: profileBloc.profileEntity!.id,
                         address: addressController.text,
                         companyNumber: phoneController.text,
@@ -247,7 +225,8 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
                         name: companyNameController.text,
                         bankAccountNumber: accNoController.text,
                         country: Country(id: selectedCountry),
-                        pinCode: pinController.text)));
+                        pinCode: pinController.text,
+                        kycDocument: docList)));
                   }
                 },
                 width: MediaQuery.of(context).size.width)

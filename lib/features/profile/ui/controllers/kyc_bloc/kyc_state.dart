@@ -18,7 +18,7 @@ class KycFailedState extends KycState {
 }
 
 class KycFIleUploadSuccess extends KycState {
-  final String url;
+  final List<String> url;
 
   KycFIleUploadSuccess(this.url);
 }

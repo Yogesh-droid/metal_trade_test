@@ -11,6 +11,7 @@ class KycRequestModel {
   String? bankAccountNumber;
   String? bankName;
   List<SellInterest>? sellInterest;
+  List<KycDocument>? kycDocument;
 
   KycRequestModel(
       {this.id,
@@ -24,6 +25,7 @@ class KycRequestModel {
       this.pinCode,
       this.bankAccountNumber,
       this.bankName,
+      this.kycDocument,
       this.sellInterest});
 
   KycRequestModel.fromJson(Map<String, dynamic> json) {
@@ -44,6 +46,13 @@ class KycRequestModel {
         : (json["sellInterest"] as List)
             .map((e) => SellInterest.fromJson(e))
             .toList();
+
+    if (json['kycDocument'] != null) {
+      kycDocument = <KycDocument>[];
+      json['kycDocument'].forEach((v) {
+        kycDocument!.add(KycDocument.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -63,6 +72,9 @@ class KycRequestModel {
     data["bankName"] = bankName;
     if (sellInterest != null) {
       data["sellInterest"] = sellInterest?.map((e) => e.toJson()).toList();
+    }
+    if (kycDocument != null) {
+      data["kycDocument"] = kycDocument?.map((e) => e.toJson()).toList();
     }
     return data;
   }
@@ -96,6 +108,22 @@ class Country {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data["id"] = id;
+    return data;
+  }
+}
+
+class KycDocument {
+  String? imageUrl;
+
+  KycDocument({this.imageUrl});
+
+  KycDocument.fromJson(Map<String, dynamic> json) {
+    imageUrl = json['imageUrl'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['imageUrl'] = imageUrl;
     return data;
   }
 }

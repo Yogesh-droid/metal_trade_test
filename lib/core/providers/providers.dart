@@ -33,6 +33,6 @@ class AppBlocProviders {
         BlocProvider<RequestCallbackCubit>(create: (_) => getIt()),
         BlocProvider<MyOrderBloc>(create: (_) => getIt()),
         BlocProvider<AddMemberCubit>(create: (_) => getIt()),
-        BlocProvider<KycFilePickCubit>(create: (_) => getIt())
+        BlocProvider<KycFilePickCubit>(create: (_) => getIt()),
       ];
 }

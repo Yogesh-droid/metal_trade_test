@@ -111,7 +111,7 @@ class _PinPutPageState extends State<PinPutPage> {
                           context.read<ValidateOtpBloc>().add(
                               GetValidateOtpEvent(phoneNo: phoneNo, otp: otp));
                         },
-                        title: kSubmit.toUpperCase());
+                        title: kVerify);
                   },
                 ),
               ),
@@ -119,7 +119,7 @@ class _PinPutPageState extends State<PinPutPage> {
             if (!showResendBtn)
               Align(
                   alignment: Alignment.center,
-                  child: Text("Resend Otp in $start seconds"))
+                  child: Text("Resend OTP in $start seconds"))
             else
               // Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               //   const Text("Didn't received code ?"),

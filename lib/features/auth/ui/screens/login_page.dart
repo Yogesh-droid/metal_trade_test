@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                 builder: (context, state) {
                   return FilledButtonWidget(
                       width: MediaQuery.of(context).size.width,
-                      title: kContinue.toUpperCase(),
+                      title: kContinue,
                       onPressed: () {
                         if (state.dialCode != null) {
                           if (state.dialCode!.isEmpty) {

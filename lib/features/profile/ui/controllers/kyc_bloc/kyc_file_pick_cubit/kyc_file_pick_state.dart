@@ -6,7 +6,7 @@ abstract class KycFilePickState {}
 class KycFilePickInitial extends KycFilePickState {}
 
 class KycFilePickSuccess extends KycFilePickState {
-  final List<File> file;
+  final File file;
 
   KycFilePickSuccess(this.file);
 }

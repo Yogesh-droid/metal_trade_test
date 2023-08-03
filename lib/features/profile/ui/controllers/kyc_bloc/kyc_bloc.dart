@@ -15,10 +15,11 @@ part 'kyc_state.dart';
 class KycBloc extends Bloc<KycEvent, KycState> {
   final KycUsecase kycUsecase;
   final ChatFileUploadUsecase chatFileUploadUsecase;
-  List<Map<String, dynamic>> url = [];
+  List<String> url = [];
   KycBloc(this.kycUsecase, this.chatFileUploadUsecase) : super(KycInitial()) {
     on<KycEvent>((event, emit) async {
       if (event is DoKycEvent) {
+        print(event.kycRequestModel.toJson());
         try {
           final DataState<ProfileEntity> dataState = await kycUsecase.call(
               RequestParams(
@@ -49,8 +50,8 @@ class KycBloc extends Bloc<KycEvent, KycState> {
           });
 
           if (dataState.data != null) {
-            url.add({"imageUrl": dataState.data});
-            emit(KycFIleUploadSuccess(dataState.data!));
+            url.add(dataState.data!);
+            emit(KycFIleUploadSuccess(url));
           } else {
             log(dataState.exception.toString());
             emit(KycFileUploadFailed(Exception("Something went wrong")));
@@ -59,6 +60,10 @@ class KycBloc extends Bloc<KycEvent, KycState> {
           log(e.toString());
           emit(KycFileUploadFailed(e));
         }
+      }
+      if (event is RemoveKycDoc) {
+        url.removeAt(event.index);
+        emit(KycFIleUploadSuccess(url));
       }
     });
   }

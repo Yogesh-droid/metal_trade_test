@@ -15,6 +15,7 @@ class CreateEnquiryBloc extends Bloc<CreateEnquiryEvent, CreateEnquiryState> {
   final PostEnquiryUsecase postEnquiryUsecase;
   final ChatFileUploadUsecase chatFileUploadUsecase;
   String? url = '';
+
   CreateEnquiryBloc(
       {required this.postEnquiryUsecase, required this.chatFileUploadUsecase})
       : super(CreateEnquiryInitial()) {

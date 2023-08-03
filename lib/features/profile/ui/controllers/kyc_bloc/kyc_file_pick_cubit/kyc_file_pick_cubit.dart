@@ -8,7 +8,6 @@ part 'kyc_file_pick_state.dart';
 
 class KycFilePickCubit extends Cubit<KycFilePickState> {
   final ChatFilePickUsecsse chatFilePickUsecsse;
-  List<File> fileList = [];
   KycFilePickCubit(this.chatFilePickUsecsse) : super(KycFilePickInitial());
 
   Future<void> emitInitiaState() async {
@@ -21,8 +20,7 @@ class KycFilePickCubit extends Cubit<KycFilePickState> {
       DataState<XFile?> dataState = await chatFilePickUsecsse.call(null);
       if (dataState.data != null) {
         XFile file = dataState.data!;
-        fileList.add(File(file.path));
-        emit(KycFilePickSuccess(fileList));
+        emit(KycFilePickSuccess(File(file.path)));
       } else {
         emit(KycFilePickeFailed(Exception("Something went wrong")));
       }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
@@ -96,7 +97,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                   const Text(
                     kEnquiryType,
                     style: secMed12,
-                  ),
+                  ).tr(),
                   EnquiryTypeRadio(
                       onSelect: (value) {
                         groupValue = value!;
@@ -139,7 +140,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                         "+ $kAddProducts",
                         style: secMed14.copyWith(
                             color: Theme.of(context).colorScheme.primary),
-                      )),
+                      ).tr()),
                   const Divider(),
                   AppDropdownFormField(
                     hintText: kAddPaymentTerms,

@@ -44,7 +44,9 @@ class EnquiryDetailHeading extends StatelessWidget {
                             ? Colors.orange
                             : status == "Complete"
                                 ? Colors.indigo
-                                : Colors.white,
+                                : status == "Closed"
+                                    ? Colors.grey
+                                    : Colors.white,
                 size: 8,
               ),
               const SizedBox(width: appPadding),
@@ -59,7 +61,9 @@ class EnquiryDetailHeading extends StatelessWidget {
                                 ? Colors.orange
                                 : status == "Complete"
                                     ? Colors.indigo
-                                    : Colors.white),
+                                    : status == "Closed"
+                                        ? Colors.grey
+                                        : Colors.white),
               )
             ])
           ],

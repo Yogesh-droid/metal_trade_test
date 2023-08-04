@@ -114,7 +114,7 @@ class AttachmentList extends StatelessWidget {
               onPressed: () {
                 context.read<KycFilePickCubit>().pickFile();
               },
-              child: const Text("Add Kyc Docs")),
+              child: const Text("+ Add KYC Documents")),
         ),
       ]),
     );

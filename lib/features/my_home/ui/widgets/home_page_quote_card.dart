@@ -64,7 +64,11 @@ class HomePageQuoteCard extends StatelessWidget {
                               ? Colors.red
                               : content!.status == "Inreview"
                                   ? Colors.orange
-                                  : Colors.blue[900],
+                                  : content!.status == "Complete"
+                                      ? Colors.indigo
+                                      : content!.status == "Closed"
+                                          ? Colors.grey
+                                          : Colors.blue[900],
                       size: 8,
                     ),
                     const SizedBox(width: appPadding),
@@ -77,7 +81,11 @@ class HomePageQuoteCard extends StatelessWidget {
                                   ? Colors.red
                                   : content!.status == "Inreview"
                                       ? Colors.orange
-                                      : Colors.blue[900]),
+                                      : content!.status == "Complete"
+                                          ? Colors.indigo
+                                          : content!.status == "Closed"
+                                              ? Colors.grey
+                                              : Colors.blue[900]),
                     )
                   ]),
                   const Spacer(),

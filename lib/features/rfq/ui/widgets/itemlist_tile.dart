@@ -24,22 +24,34 @@ class ItemListTile extends StatelessWidget {
       trailing: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (item.price != null && item.price! > 0)
+          if (isQuote != null)
             Text(
               "\$ $price",
               style: secMed14.copyWith(fontWeight: FontWeight.w700),
             ),
-          if (isQuote != null)
-            RichText(
-                text: TextSpan(children: [
-              TextSpan(
-                  text: "QTY ${item.quantity} ",
-                  style: secMed12.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant),
-                  children: [
-                    TextSpan(text: "${item.quantityUnit}", style: secMed12)
-                  ]),
-            ])),
+          isQuote != null
+              ? RichText(
+                  text: TextSpan(children: [
+                  TextSpan(
+                      text: "QTY ${item.quantity} ",
+                      style: secMed12.copyWith(
+                          color:
+                              Theme.of(context).colorScheme.onSurfaceVariant),
+                      children: [
+                        TextSpan(text: "${item.quantityUnit}", style: secMed12)
+                      ]),
+                ]))
+              : RichText(
+                  text: TextSpan(children: [
+                  TextSpan(
+                      text: "${item.quantity} ",
+                      style: secMed12.copyWith(
+                          color:
+                              Theme.of(context).colorScheme.onSurfaceVariant),
+                      children: [
+                        TextSpan(text: "${item.quantityUnit}", style: secMed12)
+                      ]),
+                ])),
         ],
       ),
     );

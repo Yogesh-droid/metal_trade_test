@@ -63,12 +63,7 @@ class MyRfqBloc extends Bloc<MyRfqEvent, MyRfqState> {
                   body: {"status": event.status},
                   header: header));
           if (dataState.data != null) {
-            for (var element in myRfqList) {
-              if (event.id == element.id) {
-                element.status = dataState.data!.status;
-              }
-            }
-            emit(MyRfqFetchedState(contentList: myRfqList));
+            emit(UpdateRfqSuccess(dataState.data!));
           } else {
             UpdateRfqFailed(Exception(dataState.exception));
           }

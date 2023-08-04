@@ -49,7 +49,10 @@ class FilterChipList extends StatelessWidget {
                                 page: 0,
                                 status: state.statusList,
                                 isLoadMore: false));
-                            context.read<FilterStatusCubit>().addFilter(e.name);
+                            context.read<FilterStatusCubit>().addFilter(
+                                e.name == "Complete"
+                                    ? ["Complete", "Expired", "Closed"]
+                                    : [e.name]);
                           })))
                   .toList(),
             );
@@ -68,8 +71,15 @@ class FilterChipList extends StatelessWidget {
                         selected: false,
                         onSelected: (value) {
                           myRfqBloc.add(GetMyRfqList(
-                              page: 0, isLoadMore: false, status: [e.name]));
-                          context.read<FilterStatusCubit>().addFilter(e.name);
+                              page: 0,
+                              isLoadMore: false,
+                              status: e.name == "Complete"
+                                  ? ["Complete", "Expired", "Closed"]
+                                  : [e.name]));
+                          context.read<FilterStatusCubit>().addFilter(
+                              e.name == "Complete"
+                                  ? ["Complete", "Expired", "Closed"]
+                                  : [e.name]);
                         })))
                 .toList(),
           );

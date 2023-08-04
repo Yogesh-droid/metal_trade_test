@@ -48,7 +48,10 @@ class QuoteFilters extends StatelessWidget {
                                 isLoadMore: false,
                                 page: 0,
                                 status: state.statusList));
-                            context.read<QuoteFilterCubit>().addFilter(e.name);
+                            context.read<QuoteFilterCubit>().addFilter(
+                                e.name == "Complete"
+                                    ? ["Complete", "Expired", "Closed"]
+                                    : [e.name]);
                           })))
                   .toList(),
             );
@@ -67,8 +70,15 @@ class QuoteFilters extends StatelessWidget {
                         selected: false,
                         onSelected: (value) {
                           myQuoteBloc.add(GetQuoteList(
-                              page: 0, isLoadMore: false, status: [e.name]));
-                          context.read<QuoteFilterCubit>().addFilter(e.name);
+                              page: 0,
+                              isLoadMore: false,
+                              status: e.name == "Complete"
+                                  ? ["Complete", "Expired", "Closed"]
+                                  : [e.name]));
+                          context.read<QuoteFilterCubit>().addFilter(
+                              e.name == "Complete"
+                                  ? ["Complete", "Expired", "Closed"]
+                                  : [e.name]);
                         })))
                 .toList(),
           );

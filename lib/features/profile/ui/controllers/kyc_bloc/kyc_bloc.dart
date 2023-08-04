@@ -19,7 +19,6 @@ class KycBloc extends Bloc<KycEvent, KycState> {
   KycBloc(this.kycUsecase, this.chatFileUploadUsecase) : super(KycInitial()) {
     on<KycEvent>((event, emit) async {
       if (event is DoKycEvent) {
-        print(event.kycRequestModel.toJson());
         try {
           final DataState<ProfileEntity> dataState = await kycUsecase.call(
               RequestParams(

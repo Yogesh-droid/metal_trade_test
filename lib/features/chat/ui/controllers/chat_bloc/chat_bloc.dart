@@ -38,6 +38,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           if (event.chatType == ChatType.enquiry.name) {
             url =
                 "${baseUrl}user/enquiry/${event.enquiryId}/chat?page=${event.page}&size=20";
+          } else if (event.chatType == ChatType.quote.name) {
+            url =
+                "${baseUrl}user/quote/${event.quoteId}/chat?page=${event.page}&size=20";
           }
           DataState<ChatResponseEntity> dataState = await chatListUsecase.call(
               RequestParams(

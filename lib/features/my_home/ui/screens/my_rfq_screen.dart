@@ -48,85 +48,120 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
       builder: (context, state) {
         if (state is ProfileSuccessState) {
           if (state.profileEntity.company != null) {
-            return SingleChildScrollView(
-              controller: scrollController,
-              child: Column(
-                children: [
-                  const SizedBox(height: appFormFieldGap),
-                  const FilterChipList(),
-                  BlocBuilder<MyRfqBloc, MyRfqState>(builder: (context, state) {
-                    if (state is MyRfqInitial) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (state is MyRfqFetchedState ||
-                        state is MyRfqLoadMore ||
-                        state is UpdatingRfq ||
-                        state is UpdateRfqFailed) {
-                      return ListView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        children: myRfqBloc.myRfqList
-                            .map((e) => HomePageCard(
-                                content: e,
-                                itemList: e.item,
-                                enquiryType: e.enquiryType,
-                                country: e.enquiryCompany!.country!.name,
-                                uuid: e.uuid,
-                                borderedBtnTitle: e.status == "Complete"
-                                    ? kViewOrder
-                                    : e.status == "Inreview" ||
-                                            e.status == "Active"
-                                        ? kCloseRfq
-                                        : null,
-                                filledBtnTitle: e.status != "Inreview"
-                                    ? e.quoteCount! > 0
-                                        ? "$kView ${e.quoteCount} $kQuote"
-                                        : null
-                                    : null,
-                                onBorderedBtnTapped: () {
-                                  if (e.status == "Inreview" ||
-                                      e.status == "Active") {
-                                    myRfqBloc.add(UpdateMyRfq(
-                                        status: e.status == "Inreview" ||
-                                                e.status == "Active"
-                                            ? "Closed"
-                                            : "Active",
-                                        id: e.id!));
-                                  }
-                                  if (e.status == "Complete") {
-                                    context.pushNamed(myOrderScreenName);
-                                  }
-                                },
-                                onFilledBtnTapped: () {},
-                                onDetailTapped: () {
-                                  e.status == "Inreview"
-                                      ? context.pushNamed(enquiryDetailPageName,
-                                          extra: e,
-                                          queryParameters: {
-                                              'title': kEnquiryDetail
-                                            })
-                                      : context.pushNamed(
-                                          myEnqiryDetailPageName,
-                                          extra: e);
-                                }))
-                            .toList(),
-                      );
-                    } else {
-                      return const SizedBox();
-                    }
-                  }),
-                  SizedBox(
-                    height: 100,
-                    child: BlocBuilder<MyRfqBloc, MyRfqState>(
-                      builder: (context, state) {
-                        if (state is MyRfqLoadMore) {
-                          return const LoadingDots();
+            return Column(
+              children: [
+                const SizedBox(height: appFormFieldGap),
+                const FilterChipList(),
+                Expanded(
+                  child: SingleChildScrollView(
+                    controller: scrollController,
+                    child: BlocListener<MyRfqBloc, MyRfqState>(
+                      listener: (context, state) {
+                        if (state is UpdateRfqSuccess) {
+                          myRfqBloc.add(GetMyRfqList(
+                              isLoadMore: false,
+                              page: myRfqBloc.myRfqListPage,
+                              status: filterStatusCubit.statusList));
+                        } else if (state is UpdateRfqFailed) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(state.exception.toString())));
                         }
-                        return const SizedBox();
                       },
+                      child: Column(
+                        children: [
+                          BlocBuilder<MyRfqBloc, MyRfqState>(
+                              builder: (context, state) {
+                            if (state is MyRfqInitial) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            } else if (state is MyRfqFetchedState ||
+                                state is MyRfqLoadMore ||
+                                state is UpdatingRfq ||
+                                state is UpdateRfqFailed) {
+                              return ListView(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                children: myRfqBloc.myRfqList
+                                    .map((e) => HomePageCard(
+                                        content: e,
+                                        itemList: e.item,
+                                        enquiryType: e.enquiryType,
+                                        country:
+                                            e.enquiryCompany!.country!.name,
+                                        uuid: e.uuid,
+                                        borderedBtnTitle: e.status == "Complete"
+                                            ? kViewOrder
+                                            : e.status == "Inreview" ||
+                                                    e.status == "Active"
+                                                ? kCloseRfq
+                                                : null,
+                                        filledBtnTitle: e.status != "Inreview"
+                                            ? e.quoteCount! > 0
+                                                ? "$kView ${e.quoteCount} $kQuote"
+                                                : null
+                                            : null,
+                                        onBorderedBtnTapped: () {
+                                          if (e.status == "Inreview" ||
+                                              e.status == "Active") {
+                                            myRfqBloc.add(UpdateMyRfq(
+                                                status:
+                                                    e.status == "Inreview" ||
+                                                            e.status == "Active"
+                                                        ? "Closed"
+                                                        : "Active",
+                                                id: e.id!));
+                                          }
+                                          if (e.status == "Complete") {
+                                            context
+                                                .pushNamed(myOrderScreenName);
+                                          }
+                                        },
+                                        onFilledBtnTapped: () {
+                                          if (e.status != "Inreview" &&
+                                              e.quoteCount! > 0) {
+                                            context.pushNamed(
+                                                myEnqiryDetailPageName,
+                                                extra: e,
+                                                queryParameters: {
+                                                  'initialTab': '1'
+                                                });
+                                          }
+                                        },
+                                        onDetailTapped: () {
+                                          e.status == "Inreview"
+                                              ? context.pushNamed(
+                                                  enquiryDetailPageName,
+                                                  extra: e,
+                                                  queryParameters: {
+                                                      'title': kEnquiryDetail
+                                                    })
+                                              : context.pushNamed(
+                                                  myEnqiryDetailPageName,
+                                                  extra: e);
+                                        }))
+                                    .toList(),
+                              );
+                            } else {
+                              return const SizedBox();
+                            }
+                          }),
+                          SizedBox(
+                            height: 100,
+                            child: BlocBuilder<MyRfqBloc, MyRfqState>(
+                              builder: (context, state) {
+                                if (state is MyRfqLoadMore) {
+                                  return const LoadingDots();
+                                }
+                                return const SizedBox();
+                              },
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  )
-                ],
-              ),
+                  ),
+                ),
+              ],
             );
           } else {
             return KycDialog(

@@ -45,6 +45,7 @@ class ChatTestPageState extends State<ChatTestPage> {
   int receiverId = 0;
   late int senderId;
   late int enquiryId;
+  late int quoteId;
   final ScrollController scrollController = ScrollController();
 
   @override
@@ -62,6 +63,7 @@ class ChatTestPageState extends State<ChatTestPage> {
         chatBloc.add(GetPreviousChatEvent(
             chatType: ChatType.enquiry.name,
             enquiryId: enquiryId,
+            quoteId: quoteId,
             page: chatBloc.chatListPage + 1,
             isLoadMore: true));
       }
@@ -143,9 +145,12 @@ class ChatTestPageState extends State<ChatTestPage> {
                                     enquiryId =
                                         chatBloc.chatList.first.enquiryId!;
                                   } else if (chatBloc.chatList.isEmpty &&
-                                      widget.content != null &&
+                                          widget.content != null &&
+                                          widget.content!.body!
+                                                  .chatMessageType ==
+                                              "Enquiry" ||
                                       widget.content!.body!.chatMessageType ==
-                                          "Enquiry") {
+                                          "Quote") {
                                     if (widget.content != null) {
                                       context
                                           .read<ChatBloc>()
@@ -160,21 +165,29 @@ class ChatTestPageState extends State<ChatTestPage> {
                                           "senderCompanyId": senderId,
                                           "enquiryId":
                                               widget.content!.enquiryId,
+                                          "quoteId":
+                                              widget.content!.quoteId ?? '',
                                           "body": {
                                             "chatMessageType": "Enquiry",
                                             "enquiry": {
                                               "id": widget.content!.enquiryId
+                                            },
+                                            "quote": {
+                                              "id": widget.content!.quoteId
                                             }
                                           }
                                         }),
                                       );
-                                      context
-                                          .read<ChatHomeBloc>()
-                                          .chatList
-                                          .clear();
-                                      context
-                                          .read<ChatHomeBloc>()
-                                          .add(GetChatHomeList(page: 0));
+                                      Future.delayed(const Duration(seconds: 2),
+                                          () {
+                                        context
+                                            .read<ChatHomeBloc>()
+                                            .chatList
+                                            .clear();
+                                        context
+                                            .read<ChatHomeBloc>()
+                                            .add(GetChatHomeList(page: 0));
+                                      });
                                     }
                                   }
                                   return ChatList(chatList: chatBloc.chatList);

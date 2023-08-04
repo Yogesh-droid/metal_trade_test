@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/app_widgets/context_menu_app_bar.dart';
 import 'package:metaltrade/core/constants/strings.dart';
+import 'package:metaltrade/features/my_home/ui/controllers/my_rfq_bloc/my_rfq_bloc.dart';
 import 'package:metaltrade/features/rfq/data/models/rfq_enquiry_model.dart';
 import 'package:metaltrade/features/rfq/ui/widgets/enquiry_detail_heading.dart';
 import 'package:metaltrade/features/rfq/ui/widgets/enquiry_detail_list.dart';
@@ -30,10 +33,18 @@ class RfqDetailPage extends StatelessWidget {
               otherTerms: content.otherTerms,
               filledBtnText: content.enquiry != null
                   ? kSubmitQuote
-                  : content.status == 'Inreview'
-                      ? kCancel
+                  : content.status == 'Inreview' || content.status == "Active"
+                      ? kCloseRfq
                       : null,
-              onFilledTapped: () {},
+              onFilledTapped: () {
+                context.read<MyRfqBloc>().add(UpdateMyRfq(
+                    status: content.status == "Inreview" ||
+                            content.status == "Active"
+                        ? "Closed"
+                        : "Active",
+                    id: content.id!));
+                context.pop();
+              },
               onOutlineTapped: () {},
               outlinedButtonText: kChat,
             ))

@@ -19,7 +19,7 @@ const String kPostYourRequirementAnd =
 const String kNegotiateWithEase = "Negotiate with ease";
 const String kChatWithExperts =
     "Chat with experts and discuss your custom needs";
-const String kWhatsYourNo = "Let’s get you started on your first trade!";
+const String kWhatsYourNo = "Connect with global sellers and buyers. Get Started now!";
 const String kEnterMobNo = "Enter Mobile Number";
 const String kContinue = "Continue";
 const String kPleaseVerify = "Please verify phone number";

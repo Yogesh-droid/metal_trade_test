@@ -20,7 +20,7 @@ class MyOrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: appPadding * 2),
+      margin: const EdgeInsets.only(top: appPadding),
       color: Theme.of(context).colorScheme.onPrimary,
       child: Padding(
           padding: const EdgeInsets.all(appPadding * 2),

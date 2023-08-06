@@ -16,6 +16,8 @@ import 'package:metaltrade/features/auth/ui/widgets/country_chooser_iconbtn.dart
 import 'package:metaltrade/features/auth/ui/widgets/filled_text_field.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 
+import '../../../../core/constants/text_tyles.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -51,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: appWidgetGap),
             Text(kWhatsYourNo,
                 style: Theme.of(context).textTheme.headlineLarge),
-            const SizedBox(height: appWidgetGap),
+            const SizedBox(height: appWidgetGap / 2),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: FilledTextFieldWidget(
@@ -60,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                 prefix: CountryChooserIconBtn(countryList: _countryList),
               ),
             ),
-            const SizedBox(height: appWidgetGap),
+            const SizedBox(height: appWidgetGap / 2),
             Padding(
               padding: const EdgeInsets.all(appPadding),
               child: BlocBuilder<CountryCodeController, CountryCodeModel>(
@@ -88,13 +90,13 @@ class _LoginPageState extends State<LoginPage> {
                 },
               ),
             ),
-            const SizedBox(height: appWidgetGap),
+            const SizedBox(height: appWidgetGap / 2),
             RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
                     text: kAcceptPrivacyNpolicy,
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurface),
+                    style: secMed12.copyWith(
+                        color: Theme.of(context).colorScheme.outline),
                     children: [
                       TextSpan(
                           recognizer: TapGestureRecognizer()

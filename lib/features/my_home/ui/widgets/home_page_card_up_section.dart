@@ -14,7 +14,8 @@ class HomePageCardUpSection extends StatelessWidget {
       this.enquiryType,
       this.status,
       this.dateTimeTitle,
-      this.uuidTitle});
+      this.uuidTitle,
+      this.country});
   final String dateTime;
   final String? dateTimeTitle;
   final String? uuidTitle;
@@ -22,6 +23,7 @@ class HomePageCardUpSection extends StatelessWidget {
   final String? uuid;
   final String? enquiryType;
   final String? status;
+  final String? country;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +69,7 @@ class HomePageCardUpSection extends StatelessWidget {
               )
             ]),
           const SizedBox(width: appPadding),
-          if (status != null)
+          if (status != null && country == null)
             Row(children: [
               Icon(
                 Icons.brightness_1,
@@ -85,22 +87,29 @@ class HomePageCardUpSection extends StatelessWidget {
                 size: 8,
               ),
               const SizedBox(width: appPadding),
-              Text(
-                status ?? '',
-                style: secMed12.copyWith(
-                    color: status == "Active"
-                        ? Colors.green
-                        : status == "Expired"
-                            ? Colors.red
-                            : status == "Inreview"
-                                ? Colors.orange
-                                : status == "Complete"
-                                    ? Colors.indigo
-                                    : status == "Closed"
-                                        ? Colors.grey
-                                        : Colors.white),
-              )
-            ])
+              country == null
+                  ? Text(
+                      status ?? '',
+                      style: secMed12.copyWith(
+                          color: status == "Active"
+                              ? Colors.green
+                              : status == "Expired"
+                                  ? Colors.red
+                                  : status == "Inreview"
+                                      ? Colors.orange
+                                      : status == "Complete"
+                                          ? Colors.indigo
+                                          : status == "Closed"
+                                              ? Colors.grey
+                                              : Colors.white),
+                    )
+                  : const SizedBox.shrink(),
+            ]),
+          if (country != null)
+            Text(
+              country!,
+              style: secMed12.copyWith(),
+            )
         ],
       ),
     ]);

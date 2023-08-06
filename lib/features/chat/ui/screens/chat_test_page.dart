@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
@@ -18,6 +19,7 @@ import 'package:metaltrade/features/profile/ui/widgets/kyc_dialog.dart';
 import 'package:stomp_dart_client/stomp.dart';
 import 'package:stomp_dart_client/stomp_exception.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+
 import '../../../../core/constants/strings.dart';
 import '../controllers/chat_bloc/chat_bloc.dart';
 import '../widgets/chat_list.dart';
@@ -244,7 +246,7 @@ class ChatTestPageState extends State<ChatTestPage> {
 
   onSendBtnTapped(String text, String? imageUrl) {
     debugPrint("sender id is $senderId");
-    if (text.isEmpty && imageUrl == null) {
+    if (text.isEmpty && imageUrl!.isEmpty) {
       return;
     }
     stompClient!.send(

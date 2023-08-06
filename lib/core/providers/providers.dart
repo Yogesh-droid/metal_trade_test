@@ -34,5 +34,6 @@ class AppBlocProviders {
         BlocProvider<MyOrderBloc>(create: (_) => getIt()),
         BlocProvider<AddMemberCubit>(create: (_) => getIt()),
         BlocProvider<KycFilePickCubit>(create: (_) => getIt()),
+        BlocProvider(create: (_) => ChatBtnCubit())
       ];
 }

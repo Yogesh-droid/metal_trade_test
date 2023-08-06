@@ -242,6 +242,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
         if (state is CountrySuccess) {
           return DropdownButtonFormField<int>(
               //hint: const Text(kChooseCountry),
+              value: widget.profileEntity.company!.country!.id,
               focusNode: countryFocus,
               validator: (value) {
                 if (value != null) {
@@ -352,9 +353,9 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
     if (widget.profileEntity.company != null) {
       emailController.text = widget.profileEntity.company!.email ?? '';
       companyNameController.text = widget.profileEntity.company!.name ?? '';
-      phoneController.text = widget.profileEntity.company!.phone ?? '';
+      pinController.text = widget.profileEntity.company!.pinCode ?? '';
       addressController.text = widget.profileEntity.company!.address ?? '';
-      phoneController.text = widget.profileEntity.company!.pinCode ?? '';
+      phoneController.text = widget.profileEntity.company!.phone ?? '';
       selectedCountry = widget.profileEntity.company!.country!.id;
       accNoController.text =
           widget.profileEntity.company!.bankAccountNumber ?? '';

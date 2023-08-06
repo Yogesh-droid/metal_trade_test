@@ -55,14 +55,19 @@ class _PinPutPageState extends State<PinPutPage> {
             const SizedBox(height: appWidgetGap * 1.5),
             const SizedBox(height: appWidgetGap),
             Padding(
-              padding: const EdgeInsets.all(appPadding),
+              padding: const EdgeInsets.symmetric(horizontal: appPadding * 2),
               child: Text(kOtpVerification,
-                  style: Theme.of(context).textTheme.headlineLarge),
+                  style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                      fontFamily: "Nunito", fontWeight: FontWeight.w700)),
             ),
-            const SizedBox(height: appWidgetGap),
+            // const SizedBox(height: appPadding),
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text("$kEnterOtp $phoneNo", style: secMed14),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: appPadding * 2, vertical: appPadding),
+              child: Text("$kEnterOtp $phoneNo",
+                  style: secMed14.copyWith(
+                      fontFamily: "Nunito",
+                      color: Theme.of(context).colorScheme.outline)),
             ),
             const SizedBox(height: appWidgetGap),
             Align(
@@ -84,7 +89,7 @@ class _PinPutPageState extends State<PinPutPage> {
                 },
               ),
             ),
-            const SizedBox(height: appWidgetGap),
+            const SizedBox(height: appWidgetGap / 2),
             Padding(
               padding: const EdgeInsets.all(appPadding),
               child: Align(
@@ -121,27 +126,17 @@ class _PinPutPageState extends State<PinPutPage> {
                   alignment: Alignment.center,
                   child: Text("Resend OTP in $start seconds"))
             else
-              // Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              //   const Text("Didn't received code ?"),
-              //   TextButton(
-              //       onPressed: () {
-              //         context
-              //             .read<LoginBloc>()
-              //             .add(GetOtpEvent(mobNo: phoneNo));
-              //       },
-              //       child: const Text("Resend"))
-              // ]),
               Align(
                 alignment: Alignment.center,
                 child: RichText(
                     text: TextSpan(children: [
                   TextSpan(
                       text: "Didn't received code ? Resend via",
-                      style: secMed12.copyWith(color: Colors.grey)),
+                      style: secMed12.copyWith(
+                          color: Theme.of(context).colorScheme.outline)),
                   TextSpan(
                       text: " SMS ",
-                      style: secMed15.copyWith(
-                          color: Colors.indigo, fontWeight: FontWeight.bold),
+                      style: secMed15.copyWith(color: Colors.indigo),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           context
@@ -153,8 +148,7 @@ class _PinPutPageState extends State<PinPutPage> {
                       style: secMed12.copyWith(color: Colors.grey)),
                   TextSpan(
                       text: " WhatsApp ",
-                      style: secMed15.copyWith(
-                          color: Colors.indigo, fontWeight: FontWeight.bold),
+                      style: secMed15.copyWith(color: Colors.indigo),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           context.read<LoginBloc>().add(

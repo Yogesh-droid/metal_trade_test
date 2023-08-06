@@ -50,7 +50,7 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
           if (state.profileEntity.company != null) {
             return Column(
               children: [
-                const SizedBox(height: appFormFieldGap),
+                const SizedBox(height: appFormFieldGap / 2),
                 const FilterChipList(),
                 Expanded(
                   child: SingleChildScrollView(
@@ -86,8 +86,6 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
                                         content: e,
                                         itemList: e.item,
                                         enquiryType: e.enquiryType,
-                                        country:
-                                            e.enquiryCompany!.country!.name,
                                         uuid: e.uuid,
                                         borderedBtnTitle: e.status == "Complete"
                                             ? kViewOrder

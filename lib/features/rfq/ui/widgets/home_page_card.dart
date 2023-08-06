@@ -45,12 +45,12 @@ class HomePageCard extends StatelessWidget {
             right: appPadding * 2),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           HomePageCardUpSection(
-            dateTime: content!.lastModifiedDate ?? '',
-            enquiryType: enquiryType,
-            onDetailTapped: onDetailTapped,
-            status: content!.status,
-            uuid: content!.uuid,
-          ),
+              dateTime: content!.lastModifiedDate ?? '',
+              enquiryType: enquiryType,
+              onDetailTapped: onDetailTapped,
+              status: content!.status,
+              uuid: content!.uuid,
+              country: country),
           const Divider(),
           itemListWidget(context),
           const Divider(),

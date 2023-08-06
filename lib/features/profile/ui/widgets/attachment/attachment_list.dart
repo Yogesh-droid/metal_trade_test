@@ -98,14 +98,7 @@ class AttachmentList extends StatelessWidget {
                 ],
               );
             }
-            return Container(
-              height: 50,
-              width: double.infinity,
-              padding: const EdgeInsets.all(appPadding),
-              margin: const EdgeInsets.all(appPadding),
-              decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-              child: const Text("Attach"),
-            );
+            return const SizedBox.shrink();
           }),
         ),
         Align(

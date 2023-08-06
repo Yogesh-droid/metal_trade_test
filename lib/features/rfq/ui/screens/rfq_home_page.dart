@@ -9,6 +9,7 @@ import 'package:metaltrade/features/rfq/ui/screens/seller_rfq_page.dart';
 
 import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import '../widgets/home_page_appbar_bottom.dart';
+import '../widgets/search_bar_widget.dart';
 
 class RfqHomePage extends StatefulWidget {
   const RfqHomePage({super.key});
@@ -59,8 +60,8 @@ class _RfqHomePageState extends State<RfqHomePage>
 
   mainAppBar(BuildContext context) {
     return MainAppBar(
-      // height: 100,
-      // title: SearchBarWidget(searchController: searchController),
+      height: 100,
+      title: SearchBarWidget(searchController: searchController),
       elevation: 5,
       bottomWidget: HomePageAppbarBottom(
           tabList: const [

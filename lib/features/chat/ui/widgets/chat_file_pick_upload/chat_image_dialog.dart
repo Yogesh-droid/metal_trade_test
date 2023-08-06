@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
+import 'package:metaltrade/features/chat/ui/controllers/chat_btn_cubit/chat_btn_cubit.dart';
 import 'package:metaltrade/features/chat/ui/widgets/chat_file_pick_upload/chat_file_pick_ui.dart';
 import 'package:metaltrade/features/chat/ui/widgets/chat_file_pick_upload/chat_file_upload_ui.dart';
 import 'package:metaltrade/features/chat/ui/widgets/chat_send_btn.dart';
@@ -34,6 +36,7 @@ class ChatImageDialog extends StatelessWidget {
                       child: Row(children: [
                         IconButton(
                             onPressed: () {
+                              context.read<ChatBtnCubit>().changeState(false);
                               context.pop();
                             },
                             icon: const Icon(Icons.arrow_back,

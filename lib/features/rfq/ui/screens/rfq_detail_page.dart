@@ -9,9 +9,11 @@ import 'package:metaltrade/features/rfq/ui/widgets/enquiry_detail_heading.dart';
 import 'package:metaltrade/features/rfq/ui/widgets/enquiry_detail_list.dart';
 
 class RfqDetailPage extends StatelessWidget {
-  const RfqDetailPage({super.key, required this.content, required this.title});
+  const RfqDetailPage(
+      {super.key, required this.content, required this.title, this.country});
   final Content content;
   final String title;
+  final String? country;
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +22,11 @@ class RfqDetailPage extends StatelessWidget {
         body: Column(
           children: [
             EnquiryDetailHeading(
-                datePosted: content.lastModifiedDate ?? '',
-                status: content.status ?? '',
-                uuid: content.uuid ?? ''),
+              datePosted: content.lastModifiedDate ?? '',
+              status: content.status ?? '',
+              uuid: content.uuid ?? '',
+              country: country,
+            ),
             const Divider(),
             Expanded(
                 child: EnquiryDetailList(
@@ -46,7 +50,7 @@ class RfqDetailPage extends StatelessWidget {
                 context.pop();
               },
               onOutlineTapped: () {},
-              outlinedButtonText: kChat,
+              outlinedButtonText: content.status == "Inreview" ? null : kChat,
             ))
           ],
         ));

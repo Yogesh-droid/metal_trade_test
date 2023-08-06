@@ -59,7 +59,8 @@ class _BuyerRfqPageState extends State<BuyerRfqPage> {
                   children: [
                     Expanded(
                       child: ListView(
-                        padding: const EdgeInsets.only(top: appFormFieldGap),
+                        padding:
+                            const EdgeInsets.only(top: appFormFieldGap / 2),
                         controller: scrollController,
                         shrinkWrap: true,
                         children: homePageBuyerEnquiryBloc.buyerRfqList
@@ -101,7 +102,9 @@ class _BuyerRfqPageState extends State<BuyerRfqPage> {
                                     context.pushNamed(enquiryDetailPageName,
                                         extra: e,
                                         queryParameters: {
-                                          'title': kEnquiryDetail
+                                          'title': kEnquiryDetail,
+                                          'country':
+                                              e.enquiryCompany!.country!.name
                                         });
                                   },
                                 ))

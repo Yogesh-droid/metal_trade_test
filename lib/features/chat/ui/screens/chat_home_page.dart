@@ -51,13 +51,19 @@ class _ChatHomePageState extends State<ChatHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              context.read<ChatBloc>().add(GetPreviousChatEvent(
-                  chatType: ChatType.enquiry.name, enquiryId: 0, page: 0));
-              context.pushNamed(chatPageName,
-                  queryParameters: {'room': "MetalTrade support"});
-            },
-            child: Image.asset(Assets.assetsWelcomeMetalTradeLogo)),
+          onPressed: () {
+            context.read<ChatBloc>().add(GetPreviousChatEvent(
+                chatType: ChatType.enquiry.name, enquiryId: 0, page: 0));
+            context.pushNamed(chatPageName,
+                queryParameters: {'room': "MetalTrade support"});
+          },
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          child: const Icon(
+            Icons.chat_bubble_outline,
+            color: Colors.white,
+          ),
+          // child: Image.asset(Assets.assetsWelcomeMetalTradeLogo)
+        ),
         body: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, state) {
             if (state is ProfileSuccessState) {
@@ -112,7 +118,8 @@ class _ChatHomePageState extends State<ChatHomePage> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: ListTile(
                                               titleAlignment:
-                                                  ListTileTitleAlignment.center,
+                                                  ListTileTitleAlignment
+                                                      .titleHeight,
                                               onTap: () {
                                                 context.read<ChatBloc>().add(
                                                     GetPreviousChatEvent(
@@ -131,48 +138,50 @@ class _ChatHomePageState extends State<ChatHomePage> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(e.heading ?? ''),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.end,
-                                                    children: [
-                                                      Text(
-                                                          DateFormat(
-                                                                  'dd MMM yyyy')
-                                                              .format(DateTime
-                                                                  .parse(
-                                                                      e.lastChatDate ??
-                                                                          '')),
-                                                          style: secMed10.copyWith(
-                                                              color: Theme.of(
-                                                                      context)
+                                                  Text(
+                                                      DateFormat('dd MMM yyyy')
+                                                          .format(DateTime.parse(
+                                                              e.lastChatDate ??
+                                                                  '')),
+                                                      style: secMed10.copyWith(
+                                                          color:
+                                                              Theme.of(context)
                                                                   .colorScheme
                                                                   .outline)),
-                                                      Text(
-                                                          DateFormat('hh mm a')
-                                                              .format(DateTime
-                                                                  .parse(
-                                                                      e.lastChatDate ??
-                                                                          '')),
-                                                          style: secMed10.copyWith(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .outline))
-                                                    ],
-                                                  ),
                                                 ],
                                               ),
-                                              subtitle: Text(
-                                                e.description ?? '',
-                                                style: secMed11.copyWith(
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .outline),
+                                              subtitle: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    e.description ?? '',
+                                                    style: secMed11.copyWith(
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .outline),
+                                                  ),
+                                                  Text(
+                                                      DateFormat('hh mm a')
+                                                          .format(DateTime.parse(
+                                                              e.lastChatDate ??
+                                                                  '')),
+                                                      style: secMed10.copyWith(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .outline))
+                                                ],
                                               ),
                                               leading: CircleAvatar(
                                                   radius: 25,
-                                                  child: Text(e.initial ??
-                                                      e.enquiryId.toString())),
+                                                  child: e.enquiryId == 0
+                                                      ? Image.asset(Assets
+                                                          .assetsWelcomeMetalTradeLogo)
+                                                      : Text(e.initial ??
+                                                          e.enquiryId
+                                                              .toString())),
                                             ),
                                           ))
                                       .toList(),

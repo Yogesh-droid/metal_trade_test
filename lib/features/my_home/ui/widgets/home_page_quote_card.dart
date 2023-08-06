@@ -114,8 +114,7 @@ class HomePageQuoteCard extends StatelessWidget {
           itemList: itemList,
           isQuote: true,
           onDetailTapped: () {
-            context.pushNamed(enquiryDetailPageName,
-                extra: content, queryParameters: {'title': kQuoteDetails});
+            context.pushNamed(myQuoteDetailPage, extra: content);
           }),
     );
   }

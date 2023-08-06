@@ -4,6 +4,7 @@ import 'package:metaltrade/features/auth/ui/screens/login_page.dart';
 import 'package:metaltrade/features/auth/ui/screens/pin_put_page.dart';
 import 'package:metaltrade/features/chat/ui/screens/chat_test_page.dart';
 import 'package:metaltrade/features/landing/ui/screens/landing_page.dart';
+import 'package:metaltrade/features/my_home/ui/screens/my_quote_detail_page.dart';
 import 'package:metaltrade/features/profile/domain/entities/profile_entity.dart';
 import 'package:metaltrade/features/profile/ui/screens/kyc_screen.dart';
 import 'package:metaltrade/features/profile/ui/screens/my_order_screen.dart';
@@ -31,7 +32,9 @@ const String profilePageName = 'ProfilePageName';
 const String kycPageName = 'KycPageName';
 const String kycPageRoute = '/kycPageRoute';
 const String enquiryDetailPageRoute = "/enquiryDetailPageRoute";
-const String enquiryDetailPageName = "EnquiryDEtailPageName"; //
+const String enquiryDetailPageName = "EnquiryDEtailPageName";
+const String myQuoteDetailRoute = "/myQuoteDetailRoute";
+const String myQuoteDetailPage = "MyQuoteDetailPage";
 const String submitQuotePageName = "SubmitQuotePageName";
 const String submitQuotePageRoute = "/submitQuotePage";
 const String chatPageRoute = "/chatPage";
@@ -118,13 +121,24 @@ final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
     },
   ),
   GoRoute(
+    path: myQuoteDetailRoute,
+    name: myQuoteDetailPage,
+    pageBuilder: (context, state) {
+      return getTransition(
+          child: MyQuoteDetailPage(content: state.extra as Content),
+          animationType: TransitionType.slide,
+          duration: const Duration(milliseconds: 200));
+    },
+  ),
+  GoRoute(
     path: enquiryDetailPageRoute,
     name: enquiryDetailPageName,
     pageBuilder: (context, state) {
       return getTransition(
           child: RfqDetailPage(
               content: state.extra as Content,
-              title: state.uri.queryParameters['title']!),
+              title: state.uri.queryParameters['title']!,
+              country: state.uri.queryParameters['country']),
           animationType: TransitionType.slide,
           duration: const Duration(milliseconds: 200));
     },

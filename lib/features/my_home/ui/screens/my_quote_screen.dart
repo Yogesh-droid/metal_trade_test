@@ -56,7 +56,7 @@ class _MyQuoteScreenState extends State<MyQuoteScreen> {
           if (state.profileEntity.company != null) {
             return Column(
               children: [
-                const SizedBox(height: appFormFieldGap),
+                const SizedBox(height: appFormFieldGap / 2),
                 const QuoteFilters(),
                 Expanded(
                   child: SingleChildScrollView(

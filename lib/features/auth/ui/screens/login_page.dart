@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -50,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: appWidgetGap * 1.5),
             const SizedBox(height: appWidgetGap),
             Text(kWhatsYourNo,
-                style: Theme.of(context).textTheme.headlineLarge),
+                style: Theme.of(context).textTheme.headlineLarge).tr(),
             const SizedBox(height: appWidgetGap),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -116,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void showSnackBar(BuildContext context, String message) {
     ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
+        .showSnackBar(SnackBar(content: Text(message).tr()));
   }
 
   Future<void> loadCountries() async {

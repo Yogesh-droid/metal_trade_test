@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
@@ -27,7 +28,7 @@ class EnquiryCard extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .labelSmall!
-                  .copyWith(color: Theme.of(context).colorScheme.outline)),
+                  .copyWith(color: Theme.of(context).colorScheme.outline)).tr(),
           const SizedBox(height: appPadding),
           ItemList(item: content.body!.enquiry!.item!),
           const SizedBox(height: appPadding * 2),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:metaltrade/features/rfq/data/models/rfq_enquiry_model.dart';
 
@@ -72,7 +73,7 @@ class EnquiryDetailList extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .labelSmall!
-                .copyWith(color: Theme.of(context).colorScheme.secondary)),
+                .copyWith(color: Theme.of(context).colorScheme.secondary)).tr(),
         getItemListTile(context),
       ],
     );

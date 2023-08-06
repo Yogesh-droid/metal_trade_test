@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -203,7 +204,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
                 alignment: Alignment.centerLeft,
                 child: Text("Kyc Details",
                     style: secMed10.copyWith(
-                        color: Theme.of(context).colorScheme.outline)),
+                        color: Theme.of(context).colorScheme.outline)).tr(),
               ),
             ),
             const AttachmentList(),
@@ -308,19 +309,19 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
             content: Text(
               "Congratulation! KYC is done",
               style: secMed15.copyWith(fontWeight: FontWeight.w700),
-            ),
+            ).tr(),
             actions: [
               TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text(kBack)),
+                  child: const Text(kBack).tr()),
               TextButton(
                   onPressed: () {
                     context.pop();
                     context.pushReplacementNamed(profilePageName);
                   },
-                  child: const Text(kMyProfile))
+                  child: const Text(kMyProfile).tr())
             ],
           );
         });
@@ -333,18 +334,18 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
               content: Text(
                 exception.toString(),
                 style: secMed15.copyWith(fontWeight: FontWeight.w700),
-              ),
+              ).tr(),
               actions: [
                 TextButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text(kCancel)),
+                    child: const Text(kCancel).tr()),
                 TextButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text(kRetry))
+                    child: const Text(kRetry).tr())
               ],
             ));
   }

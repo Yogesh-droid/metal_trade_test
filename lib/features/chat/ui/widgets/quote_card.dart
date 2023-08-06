@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:metaltrade/features/chat/data/models/chat_response_model.dart';
 import 'package:intl/intl.dart';
@@ -28,7 +29,7 @@ class QuoteCard extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .labelSmall!
-                  .copyWith(color: Theme.of(context).colorScheme.outline)),
+                  .copyWith(color: Theme.of(context).colorScheme.outline)).tr(),
           const SizedBox(height: appPadding),
           ItemList(item: content.body!.quote!.item!, isQuote: true),
           const SizedBox(height: appPadding * 2),

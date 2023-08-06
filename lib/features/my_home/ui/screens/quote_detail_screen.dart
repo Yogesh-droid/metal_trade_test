@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
@@ -72,7 +73,7 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
                               ));
                 }
                 if (state is QuoteDetailListFailed) {
-                  return Center(child: Text(state.exception.toString()));
+                  return Center(child: Text(state.exception.toString()).tr());
                 }
                 return const Center(child: Text("Some Err"));
               },
@@ -102,7 +103,7 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
           alignment: Alignment.center,
           height: MediaQuery.of(context).size.height - 400,
           width: MediaQuery.of(context).size.width,
-          child: const Text("No Quote Yet", textAlign: TextAlign.center)),
+          child: const Text("No Quote Yet", textAlign: TextAlign.center).tr()),
     );
   }
 }

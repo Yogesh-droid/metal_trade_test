@@ -6,7 +6,7 @@ const String kLogin = "Log in";
 const String kCancel = "Cancel";
 const String kAcceptPrivacyNpolicy = 'By continuing you agree to MetalTrade\'s';
 const String kAccept = "Accept";
-const String kTnC = "Terms and Conditions";
+const String kTnC = "Terms of use";
 const String kMeetNewLeads = "Meet new leads everyday";
 const String kConnectWithCountless =
     "Connect with countless number of buyers and sellers to fulfil your steel requirements";
@@ -14,8 +14,6 @@ const String kCountry = "Country";
 const String kLogout = "Logout";
 const String kGetInstantQuote = "Get instant competitive quotes";
 const String kGetStarted = "Get Started";
-const String kPostYourRequirementAnd =
-    "Post your requirement and get best possible rates and strike the best deals";
 const String kNegotiateWithEase = "Negotiate with ease";
 const String kChatWithExperts =
     "Chat with experts and discuss your custom needs";
@@ -70,7 +68,6 @@ const String kCheckProfile = "Check Profile";
 const String kBack = "Back";
 const String kPosted = "Posted";
 const String kVerified = "Verified";
-
 const String kProducts = "PRODUCTS";
 const String kEnquiryDetail = "Enquiry Details";
 const String kPaymentTerms = "Payment terms";
@@ -94,24 +91,20 @@ const String kProductRemarks = "Give more information about the product";
 const String kChats = "Chats";
 const String kDetails = "Details";
 const String kOtpVerification = "OTP Verification";
-const String kFeatures = "Features";
-const String kHowToUse = "How to Use";
+const String kSolutions = "Solutions";
+const String kAboutUs = "About Us";
 const String kReachUs = "Reach Us";
-const String kMyAcc = "My Account";
-const String kTradeOn = "Trade on raw metal and";
-const String kAllProductOfSteel = "all products of steel";
+const String kMyAcc = "Login/Signup";
+const String kTradeOn = "Asia's Marketplace for";
+const String kAllProductOfSteel = "Finished, Semi finished and scrap steel";
 const String kOurOneStop =
-    "Our one stop trading platform seamlessly manages your buying and selling efforts with a robust tech stack";
-const String kPowerFulFeatures = "Powerful features to";
-const String kAchieve = "achieve";
-const String kFaster = " faster time to";
-const String kTrade = "trade";
-const String kGetInstant = "Get instant competitive quotes";
+    "We provide end to end online solution for buying, selling and moving Steel globally";
+const String kBuyNow = "Buying Steel?";
 const String kChatWithCustomers =
-    "Chat with your customers and suppliers and get exactly what you need.";
-const String kGetMarketUpdate = "Get market updates";
+    "Get access to best pricing from  hundreds of suppliers around the globe. 100% anonymous! -> Buy Now";
+const String kGetMarketUpdate = "Selling Steel?";
 const String kStayUpdated =
-    "Stay updated with market news, price trends and quantity traded";
+    "Increase your sales across across ever expanding buyer network with curated service and real time leads -> Sell Now";
 const String kHowToUseMtApp = "How to use the MetalTrade App";
 const String kCreateYourRfq = "Create your Enquiries";
 const String kMyRfq = "My Enquiries and Quotes";

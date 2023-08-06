@@ -12,11 +12,6 @@ List<Widget> introPages = [
       title: kMeetNewLeads,
       subtitle: kConnectWithCountless),
   const IntroWidget(
-      key: ValueKey(Assets.assetsWelcomeWelcome2),
-      imagePath: Assets.assetsWelcomeWelcome2,
-      title: kGetInstantQuote,
-      subtitle: kPostYourRequirementAnd),
-  const IntroWidget(
       key: ValueKey(Assets.assetsWelcomeWelcome3),
       imagePath: Assets.assetsWelcomeWelcome3,
       title: kNegotiateWithEase,

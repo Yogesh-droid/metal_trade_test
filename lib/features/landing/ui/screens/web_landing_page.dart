@@ -128,37 +128,9 @@ class WebLandingPage extends StatelessWidget {
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(kPowerFulFeatures,
-                                      style: secMed48.copyWith(
-                                          color: Colors.white,
-                                          fontFamily: "Nunito",
-                                          fontWeight: FontWeight.w800)),
-                                  RichText(
-                                      text: TextSpan(children: [
-                                    TextSpan(
-                                        text: kAchieve,
-                                        style: secMed48.copyWith(
-                                            color: Colors.white,
-                                            fontFamily: "Nunito",
-                                            fontWeight: FontWeight.w800)),
-                                    TextSpan(
-                                        text: kFaster,
-                                        style: secMed48.copyWith(
-                                            color: Colors.orange[800],
-                                            fontFamily: "Nunito",
-                                            fontWeight: FontWeight.w800)),
-                                  ])),
-                                  Text(kTrade,
-                                      style: secMed48.copyWith(
-                                          color: Colors.orange[800],
-                                          fontFamily: "Nunito",
-                                          fontWeight: FontWeight.w800)),
-                                  const SizedBox(height: appWidgetGap),
-                                  appDescriptionText(context, kGetInstant,
-                                      kPostYourRequirementAnd),
                                   const SizedBox(height: appPadding * 2),
                                   appDescriptionText(context,
-                                      kNegotiateWithEase, kChatWithCustomers),
+                                      kBuyNow, kChatWithCustomers),
                                   const SizedBox(height: appPadding * 2),
                                   appDescriptionText(
                                       context, kGetMarketUpdate, kStayUpdated),
@@ -188,7 +160,7 @@ class WebLandingPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(kHowToUse,
+                      Text(kAboutUs,
                           style: secMed48.copyWith(
                               fontFamily: "Nunito",
                               fontWeight: FontWeight.w800)),
@@ -298,7 +270,7 @@ class WebLandingPage extends StatelessWidget {
     return WebAppBar(
       actions: [
         AppBarTextButton(
-            text: kFeatures,
+            text: kSolutions,
             onPressed: () {
               scrollController.animateTo(
                   MediaQuery.of(context).size.height / 1.5,
@@ -306,7 +278,7 @@ class WebLandingPage extends StatelessWidget {
                   duration: const Duration(milliseconds: 500));
             }),
         AppBarTextButton(
-            text: kHowToUse,
+            text: kAboutUs,
             onPressed: () {
               scrollController.animateTo(
                   MediaQuery.of(context).size.height * 1.8,

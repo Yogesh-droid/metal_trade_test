@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:metaltrade/features/landing/ui/screens/mobile_landing_page.dart';
 
-import '../../../../core/constants/assets.dart';
 import '../../../../core/constants/strings.dart';
 import '../widgets/intro_widget.dart';
 
 List<Widget> introPages = [
   const IntroWidget(
-      key: ValueKey(Assets.assetsWelcomeWelcome1),
-      imagePath: Assets.assetsWelcomeWelcome1,
       title: kMeetNewLeads,
       subtitle: kConnectWithCountless),
   const IntroWidget(
-      key: ValueKey(Assets.assetsWelcomeWelcome3),
-      imagePath: Assets.assetsWelcomeWelcome3,
+      title: kGetInstantQuote,
+      subtitle: kPostRequirements),
+  const IntroWidget(
       title: kNegotiateWithEase,
       subtitle: kChatWithExperts),
 ];

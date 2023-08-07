@@ -13,6 +13,7 @@ const String kConnectWithCountless =
 const String kCountry = "Country";
 const String kLogout = "Logout";
 const String kGetInstantQuote = "Get instant competitive quotes";
+const String kPostRequirements = "Post your requirements and get instant quotes and strike the best deal";
 const String kGetStarted = "Get Started";
 const String kNegotiateWithEase = "Negotiate with ease";
 const String kChatWithExperts =

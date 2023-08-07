@@ -104,7 +104,8 @@ class _BuyerRfqPageState extends State<BuyerRfqPage> {
                                         queryParameters: {
                                           'title': kEnquiryDetail,
                                           'country':
-                                              e.enquiryCompany!.country!.name
+                                              e.enquiryCompany!.country!.name,
+                                          'isMyEnquiry': 'yes'
                                         });
                                   },
                                 ))

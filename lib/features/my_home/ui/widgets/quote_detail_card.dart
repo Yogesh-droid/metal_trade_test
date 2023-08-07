@@ -41,7 +41,7 @@ class QuoteDetailCard extends StatelessWidget {
                       height: 2)),
               Text(
                   DateFormat("dd MMM yyyy - hh:mm a")
-                      .format(DateTime.parse(lastDateModified!)),
+                      .format(DateTime.parse(lastDateModified!).toLocal()),
                   style: secMed12.copyWith(
                       color: Theme.of(context).colorScheme.secondary))
             ]),

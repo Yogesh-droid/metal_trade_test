@@ -32,7 +32,8 @@ class ChatWithImage extends StatelessWidget {
                   null)
                 Text(
                   DateFormat('dd MMM yyyy hh:mm a').format(
-                      DateTime.parse(content.lastModifiedDate!.toString())),
+                      DateTime.parse(content.lastModifiedDate!.toString())
+                          .toLocal()),
                   style: secMed12.copyWith(
                       color: Theme.of(context).colorScheme.secondary),
                 ),

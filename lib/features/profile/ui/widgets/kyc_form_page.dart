@@ -203,8 +203,9 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text("Kyc Details",
-                    style: secMed10.copyWith(
-                        color: Theme.of(context).colorScheme.outline)).tr(),
+                        style: secMed10.copyWith(
+                            color: Theme.of(context).colorScheme.outline))
+                    .tr(),
               ),
             ),
             const AttachmentList(),
@@ -360,6 +361,14 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
       selectedCountry = widget.profileEntity.company!.country!.id;
       accNoController.text =
           widget.profileEntity.company!.bankAccountNumber ?? '';
+
+      if (widget.profileEntity.company!.kycDocument != null) {
+        List<String> list = [];
+        for (var element in widget.profileEntity.company!.kycDocument!) {
+          list.add(element.imageName ?? '');
+        }
+        context.read<KycBloc>().add(AddUserDoc(list));
+      }
     }
   }
 }

@@ -43,25 +43,28 @@ class Company {
   List<SellInterest>? sellInterest;
   String? locale;
   ProfileCompletion? profileCompletion;
+  List<KycDocument>? kycDocument;
 
-  Company(
-      {this.lastModifiedDate,
-      this.id,
-      this.name,
-      this.legalRepresentativeName,
-      this.companyNumber,
-      this.address,
-      this.country,
-      this.pinCode,
-      this.bankAccountNumber,
-      this.bankName,
-      this.swiftCode,
-      this.email,
-      this.phone,
-      this.status,
-      this.sellInterest,
-      this.locale,
-      this.profileCompletion});
+  Company({
+    this.lastModifiedDate,
+    this.id,
+    this.name,
+    this.legalRepresentativeName,
+    this.companyNumber,
+    this.address,
+    this.country,
+    this.pinCode,
+    this.bankAccountNumber,
+    this.bankName,
+    this.swiftCode,
+    this.email,
+    this.phone,
+    this.status,
+    this.sellInterest,
+    this.locale,
+    this.profileCompletion,
+    this.kycDocument,
+  });
 
   Company.fromJson(Map<String, dynamic> json) {
     lastModifiedDate = json["lastModifiedDate"];
@@ -88,6 +91,13 @@ class Company {
     profileCompletion = json['profileCompletion'] != null
         ? ProfileCompletion.fromJson(json['profileCompletion'])
         : null;
+
+    if (json['kycDocument'] != null) {
+      kycDocument = <KycDocument>[];
+      json['kycDocument'].forEach((v) {
+        kycDocument!.add(KycDocument.fromJson(v));
+      });
+    }
   }
 }
 
@@ -124,5 +134,19 @@ class ProfileCompletion {
   ProfileCompletion.fromJson(Map<String, dynamic> json) {
     completion = json["completion"];
     next = json["next"];
+  }
+}
+
+class KycDocument {
+  String? imageUrl;
+  int? id;
+  String? imageName;
+
+  KycDocument({this.imageUrl, this.id, this.imageName});
+
+  KycDocument.fromJson(Map<String, dynamic> json) {
+    imageUrl = json['imageUrl'];
+    id = json['id'];
+    imageName = json['imageName'];
   }
 }

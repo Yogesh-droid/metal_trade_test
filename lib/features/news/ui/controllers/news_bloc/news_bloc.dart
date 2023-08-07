@@ -26,7 +26,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
           }
           DataState<NewsEntity> dataState = await newUsecase.call(RequestParams(
               url:
-                  "${baseUrl}user/news?page=${event.page}&size=12&q=${event.filters}",
+                  "${baseUrl}user/news?page=${event.page}&size=12&future=${event.filters}",
               apiMethods: ApiMethods.get,
               header: header));
           if (dataState.data != null) {

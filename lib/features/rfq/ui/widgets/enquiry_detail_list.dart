@@ -35,11 +35,11 @@ class EnquiryDetailList extends StatelessWidget {
         itemListWidget(context),
         const SizedBox(height: appPadding),
         const Divider(),
-        termsRow(context, kPaymentTerms, paymentTermsDisplay),
+        TermsRow(title: kPaymentTerms, terms: paymentTermsDisplay),
         const Divider(),
-        termsRow(context, kTransportTerms, transportationTermsDisplay),
+        TermsRow(title: kTransportTerms, terms: transportationTermsDisplay),
         const Divider(),
-        termsRow(context, kRemarks, otherTerms),
+        TermsRow(title: kRemarks, terms: otherTerms),
         const SizedBox(height: appWidgetGap),
         Row(
           children: [
@@ -70,10 +70,11 @@ class EnquiryDetailList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(kProducts,
-            style: Theme.of(context)
-                .textTheme
-                .labelSmall!
-                .copyWith(color: Theme.of(context).colorScheme.secondary)).tr(),
+                style: Theme.of(context)
+                    .textTheme
+                    .labelSmall!
+                    .copyWith(color: Theme.of(context).colorScheme.secondary))
+            .tr(),
         getItemListTile(context),
       ],
     );
@@ -106,8 +107,15 @@ class EnquiryDetailList extends StatelessWidget {
                 ))
             .toList());
   }
+}
 
-  Widget termsRow(BuildContext context, String title, String? terms) {
+class TermsRow extends StatelessWidget {
+  const TermsRow({super.key, required this.title, this.terms});
+  final String title;
+  final String? terms;
+
+  @override
+  Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Text(
         title,

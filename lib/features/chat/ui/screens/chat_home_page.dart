@@ -141,8 +141,9 @@ class _ChatHomePageState extends State<ChatHomePage> {
                                                   Text(
                                                       DateFormat('dd MMM yyyy')
                                                           .format(DateTime.parse(
-                                                              e.lastChatDate ??
-                                                                  '')),
+                                                                  e.lastChatDate ??
+                                                                      '')
+                                                              .toLocal()),
                                                       style: secMed10.copyWith(
                                                           color:
                                                               Theme.of(context)
@@ -165,8 +166,9 @@ class _ChatHomePageState extends State<ChatHomePage> {
                                                   Text(
                                                       DateFormat('hh mm a')
                                                           .format(DateTime.parse(
-                                                              e.lastChatDate ??
-                                                                  '')),
+                                                                  e.lastChatDate ??
+                                                                      '')
+                                                              .toLocal()),
                                                       style: secMed10.copyWith(
                                                           color:
                                                               Theme.of(context)

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
-import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/core/routes/routes.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
@@ -36,7 +35,7 @@ class HomePageQuoteCard extends StatelessWidget {
       color: Theme.of(context).colorScheme.onPrimary,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
-          padding: const EdgeInsets.all(appPadding * 2),
+          padding: const EdgeInsets.all(appPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -44,9 +43,7 @@ class HomePageQuoteCard extends StatelessWidget {
                 dateTime: content!.lastModifiedDate ?? '',
                 uuidTitle: "${content!.uuid} on ${content!.enquiry!.uuid}",
                 onDetailTapped: () {
-                  context.pushNamed(enquiryDetailPageName,
-                      extra: content,
-                      queryParameters: {'title': kQuoteDetails});
+                  context.pushNamed(myQuoteDetailPage, extra: content);
                 },
               ),
               const Divider(),

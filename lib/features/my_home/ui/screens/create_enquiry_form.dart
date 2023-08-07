@@ -8,6 +8,7 @@ import 'package:metaltrade/features/my_home/data/models/post_enquiry_req_model.d
 import 'package:metaltrade/features/my_home/ui/controllers/create_enquiry_bloc/create_enquiry_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/widgets/app_dropdown_form.dart';
 import 'package:metaltrade/features/my_home/ui/widgets/attachment_box.dart';
+
 import '../../../../core/constants/spaces.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../profile/domain/entities/profile_entity.dart';
@@ -215,5 +216,10 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

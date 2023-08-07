@@ -138,7 +138,8 @@ final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
           child: RfqDetailPage(
               content: state.extra as Content,
               title: state.uri.queryParameters['title']!,
-              country: state.uri.queryParameters['country']),
+              country: state.uri.queryParameters['country'],
+              isMyEnquiry: state.uri.queryParameters['isMyEnquiry']),
           animationType: TransitionType.slide,
           duration: const Duration(milliseconds: 200));
     },

@@ -8,6 +8,7 @@ import '../../../../core/constants/text_tyles.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../my_home/ui/widgets/quote_list_item.dart';
 import '../../../rfq/data/models/rfq_enquiry_model.dart';
+import '../../../rfq/ui/widgets/enquiry_detail_list.dart';
 import '../../data/models/my_order_model.dart' as order_model;
 
 class MyOrderCard extends StatelessWidget {
@@ -31,7 +32,7 @@ class MyOrderCard extends StatelessWidget {
               children: [
                 DateTime.tryParse(content!.lastModifiedDate ?? '') != null
                     ? Text(
-                        "${content!.uuid} on: ${DateFormat('dd MMM yyyy - hh:mm a').format(DateTime.tryParse(content!.lastModifiedDate ?? '')!)}",
+                        "${content!.uuid} on: ${DateFormat('dd MMM yyyy - hh:mm a').format(DateTime.tryParse(content!.lastModifiedDate ?? '')!.toLocal())}",
                         style: secMed12.copyWith(
                             color: Theme.of(context).colorScheme.outline),
                       )
@@ -102,6 +103,12 @@ class MyOrderCard extends StatelessWidget {
                 ],
               )
             ]),
+            const Divider(),
+            TermsRow(title: kPaymentTerms, terms: content!.paymentTermsDisplay),
+            const SizedBox(height: appPadding),
+            TermsRow(
+                title: kTransportTerms,
+                terms: content!.transportationTermsDisplay),
           ])),
     );
   }

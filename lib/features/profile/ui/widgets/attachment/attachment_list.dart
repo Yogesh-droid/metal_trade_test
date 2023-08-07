@@ -42,7 +42,7 @@ class AttachmentList extends StatelessWidget {
                             child: Text(context
                                 .read<KycBloc>()
                                 .url[index]
-                                .split(RegExp(r'[/_]'))
+                                .split(RegExp(r'[/_-]'))
                                 .last),
                           ),
                         ),

@@ -64,6 +64,10 @@ class KycBloc extends Bloc<KycEvent, KycState> {
         url.removeAt(event.index);
         emit(KycFIleUploadSuccess(url));
       }
+      if (event is AddUserDoc) {
+        url.addAll(event.urlList);
+        emit(KycFIleUploadSuccess(url));
+      }
     });
   }
 }

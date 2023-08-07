@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -9,8 +8,10 @@ import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 import 'package:metaltrade/features/profile/ui/controllers/add_member_cubit/add_member_cubit.dart';
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import 'package:metaltrade/features/profile/ui/widgets/add_member_widget.dart';
+import 'package:metaltrade/features/profile/ui/widgets/change_language_page.dart';
 import 'package:metaltrade/features/profile/ui/widgets/option_tile.dart';
 
+import '../../../auth/ui/widgets/app_web_pages.dart';
 import '../widgets/profile_tile.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -68,10 +69,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             builder: (context) {
                               return AddMemberWidget(
                                   textEditingController: phoneNoFieldController,
-                                  onSendClick: () {
+                                  onSendClick: (phoneNo) {
                                     context
                                         .read<AddMemberCubit>()
-                                        .addMember(phoneNoFieldController.text);
+                                        .addMember(phoneNo);
                                   });
                             });
                       }),
@@ -80,14 +81,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 OptionTile(
                     title: kChangeLanguage,
                     onTap: () {
-                      context.setLocale(const Locale('hi', 'IN'));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ChangeLangauge()));
                     }),
                 const SizedBox(height: appPadding),
                 const OptionTile(title: kRateUs),
                 const SizedBox(height: appPadding),
-                const OptionTile(title: kTermsOfUse),
+                OptionTile(
+                    title: kTermsOfUse,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AppWebPages(
+                                  url: "https://metaltrade.io/terms.html")));
+                    }),
                 const SizedBox(height: appPadding),
-                const OptionTile(title: kPrivacyPolicy),
+                OptionTile(
+                    title: kPrivacyPolicy,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AppWebPages(
+                                  url: "https://metaltrade.io/privacy.html")));
+                    }),
                 const SizedBox(height: appPadding),
                 const OptionTile(title: kDeleteAccount),
                 const SizedBox(height: appPadding),

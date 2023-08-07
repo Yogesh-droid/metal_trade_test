@@ -49,7 +49,9 @@ class Content {
   Enquiry? enquiry;
   List<Item>? item;
   String? transportationTerms;
+  String? transportationTermsDisplay;
   String? paymentTerms;
+  String? paymentTermsDisplay;
   String? status;
   double? totalValue;
   String? uuid;
@@ -64,6 +66,8 @@ class Content {
       this.paymentTerms,
       this.status,
       this.totalValue,
+      this.paymentTermsDisplay,
+      this.transportationTermsDisplay,
       this.uuid});
 
   Content.fromJson(Map<String, dynamic> json) {
@@ -80,6 +84,8 @@ class Content {
     status = json["status"];
     totalValue = json["totalValue"];
     uuid = json["uuid"];
+    paymentTermsDisplay = json['paymentTermsDisplay'];
+    transportationTermsDisplay = json['transportationTermsDisplay'];
   }
 
   Map<String, dynamic> toJson() {
@@ -102,6 +108,8 @@ class Content {
     data['status'] = status;
     data['totalValue'] = totalValue;
     data['uuid'] = uuid;
+    data['transportationTermsDisplay'] = transportationTermsDisplay;
+    data['paymentTermsDisplay'] = paymentTermsDisplay;
     return data;
   }
 }

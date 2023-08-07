@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +18,9 @@ import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 
 import '../../../../core/constants/text_tyles.dart';
 
+final List<CountryCodeModel> countryList = [];
+CountryCodeModel? initialCountryModel;
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -28,14 +30,14 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController phoneNoController = TextEditingController();
-  final List<CountryCodeModel> _countryList = [];
+  // final List<CountryCodeModel> _countryList = [];
   CountryCodeModel? currentCountryModel;
 
   @override
   void initState() {
     loadCountries().then((value) => context
         .read<CountryCodeController>()
-        .changeCountryCode(currentCountryModel!));
+        .changeCountryCode(initialCountryModel!));
     super.initState();
   }
 
@@ -60,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
               child: FilledTextFieldWidget(
                 textInputType: TextInputType.phone,
                 textEditingController: phoneNoController,
-                prefix: CountryChooserIconBtn(countryList: _countryList),
+                prefix: CountryChooserIconBtn(countryList: countryList),
               ),
             ),
             const SizedBox(height: appWidgetGap / 2),
@@ -126,14 +128,15 @@ class _LoginPageState extends State<LoginPage> {
     String json = await rootBundle.loadString('assets/country.json');
     List map = jsonDecode(json);
     for (var element in map) {
-      _countryList.add(CountryCodeModel.fromJson(element));
+      countryList.add(CountryCodeModel.fromJson(element));
     }
 
     String countryCode =
         WidgetsBinding.instance.platformDispatcher.locale.countryCode ?? '';
 
-    currentCountryModel = _countryList
-        .where((element) => element.code == countryCode)
-        .toList()[0];
+    currentCountryModel =
+        countryList.where((element) => element.code == countryCode).toList()[0];
+    initialCountryModel =
+        countryList.where((element) => element.code == countryCode).toList()[0];
   }
 }

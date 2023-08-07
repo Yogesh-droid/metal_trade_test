@@ -39,7 +39,7 @@ class HomePageCardUpSection extends StatelessWidget {
                 )
               : DateTime.tryParse(dateTime) != null
                   ? Text(
-                      "$kPosted: ${DateFormat('dd MMM yyyy - hh:mm a').format(DateTime.tryParse(dateTime)!)}",
+                      "$kPosted: ${DateFormat('dd MMM yyyy - hh:mm a').format(DateTime.tryParse(dateTime)!.toLocal())}",
                       style: secMed12.copyWith(
                           color: Theme.of(context).colorScheme.outline),
                     )

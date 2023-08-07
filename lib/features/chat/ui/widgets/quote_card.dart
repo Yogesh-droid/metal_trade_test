@@ -26,10 +26,11 @@ class QuoteCard extends StatelessWidget {
           ),
           const Divider(),
           Text(kProducts,
-              style: Theme.of(context)
-                  .textTheme
-                  .labelSmall!
-                  .copyWith(color: Theme.of(context).colorScheme.outline)).tr(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelSmall!
+                      .copyWith(color: Theme.of(context).colorScheme.outline))
+              .tr(),
           const SizedBox(height: appPadding),
           ItemList(item: content.body!.quote!.item!, isQuote: true),
           const SizedBox(height: appPadding * 2),
@@ -40,7 +41,8 @@ class QuoteCard extends StatelessWidget {
                   null)
                 Text(
                   DateFormat('dd MMM yyyy hh:mm a').format(
-                      DateTime.parse(content.lastModifiedDate!.toString())),
+                      DateTime.parse(content.lastModifiedDate!.toString())
+                          .toLocal()),
                   style: secMed12.copyWith(
                       color: Theme.of(context).colorScheme.secondary),
                 ),

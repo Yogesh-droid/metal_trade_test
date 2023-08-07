@@ -25,10 +25,11 @@ class EnquiryCard extends StatelessWidget {
           ),
           const Divider(),
           Text(kProducts,
-              style: Theme.of(context)
-                  .textTheme
-                  .labelSmall!
-                  .copyWith(color: Theme.of(context).colorScheme.outline)).tr(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelSmall!
+                      .copyWith(color: Theme.of(context).colorScheme.outline))
+              .tr(),
           const SizedBox(height: appPadding),
           ItemList(item: content.body!.enquiry!.item!),
           const SizedBox(height: appPadding * 2),
@@ -38,8 +39,9 @@ class EnquiryCard extends StatelessWidget {
               if (DateTime.tryParse(content.lastModifiedDate!.toString()) !=
                   null)
                 Text(
-                    DateFormat('dd MMM yyyy hh:mm a').format(DateTime.tryParse(
-                        content.lastModifiedDate!.toString())!),
+                    DateFormat('dd MMM yyyy hh:mm a').format(
+                        DateTime.tryParse(content.lastModifiedDate!.toString())!
+                            .toLocal()),
                     style: secMed12.copyWith(
                         color: Theme.of(context).colorScheme.secondary)),
               const SizedBox(width: appPadding),

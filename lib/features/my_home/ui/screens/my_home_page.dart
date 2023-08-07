@@ -8,6 +8,7 @@ import 'package:metaltrade/features/my_home/ui/screens/my_rfq_screen.dart';
 import '../../../../core/constants/app_widgets/main_app_bar.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../rfq/ui/widgets/home_page_appbar_bottom.dart';
+import '../controllers/enquiry_file_pick_cubit/enquiry_file_pick_cubit.dart';
 import '../controllers/my_rfq_bloc/my_rfq_bloc.dart';
 import '../widgets/filter_chips_list.dart';
 
@@ -52,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage>
             isScrollable: true,
             onTap: (value) {
               if (value == 1) {
+                context.read<EnquiryFilePickCubit>().emitInitiaState();
                 if (myRfqBloc.myRfqList.isEmpty && !myRfqBloc.isMyRfqListEnd) {
                   myRfqBloc.add(GetMyRfqList(
                       page:
@@ -60,6 +62,8 @@ class _MyHomePageState extends State<MyHomePage>
                       isLoadMore: false));
                 }
               } else if (value == 2) {
+                context.read<EnquiryFilePickCubit>().emitInitiaState();
+
                 if (myQuoteBloc.myQuoteList.isEmpty &&
                     !myQuoteBloc.isMyQuoteListEnd) {
                   myQuoteBloc.add(GetQuoteList(

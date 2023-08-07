@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:metaltrade/features/chat/domain/usecases/chat_file_pick_usecase.dart';
 import 'package:metaltrade/features/profile/ui/controllers/kyc_bloc/kyc_file_pick_cubit/kyc_file_pick_cubit.dart';
 import '../../../../../core/constants/spaces.dart';
+import '../../../../chat/ui/widgets/chat_file_pick_upload/image_source_sheet.dart';
 import '../../controllers/kyc_bloc/kyc_bloc.dart';
 
 class AttachmentList extends StatelessWidget {
@@ -105,11 +108,33 @@ class AttachmentList extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: TextButton(
               onPressed: () {
-                context.read<KycFilePickCubit>().pickFile();
+                openChooseImageSourceSheet(context);
+                //context.read<KycFilePickCubit>().pickFile();
               },
               child: const Text("+ Add KYC Documents")),
         ),
       ]),
     );
+  }
+
+  openChooseImageSourceSheet(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return ImageSourceSheet(
+            onCameraTapped: () {
+              context.pop();
+              context.read<KycFilePickCubit>().pickFile(FileSource.camera);
+            },
+            onFileTapped: () {
+              context.pop();
+              context.read<KycFilePickCubit>().pickFile(FileSource.files);
+            },
+            onGalleryTapped: () {
+              context.pop();
+              context.read<KycFilePickCubit>().pickFile(FileSource.gallery);
+            },
+          );
+        });
   }
 }

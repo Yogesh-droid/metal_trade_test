@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../../../../core/constants/spaces.dart';
 import '../../../../../core/constants/text_tyles.dart';
-import '../../controllers/chat_file_pick_cubit/chat_file_pick_cubit.dart';
 
 class ImageSourceSheet extends StatelessWidget {
-  const ImageSourceSheet({super.key});
+  const ImageSourceSheet(
+      {super.key,
+      required this.onCameraTapped,
+      required this.onGalleryTapped,
+      required this.onFileTapped});
+  final Function() onCameraTapped;
+  final Function() onGalleryTapped;
+  final Function() onFileTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +50,7 @@ class ImageSourceSheet extends StatelessWidget {
                       shape: BoxShape.circle, color: Colors.black),
                   child: IconButton(
                       onPressed: () {
-                        context.pop();
-                        context
-                            .read<ChatFilePickCubit>()
-                            .getImageFromLib(ImageSource.gallery);
+                        onGalleryTapped();
                       },
                       icon: const Icon(
                         Icons.photo_library,
@@ -71,10 +72,7 @@ class ImageSourceSheet extends StatelessWidget {
                       shape: BoxShape.circle, color: Colors.black),
                   child: IconButton(
                       onPressed: () {
-                        context.pop();
-                        context
-                            .read<ChatFilePickCubit>()
-                            .getImageFromLib(ImageSource.camera);
+                        onCameraTapped();
                       },
                       icon: const Icon(
                         Icons.camera,
@@ -83,6 +81,28 @@ class ImageSourceSheet extends StatelessWidget {
                       )),
                 ),
                 Text("Camera",
+                    style: secMed15.copyWith(
+                        color: Theme.of(context).colorScheme.outline))
+              ],
+            ),
+            const SizedBox(width: appWidgetGap),
+            Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(appPadding),
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.black),
+                  child: IconButton(
+                      onPressed: () {
+                        onFileTapped();
+                      },
+                      icon: const Icon(
+                        Icons.file_open,
+                        color: Colors.white,
+                        size: 30,
+                      )),
+                ),
+                Text("Files",
                     style: secMed15.copyWith(
                         color: Theme.of(context).colorScheme.outline))
               ],

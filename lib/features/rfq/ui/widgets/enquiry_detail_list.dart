@@ -1,6 +1,12 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:metaltrade/features/profile/ui/widgets/disabled_text_field.dart';
 import 'package:metaltrade/features/rfq/data/models/rfq_enquiry_model.dart';
+import 'package:metaltrade/features/rfq/ui/controllers/cubit/download_file_cubit.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../../../core/constants/spaces.dart';
 import '../../../../core/constants/strings.dart';
@@ -16,6 +22,8 @@ class EnquiryDetailList extends StatelessWidget {
   final Function()? onFilledTapped;
   final List<Item> itemList;
   final String? otherTerms;
+  final String? otherAttachmentsName;
+  final String? otherAttachmentsUrl;
   const EnquiryDetailList(
       {super.key,
       required this.paymentTermsDisplay,
@@ -25,7 +33,9 @@ class EnquiryDetailList extends StatelessWidget {
       this.onFilledTapped,
       this.filledBtnText,
       required this.itemList,
-      this.otherTerms});
+      this.otherTerms,
+      this.otherAttachmentsName,
+      this.otherAttachmentsUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +50,56 @@ class EnquiryDetailList extends StatelessWidget {
         TermsRow(title: kTransportTerms, terms: transportationTermsDisplay),
         const Divider(),
         TermsRow(title: kRemarks, terms: otherTerms),
+        const Divider(),
+        if (otherAttachmentsName != null)
+          BlocBuilder<DownloadFileCubit, DownloadFileState>(
+            builder: (context, state) {
+              if (state is FileDownloading) {
+                return LinearProgressIndicator(
+                  minHeight: 30,
+                  value: state.progress / 100,
+                  backgroundColor: Colors.black.withOpacity(0.5),
+                  valueColor: const AlwaysStoppedAnimation(Colors.white),
+                );
+              } else if (state is DownloadFileSuccess) {
+                Future.delayed(const Duration(seconds: 1), () {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text("File downloaded successfully")));
+                  context.read<DownloadFileCubit>().emitIntial();
+                });
+                return DisabledTextField(
+                    onTap: () async {
+                      final dir = Directory(
+                          '${(Platform.isAndroid ? "/storage/emulated/0/Download" //FOR ANDROID
+                              : await getApplicationSupportDirectory() //FOR IOS
+                          )}/Metaltrade');
+                      String fullPath =
+                          "${dir.path}/${otherAttachmentsUrl!.split(RegExp(r'[/_-]')).last}";
+                      File file = File(fullPath);
+                    },
+                    hintText: otherAttachmentsName);
+              } else if (state is FileDownloadFailed) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(state.exception.toString())));
+                return DisabledTextField(
+                    onTap: () async {
+                      context
+                          .read<DownloadFileCubit>()
+                          .downloadFile(otherAttachmentsUrl ?? '');
+                    },
+                    hintText: otherAttachmentsName,
+                    suffix: const Icon(Icons.download));
+              }
+              return DisabledTextField(
+                  onTap: () async {
+                    context
+                        .read<DownloadFileCubit>()
+                        .downloadFile(otherAttachmentsUrl ?? '');
+                  },
+                  hintText: otherAttachmentsName,
+                  suffix: const Icon(Icons.download));
+            },
+          ),
         const SizedBox(height: appWidgetGap),
         Row(
           children: [

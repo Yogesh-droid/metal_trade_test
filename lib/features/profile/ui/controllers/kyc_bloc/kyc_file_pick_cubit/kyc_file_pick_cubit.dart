@@ -1,9 +1,10 @@
 import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:metaltrade/core/resource/data_state/data_state.dart';
 import 'package:metaltrade/features/chat/domain/usecases/chat_file_pick_usecase.dart';
+
 part 'kyc_file_pick_state.dart';
 
 class KycFilePickCubit extends Cubit<KycFilePickState> {
@@ -14,13 +15,13 @@ class KycFilePickCubit extends Cubit<KycFilePickState> {
     emit(KycFilePickInitial());
   }
 
-  Future<void> pickFile() async {
+  Future<void> pickFile(FileSource fileSource) async {
     emit(KycFilePicking());
     try {
-      DataState<XFile?> dataState = await chatFilePickUsecsse.call(null);
+      DataState<File?> dataState =
+          await chatFilePickUsecsse.call(null, fileSource: fileSource);
       if (dataState.data != null) {
-        XFile file = dataState.data!;
-        emit(KycFilePickSuccess(File(file.path)));
+        emit(KycFilePickSuccess(dataState.data!));
       } else {
         emit(KycFilePickeFailed(Exception("Something went wrong")));
       }

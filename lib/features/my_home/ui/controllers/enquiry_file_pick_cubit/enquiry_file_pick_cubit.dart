@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:metaltrade/features/chat/domain/usecases/chat_file_pick_usecase.dart';
 
 import '../../../../../core/resource/data_state/data_state.dart';
@@ -17,13 +16,13 @@ class EnquiryFilePickCubit extends Cubit<EnquiryFilePickState> {
     emit(EnquiryFilePickInitial());
   }
 
-  Future<void> getImageFromLib() async {
+  Future<void> getImageFromLib(FileSource fileSource) async {
     emit(ENquiryFilePicking());
     try {
-      DataState<XFile?> dataState = await filePickUsecsse.call(null);
+      DataState<File?> dataState =
+          await filePickUsecsse.call(null, fileSource: fileSource);
       if (dataState.data != null) {
-        XFile file = dataState.data!;
-        emit(EnquiryFilePickSuccess(File(file.path)));
+        emit(EnquiryFilePickSuccess(dataState.data!));
       } else {
         emit(EnquiryFilePickFailed(Exception("Something went wrong")));
       }

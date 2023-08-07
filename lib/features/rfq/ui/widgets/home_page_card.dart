@@ -20,7 +20,9 @@ class HomePageCard extends StatelessWidget {
       required this.borderedBtnTitle,
       required this.filledBtnTitle,
       this.onDetailTapped,
-      this.enquiryType});
+      this.enquiryType,
+      this.attachedFileName,
+      this.attachedFileUrl});
   final Content? content;
   final List<Item>? itemList;
   final String? uuid;
@@ -31,6 +33,8 @@ class HomePageCard extends StatelessWidget {
   final Function()? onDetailTapped;
   final String? borderedBtnTitle;
   final String? filledBtnTitle;
+  final String? attachedFileName;
+  final String? attachedFileUrl;
 
   @override
   Widget build(BuildContext context) {

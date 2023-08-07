@@ -18,7 +18,15 @@ class NetworkManager {
       case ApiMethods.get:
         debugPrint(requestParams.url);
         try {
-          response = await _dio.get(requestParams.url, options: options);
+          response = await _dio.get(
+            requestParams.url,
+            options: options,
+            onReceiveProgress: (count, total) {
+              if (onReceiveProgress != null) {
+                onReceiveProgress(((count / total) * 100).toInt());
+              }
+            },
+          );
           return response;
         } on DioException catch (e) {
           throw Exception(e.response != null &&

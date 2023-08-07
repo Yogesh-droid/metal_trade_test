@@ -13,6 +13,13 @@ void setup() {
       .registerFactory<ChatFilePickUsecsse>(() => ChatFilePickUsecsse(getIt()));
   getIt.registerFactory<ChatFilePickCubit>(() => ChatFilePickCubit(getIt()));
 
+  // File Download setup
+
+  getIt.registerFactory<DownloadFileRepo>(() => DownloadFileRepoImpl(getIt()));
+  getIt.registerFactory<DownloadFileUsecase>(
+      () => DownloadFileUsecase(downloadFileRepo: getIt()));
+  getIt.registerFactory<DownloadFileCubit>(() => DownloadFileCubit(getIt()));
+
   /// For Rfq Page Banners
   getIt.registerFactory<RfqEnquiryRepo>(
       () => RfqEnquiryImpl(networkManager: getIt()));

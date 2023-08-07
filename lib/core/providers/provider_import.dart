@@ -16,6 +16,7 @@ import 'package:metaltrade/features/profile/ui/controllers/kyc_bloc/kyc_file_pic
 import 'package:metaltrade/features/profile/ui/controllers/my_order_bloc/my_order_bloc.dart';
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import 'package:metaltrade/features/quotes/ui/controllers/accept_quote_bloc/accept_quote_bloc.dart';
+import 'package:metaltrade/features/rfq/ui/controllers/cubit/download_file_cubit.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/rfq_buyer_enquiry_bloc/rfq_buyer_enquiry_bloc.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/rfq_seller_enquiry_bloc/rfq_seller_enquiry_bloc.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/submit_quote/submit_quote_bloc.dart';

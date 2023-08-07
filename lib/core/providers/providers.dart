@@ -19,6 +19,7 @@ class AppBlocProviders {
         BlocProvider<ProfileBloc>(create: (_) => getIt()),
         BlocProvider<ChatFilePickCubit>(create: (_) => getIt()),
         BlocProvider<EnquiryFilePickCubit>(create: (_) => getIt()),
+        BlocProvider<DownloadFileCubit>(create: (_) => getIt()),
         BlocProvider<ChatBloc>(create: (_) => getIt()),
         BlocProvider<KycBloc>(create: (_) => getIt()),
         BlocProvider<CountryCubit>(create: (_) => getIt()),
@@ -34,6 +35,6 @@ class AppBlocProviders {
         BlocProvider<MyOrderBloc>(create: (_) => getIt()),
         BlocProvider<AddMemberCubit>(create: (_) => getIt()),
         BlocProvider<KycFilePickCubit>(create: (_) => getIt()),
-        BlocProvider(create: (_) => ChatBtnCubit())
+        BlocProvider(create: (_) => ChatBtnCubit()),
       ];
 }

@@ -46,6 +46,9 @@ class RfqDetailPage extends StatelessWidget {
                   content.transportationTermsDisplay ?? '',
               itemList: content.item ?? [],
               otherTerms: content.otherTerms,
+              otherAttachmentsName:
+                  content.otherAttachmentsName!.split(RegExp(r'[/_-]')).last,
+              otherAttachmentsUrl: content.otherAttachmentsUrl,
               filledBtnText: isMyEnquiry != null
                   ? kSubmitQuote
                   : content.status == 'Inreview' || content.status == "Active"

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:metaltrade/features/chat/ui/controllers/chat_btn_cubit/chat_btn_cubit.dart';
 import 'package:metaltrade/features/chat/ui/widgets/chat_file_pick_upload/image_source_sheet.dart';
 
 import '../../../../../core/constants/spaces.dart';
+import '../../../domain/usecases/chat_file_pick_usecase.dart';
 import '../../controllers/chat_bloc/chat_bloc.dart';
+import '../../controllers/chat_file_pick_cubit/chat_file_pick_cubit.dart';
 
 class ChatTextField extends StatelessWidget {
   const ChatTextField(
@@ -96,7 +99,26 @@ class ChatTextField extends StatelessWidget {
     showModalBottomSheet(
         context: context,
         builder: (context) {
-          return const ImageSourceSheet();
+          return ImageSourceSheet(
+            onCameraTapped: () {
+              context.pop();
+              context
+                  .read<ChatFilePickCubit>()
+                  .getImageFromLib(FileSource.camera);
+            },
+            onFileTapped: () {
+              context.pop();
+              context
+                  .read<ChatFilePickCubit>()
+                  .getImageFromLib(FileSource.files);
+            },
+            onGalleryTapped: () {
+              context.pop();
+              context
+                  .read<ChatFilePickCubit>()
+                  .getImageFromLib(FileSource.gallery);
+            },
+          );
         });
   }
 }

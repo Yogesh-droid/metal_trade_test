@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../chat/domain/usecases/chat_file_pick_usecase.dart';
+import '../../../chat/ui/widgets/chat_file_pick_upload/image_source_sheet.dart';
 import '../../../profile/ui/widgets/disabled_text_field.dart';
 import '../controllers/create_enquiry_bloc/create_enquiry_bloc.dart';
 import '../controllers/enquiry_file_pick_cubit/enquiry_file_pick_cubit.dart';
@@ -46,7 +49,8 @@ class AttachmentBox extends StatelessWidget {
         if (state is EnquiryFilePickInitial || state is EnquiryFilePickFailed) {
           return DisabledTextField(
             onTap: () {
-              context.read<EnquiryFilePickCubit>().getImageFromLib();
+              //context.read<EnquiryFilePickCubit>().getImageFromLib();
+              openChooseImageSourceSheet(context);
             },
             hintText: "Attach",
             suffix: const Icon(Icons.attachment_outlined),
@@ -55,5 +59,32 @@ class AttachmentBox extends StatelessWidget {
         return const SizedBox.shrink();
       },
     );
+  }
+
+  openChooseImageSourceSheet(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return ImageSourceSheet(
+            onCameraTapped: () {
+              context.pop();
+              context
+                  .read<EnquiryFilePickCubit>()
+                  .getImageFromLib(FileSource.camera);
+            },
+            onFileTapped: () {
+              context.pop();
+              context
+                  .read<EnquiryFilePickCubit>()
+                  .getImageFromLib(FileSource.files);
+            },
+            onGalleryTapped: () {
+              context.pop();
+              context
+                  .read<EnquiryFilePickCubit>()
+                  .getImageFromLib(FileSource.gallery);
+            },
+          );
+        });
   }
 }

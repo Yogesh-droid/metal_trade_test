@@ -1,6 +1,8 @@
-import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+
 import 'package:metaltrade/core/resource/data_state/data_state.dart';
+import 'package:metaltrade/features/chat/domain/usecases/chat_file_pick_usecase.dart';
 
 abstract class ChatFilePickRepo {
-  Future<DataState<XFile?>> getImage({ImageSource? imageSource});
+  Future<DataState<File?>> getImage({FileSource? fileSource});
 }

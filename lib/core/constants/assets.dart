@@ -113,18 +113,6 @@ class Assets {
   /// assets/welcome/welcom_page.png
   static const String assetsWelcomeWelcomPage = "assets/welcome/welcom_page.png";
 
-  /// Assets for assetsWelcomeWelcome1
-  /// assets/welcome/welcome_1.png
-  static const String assetsWelcomeWelcome1 = "assets/welcome/welcome_1.png";
-
-  /// Assets for assetsWelcomeWelcome2
-  /// assets/welcome/welcome_2.png
-  static const String assetsWelcomeWelcome2 = "assets/welcome/welcome_2.png";
-
-  /// Assets for assetsWelcomeWelcome3
-  /// assets/welcome/welcome_3.png
-  static const String assetsWelcomeWelcome3 = "assets/welcome/welcome_3.png";
-
   /// Assets for assetsWelcomeZigZagLayer
   /// assets/welcome/zig_zag_layer.png
   static const String assetsWelcomeZigZagLayer = "assets/welcome/zig_zag_layer.png";

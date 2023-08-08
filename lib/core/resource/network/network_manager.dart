@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
@@ -20,6 +19,29 @@ class NetworkManager {
         try {
           response = await _dio.get(
             requestParams.url,
+            options: options,
+            onReceiveProgress: (count, total) {
+              if (onReceiveProgress != null) {
+                onReceiveProgress(((count / total) * 100).toInt());
+              }
+            },
+          );
+
+          return response;
+        } on DioException catch (e) {
+          throw Exception(e.response != null &&
+                  e.response!.data.isNotEmpty &&
+                  e.response!.data != null
+              ? e.response!.data['message']
+              : e.message);
+        }
+
+      case ApiMethods.download:
+        debugPrint(requestParams.url);
+        try {
+          response = await _dio.download(
+            requestParams.url,
+            '/storage/emulated/0/Download',
             options: options,
             onReceiveProgress: (count, total) {
               if (onReceiveProgress != null) {

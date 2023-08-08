@@ -78,6 +78,7 @@ class ChatTextField extends StatelessWidget {
                           if (state) {
                             onSendBtnTapped(textEditingController.text, imgUrl);
                             textEditingController.clear();
+                            context.read<ChatBtnCubit>().changeState(false);
                             imgUrl = '';
                           } else {
                             return;

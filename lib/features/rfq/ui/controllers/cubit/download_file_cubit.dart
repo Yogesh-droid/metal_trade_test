@@ -18,9 +18,9 @@ class DownloadFileCubit extends Cubit<DownloadFileState> {
 
   Future<void> downloadFile(String url) async {
     try {
-      DataState<List<int>> dataState = await downloadFileUsecase
-          .call(RequestParams(url: url, apiMethods: ApiMethods.get),
-              onReceiveProgress: (value) {
+      DataState<List<int>> dataState = await downloadFileUsecase.call(
+          RequestParams(url: url, apiMethods: ApiMethods.get, header: header),
+          onReceiveProgress: (value) {
         emit(FileDownloading(value));
       });
       if (dataState.data != null) {

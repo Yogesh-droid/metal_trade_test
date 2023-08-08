@@ -18,15 +18,3 @@ class MyQuoteFailedState extends MyQuoteState {
 }
 
 class MyQuoteLoadMore extends MyQuoteState {}
-
-class MyQuoteUpdateSuccess extends MyQuoteState {
-  final bool isUpdated;
-
-  MyQuoteUpdateSuccess(this.isUpdated);
-}
-
-class MyQuoteUpdateFailed extends MyQuoteState {
-  final Exception exception;
-
-  MyQuoteUpdateFailed(this.exception);
-}

@@ -124,7 +124,7 @@ void setup() {
   getIt.registerFactory<NewsBloc>(() => NewsBloc(newUsecase: getIt()));
 
   // Accept quote setup ///
-
+  getIt.registerFactory<AcceptQuoteResRepo>(() => AcceptQuoteRepoImpl(getIt()));
   getIt.registerFactory<AcceptQuoteResUsecase>(
       () => AcceptQuoteResUsecase(acceptQuoteResRepo: getIt()));
   getIt.registerFactory<AcceptQuoteBloc>(() => AcceptQuoteBloc(getIt()));

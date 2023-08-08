@@ -17,7 +17,7 @@ class RequestParams {
       this.fileName});
 }
 
-enum ApiMethods { get, post, delete, put, patch, multipart }
+enum ApiMethods { get, post, delete, put, patch, multipart, download }
 
 Map<String, String> header = {
   "Authorization": "Bearer ${LocalStorage.instance.token}",

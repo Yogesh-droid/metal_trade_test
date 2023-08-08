@@ -40,7 +40,7 @@ class RfqDetailPage extends StatelessWidget {
               status: content.status ?? '',
               // Hide btn below means no CTA that is used
               // only for enquiryDetail, no action needed i.e. redirected from MyQuotes
-              uuid: hideBtns == null
+              uuid: hideBtns != null
                   ? content.enquiry!.uuid ?? ''
                   : content.uuid ?? '',
               country: country,
@@ -57,7 +57,7 @@ class RfqDetailPage extends StatelessWidget {
                   ? content.otherAttachmentsName!.split(RegExp(r'[/_-]')).last
                   : null,
               otherAttachmentsUrl: content.otherAttachmentsUrl,
-              filledBtnText: hideBtns == null
+              filledBtnText: hideBtns != null
                   ? null
                   : isMyEnquiry != null
                       ? kSubmitQuote
@@ -65,7 +65,7 @@ class RfqDetailPage extends StatelessWidget {
                               content.status == "Active"
                           ? kCloseRfq
                           : null,
-              onFilledTapped: hideBtns == null
+              onFilledTapped: hideBtns != null
                   ? null
                   : () {
                       if (isMyEnquiry != null) {
@@ -95,7 +95,7 @@ class RfqDetailPage extends StatelessWidget {
                             });
                       }
                     },
-              onOutlineTapped: hideBtns == null
+              onOutlineTapped: hideBtns != null
                   ? null
                   : () {
                       context.read<ChatBloc>().add(GetPreviousChatEvent(
@@ -118,7 +118,7 @@ class RfqDetailPage extends StatelessWidget {
                               lastModifiedDate: DateTime.now(),
                               status: "Unseen"));
                     },
-              outlinedButtonText: hideBtns == null
+              outlinedButtonText: hideBtns != null
                   ? null
                   : content.status == "Inreview"
                       ? null

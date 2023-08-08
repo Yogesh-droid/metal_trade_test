@@ -66,16 +66,7 @@ class EnquiryDetailList extends StatelessWidget {
                   context.read<DownloadFileCubit>().emitIntial();
                 });
                 return DisabledTextField(
-                    onTap: () async {
-                      // final dir = Directory(
-                      //     '${(Platform.isAndroid ? "/storage/emulated/0/Download" //FOR ANDROID
-                      //         : await getApplicationSupportDirectory() //FOR IOS
-                      //     )}/Metaltrade');
-                      // String fullPath =
-                      //     "${dir.path}/${otherAttachmentsUrl!.split(RegExp(r'[/_-]')).last}";
-                      // File file = File(fullPath);
-                    },
-                    hintText: otherAttachmentsName);
+                    onTap: () async {}, hintText: otherAttachmentsName);
               } else if (state is FileDownloadFailed) {
                 ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(state.exception.toString())));
@@ -155,10 +146,18 @@ class EnquiryDetailList extends StatelessWidget {
                   trailing: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
+                      if (isPriceShown != null)
+                        Text(
+                          "\$ ${e.price}",
+                          style: secMed12.copyWith(fontWeight: FontWeight.bold),
+                        ),
+                      const SizedBox(height: appFormFieldGap),
                       RichText(
                           text: TextSpan(children: [
                         TextSpan(
-                            text: "${e.quantity} ",
+                            text: isPriceShown != null
+                                ? "QTY ${e.quantity} "
+                                : "${e.quantity} ",
                             style: secMed12.copyWith(
                                 color: Theme.of(context).colorScheme.onSurface),
                             children: [
@@ -166,11 +165,6 @@ class EnquiryDetailList extends StatelessWidget {
                                   text: "${e.quantityUnit}", style: secMed12)
                             ]),
                       ])),
-                      if (isPriceShown != null)
-                        Text(
-                          "\$ ${e.price}",
-                          style: secMed12.copyWith(fontWeight: FontWeight.bold),
-                        )
                     ],
                   ),
                 ))

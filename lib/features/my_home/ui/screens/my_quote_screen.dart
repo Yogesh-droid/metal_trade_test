@@ -69,9 +69,7 @@ class _MyQuoteScreenState extends State<MyQuoteScreen> {
                             return const Center(
                                 child: CircularProgressIndicator());
                           } else if (state is MyQuoteFetchedState ||
-                              state is MyQuoteLoadMore ||
-                              state is MyQuoteUpdateSuccess ||
-                              state is MyQuoteUpdateFailed) {
+                              state is MyQuoteLoadMore) {
                             return ListView(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,

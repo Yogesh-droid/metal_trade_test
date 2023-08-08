@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
+import 'package:metaltrade/features/my_home/ui/controllers/my_rfq_bloc/my_rfq_bloc.dart';
 import 'package:metaltrade/features/quotes/ui/controllers/accept_quote_bloc/accept_quote_bloc.dart';
 import 'package:metaltrade/features/rfq/data/models/rfq_enquiry_model.dart';
 import 'package:metaltrade/features/chat/data/models/chat_response_model.dart'
@@ -64,10 +66,13 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
                       : BlocListener<AcceptQuoteBloc, AcceptQuoteState>(
                           listener: (context, state) {
                             if (state is AcceptQuoteSuccessful) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content:
-                                          Text('Quote Accepted Successfully')));
+                              Fluttertoast.showToast(
+                                  msg: "Quote Accepted Successfully");
+                              context.read<MyRfqBloc>().add(
+                                  GetMyRfqList(isLoadMore: false, page: 0));
+                            } else if (state is AcceptQuoteFailed) {
+                              Fluttertoast.showToast(
+                                  msg: state.exception.toString());
                             }
                           },
                           child: ListView.separated(
@@ -114,7 +119,8 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
                                     onFilledBtnTapped: () {
                                       context.read<AcceptQuoteBloc>().add(
                                           QuoteAcceptEvent(
-                                              quoteId: widget.content.id ?? 0));
+                                              quoteId: widget.content.id ?? 0,
+                                              status: 'Complete'));
                                       context.pop();
                                     },
                                   )),

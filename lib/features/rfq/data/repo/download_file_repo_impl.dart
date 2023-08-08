@@ -15,7 +15,8 @@ class DownloadFileRepoImpl implements DownloadFileRepo {
       {Function(int)? onReceiveProgress, Function(int)? onSendProgress}) async {
     try {
       Response? response;
-      response = await networkManager.makeNetworkRequest(params);
+      response = await networkManager.makeNetworkRequest(params,
+          onReceiveProgress: onReceiveProgress);
       if (response!.data != null) {
         return DataSuccess(data: utf8.encode(response.data));
       } else {

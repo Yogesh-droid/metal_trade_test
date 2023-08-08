@@ -29,6 +29,7 @@ class MyRfqBloc extends Bloc<MyRfqEvent, MyRfqState> {
         try {
           if (event.page == 0) {
             emit(MyRfqInitial());
+            myRfqList.clear();
           }
           if (event.page == myRfqListPage) {
             myRfqList.clear();

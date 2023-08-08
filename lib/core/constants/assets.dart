@@ -77,6 +77,18 @@ class Assets {
   /// assets/profile/delete_icon.svg
   static const String assetsProfileDeleteIcon = "assets/profile/delete_icon.svg";
 
+  /// Assets for assetsProfileNoImage
+  /// assets/profile/no_image.png
+  static const String assetsProfileNoImage = "assets/profile/no_image.png";
+
+  /// Assets for assetsTranslationsEnUS
+  /// assets/translations/en-US.json
+  static const String assetsTranslationsEnUS = "assets/translations/en-US.json";
+
+  /// Assets for assetsTranslationsHiIN
+  /// assets/translations/hi-IN.json
+  static const String assetsTranslationsHiIN = "assets/translations/hi-IN.json";
+
   /// Assets for assetsWelcomeAppLogoName
   /// assets/welcome/app_logo_name.png
   static const String assetsWelcomeAppLogoName = "assets/welcome/app_logo_name.png";

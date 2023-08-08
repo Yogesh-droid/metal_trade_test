@@ -17,7 +17,9 @@ class AcceptQuoteBloc extends Bloc<AcceptQuoteEvent, AcceptQuoteState> {
           final DataState<AcceptQuoteResEntity> dataState =
               await accetpQuoteUsecase.call(RequestParams(
                   url: "${baseUrl}user/quote/${event.quoteId}",
-                  apiMethods: ApiMethods.put));
+                  apiMethods: ApiMethods.put,
+                  body: {'status': event.status},
+                  header: header));
 
           if (dataState.data != null) {
             emit(AcceptQuoteSuccessful(dataState.data!));

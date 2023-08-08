@@ -55,23 +55,6 @@ class MyQuoteBloc extends Bloc<MyQuoteEvent, MyQuoteState> {
           emit(MyQuoteFailedState(exception: e));
         }
       }
-      if (event is UpdateMyQuoteStatus) {
-        try {
-          final DataState<Content> dataState = await updateMyQuoteUsecase.call(
-              RequestParams(
-                  url: "${baseUrl}user/quote/${event.quoteId}",
-                  apiMethods: ApiMethods.put,
-                  body: {"status": event.status},
-                  header: header));
-          if (dataState.data != null) {
-            emit(MyQuoteUpdateSuccess(true));
-          } else {
-            emit(MyQuoteUpdateFailed(Exception(dataState.exception)));
-          }
-        } on Exception catch (e) {
-          emit(MyQuoteUpdateFailed(e));
-        }
-      }
     });
   }
 }

@@ -1,8 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:metaltrade/features/chat/data/models/chat_response_model.dart';
-import 'package:intl/intl.dart';
-
 import '../../../../core/constants/spaces.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/constants/text_tyles.dart';

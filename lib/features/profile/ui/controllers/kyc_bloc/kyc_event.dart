@@ -22,6 +22,8 @@ class RemoveKycDoc extends KycEvent {
   RemoveKycDoc(this.index);
 }
 
+class EmitInitialKycState extends KycEvent {}
+
 class AddUserDoc extends KycEvent {
   final List<String> urlList;
 

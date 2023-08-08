@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_rfq_bloc/my_rfq_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/screens/quote_detail_screen.dart';
+import 'package:metaltrade/features/profile/ui/widgets/confirmation_sheet.dart';
 import 'package:metaltrade/features/rfq/ui/widgets/enquiry_detail_heading.dart';
 import 'package:metaltrade/features/rfq/ui/widgets/enquiry_detail_list.dart';
 
@@ -75,10 +76,22 @@ class _MyEnquiryDetailState extends State<MyEnquiryDetail>
               onOutlineTapped: () {
                 if (widget.item.status == "Inreview" ||
                     widget.item.status == "Active") {
-                  context
-                      .read<MyRfqBloc>()
-                      .add(UpdateMyRfq(status: "Closed", id: widget.item.id!));
-                  context.pop();
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return ConfirmationSheet(
+                            explanation: kThisWillRemoveRfq,
+                            height: MediaQuery.of(context).size.height / 3,
+                            onConfirmaTapped: () {
+                              context.read<MyRfqBloc>().add(UpdateMyRfq(
+                                  status: "Closed", id: widget.item.id!));
+                              context.pop();
+                              context.pop();
+                            },
+                            filledBtnText: kClose,
+                            outlinedBtnText: kCancel,
+                            title: kAreYouSureCloseRfq);
+                      });
                 } else if (widget.item.status == "Complete") {
                   context.pushNamed(myOrderScreenName);
                 }

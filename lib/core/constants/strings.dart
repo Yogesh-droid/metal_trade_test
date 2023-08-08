@@ -13,12 +13,17 @@ const String kConnectWithCountless =
 const String kCountry = "Country";
 const String kLogout = "Logout";
 const String kGetInstantQuote = "Get instant competitive quotes";
-const String kPostRequirements = "Post your requirements and get instant quotes and strike the best deal";
+const String kPostRequirements =
+    "Post your requirements and get instant quotes and strike the best deal";
 const String kGetStarted = "Get Started";
 const String kNegotiateWithEase = "Negotiate with ease";
 const String kChatWithExperts =
     "Chat with experts and discuss your custom needs";
-const String kWhatsYourNo = "Connect with global sellers and buyers. Get Started now!";
+const String kWhatsYourNo =
+    "Connect with global sellers and buyers. Get Started now!";
+const String kAreYouSureCloseRfq = 'Are you sure you want to close?';
+const String kThisWillRemoveRfq =
+    'This will remove the RFQ from MetalTrade public listing. You will not receive any new quotation against the RFQ.';
 const String kEnterMobNo = "Enter Mobile Number";
 const String kContinue = "Continue";
 const String kPleaseVerify = "Please verify phone number";
@@ -64,6 +69,8 @@ const String kPinCode = "Pin code";
 const String kRepresentativeName = "Representative name";
 const String kChooseCountry = "Choose your country";
 const String kAccNo = "Enter your account Number";
+const String kSwiftCode = "Enter your Swift code";
+const String kBankName = "Enter your Bank Name";
 const String kRetry = "Retry";
 const String kCheckProfile = "Check Profile";
 const String kBack = "Back";
@@ -98,6 +105,7 @@ const String kReachUs = "Reach Us";
 const String kMyAcc = "Login/Signup";
 const String kTradeOn = "Asia's Marketplace for";
 const String kAllProductOfSteel = "Finished, Semi finished and scrap steel";
+const String kDoYouWantToDelete = "Do you really want to delete your Account";
 const String kOurOneStop =
     "We provide end to end online solution for buying, selling and moving Steel globally";
 const String kBuyNow = "Buying Steel?";
@@ -129,3 +137,5 @@ trade with the help of technology and help all the stakeholders
  benefit from it and eventually bring growth in economy''';
 const String kAddYourMember = "Add your team members";
 const String kSelectedImg = "Selected Image";
+const String kByDeletingAcc =
+    "By Deleting your account you will not be able to access any of data in app and you will loose all your enquiries and quotes and will be deleted";

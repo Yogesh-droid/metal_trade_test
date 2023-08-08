@@ -49,6 +49,12 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
   final pinController = TextEditingController();
   final pinFocus = FocusNode();
 
+  final bankNameController = TextEditingController();
+  final bankNameFocus = FocusNode();
+
+  final swiftCodeController = TextEditingController();
+  final swiftFocus = FocusNode();
+
   int? selectedCountry;
   final countryFocus = FocusNode();
 
@@ -185,15 +191,40 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
               focusNode: accNoFocus,
               textInputAction: TextInputAction.done,
               onDone: (value) {
-                emailFocus.requestFocus();
+                swiftFocus.requestFocus();
               },
               onValidate: (value) {
                 return null;
-                // if (isNameValid(value!)) {
-                //   return null;
-                // } else {
-                //   return 'Enter valid Name';
-                // }
+              },
+            ),
+            const SizedBox(height: appFormFieldGap),
+            BorderedTextField(
+              isObscureText: false,
+              hintText: kSwiftCode,
+              textEditingController: swiftCodeController,
+              textInputType: TextInputType.name,
+              focusNode: swiftFocus,
+              textInputAction: TextInputAction.done,
+              onDone: (value) {
+                bankNameFocus.requestFocus();
+              },
+              onValidate: (value) {
+                return null;
+              },
+            ),
+            const SizedBox(height: appFormFieldGap),
+            BorderedTextField(
+              isObscureText: false,
+              hintText: kBankName,
+              textEditingController: bankNameController,
+              textInputType: TextInputType.name,
+              focusNode: bankNameFocus,
+              textInputAction: TextInputAction.done,
+              onDone: (value) {
+                bankNameFocus.unfocus();
+              },
+              onValidate: (value) {
+                return null;
               },
             ),
             const SizedBox(height: appFormFieldGap),
@@ -361,6 +392,8 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
       selectedCountry = widget.profileEntity.company!.country!.id;
       accNoController.text =
           widget.profileEntity.company!.bankAccountNumber ?? '';
+      swiftCodeController.text = widget.profileEntity.company!.swiftCode ?? '';
+      bankNameController.text = widget.profileEntity.company!.bankName ?? '';
 
       if (widget.profileEntity.company!.kycDocument != null) {
         List<String> list = [];

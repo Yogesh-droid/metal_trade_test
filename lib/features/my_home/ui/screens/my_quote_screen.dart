@@ -69,7 +69,9 @@ class _MyQuoteScreenState extends State<MyQuoteScreen> {
                             return const Center(
                                 child: CircularProgressIndicator());
                           } else if (state is MyQuoteFetchedState ||
-                              state is MyQuoteLoadMore) {
+                              state is MyQuoteLoadMore ||
+                              state is MyQuoteUpdateSuccess ||
+                              state is MyQuoteUpdateFailed) {
                             return ListView(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
@@ -82,7 +84,9 @@ class _MyQuoteScreenState extends State<MyQuoteScreen> {
                                         filledBtnTitle: e.status == 'Inreview'
                                             ? kCancel
                                             : null,
-                                        borderedBtnTitle: kChat,
+                                        borderedBtnTitle: e.status == 'Inreview'
+                                            ? null
+                                            : kChat,
                                         onBorderedBtnTapped: () {
                                           context.read<ChatBloc>().add(
                                               GetPreviousChatEvent(

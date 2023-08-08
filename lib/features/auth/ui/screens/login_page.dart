@@ -108,7 +108,10 @@ class _LoginPageState extends State<LoginPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => const AppWebPages(
-                                          url: "https://flutter.dev/")));
+                                            url:
+                                                "https://metaltrade.io/terms.html",
+                                            title: kTermsOfUse,
+                                          )));
                             },
                           text: "\n$kTnC",
                           style: const TextStyle(color: Colors.blue))

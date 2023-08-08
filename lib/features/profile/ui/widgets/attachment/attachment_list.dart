@@ -45,13 +45,16 @@ class AttachmentList extends StatelessWidget {
                             child: Text(context
                                 .read<KycBloc>()
                                 .url[index]
-                                .split(RegExp(r'[/_-]'))
+                                .split(RegExp(r'[/_]'))
                                 .last),
                           ),
                         ),
                         IconButton(
                             onPressed: () {
                               context.read<KycBloc>().add(RemoveKycDoc(index));
+                              context
+                                  .read<KycBloc>()
+                                  .add(EmitInitialKycState());
                             },
                             icon: const Icon(CupertinoIcons.delete))
                       ],
@@ -109,7 +112,6 @@ class AttachmentList extends StatelessWidget {
           child: TextButton(
               onPressed: () {
                 openChooseImageSourceSheet(context);
-                //context.read<KycFilePickCubit>().pickFile();
               },
               child: const Text("+ Add KYC Documents")),
         ),

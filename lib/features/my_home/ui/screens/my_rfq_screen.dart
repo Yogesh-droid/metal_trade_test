@@ -10,6 +10,7 @@ import 'package:metaltrade/features/my_home/ui/widgets/filter_chips_list.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../profile/domain/entities/profile_entity.dart';
 import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
+import '../../../profile/ui/widgets/confirmation_sheet.dart';
 import '../../../profile/ui/widgets/kyc_dialog.dart';
 import '../../../rfq/ui/widgets/home_page_card.dart';
 
@@ -101,13 +102,33 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
                                         onBorderedBtnTapped: () {
                                           if (e.status == "Inreview" ||
                                               e.status == "Active") {
-                                            myRfqBloc.add(UpdateMyRfq(
-                                                status:
-                                                    e.status == "Inreview" ||
-                                                            e.status == "Active"
-                                                        ? "Closed"
-                                                        : "Active",
-                                                id: e.id!));
+                                            showModalBottomSheet(
+                                                context: context,
+                                                builder: (context) {
+                                                  return ConfirmationSheet(
+                                                      explanation:
+                                                          kThisWillRemoveRfq,
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height /
+                                                              3,
+                                                      onConfirmaTapped: () {
+                                                        myRfqBloc.add(UpdateMyRfq(
+                                                            status: e.status ==
+                                                                        "Inreview" ||
+                                                                    e.status ==
+                                                                        "Active"
+                                                                ? "Closed"
+                                                                : "Active",
+                                                            id: e.id!));
+                                                        context.pop();
+                                                      },
+                                                      filledBtnText: kClose,
+                                                      outlinedBtnText: kCancel,
+                                                      title:
+                                                          kAreYouSureCloseRfq);
+                                                });
                                           }
                                           if (e.status == "Complete") {
                                             context

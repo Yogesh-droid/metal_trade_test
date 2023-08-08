@@ -18,7 +18,7 @@ class HomePageCardUpSection extends StatelessWidget {
       this.country});
   final String dateTime;
   final String? dateTimeTitle;
-  final String? uuidTitle;
+  final Widget? uuidTitle;
   final Function()? onDetailTapped;
   final String? uuid;
   final String? enquiryType;
@@ -52,10 +52,7 @@ class HomePageCardUpSection extends StatelessWidget {
       ),
       Row(
         children: [
-          Text(
-            uuidTitle ?? uuid ?? '',
-            style: secMed12,
-          ),
+          if (uuidTitle != null) uuidTitle!,
           const SizedBox(width: appPadding),
           if (enquiryType != null)
             Row(children: [

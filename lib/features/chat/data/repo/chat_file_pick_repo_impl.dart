@@ -17,10 +17,18 @@ class ChatFilePickRepoImpl implements ChatFilePickRepo {
       switch (fileSource) {
         case FileSource.camera:
           xFile = await imagePickerManager.pickImageFromCamera();
-          return DataSuccess(data: File(xFile!.path));
+          if (xFile != null) {
+            return DataSuccess(data: File(xFile!.path));
+          } else {
+            throw Exception('No File Selected');
+          }
         case FileSource.gallery:
           xFile = await imagePickerManager.pickImageFromGallery();
-          return DataSuccess(data: File(xFile!.path));
+          if (xFile != null) {
+            return DataSuccess(data: File(xFile!.path));
+          } else {
+            throw Exception('No File Selected');
+          }
         default:
           File file = await imagePickerManager.pickFileFromFiles();
           return DataSuccess(data: file);

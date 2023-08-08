@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:metaltrade/core/constants/app_widgets/context_menu_app_bar.dart';
+import 'package:metaltrade/core/constants/strings.dart';
 
 class ChangeLangauge extends StatelessWidget {
   ChangeLangauge({super.key});
@@ -8,6 +10,7 @@ class ChangeLangauge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const ContextMenuAppBar(title: kChangeLanguage),
       body: ListView.builder(
         itemCount: languages.length,
         itemBuilder: (context, index) => ListTile(

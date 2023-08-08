@@ -55,14 +55,21 @@ void setup() {
   getIt.registerFactory<UpdateRfqRepo>(() => UpdateMyRfqRepoImpl(getIt()));
   getIt.registerFactory<UpdateRfqUsecase>(() => UpdateRfqUsecase(getIt()));
 
+  // Update My quote status
+
+  getIt
+      .registerFactory<UpdateMyQuoteRepo>(() => UpdateMyQuoteRepoImpl(getIt()));
+  getIt.registerFactory<UpdateMyQuoteUsecase>(
+      () => UpdateMyQuoteUsecase(getIt()));
+
   // THis is My Enquiry bloc setup //
   // homePage usecase and repo is used in this as they have same data //
 
   getIt.registerFactory<MyRfqBloc>(() =>
       MyRfqBloc(homePageEnquiryUsecase: getIt(), updateRfqUsecase: getIt()));
 
-  getIt.registerFactory<MyQuoteBloc>(
-      () => MyQuoteBloc(homePageEnquiryUsecase: getIt()));
+  getIt.registerFactory<MyQuoteBloc>(() => MyQuoteBloc(
+      homePageEnquiryUsecase: getIt(), updateMyQuoteUsecase: getIt()));
 
   // setup for create enquiry bloc //
 
@@ -85,10 +92,15 @@ void setup() {
 
   // profile setup //
 
+  getIt.registerFactory<DeleteAccountRepo>(() => DeleteAccRepoImpl(getIt()));
+  getIt.registerFactory<DeleteAccountUsecase>(
+      () => DeleteAccountUsecase(getIt()));
+
   getIt.registerFactory<GetProfileRepo>(() => ProfileRepoImpl(getIt()));
   getIt.registerFactory<GetProfileUsecase>(
       () => GetProfileUsecase(profileRepo: getIt()));
-  getIt.registerFactory<ProfileBloc>(() => ProfileBloc(getIt()));
+  getIt.registerFactory<ProfileBloc>(() =>
+      ProfileBloc(deleteAccountUsecase: getIt(), getProfileUsecase: getIt()));
 
   //  Kyc page setup /   it uses profile entity and profile model
 

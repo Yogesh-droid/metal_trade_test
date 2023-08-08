@@ -1,13 +1,9 @@
-import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/features/profile/ui/widgets/disabled_text_field.dart';
 import 'package:metaltrade/features/rfq/data/models/rfq_enquiry_model.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/cubit/download_file_cubit.dart';
-import 'package:path_provider/path_provider.dart';
-
 import '../../../../core/constants/spaces.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/constants/text_tyles.dart';
@@ -21,6 +17,7 @@ class EnquiryDetailList extends StatelessWidget {
   final Function()? onOutlineTapped;
   final Function()? onFilledTapped;
   final List<Item> itemList;
+  final bool? isPriceShown;
   final String? otherTerms;
   final String? otherAttachmentsName;
   final String? otherAttachmentsUrl;
@@ -35,7 +32,8 @@ class EnquiryDetailList extends StatelessWidget {
       required this.itemList,
       this.otherTerms,
       this.otherAttachmentsName,
-      this.otherAttachmentsUrl});
+      this.otherAttachmentsUrl,
+      this.isPriceShown});
 
   @override
   Widget build(BuildContext context) {
@@ -69,13 +67,13 @@ class EnquiryDetailList extends StatelessWidget {
                 });
                 return DisabledTextField(
                     onTap: () async {
-                      final dir = Directory(
-                          '${(Platform.isAndroid ? "/storage/emulated/0/Download" //FOR ANDROID
-                              : await getApplicationSupportDirectory() //FOR IOS
-                          )}/Metaltrade');
-                      String fullPath =
-                          "${dir.path}/${otherAttachmentsUrl!.split(RegExp(r'[/_-]')).last}";
-                      File file = File(fullPath);
+                      // final dir = Directory(
+                      //     '${(Platform.isAndroid ? "/storage/emulated/0/Download" //FOR ANDROID
+                      //         : await getApplicationSupportDirectory() //FOR IOS
+                      //     )}/Metaltrade');
+                      // String fullPath =
+                      //     "${dir.path}/${otherAttachmentsUrl!.split(RegExp(r'[/_-]')).last}";
+                      // File file = File(fullPath);
                     },
                     hintText: otherAttachmentsName);
               } else if (state is FileDownloadFailed) {
@@ -154,16 +152,27 @@ class EnquiryDetailList extends StatelessWidget {
                               color: Theme.of(context).colorScheme.secondary),
                         )
                       : null,
-                  trailing: RichText(
-                      text: TextSpan(children: [
-                    TextSpan(
-                        text: "${e.quantity} ",
-                        style: secMed12.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface),
-                        children: [
-                          TextSpan(text: "${e.quantityUnit}", style: secMed12)
-                        ]),
-                  ])),
+                  trailing: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      RichText(
+                          text: TextSpan(children: [
+                        TextSpan(
+                            text: "${e.quantity} ",
+                            style: secMed12.copyWith(
+                                color: Theme.of(context).colorScheme.onSurface),
+                            children: [
+                              TextSpan(
+                                  text: "${e.quantityUnit}", style: secMed12)
+                            ]),
+                      ])),
+                      if (isPriceShown != null)
+                        Text(
+                          "\$ ${e.price}",
+                          style: secMed12.copyWith(fontWeight: FontWeight.bold),
+                        )
+                    ],
+                  ),
                 ))
             .toList());
   }

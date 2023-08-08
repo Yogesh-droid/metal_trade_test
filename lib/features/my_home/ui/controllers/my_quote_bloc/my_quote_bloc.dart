@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:metaltrade/features/my_home/domain/usecases/update_my_quote_usecase.dart';
 import 'package:metaltrade/features/rfq/domain/entities/rfq_enquiry_entity.dart';
 import 'package:metaltrade/features/rfq/domain/usecases/rfq_usecase.dart';
 
@@ -13,11 +14,14 @@ part 'my_quote_state.dart';
 
 class MyQuoteBloc extends Bloc<MyQuoteEvent, MyQuoteState> {
   final RfqUsecase homePageEnquiryUsecase;
+  final UpdateMyQuoteUsecase updateMyQuoteUsecase;
   List<Content> myQuoteList = [];
   int myQuoteListPage = 0;
   bool isMyQuoteListEnd = false;
-  MyQuoteBloc({required this.homePageEnquiryUsecase})
-      : super(MyQuoteInitial()) {
+  MyQuoteBloc({
+    required this.homePageEnquiryUsecase,
+    required this.updateMyQuoteUsecase,
+  }) : super(MyQuoteInitial()) {
     on<MyQuoteEvent>((event, emit) async {
       if (event is GetQuoteList) {
         String statusQuery = event.status.isNotEmpty
@@ -49,6 +53,23 @@ class MyQuoteBloc extends Bloc<MyQuoteEvent, MyQuoteState> {
           }
         } on Exception catch (e) {
           emit(MyQuoteFailedState(exception: e));
+        }
+      }
+      if (event is UpdateMyQuoteStatus) {
+        try {
+          final DataState<Content> dataState = await updateMyQuoteUsecase.call(
+              RequestParams(
+                  url: "${baseUrl}user/quote/${event.quoteId}",
+                  apiMethods: ApiMethods.put,
+                  body: {"status": event.status},
+                  header: header));
+          if (dataState.data != null) {
+            emit(MyQuoteUpdateSuccess(true));
+          } else {
+            emit(MyQuoteUpdateFailed(Exception(dataState.exception)));
+          }
+        } on Exception catch (e) {
+          emit(MyQuoteUpdateFailed(e));
         }
       }
     });

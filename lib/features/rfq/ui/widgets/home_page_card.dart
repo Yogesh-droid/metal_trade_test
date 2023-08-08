@@ -5,6 +5,7 @@ import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 import 'package:metaltrade/features/my_home/ui/widgets/home_page_card_up_section.dart';
 import 'package:metaltrade/features/rfq/ui/widgets/home_card_itemlist_widget.dart';
 
+import '../../../../core/constants/text_tyles.dart';
 import '../../../my_home/ui/controllers/my_rfq_bloc/my_rfq_bloc.dart';
 import '../../data/models/rfq_enquiry_model.dart';
 
@@ -49,12 +50,17 @@ class HomePageCard extends StatelessWidget {
             right: appPadding * 2),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           HomePageCardUpSection(
-              dateTime: content!.lastModifiedDate ?? '',
-              enquiryType: enquiryType,
-              onDetailTapped: onDetailTapped,
-              status: content!.status,
-              uuid: content!.uuid,
-              country: country),
+            dateTime: content!.lastModifiedDate ?? '',
+            enquiryType: enquiryType,
+            onDetailTapped: onDetailTapped,
+            status: content!.status,
+            uuid: content!.uuid,
+            country: country,
+            uuidTitle: Text(
+              uuid ?? '',
+              style: secMed12,
+            ),
+          ),
           const Divider(),
           itemListWidget(context),
           const Divider(),

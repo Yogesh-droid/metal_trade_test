@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/features/chat/data/models/chat_response_model.dart';
-import 'package:intl/intl.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../rfq/data/models/rfq_enquiry_model.dart' as rfq_model;
 

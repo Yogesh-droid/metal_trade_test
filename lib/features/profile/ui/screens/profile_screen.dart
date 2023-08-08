@@ -12,6 +12,7 @@ import 'package:metaltrade/features/profile/ui/widgets/change_language_page.dart
 import 'package:metaltrade/features/profile/ui/widgets/option_tile.dart';
 
 import '../../../auth/ui/widgets/app_web_pages.dart';
+import '../widgets/confirmation_sheet.dart';
 import '../widgets/profile_tile.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -42,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: appWidgetGap),
+                const SizedBox(height: appWidgetGap * 2),
                 const ProfileTile(),
                 const SizedBox(height: appPadding),
                 OptionTile(
@@ -96,7 +97,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => const AppWebPages(
-                                  url: "https://metaltrade.io/terms.html")));
+                                  url: "https://metaltrade.io/terms.html",
+                                  title: kTermsOfUse)));
                     }),
                 const SizedBox(height: appPadding),
                 OptionTile(
@@ -106,10 +108,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => const AppWebPages(
-                                  url: "https://metaltrade.io/privacy.html")));
+                                  url: "https://metaltrade.io/privacy.html",
+                                  title: kPrivacyPolicy)));
                     }),
                 const SizedBox(height: appPadding),
-                const OptionTile(title: kDeleteAccount),
+                OptionTile(
+                    title: kDeleteAccount,
+                    onTap: () {
+                      showModalBottomSheet(
+                          isDismissible: true,
+                          showDragHandle: true,
+                          context: context,
+                          builder: (context) {
+                            return ConfirmationSheet(
+                              onConfirmaTapped: () {
+                                context.read<ProfileBloc>().add(DeleteAccount(
+                                    context
+                                            .read<ProfileBloc>()
+                                            .profileEntity!
+                                            .mobileNumber ??
+                                        ''));
+                                context.go(loginPageRoute);
+                              },
+                              title: kDoYouWantToDelete,
+                              filledBtnText: kDeleteAccount,
+                              outlinedBtnText: kCancel,
+                              explanation: kByDeletingAcc,
+                              height: MediaQuery.of(context).size.height / 3,
+                            );
+                          });
+                    }),
                 const SizedBox(height: appPadding),
                 GetStartedBtn(
                     title: kLogout,

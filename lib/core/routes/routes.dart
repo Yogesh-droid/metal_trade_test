@@ -139,7 +139,8 @@ final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
               content: state.extra as Content,
               title: state.uri.queryParameters['title']!,
               country: state.uri.queryParameters['country'],
-              isMyEnquiry: state.uri.queryParameters['isMyEnquiry']),
+              isMyEnquiry: state.uri.queryParameters['isMyEnquiry'],
+              hideBtns: state.uri.queryParameters['hideBtn']),
           animationType: TransitionType.slide,
           duration: const Duration(milliseconds: 200));
     },

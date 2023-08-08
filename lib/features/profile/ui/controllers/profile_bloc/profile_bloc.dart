@@ -6,13 +6,17 @@ import 'package:metaltrade/core/resource/data_state/data_state.dart';
 import 'package:metaltrade/core/resource/request_params/request_params.dart';
 import 'package:metaltrade/features/profile/domain/usecases/get_profile_usecase.dart';
 import '../../../domain/entities/profile_entity.dart';
+import '../../../domain/usecases/delete_acc_usecase.dart';
 part 'profile_event.dart';
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final GetProfileUsecase getProfileUsecase;
+  final DeleteAccountUsecase deleteAccountUsecase;
   ProfileEntity? profileEntity;
-  ProfileBloc(this.getProfileUsecase) : super(ProfileInitial()) {
+  ProfileBloc(
+      {required this.getProfileUsecase, required this.deleteAccountUsecase})
+      : super(ProfileInitial()) {
     on<ProfileEvent>((event, emit) async {
       if (event is GetUserProfileEvent) {
         try {
@@ -42,6 +46,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       if (event is LogoutUserProfileEvent) {
         LocalStorage.instance.deleteToken();
         emit(ProfileLoggedOut());
+      }
+      if (event is DeleteAccount) {
+        deleteAccountUsecase.call(RequestParams(
+            url: '${baseUrl}user/account',
+            apiMethods: ApiMethods.delete,
+            body: {"mobileNumber": event.phoneNo},
+            header: header));
       }
     });
   }

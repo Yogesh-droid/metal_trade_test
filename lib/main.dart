@@ -19,7 +19,6 @@ Future<void> main(List<String> args) async {
     final directory = await getApplicationSupportDirectory();
     Hive.init(directory.path);
   }
-  // StompClientProvider.instance.stompCl.activate();
   runApp(EasyLocalization(
       supportedLocales: const [Locale('en', 'US'), Locale('hi', 'IN')],
       path: 'assets/translations',

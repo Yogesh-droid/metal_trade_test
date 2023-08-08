@@ -12,6 +12,7 @@ import 'package:metaltrade/features/chat/data/models/chat_response_model.dart'
 
 import '../../../../core/routes/routes.dart';
 import '../../../chat/ui/controllers/chat_bloc/chat_bloc.dart';
+import '../../../profile/ui/widgets/confirmation_sheet.dart';
 import '../../../quotes/data/models/quote_res_model.dart' as quote_res_model;
 
 class RfqDetailPage extends StatelessWidget {
@@ -20,11 +21,13 @@ class RfqDetailPage extends StatelessWidget {
       required this.content,
       required this.title,
       this.country,
-      required this.isMyEnquiry});
+      required this.isMyEnquiry,
+      this.hideBtns});
   final Content content;
   final String title;
   final String? country;
   final String? isMyEnquiry;
+  final String? hideBtns;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,11 @@ class RfqDetailPage extends StatelessWidget {
             EnquiryDetailHeading(
               datePosted: content.lastModifiedDate ?? '',
               status: content.status ?? '',
-              uuid: content.uuid ?? '',
+              // Hide btn below means no CTA that is used
+              // only for enquiryDetail, no action needed i.e. redirected from MyQuotes
+              uuid: hideBtns == null
+                  ? content.enquiry!.uuid ?? ''
+                  : content.uuid ?? '',
               country: country,
             ),
             const Divider(),
@@ -46,50 +53,76 @@ class RfqDetailPage extends StatelessWidget {
                   content.transportationTermsDisplay ?? '',
               itemList: content.item ?? [],
               otherTerms: content.otherTerms,
-              otherAttachmentsName:
-                  content.otherAttachmentsName!.split(RegExp(r'[/_-]')).last,
+              otherAttachmentsName: content.otherAttachmentsName != null
+                  ? content.otherAttachmentsName!.split(RegExp(r'[/_-]')).last
+                  : null,
               otherAttachmentsUrl: content.otherAttachmentsUrl,
-              filledBtnText: isMyEnquiry != null
-                  ? kSubmitQuote
-                  : content.status == 'Inreview' || content.status == "Active"
-                      ? kCloseRfq
-                      : null,
-              onFilledTapped: () {
-                if (isMyEnquiry != null) {
-                  context.pushReplacementNamed(submitQuotePageName,
-                      extra: content);
-                } else {
-                  context.read<MyRfqBloc>().add(UpdateMyRfq(
-                      status: content.status == "Inreview" ||
+              filledBtnText: hideBtns == null
+                  ? null
+                  : isMyEnquiry != null
+                      ? kSubmitQuote
+                      : content.status == 'Inreview' ||
                               content.status == "Active"
-                          ? "Closed"
-                          : "Active",
-                      id: content.id!));
-                  context.pop();
-                }
-              },
-              onOutlineTapped: () {
-                context.read<ChatBloc>().add(GetPreviousChatEvent(
-                    chatType: ChatType.enquiry.name,
-                    enquiryId: content.id,
-                    page: 0));
-                context.pushNamed(chatPageName,
-                    queryParameters: {'room': content.uuid ?? ''},
-                    extra: chat_res.Content(
-                        body: chat_res.Body(
-                          chatMessageType: "Enquiry",
-                          enquiry: quote_res_model.Enquiry(
-                            lastModifiedDate: DateTime.now().toString(),
-                            id: content.id,
-                            item: content.item,
-                            uuid: content.uuid,
-                          ),
-                        ),
-                        enquiryId: content.id,
-                        lastModifiedDate: DateTime.now(),
-                        status: "Unseen"));
-              },
-              outlinedButtonText: content.status == "Inreview" ? null : kChat,
+                          ? kCloseRfq
+                          : null,
+              onFilledTapped: hideBtns == null
+                  ? null
+                  : () {
+                      if (isMyEnquiry != null) {
+                        context.pushReplacementNamed(submitQuotePageName,
+                            extra: content);
+                      } else {
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return ConfirmationSheet(
+                                  explanation: kThisWillRemoveRfq,
+                                  height:
+                                      MediaQuery.of(context).size.height / 3,
+                                  onConfirmaTapped: () {
+                                    context.read<MyRfqBloc>().add(UpdateMyRfq(
+                                        status: content.status == "Inreview" ||
+                                                content.status == "Active"
+                                            ? "Closed"
+                                            : "Active",
+                                        id: content.id!));
+                                    context.pop();
+                                    context.pop();
+                                  },
+                                  filledBtnText: kClose,
+                                  outlinedBtnText: kCancel,
+                                  title: kAreYouSureCloseRfq);
+                            });
+                      }
+                    },
+              onOutlineTapped: hideBtns == null
+                  ? null
+                  : () {
+                      context.read<ChatBloc>().add(GetPreviousChatEvent(
+                          chatType: ChatType.enquiry.name,
+                          enquiryId: content.id,
+                          page: 0));
+                      context.pushNamed(chatPageName,
+                          queryParameters: {'room': content.uuid ?? ''},
+                          extra: chat_res.Content(
+                              body: chat_res.Body(
+                                chatMessageType: "Enquiry",
+                                enquiry: quote_res_model.Enquiry(
+                                  lastModifiedDate: DateTime.now().toString(),
+                                  id: content.id,
+                                  item: content.item,
+                                  uuid: content.uuid,
+                                ),
+                              ),
+                              enquiryId: content.id,
+                              lastModifiedDate: DateTime.now(),
+                              status: "Unseen"));
+                    },
+              outlinedButtonText: hideBtns == null
+                  ? null
+                  : content.status == "Inreview"
+                      ? null
+                      : kChat,
             ))
           ],
         ));

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
@@ -15,6 +16,7 @@ import '../../../profile/domain/entities/profile_entity.dart';
 import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import '../../../profile/ui/widgets/kyc_dialog.dart';
 import '../../../quotes/data/models/quote_res_model.dart';
+import '../../../quotes/ui/controllers/accept_quote_bloc/accept_quote_bloc.dart';
 import '../widgets/home_page_quote_card.dart';
 
 class MyQuoteScreen extends StatefulWidget {
@@ -63,64 +65,89 @@ class _MyQuoteScreenState extends State<MyQuoteScreen> {
                     controller: scrollController,
                     child: Column(
                       children: [
-                        BlocBuilder<MyQuoteBloc, MyQuoteState>(
-                            builder: (context, state) {
-                          if (state is MyQuoteInitial) {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          } else if (state is MyQuoteFetchedState ||
-                              state is MyQuoteLoadMore) {
-                            return ListView(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              children: myQuoteBloc.myQuoteList
-                                  .map((e) => HomePageQuoteCard(
-                                        content: e,
-                                        itemList: e.item,
-                                        country: e.quoteCompany!.country!.name,
-                                        uuid: e.uuid,
-                                        filledBtnTitle: e.status == 'Inreview'
-                                            ? kCancel
-                                            : null,
-                                        borderedBtnTitle: e.status == 'Inreview'
-                                            ? null
-                                            : kChat,
-                                        onBorderedBtnTapped: () {
-                                          context.read<ChatBloc>().add(
-                                              GetPreviousChatEvent(
-                                                  chatType: ChatType.quote.name,
-                                                  quoteId: e.id,
-                                                  page: 0));
-                                          context.pushNamed(chatPageName,
-                                              queryParameters: {
-                                                'room': e.uuid ?? ''
-                                              },
-                                              extra: chat_res.Content(
-                                                  body: chat_res.Body(
-                                                    chatMessageType: "Quote",
-                                                    quote: Enquiry(
-                                                      lastModifiedDate:
-                                                          DateTime.now()
-                                                              .toString(),
-                                                      id: e.id,
-                                                      item: e.item,
-                                                      uuid: e.uuid,
+                        BlocListener<AcceptQuoteBloc, AcceptQuoteState>(
+                          listener: (context, state) {
+                            if (state is QuoteCancelledSuccess) {
+                              Fluttertoast.showToast(
+                                  msg: 'Quote Cancelled Successfully');
+                              myQuoteBloc.add(GetQuoteList(
+                                  isLoadMore: false,
+                                  page: 0,
+                                  status: context
+                                      .read<QuoteFilterCubit>()
+                                      .statusList));
+                            } else if (state is QuoteCancelFailed) {
+                              Fluttertoast.showToast(
+                                  msg: state.exception.toString());
+                            }
+                          },
+                          child: BlocBuilder<MyQuoteBloc, MyQuoteState>(
+                              builder: (context, state) {
+                            if (state is MyQuoteInitial) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            } else if (state is MyQuoteFetchedState ||
+                                state is MyQuoteLoadMore) {
+                              return ListView(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                children: myQuoteBloc.myQuoteList
+                                    .map((e) => HomePageQuoteCard(
+                                          content: e,
+                                          itemList: e.item,
+                                          country:
+                                              e.quoteCompany!.country!.name,
+                                          uuid: e.uuid,
+                                          filledBtnTitle: e.status == 'Inreview'
+                                              ? kCancel
+                                              : null,
+                                          borderedBtnTitle:
+                                              e.status == 'Inreview'
+                                                  ? null
+                                                  : kChat,
+                                          onBorderedBtnTapped: () {
+                                            context.read<ChatBloc>().add(
+                                                GetPreviousChatEvent(
+                                                    chatType:
+                                                        ChatType.quote.name,
+                                                    quoteId: e.id,
+                                                    page: 0));
+                                            context.pushNamed(chatPageName,
+                                                queryParameters: {
+                                                  'room': e.uuid ?? ''
+                                                },
+                                                extra: chat_res.Content(
+                                                    body: chat_res.Body(
+                                                      chatMessageType: "Quote",
+                                                      quote: Enquiry(
+                                                        lastModifiedDate:
+                                                            DateTime.now()
+                                                                .toString(),
+                                                        id: e.id,
+                                                        item: e.item,
+                                                        uuid: e.uuid,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  quoteId: e.id,
-                                                  enquiryId: e.enquiry!.id!,
-                                                  lastModifiedDate:
-                                                      DateTime.now(),
-                                                  status: "Unseen"));
-                                        },
-                                        onFilledBtnTapped: () {},
-                                      ))
-                                  .toList(),
-                            );
-                          } else {
-                            return const Center(child: Text("Some Error"));
-                          }
-                        }),
+                                                    quoteId: e.id,
+                                                    enquiryId: e.enquiry!.id!,
+                                                    lastModifiedDate:
+                                                        DateTime.now(),
+                                                    status: "Unseen"));
+                                          },
+                                          onFilledBtnTapped: () {
+                                            context.read<AcceptQuoteBloc>().add(
+                                                QuoteCancelEvent(
+                                                    quoteId: e.id ?? 0,
+                                                    status: 'Closed'));
+                                          },
+                                        ))
+                                    .toList(),
+                              );
+                            } else {
+                              return const Center(child: Text("Some Error"));
+                            }
+                          }),
+                        ),
                         SizedBox(
                           height: 100,
                           child: BlocBuilder<MyQuoteBloc, MyQuoteState>(

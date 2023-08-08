@@ -124,7 +124,12 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
                                                             id: e.id!));
                                                         context.pop();
                                                       },
-                                                      filledBtnText: kClose,
+                                                      fillesBtnColor:
+                                                          Theme.of(context)
+                                                              .colorScheme
+                                                              .primary,
+                                                      filledBtnText:
+                                                          "Yes Continue",
                                                       outlinedBtnText: kCancel,
                                                       title:
                                                           kAreYouSureCloseRfq);

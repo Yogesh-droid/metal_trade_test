@@ -9,6 +9,7 @@ import '../../../../core/constants/app_widgets/context_menu_app_bar.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../chat/ui/controllers/chat_bloc/chat_bloc.dart';
 import '../../../quotes/data/models/quote_res_model.dart' as quote_res;
+import '../../../quotes/ui/controllers/accept_quote_bloc/accept_quote_bloc.dart';
 import '../../../rfq/data/models/rfq_enquiry_model.dart';
 import '../../../rfq/ui/widgets/enquiry_detail_heading.dart';
 import '../../../rfq/ui/widgets/enquiry_detail_list.dart';
@@ -37,7 +38,11 @@ class MyQuoteDetailPage extends StatelessWidget {
               itemList: content.item ?? [],
               otherTerms: content.otherTerms,
               filledBtnText: content.status == 'Inreview' ? kCancel : null,
-              onFilledTapped: () {},
+              onFilledTapped: () {
+                context.read<AcceptQuoteBloc>().add(QuoteCancelEvent(
+                    quoteId: content.id ?? 0, status: 'Closed'));
+                context.pop();
+              },
               onOutlineTapped: () {
                 context.read<ChatBloc>().add(GetPreviousChatEvent(
                     chatType: ChatType.quote.name,

@@ -13,12 +13,14 @@ class ConfirmationSheet extends StatelessWidget {
       this.explanation,
       this.height,
       required this.filledBtnText,
-      required this.outlinedBtnText});
+      required this.outlinedBtnText,
+      this.fillesBtnColor});
   final Function() onConfirmaTapped;
   final String title;
   final String? explanation;
   final double? height;
   final String filledBtnText;
+  final Color? fillesBtnColor;
   final String outlinedBtnText;
 
   @override
@@ -51,15 +53,14 @@ class ConfirmationSheet extends StatelessWidget {
           ]),
         ),
         const Divider(),
-        const SizedBox(height: appPadding),
         Padding(
-          padding: const EdgeInsets.all(appPadding * 2),
+          padding: const EdgeInsets.symmetric(horizontal: appPadding * 2),
           child: Text(explanation ?? '',
-              style: secMed18.copyWith(fontWeight: FontWeight.w400)),
+              style: secMed14.copyWith(fontWeight: FontWeight.w400)),
         ),
         const Spacer(),
         Padding(
-          padding: const EdgeInsets.all(appPadding * 2),
+          padding: const EdgeInsets.symmetric(horizontal: appPadding * 2),
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             FilledButtonWidget(
@@ -67,14 +68,15 @@ class ConfirmationSheet extends StatelessWidget {
                 onPressed: () {
                   onConfirmaTapped();
                 },
-                color: Colors.red[900]),
+                color: fillesBtnColor ?? Colors.red[900]),
             OutlinedButtonWidget(
                 title: outlinedBtnText,
                 onPressed: () {
                   context.pop();
                 })
           ]),
-        )
+        ),
+        const SizedBox(height: appWidgetGap)
       ]),
     );
   }

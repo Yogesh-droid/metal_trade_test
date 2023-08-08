@@ -1,4 +1,5 @@
 import 'package:metaltrade/core/constants/hive/local_storage.dart';
+import 'package:dio/dio.dart';
 
 class RequestParams {
   final String url;
@@ -7,6 +8,7 @@ class RequestParams {
   final Map<String, dynamic>? header;
   final String? filePath;
   final String? fileName;
+  final ResponseType? responseType;
 
   const RequestParams(
       {required this.url,
@@ -14,6 +16,7 @@ class RequestParams {
       this.body,
       this.header,
       this.filePath,
+      this.responseType,
       this.fileName});
 }
 

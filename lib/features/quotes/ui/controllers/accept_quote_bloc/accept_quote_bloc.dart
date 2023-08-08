@@ -30,6 +30,24 @@ class AcceptQuoteBloc extends Bloc<AcceptQuoteEvent, AcceptQuoteState> {
           emit(AcceptQuoteFailed(e));
         }
       }
+      if (event is QuoteCancelEvent) {
+        try {
+          final DataState<AcceptQuoteResEntity> dataState =
+              await accetpQuoteUsecase.call(RequestParams(
+                  url: "${baseUrl}user/quote/${event.quoteId}",
+                  apiMethods: ApiMethods.put,
+                  body: {'status': event.status},
+                  header: header));
+
+          if (dataState.data != null) {
+            emit(QuoteCancelledSuccess());
+          } else {
+            emit(QuoteCancelFailed(Exception(dataState.exception)));
+          }
+        } on Exception catch (e) {
+          emit(QuoteCancelFailed(e));
+        }
+      }
     });
   }
 }

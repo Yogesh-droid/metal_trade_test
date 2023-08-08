@@ -56,7 +56,7 @@ class ChatWithImage extends StatelessWidget {
                         Future.delayed(const Duration(seconds: 1), () {
                           Fluttertoast.showToast(
                               msg:
-                                  'File Could not be downloaded, Please try again');
+                                  'File Could not be downloaded, Please try again ${state.exception}');
                         });
                       }
                       return SizedBox(

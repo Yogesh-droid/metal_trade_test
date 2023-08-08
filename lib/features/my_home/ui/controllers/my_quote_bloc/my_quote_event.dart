@@ -10,3 +10,10 @@ class GetQuoteList extends MyQuoteEvent {
 
   GetQuoteList({required this.status, required this.isLoadMore, this.page});
 }
+
+class UpdateQuoteStatus extends MyQuoteEvent {
+  final int quoteId;
+  final String status;
+
+  UpdateQuoteStatus({required this.quoteId, required this.status});
+}

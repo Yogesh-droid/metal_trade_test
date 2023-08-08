@@ -16,3 +16,11 @@ class AcceptQuoteFailed extends AcceptQuoteState {
 
   AcceptQuoteFailed(this.exception);
 }
+
+class QuoteCancelledSuccess extends AcceptQuoteState {}
+
+class QuoteCancelFailed extends AcceptQuoteState {
+  final Exception exception;
+
+  QuoteCancelFailed(this.exception);
+}

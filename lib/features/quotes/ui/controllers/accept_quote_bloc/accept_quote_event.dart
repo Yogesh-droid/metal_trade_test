@@ -9,3 +9,10 @@ class QuoteAcceptEvent extends AcceptQuoteEvent {
 
   QuoteAcceptEvent({required this.quoteId, required this.status});
 }
+
+class QuoteCancelEvent extends AcceptQuoteEvent {
+  final int quoteId;
+  final String status;
+
+  QuoteCancelEvent({required this.quoteId, required this.status});
+}

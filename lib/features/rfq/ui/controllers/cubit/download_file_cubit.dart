@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/resource/data_state/data_state.dart';
@@ -19,12 +20,15 @@ class DownloadFileCubit extends Cubit<DownloadFileState> {
   Future<void> downloadFile(String url) async {
     try {
       DataState<List<int>> dataState = await downloadFileUsecase.call(
-          RequestParams(url: url, apiMethods: ApiMethods.get, header: header),
-          onReceiveProgress: (value) {
+          RequestParams(
+              url: url,
+              apiMethods: ApiMethods.get,
+              responseType: ResponseType.bytes,
+              header: header), onReceiveProgress: (value) {
         emit(FileDownloading(value));
       });
       if (dataState.data != null) {
-        saveFile(data: dataState.data, url: url);
+        saveFile(data: dataState.data!, url: url);
         emit(DownloadFileSuccess(true));
       } else {
         emit(FileDownloadFailed(Exception(dataState.exception)));

@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../request_params/request_params.dart';
 import 'client.dart';
@@ -12,7 +14,10 @@ class NetworkManager {
   Future<Response?> makeNetworkRequest(RequestParams requestParams,
       {Function(int)? onsendProgress, Function(int)? onReceiveProgress}) async {
     Response? response;
-    Options options = Options(headers: requestParams.header);
+    Options options = Options(
+      headers: requestParams.header,
+      responseType: requestParams.responseType,
+    );
     switch (requestParams.apiMethods) {
       case ApiMethods.get:
         debugPrint(requestParams.url);
@@ -41,7 +46,9 @@ class NetworkManager {
         try {
           response = await _dio.download(
             requestParams.url,
-            '/storage/emulated/0/Download',
+            '${(Platform.isAndroid ? "/storage/emulated/0/Download" //FOR ANDROID
+                : await getApplicationSupportDirectory() //FOR IOS
+            )}/Metaltrade',
             options: options,
             onReceiveProgress: (count, total) {
               if (onReceiveProgress != null) {

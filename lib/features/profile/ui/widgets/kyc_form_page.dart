@@ -219,7 +219,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
               padding: const EdgeInsets.all(appPadding),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text("Kyc Details",
+                child: Text("KYC Details",
                         style: secMed10.copyWith(
                             color: Theme.of(context).colorScheme.outline))
                     .tr(),

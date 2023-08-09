@@ -5,10 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/core/constants/validator_mixin.dart';
-import 'package:metaltrade/core/routes/routes.dart';
-import 'package:metaltrade/features/chat/ui/controllers/chat_home/chat_home_bloc.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
-import 'package:metaltrade/features/news/ui/controllers/news_bloc/news_bloc.dart';
 import 'package:metaltrade/features/profile/data/models/kyc_request_model.dart';
 import 'package:metaltrade/features/profile/domain/entities/profile_entity.dart';
 import 'package:metaltrade/features/profile/ui/controllers/country_cubit/country_cubit.dart';
@@ -66,13 +63,6 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
     if (countryCubit.state is CountryInitial) {
       countryCubit.getCountries();
     }
-    context.read<KycBloc>().stream.listen((state) {
-      if (state is KycDoneState) {
-        onKycDone(context);
-      } else if (state is KycFailedState) {
-        onKycFailed(state.exception, context);
-      }
-    });
     super.initState();
   }
 
@@ -134,11 +124,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
                 addressFocus.requestFocus();
               },
               onValidate: (value) {
-                if (isMobileValid(value!)) {
-                  return null;
-                } else {
-                  return 'Enter valid mobile no';
-                }
+                return null;
               },
             ),
             const SizedBox(height: appFormFieldGap),
@@ -241,28 +227,40 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
             ),
             const AttachmentList(),
             const SizedBox(height: appFormFieldGap),
-            FilledButtonWidget(
-                title: kSubmit,
-                onPressed: () {
-                  if (KycFormPage._formKey.currentState!.validate()) {
-                    final KycBloc kycBloc = context.read<KycBloc>();
-                    List<KycDocument> docList = [];
-                    for (var element in kycBloc.url) {
-                      docList.add(KycDocument.fromJson({"imageUrl": element}));
+            BlocListener<KycBloc, KycState>(
+              listener: (context, state) {
+                if (state is KycDoneState) {
+                  onKycDone(context);
+                } else if (state is KycFailedState) {
+                  onKycFailed(state.exception, context);
+                }
+              },
+              child: FilledButtonWidget(
+                  title: kSubmit,
+                  onPressed: () {
+                    if (KycFormPage._formKey.currentState!.validate()) {
+                      final KycBloc kycBloc = context.read<KycBloc>();
+                      List<KycDocument> docList = [];
+                      for (var element in kycBloc.url) {
+                        docList
+                            .add(KycDocument.fromJson({"imageUrl": element}));
+                      }
+                      kycBloc.add(DoKycEvent(KycRequestModel(
+                          id: profileBloc.profileEntity!.id,
+                          address: addressController.text,
+                          companyNumber: phoneController.text,
+                          email: emailController.text,
+                          name: companyNameController.text,
+                          bankAccountNumber: accNoController.text,
+                          country: Country(id: selectedCountry),
+                          pinCode: pinController.text,
+                          bankName: bankNameController.text,
+                          swiftCode: swiftCodeController.text,
+                          kycDocument: docList)));
                     }
-                    kycBloc.add(DoKycEvent(KycRequestModel(
-                        id: profileBloc.profileEntity!.id,
-                        address: addressController.text,
-                        companyNumber: phoneController.text,
-                        email: emailController.text,
-                        name: companyNameController.text,
-                        bankAccountNumber: accNoController.text,
-                        country: Country(id: selectedCountry),
-                        pinCode: pinController.text,
-                        kycDocument: docList)));
-                  }
-                },
-                width: MediaQuery.of(context).size.width)
+                  },
+                  width: MediaQuery.of(context).size.width),
+            )
           ]),
         ),
       ),
@@ -275,7 +273,9 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
         if (state is CountrySuccess) {
           return DropdownButtonFormField<int>(
               //hint: const Text(kChooseCountry),
-              value: widget.profileEntity.company!.country!.id,
+              value: widget.profileEntity.company != null
+                  ? widget.profileEntity.company!.country!.id
+                  : null,
               focusNode: countryFocus,
               validator: (value) {
                 if (value != null) {
@@ -331,55 +331,20 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
   }
 
   void onKycDone(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          context.read<ProfileBloc>().add(GetUserProfileEvent());
-          context.read<ChatHomeBloc>().add(GetChatHomeList(page: 0));
-          context.read<NewsBloc>().add(GetAllNewsEvent(page: 0));
-          return AlertDialog(
-            content: Text(
-              "Congratulation! KYC is done",
-              style: secMed15.copyWith(fontWeight: FontWeight.w700),
-            ).tr(),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text(kBack).tr()),
-              TextButton(
-                  onPressed: () {
-                    context.pop();
-                    context.pushReplacementNamed(profilePageName);
-                  },
-                  child: const Text(kMyProfile).tr())
-            ],
-          );
-        });
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: Text("Thanks for letting us know about you")));
+    context.read<ProfileBloc>().add(GetUserProfileEvent());
+    Future.delayed(const Duration(seconds: 1), () {
+      context.pop();
+    });
   }
 
   void onKycFailed(Exception exception, BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              content: Text(
-                exception.toString(),
-                style: secMed15.copyWith(fontWeight: FontWeight.w700),
-              ).tr(),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text(kCancel).tr()),
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text(kRetry).tr())
-              ],
-            ));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: Text(
+            "Sorry !! Your information is not being uploaded. Please try again \n $exception")));
   }
 
   void assignPrefilledText() {

@@ -24,7 +24,12 @@ class AttachmentList extends StatelessWidget {
             }
           },
           child: BlocBuilder<KycBloc, KycState>(builder: (context, state) {
-            if (state is KycFIleUploadSuccess) {
+            print("State is $state");
+            if (state is KycFIleUploadSuccess ||
+                state is KycInitial ||
+                state is KycFileUploadFailed) {
+              print(
+                  "Length receive in builder is ${context.read<KycBloc>().url.length}");
               return ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),

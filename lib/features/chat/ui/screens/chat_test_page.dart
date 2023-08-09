@@ -157,29 +157,32 @@ class ChatTestPageState extends State<ChatTestPage> {
                                       context
                                           .read<ChatBloc>()
                                           .add(AddNewChat(widget.content!));
-                                      stompClient!.send(
-                                        destination: '/mtp/chat',
-                                        headers: {
-                                          'Authorization':
-                                              'Bearer ${LocalStorage.instance.token}'
-                                        },
-                                        body: json.encode({
-                                          "senderCompanyId": senderId,
-                                          "enquiryId":
-                                              widget.content!.enquiryId,
-                                          "quoteId":
-                                              widget.content!.quoteId ?? '',
-                                          "body": {
-                                            "chatMessageType": "Enquiry",
-                                            "enquiry": {
-                                              "id": widget.content!.enquiryId
-                                            },
-                                            "quote": {
-                                              "id": widget.content!.quoteId
+                                      Future.delayed(const Duration(seconds: 1),
+                                          () {
+                                        stompClient!.send(
+                                          destination: '/mtp/chat',
+                                          headers: {
+                                            'Authorization':
+                                                'Bearer ${LocalStorage.instance.token}'
+                                          },
+                                          body: json.encode({
+                                            "senderCompanyId": senderId,
+                                            "enquiryId":
+                                                widget.content!.enquiryId,
+                                            "quoteId":
+                                                widget.content!.quoteId ?? '',
+                                            "body": {
+                                              "chatMessageType": "Enquiry",
+                                              "enquiry": {
+                                                "id": widget.content!.enquiryId
+                                              },
+                                              "quote": {
+                                                "id": widget.content!.quoteId
+                                              }
                                             }
-                                          }
-                                        }),
-                                      );
+                                          }),
+                                        );
+                                      });
                                       Future.delayed(const Duration(seconds: 2),
                                           () {
                                         context

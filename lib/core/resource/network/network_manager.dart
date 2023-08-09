@@ -21,6 +21,7 @@ class NetworkManager {
     switch (requestParams.apiMethods) {
       case ApiMethods.get:
         debugPrint(requestParams.url);
+        // debugPrint(requestParams.header.toString());
         try {
           response = await _dio.get(
             requestParams.url,

@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/hive/local_storage.dart';
+import 'package:metaltrade/core/resource/request_params/request_params.dart';
 import 'package:metaltrade/core/routes/routes.dart';
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import 'package:pinput/pinput.dart';
@@ -101,6 +101,12 @@ class _PinPutPageState extends State<PinPutPage> {
                       await LocalStorage.instance
                           .saveToken(state.token)
                           .then((value) {
+                        debugPrint("token is =>=>=>=>  ${state.token}");
+                        header = {
+                          "Authorization":
+                              "Bearer ${LocalStorage.instance.token}",
+                          "Content-Type": "application/json"
+                        };
                         Future.delayed(const Duration(milliseconds: 200), () {
                           context
                               .read<ProfileBloc>()
@@ -125,7 +131,7 @@ class _PinPutPageState extends State<PinPutPage> {
             if (!showResendBtn)
               Align(
                   alignment: Alignment.center,
-                  child: Text("Resend OTP in $start seconds").tr())
+                  child: Text("Resend OTP in $start seconds"))
             else
               Align(
                 alignment: Alignment.center,

@@ -5,11 +5,15 @@ import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/routes/routes.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
+import 'package:metaltrade/features/my_home/ui/controllers/my_quote_bloc/my_quote_bloc.dart';
+import 'package:metaltrade/features/my_home/ui/controllers/my_rfq_bloc/my_rfq_bloc.dart';
 import 'package:metaltrade/features/profile/ui/controllers/add_member_cubit/add_member_cubit.dart';
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import 'package:metaltrade/features/profile/ui/widgets/add_member_widget.dart';
 import 'package:metaltrade/features/profile/ui/widgets/change_language_page.dart';
 import 'package:metaltrade/features/profile/ui/widgets/option_tile.dart';
+import 'package:metaltrade/features/rfq/ui/controllers/rfq_buyer_enquiry_bloc/rfq_buyer_enquiry_bloc.dart';
+import 'package:metaltrade/features/rfq/ui/controllers/rfq_seller_enquiry_bloc/rfq_seller_enquiry_bloc.dart';
 
 import '../../../auth/ui/widgets/app_web_pages.dart';
 import '../widgets/confirmation_sheet.dart';
@@ -26,9 +30,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController phoneNoFieldController = TextEditingController();
   @override
   void initState() {
-    if (context.read<AddMemberCubit>().allEmployeeList.isEmpty) {
-      context.read<AddMemberCubit>().getAllEmployees();
-    }
+    context.read<AddMemberCubit>().getAllEmployees();
     super.initState();
   }
 
@@ -143,6 +145,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     title: kLogout,
                     onPressed: () {
                       context.read<ProfileBloc>().add(LogoutUserProfileEvent());
+                      context.read<MyQuoteBloc>().myQuoteList.clear();
+                      context.read<MyRfqBloc>().myRfqList.clear();
+                      context.read<RfqBuyerEnquiryBloc>().buyerRfqList.clear();
+                      context
+                          .read<RfqSellerEnquiryBloc>()
+                          .sellerRfqList
+                          .clear();
                       context.go(loginPageRoute);
                     },
                     height: 48,

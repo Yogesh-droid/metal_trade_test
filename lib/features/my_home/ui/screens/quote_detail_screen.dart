@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
+import 'package:metaltrade/features/my_home/ui/controllers/my_quote_bloc/my_quote_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_rfq_bloc/my_rfq_bloc.dart';
 import 'package:metaltrade/features/quotes/ui/controllers/accept_quote_bloc/accept_quote_bloc.dart';
 import 'package:metaltrade/features/rfq/data/models/rfq_enquiry_model.dart';
@@ -17,6 +18,7 @@ import '../../../../core/routes/routes.dart';
 import '../../../chat/ui/controllers/chat_bloc/chat_bloc.dart';
 import '../../../quotes/data/models/quote_res_model.dart' as quote_res;
 import '../controllers/quote_detail_list_bloc/quote_detail_list_bloc.dart';
+import '../controllers/quote_filter_cubit/quote_filter_cubit.dart';
 
 class QuoteDetailScreen extends StatefulWidget {
   const QuoteDetailScreen({super.key, required this.content});
@@ -84,19 +86,29 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
                               itemBuilder: (context, index) => QuoteDetailCard(
                                     item: quoteDetailListBloc
                                         .contentList[index].item!,
-                                    uuid: widget.content.uuid!,
-                                    lastDateModified:
-                                        widget.content.lastModifiedDate,
-                                    outlinedBtnText: kChat,
+                                    uuid: quoteDetailListBloc
+                                            .contentList[index].uuid ??
+                                        '',
+                                    lastDateModified: quoteDetailListBloc
+                                        .contentList[index].lastModifiedDate,
+                                    outlinedBtnText: quoteDetailListBloc
+                                                .contentList[index].status ==
+                                            "Active"
+                                        ? kChat
+                                        : null,
                                     onOutlinedBtnTapped: () {
                                       context.read<ChatBloc>().add(
                                           GetPreviousChatEvent(
                                               chatType: ChatType.quote.name,
-                                              quoteId: widget.content.id,
+                                              quoteId: quoteDetailListBloc
+                                                  .contentList[index].id,
+                                              enquiryId: widget.content.id,
                                               page: 0));
                                       context.pushNamed(chatPageName,
                                           queryParameters: {
-                                            'room': widget.content.uuid ?? ''
+                                            'room': quoteDetailListBloc
+                                                    .contentList[index].uuid ??
+                                                ''
                                           },
                                           extra: chat_res.Content(
                                               body: chat_res.Body(
@@ -104,23 +116,39 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
                                                 quote: quote_res.Enquiry(
                                                   lastModifiedDate:
                                                       DateTime.now().toString(),
-                                                  id: widget.content.id,
-                                                  item: widget.content.item,
-                                                  uuid: widget.content.uuid,
+                                                  id: quoteDetailListBloc
+                                                      .contentList[index].id,
+                                                  item: quoteDetailListBloc
+                                                      .contentList[index].item,
+                                                  uuid: quoteDetailListBloc
+                                                      .contentList[index].uuid,
                                                 ),
                                               ),
-                                              quoteId: widget.content.id,
-                                              enquiryId:
-                                                  widget.content.enquiry!.id!,
+                                              quoteId: quoteDetailListBloc
+                                                  .contentList[index].id,
+                                              enquiryId: widget.content.id,
                                               lastModifiedDate: DateTime.now(),
                                               status: "Unseen"));
                                     },
-                                    filledBtnText: kAccept,
+                                    filledBtnText: quoteDetailListBloc
+                                                .contentList[index].status ==
+                                            "Active"
+                                        ? kAccept
+                                        : null,
                                     onFilledBtnTapped: () {
                                       context.read<AcceptQuoteBloc>().add(
                                           QuoteAcceptEvent(
-                                              quoteId: widget.content.id ?? 0,
+                                              quoteId: quoteDetailListBloc
+                                                      .contentList[index].id ??
+                                                  0,
                                               status: 'Complete'));
+                                      context.read<MyQuoteBloc>().add(
+                                          GetQuoteList(
+                                              isLoadMore: false,
+                                              page: 0,
+                                              status: context
+                                                  .read<QuoteFilterCubit>()
+                                                  .statusList));
                                       context.pop();
                                     },
                                   )),

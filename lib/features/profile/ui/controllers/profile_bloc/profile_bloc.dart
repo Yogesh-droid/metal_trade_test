@@ -45,6 +45,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       }
       if (event is LogoutUserProfileEvent) {
         LocalStorage.instance.deleteToken();
+
         emit(ProfileLoggedOut());
       }
       if (event is DeleteAccount) {

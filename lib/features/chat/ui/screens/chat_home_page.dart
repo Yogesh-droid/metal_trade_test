@@ -29,6 +29,7 @@ class _ChatHomePageState extends State<ChatHomePage> {
   @override
   void initState() {
     chatHomeBloc = context.read<ChatHomeBloc>();
+    chatHomeBloc.chatList.clear();
     chatHomeBloc.add(GetChatHomeList(page: 0));
     scrollController = ScrollController();
     scrollController.addListener(() {

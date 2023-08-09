@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:metaltrade/core/resource/data_state/data_state.dart';
 import 'package:metaltrade/core/resource/network/network_manager.dart';
@@ -19,8 +16,6 @@ class DownloadFileRepoImpl implements DownloadFileRepo {
       response = await networkManager.makeNetworkRequest(params,
           onReceiveProgress: onReceiveProgress);
       if (response!.data != null) {
-        // return DataSuccess(data: utf8.encode(response.data));
-        print(response.data);
         return DataSuccess(data: response.data);
       } else {
         return DataError(exception: Exception(response.statusMessage));

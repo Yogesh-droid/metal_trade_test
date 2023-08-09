@@ -63,7 +63,6 @@ class _MyHomePageState extends State<MyHomePage>
                 }
               } else if (value == 2) {
                 context.read<EnquiryFilePickCubit>().emitInitiaState();
-
                 if (myQuoteBloc.myQuoteList.isEmpty &&
                     !myQuoteBloc.isMyQuoteListEnd) {
                   myQuoteBloc.add(GetQuoteList(

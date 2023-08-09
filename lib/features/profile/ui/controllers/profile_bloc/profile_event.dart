@@ -12,3 +12,5 @@ class DeleteAccount extends ProfileEvent {
 
   DeleteAccount(this.phoneNo);
 }
+
+class EmitKycDoneEvent extends ProfileEvent {}

@@ -13,9 +13,7 @@ import 'package:metaltrade/features/chat/ui/controllers/chat_file_pick_cubit/cha
 import 'package:metaltrade/features/chat/ui/controllers/chat_home/chat_home_bloc.dart';
 import 'package:metaltrade/features/chat/ui/widgets/chat_file_pick_upload/chat_image_dialog.dart';
 import 'package:metaltrade/features/chat/ui/widgets/chat_send_btn.dart';
-import 'package:metaltrade/features/profile/domain/entities/profile_entity.dart';
 import 'package:metaltrade/features/profile/ui/controllers/profile_bloc/profile_bloc.dart';
-import 'package:metaltrade/features/profile/ui/widgets/kyc_dialog.dart';
 import 'package:stomp_dart_client/stomp.dart';
 import 'package:stomp_dart_client/stomp_exception.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -83,144 +81,115 @@ class ChatTestPageState extends State<ChatTestPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.outlineVariant,
-      appBar: MainAppBar(
-        title: Text(widget.room ?? kChat),
-      ),
-      body: BlocBuilder<ProfileBloc, ProfileState>(
-        builder: (context, state) {
-          if (state is ProfileSuccessState) {
-            if (state.profileEntity.company != null) {
-              return BlocListener<ChatFilePickCubit, ChatFilePickState>(
-                listener: (context, state) {
-                  if (state is ChatFilePickSuccess) {
-                    context
-                        .read<ChatBloc>()
-                        .add(UploadChatFile(file: state.file));
-                    showDialog(
-                        context: context,
-                        builder: (_) {
-                          return ChatImageDialog(
-                              onSendBtnTapped: (text, imagUrl) {
-                            onSendBtnTapped(text, imagUrl);
-                          });
-                        });
-                  }
-                },
-                child: Column(
-                  children: [
-                    const SizedBox(height: appPadding * 2),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        reverse: true,
-                        controller: scrollController,
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 100,
-                              child: BlocBuilder<ChatBloc, ChatState>(
-                                builder: (context, state) {
-                                  if (state is PreviousChatLoadMore) {
-                                    return const LoadingDots();
-                                  }
-                                  return const SizedBox();
-                                },
-                              ),
-                            ),
-                            BlocBuilder<ChatBloc, ChatState>(
-                              builder: (context, state) {
-                                if (state is PreviousChatLoading) {
-                                  return const Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(height: 200),
-                                      Center(child: LoadingDots()),
-                                    ],
-                                  );
-                                }
-                                if (state is PreviousChatLoaded ||
-                                    state is PreviousChatLoadMore ||
-                                    state is ChatFileuploading ||
-                                    state is ChatFileUpdalodFailed ||
-                                    state is ChatFileUploaded) {
-                                  if (chatBloc.chatList.isNotEmpty) {
-                                    enquiryId =
-                                        chatBloc.chatList.first.enquiryId!;
-                                  } else if (chatBloc.chatList.isEmpty &&
-                                          widget.content != null &&
-                                          widget.content!.body!
-                                                  .chatMessageType ==
-                                              "Enquiry" ||
-                                      widget.content!.body!.chatMessageType ==
-                                          "Quote") {
-                                    if (widget.content != null) {
-                                      context
-                                          .read<ChatBloc>()
-                                          .add(AddNewChat(widget.content!));
-                                      Future.delayed(const Duration(seconds: 1),
-                                          () {
-                                        stompClient!.send(
-                                          destination: '/mtp/chat',
-                                          headers: {
-                                            'Authorization':
-                                                'Bearer ${LocalStorage.instance.token}'
-                                          },
-                                          body: json.encode({
-                                            "senderCompanyId": senderId,
-                                            "enquiryId":
-                                                widget.content!.enquiryId,
-                                            "quoteId":
-                                                widget.content!.quoteId ?? '',
-                                            "body": {
-                                              "chatMessageType": "Enquiry",
-                                              "enquiry": {
-                                                "id": widget.content!.enquiryId
-                                              },
-                                              "quote": {
-                                                "id": widget.content!.quoteId
-                                              }
-                                            }
-                                          }),
-                                        );
-                                      });
-                                      Future.delayed(const Duration(seconds: 2),
-                                          () {
-                                        context
-                                            .read<ChatHomeBloc>()
-                                            .chatList
-                                            .clear();
-                                        context
-                                            .read<ChatHomeBloc>()
-                                            .add(GetChatHomeList(page: 0));
-                                      });
-                                    }
-                                  }
-                                  return ChatList(chatList: chatBloc.chatList);
-                                }
-                                return const Center(
-                                    child: Text("No Previous Chat Found"));
-                              },
-                            ),
-                          ],
+        backgroundColor: Theme.of(context).colorScheme.outlineVariant,
+        appBar: MainAppBar(
+          title: Text(widget.room ?? kChat),
+        ),
+        body: BlocListener<ChatFilePickCubit, ChatFilePickState>(
+          listener: (context, state) {
+            if (state is ChatFilePickSuccess) {
+              context.read<ChatBloc>().add(UploadChatFile(file: state.file));
+              showDialog(
+                  context: context,
+                  builder: (_) {
+                    return ChatImageDialog(onSendBtnTapped: (text, imagUrl) {
+                      onSendBtnTapped(text, imagUrl);
+                    });
+                  });
+            }
+          },
+          child: Column(
+            children: [
+              const SizedBox(height: appPadding * 2),
+              Expanded(
+                child: SingleChildScrollView(
+                  reverse: true,
+                  controller: scrollController,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 100,
+                        child: BlocBuilder<ChatBloc, ChatState>(
+                          builder: (context, state) {
+                            if (state is PreviousChatLoadMore) {
+                              return const LoadingDots();
+                            }
+                            return const SizedBox();
+                          },
                         ),
                       ),
-                    ),
-                    ChatSendBtn(onSendBtnTapped: (text, imageUrl) {
-                      onSendBtnTapped(text, imageUrl);
-                    })
-                  ],
+                      BlocBuilder<ChatBloc, ChatState>(
+                        builder: (context, state) {
+                          if (state is PreviousChatLoading) {
+                            return const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(height: 200),
+                                Center(child: LoadingDots()),
+                              ],
+                            );
+                          }
+                          if (state is PreviousChatLoaded ||
+                              state is PreviousChatLoadMore ||
+                              state is ChatFileuploading ||
+                              state is ChatFileUpdalodFailed ||
+                              state is ChatFileUploaded) {
+                            if (chatBloc.chatList.isNotEmpty) {
+                              enquiryId = chatBloc.chatList.first.enquiryId!;
+                            } else if (chatBloc.chatList.isEmpty &&
+                                widget.content != null &&
+                                widget.content != null &&
+                                (widget.content!.body!.chatMessageType ==
+                                        "Enquiry" ||
+                                    widget.content!.body!.chatMessageType ==
+                                        "Quote")) {
+                              context
+                                  .read<ChatBloc>()
+                                  .add(AddNewChat(widget.content!));
+                              Future.delayed(const Duration(seconds: 1), () {
+                                stompClient!.send(
+                                  destination: '/mtp/chat',
+                                  headers: {
+                                    'Authorization':
+                                        'Bearer ${LocalStorage.instance.token}'
+                                  },
+                                  body: json.encode({
+                                    "senderCompanyId": senderId,
+                                    "enquiryId": widget.content!.enquiryId,
+                                    "quoteId": widget.content!.quoteId ?? '',
+                                    "body": {
+                                      "chatMessageType": "Enquiry",
+                                      "enquiry": {
+                                        "id": widget.content!.enquiryId
+                                      },
+                                      "quote": {"id": widget.content!.quoteId}
+                                    }
+                                  }),
+                                );
+                              });
+                              Future.delayed(const Duration(seconds: 2), () {
+                                context.read<ChatHomeBloc>().chatList.clear();
+                                context
+                                    .read<ChatHomeBloc>()
+                                    .add(GetChatHomeList(page: 0));
+                              });
+                            }
+                            return ChatList(chatList: chatBloc.chatList);
+                          }
+                          return const Center(
+                              child: Text("No Previous Chat Found"));
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-              );
-            } else {
-              return KycDialog(
-                profileEntity: ProfileEntity(),
-              );
-            }
-          }
-          return const SizedBox();
-        },
-      ),
-    );
+              ),
+              ChatSendBtn(onSendBtnTapped: (text, imageUrl) {
+                onSendBtnTapped(text, imageUrl);
+              })
+            ],
+          ),
+        ));
   }
 
   void onConnect() {

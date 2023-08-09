@@ -40,8 +40,6 @@ class _MyHomePageState extends State<MyHomePage>
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.outlineVariant,
       appBar: MainAppBar(
-        //height: 100,
-        //title: const Text(kHome),
         elevation: 5,
         bottomWidget: HomePageAppbarBottom(
             tabList: const [

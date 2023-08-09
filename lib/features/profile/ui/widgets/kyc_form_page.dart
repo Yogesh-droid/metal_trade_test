@@ -335,9 +335,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
         behavior: SnackBarBehavior.floating,
         content: Text("Thanks for letting us know about you")));
     context.read<ProfileBloc>().add(GetUserProfileEvent());
-    Future.delayed(const Duration(seconds: 1), () {
-      context.pop();
-    });
+    context.pop();
   }
 
   void onKycFailed(Exception exception, BuildContext context) {

@@ -45,7 +45,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       }
       if (event is LogoutUserProfileEvent) {
         LocalStorage.instance.deleteToken();
-
         emit(ProfileLoggedOut());
       }
       if (event is DeleteAccount) {
@@ -54,6 +53,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             apiMethods: ApiMethods.delete,
             body: {"mobileNumber": event.phoneNo},
             header: header));
+        LocalStorage.instance.deleteToken();
+        emit(ProfileLoggedOut());
+      }
+      if (event is EmitKycDoneEvent) {
+        emit(KycCompletedState());
       }
     });
   }

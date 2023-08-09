@@ -13,9 +13,10 @@ class ProfileTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ProfileBloc profileBloc = context.read<ProfileBloc>();
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, state) {
-        if (state is ProfileSuccessState) {
+        if (state is ProfileSuccessState || state is KycCompletedState) {
           return Container(
             color: Theme.of(context).colorScheme.primary,
             padding: const EdgeInsets.all(appPadding * 2),
@@ -43,7 +44,7 @@ class ProfileTile extends StatelessWidget {
                                         Theme.of(context).colorScheme.onPrimary,
                                     fontFamily: "Nunito"),
                           ),
-                          Text(state.profileEntity.mobileNumber ?? '',
+                          Text(profileBloc.profileEntity!.mobileNumber ?? '',
                               style: secMed20.copyWith(
                                   fontWeight: FontWeight.bold,
                                   color:
@@ -69,8 +70,8 @@ class ProfileTile extends StatelessWidget {
                             width: 60,
                             child: CircularProgressIndicator(
                               color: Colors.deepPurpleAccent,
-                              value: state.profileEntity.company != null
-                                  ? state.profileEntity.company!
+                              value: profileBloc.profileEntity!.company != null
+                                  ? profileBloc.profileEntity!.company!
                                           .profileCompletion!.completion! /
                                       100
                                   : 0,
@@ -78,8 +79,8 @@ class ProfileTile extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          state.profileEntity.company != null
-                              ? "${((state.profileEntity.company!.profileCompletion!.completion! / 100) * 100).toInt()} %"
+                          profileBloc.profileEntity!.company != null
+                              ? "${((profileBloc.profileEntity!.company!.profileCompletion!.completion! / 100) * 100).toInt()} %"
                                   .toString()
                               : "0 %",
                           style: TextStyle(
@@ -89,15 +90,15 @@ class ProfileTile extends StatelessWidget {
                     ),
                     FilledButtonWidget(
                         color: Theme.of(context).colorScheme.onPrimary,
-                        title: state.profileEntity.company != null
-                            ? state.profileEntity.company!.profileCompletion!
-                                    .next ??
+                        title: profileBloc.profileEntity!.company != null
+                            ? profileBloc.profileEntity!.company!
+                                    .profileCompletion!.next ??
                                 ''
                             : "Edit Profile",
                         textColor: Theme.of(context).colorScheme.primary,
                         onPressed: () {
                           context.pushNamed(kycPageName,
-                              extra: state.profileEntity);
+                              extra: profileBloc.profileEntity);
                         })
                   ],
                 ),

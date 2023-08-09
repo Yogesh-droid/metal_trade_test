@@ -93,7 +93,7 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
                                         .contentList[index].lastModifiedDate,
                                     outlinedBtnText: quoteDetailListBloc
                                                 .contentList[index].status ==
-                                            "Active"
+                                            "Active" && widget.content.status == "Active"
                                         ? kChat
                                         : null,
                                     onOutlinedBtnTapped: () {
@@ -132,7 +132,7 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
                                     },
                                     filledBtnText: quoteDetailListBloc
                                                 .contentList[index].status ==
-                                            "Active"
+                                            "Active" && widget.content.status == "Active"
                                         ? kAccept
                                         : null,
                                     onFilledBtnTapped: () {

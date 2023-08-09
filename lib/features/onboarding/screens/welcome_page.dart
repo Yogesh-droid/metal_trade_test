@@ -49,7 +49,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     bottom: appWidgetGap,
                     child: Text(
                       "Asia's Marketplace for Steel",
-                      style: secMed24.copyWith(
+                      style: secMed15.copyWith(
                           fontFamily: 'Nunito', color: Colors.white),
                     ))
               ],

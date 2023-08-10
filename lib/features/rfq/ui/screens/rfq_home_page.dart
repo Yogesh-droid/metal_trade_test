@@ -6,10 +6,10 @@ import 'package:metaltrade/features/rfq/ui/controllers/rfq_buyer_enquiry_bloc/rf
 import 'package:metaltrade/features/rfq/ui/controllers/rfq_seller_enquiry_bloc/rfq_seller_enquiry_bloc.dart';
 import 'package:metaltrade/features/rfq/ui/screens/buyer_rfq_page.dart';
 import 'package:metaltrade/features/rfq/ui/screens/seller_rfq_page.dart';
+import 'package:metaltrade/features/rfq/ui/widgets/search_widget_without_suggestions.dart';
 
 import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import '../widgets/home_page_appbar_bottom.dart';
-import '../widgets/search_bar_widget.dart';
 
 class RfqHomePage extends StatefulWidget {
   const RfqHomePage({super.key});
@@ -24,6 +24,7 @@ class _RfqHomePageState extends State<RfqHomePage>
   late RfqBuyerEnquiryBloc rfqBuyerEnquiryBloc;
   late RfqSellerEnquiryBloc rfqSellerEnquiryBloc;
   final SearchController searchController = SearchController();
+  final FocusNode searchFocusNode = FocusNode();
   late ProfileBloc profileBloc;
 
   @override
@@ -34,12 +35,8 @@ class _RfqHomePageState extends State<RfqHomePage>
     rfqSellerEnquiryBloc = context.read<RfqSellerEnquiryBloc>();
     _tabController = TabController(length: 2, vsync: this);
 
-    profileBloc.stream.listen((state) {
-      if (state is ProfileSuccessState && state.profileEntity.company != null) {
-        rfqBuyerEnquiryBloc
-            .add(GetRfqBuyerPageEnquiryEvent(page: 0, intent: UserIntent.Buy));
-      }
-    });
+    rfqBuyerEnquiryBloc
+        .add(GetRfqBuyerPageEnquiryEvent(page: 0, intent: UserIntent.Buy));
     super.initState();
   }
 
@@ -60,8 +57,19 @@ class _RfqHomePageState extends State<RfqHomePage>
 
   mainAppBar(BuildContext context) {
     return MainAppBar(
-      height: 100,
-      title: SearchBarWidget(searchController: searchController),
+      height: 110,
+      title: SearchWidgetWithoutSuggestions(
+          focusNode: searchFocusNode,
+          textEditingController: searchController,
+          onSearchTapped: (value) {
+            if (_tabController.index == 0) {
+              rfqBuyerEnquiryBloc.add(GetRfqBuyerPageEnquiryEvent(
+                  page: 0, intent: UserIntent.Buy, text: value));
+            } else {
+              rfqSellerEnquiryBloc.add(GetRfqSellerEnquiryEvent(
+                  page: 0, intent: UserIntent.Sell, text: value));
+            }
+          }),
       elevation: 5,
       bottomWidget: HomePageAppbarBottom(
           tabList: const [

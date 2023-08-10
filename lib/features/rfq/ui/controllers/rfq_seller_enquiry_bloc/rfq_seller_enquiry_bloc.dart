@@ -23,13 +23,14 @@ class RfqSellerEnquiryBloc
         try {
           if (sellerRfqListPage == 0) {
             emit(RfqSellerEnquiryInitial());
+            sellerRfqList.clear();
           } else {
             emit(RfqSellerEnquiryLoadMore());
           }
           final DataState<RfqEntity> dataState =
               await homePageEnquiryUsecase.call(RequestParams(
                   url:
-                      "${baseUrl}user/enquiry/all?page=${event.page}&size=5&enquiryType=${event.intent.name}",
+                      "${baseUrl}user/enquiry/all?page=${event.page}&size=5&enquiryType=${event.intent.name}&text=${event.text ?? ''}",
                   apiMethods: ApiMethods.get,
                   header: header));
           if (dataState.data != null) {

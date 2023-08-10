@@ -143,3 +143,4 @@ const String kMtNeedsKyc =
     "Metal trade needs your complete KYC in order to trade on the platform. Please add more details to verify your account.";
 const String kYesContinue = "Yes, continue";
 const String kMayBeLater = "May be later";
+const String kSearchEnquiry = "Search Enquiry";

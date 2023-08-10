@@ -20,6 +20,7 @@ class RfqBuyerEnquiryBloc extends Bloc<RfqEnquiryEvent, RfqBuyerEnquiryState> {
       if (event is GetRfqBuyerPageEnquiryEvent) {
         try {
           if (buyerRfqListPage == 0) {
+            buyerRfqList.clear();
             emit(RfqBuyerEnquiryInitial());
           } else {
             emit(RfqBuyerEnquiryLoadMore());
@@ -27,7 +28,7 @@ class RfqBuyerEnquiryBloc extends Bloc<RfqEnquiryEvent, RfqBuyerEnquiryState> {
           final DataState<RfqEntity> dataState =
               await homePageEnquiryUsecase.call(RequestParams(
                   url:
-                      "${baseUrl}user/enquiry/all?page=${event.page}&size=5&enquiryType=${event.intent.name}",
+                      "${baseUrl}user/enquiry/all?page=${event.page}&size=5&enquiryType=${event.intent.name}&text=${event.text ?? ''}",
                   apiMethods: ApiMethods.get,
                   header: header));
 

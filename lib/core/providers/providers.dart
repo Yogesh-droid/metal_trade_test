@@ -2,6 +2,7 @@ part of 'provider_import.dart';
 
 class AppBlocProviders {
   static get allBlocProviders => [
+        BlocProvider(create: (_) => ChangeLanguageCubit()),
         BlocProvider(create: (_) => AppTheme(lightTheme)),
         BlocProvider(create: (_) => BottomNavControllerCubit()),
         BlocProvider(create: (_) => CountryCodeController(CountryCodeModel())),

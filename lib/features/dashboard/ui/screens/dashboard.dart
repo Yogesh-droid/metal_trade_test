@@ -37,8 +37,6 @@ class DashBoard extends StatelessWidget {
                       useRootNavigator: true,
                       isScrollControlled: false,
                       enableDrag: false,
-                      shape: BeveledRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
                       context: context,
                       builder: (context) {
                         return const KycBlocker();

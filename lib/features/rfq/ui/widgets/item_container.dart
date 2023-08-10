@@ -72,6 +72,7 @@ class _ItemContainerState extends State<ItemContainer> {
             children: [
               Expanded(
                   child: BorderedTextField(
+                textInputType: TextInputType.number,
                 isObscureText: false,
                 textEditingController: quantityController,
                 onChange: widget.onQuantityChange,
@@ -80,6 +81,7 @@ class _ItemContainerState extends State<ItemContainer> {
               const SizedBox(width: appPadding),
               Expanded(
                   child: BorderedTextField(
+                textInputType: TextInputType.number,
                 isObscureText: false,
                 textEditingController: priceController,
                 onChange: widget.onPriceChange,

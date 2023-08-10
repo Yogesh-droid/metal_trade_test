@@ -11,7 +11,7 @@ class EnquiryFilePickSuccess extends EnquiryFilePickState {
   EnquiryFilePickSuccess(this.file);
 }
 
-class ENquiryFilePicking extends EnquiryFilePickState {}
+class EnquiryFilePicking extends EnquiryFilePickState {}
 
 class EnquiryFilePickFailed extends EnquiryFilePickState {
   final Exception? exception;

@@ -44,7 +44,6 @@ class MobileLandingPage extends StatelessWidget {
                     if (value.isEmpty) {
                       context.go(loginPageRoute);
                     } else {
-                      debugPrint("token is =>=>=>=>  $value");
                       context.go(dashBoardRoute);
                       //context.read<ProfileBloc>().add(GetProfileEvent());
                     }

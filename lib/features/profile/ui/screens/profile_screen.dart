@@ -87,7 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ChangeLangauge()));
+                              builder: (context) => ChangeLanguage()));
                     }),
                 const SizedBox(height: appPadding),
                 const OptionTile(title: kRateUs),
@@ -123,7 +123,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           context: context,
                           builder: (context) {
                             return ConfirmationSheet(
-                              onConfirmaTapped: () {
+                              onConfirmTapped: () {
                                 context
                                     .read<ProfileBloc>()
                                     .add(LogoutUserProfileEvent());

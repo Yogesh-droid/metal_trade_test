@@ -299,7 +299,6 @@ class WebLandingPage extends StatelessWidget {
                 if (value.isEmpty) {
                   context.go(landingPageRoute);
                 } else {
-                  debugPrint("token is =>=>=>=>  $value");
                   context.go(dashBoardRoute);
                 }
               });

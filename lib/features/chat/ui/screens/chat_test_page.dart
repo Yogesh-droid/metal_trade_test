@@ -131,8 +131,8 @@ class ChatTestPageState extends State<ChatTestPage> {
                           }
                           if (state is PreviousChatLoaded ||
                               state is PreviousChatLoadMore ||
-                              state is ChatFileuploading ||
-                              state is ChatFileUpdalodFailed ||
+                              state is ChatFileUploading ||
+                              state is ChatFileUploadFailed ||
                               state is ChatFileUploaded) {
                             if (chatBloc.chatList.isNotEmpty) {
                               enquiryId = chatBloc.chatList.first.enquiryId!;
@@ -217,7 +217,6 @@ class ChatTestPageState extends State<ChatTestPage> {
   }
 
   onSendBtnTapped(String text, String? imageUrl) {
-    debugPrint("sender id is $senderId");
     if (text.isEmpty && imageUrl!.isEmpty) {
       return;
     }

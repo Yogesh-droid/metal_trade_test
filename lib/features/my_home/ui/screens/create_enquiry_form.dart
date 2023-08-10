@@ -50,7 +50,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
   String termsOfTransport = '';
   String remarks = '';
   int selectedProductSku = 0;
-  int itemCOntainerKey = 0;
+  int itemContainerKey = 0;
   Map<String, dynamic> postEnquiryMap = {};
   List<Map<String, dynamic>> items = [];
   @override
@@ -58,7 +58,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
     items.add({});
     itemContainers = [
       ItemListContainer(
-        key: ValueKey(itemCOntainerKey),
+        key: ValueKey(itemContainerKey),
         onChange: (value) {
           items[0]['quantityUnit'] = value!;
         },
@@ -102,11 +102,11 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
           Column(children: itemContainers),
           InkWell(
               onTap: () {
-                itemCOntainerKey++;
+                itemContainerKey++;
                 items.add({});
                 int index = itemContainers.length;
                 itemContainers.add(ItemListContainer(
-                  key: ValueKey(itemCOntainerKey),
+                  key: ValueKey(itemContainerKey),
                   onChange: (value) {
                     items[index]['quantityUnit'] = value!;
                   },
@@ -133,7 +133,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                 "+ $kAddProducts",
                 style: secMed14.copyWith(
                     color: Theme.of(context).colorScheme.primary),
-              ).tr()),
+              )),
           const Divider(),
           AppDropdownFormField(
             hintText: kAddPaymentTerms,

@@ -19,7 +19,7 @@ class ChatFilePickUi extends StatelessWidget {
       if (state is ChatFilePickSuccess) {
         return BlocBuilder<ChatBloc, ChatState>(
           builder: (context, chatState) {
-            if (chatState is ChatFileuploading) {
+            if (chatState is ChatFileUploading) {
               return Stack(
                 alignment: Alignment.center,
                 children: [

@@ -83,9 +83,9 @@ class _PinPutPageState extends State<PinPutPage> {
                   return Pinput(
                     controller: pinTextController,
                     length: 4,
-                    // onCompleted: (pin) => context
-                    //     .read<ValidateOtpBloc>()
-                    //     .add(GetValidateOtpEvent(phoneNo: phoneNo, otp: otp)),
+                      onCompleted: (pin) => context
+                         .read<ValidateOtpBloc>()
+                         .add(GetValidateOtpEvent(phoneNo: phoneNo, otp: otp)),
                   );
                 },
               ),
@@ -101,7 +101,6 @@ class _PinPutPageState extends State<PinPutPage> {
                       await LocalStorage.instance
                           .saveToken(state.token)
                           .then((value) {
-                        debugPrint("token is =>=>=>=>  ${state.token}");
                         header = {
                           "Authorization":
                               "Bearer ${LocalStorage.instance.token}",

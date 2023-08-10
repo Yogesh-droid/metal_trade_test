@@ -3,9 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:metaltrade/core/constants/app_widgets/context_menu_app_bar.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 
-class ChangeLangauge extends StatelessWidget {
-  ChangeLangauge({super.key});
-  final List<String> languages = ["Hindi", "English"];
+class ChangeLanguage extends StatelessWidget {
+  ChangeLanguage({super.key});
+  final List<String> languages = [
+    "Bahasa Indonesia",
+    "Chinese",
+    "English",
+    "Hindi",
+    "Malay Malaysia",
+    "Spanish",
+    "Thai",
+    "Vietnamese"
+  ];
 
   @override
   Widget build(BuildContext context) {

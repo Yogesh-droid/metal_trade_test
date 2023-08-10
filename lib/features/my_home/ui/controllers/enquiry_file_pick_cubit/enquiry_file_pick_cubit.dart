@@ -9,18 +9,18 @@ import '../../../../../core/resource/data_state/data_state.dart';
 part 'enquiry_file_pick_state.dart';
 
 class EnquiryFilePickCubit extends Cubit<EnquiryFilePickState> {
-  final ChatFilePickUsecsse filePickUsecsse;
-  EnquiryFilePickCubit(this.filePickUsecsse) : super(EnquiryFilePickInitial());
+  final ChatFilePickUsecase filePickUsecase;
+  EnquiryFilePickCubit(this.filePickUsecase) : super(EnquiryFilePickInitial());
 
-  Future<void> emitInitiaState() async {
+  Future<void> emitInitialState() async {
     emit(EnquiryFilePickInitial());
   }
 
   Future<void> getImageFromLib(FileSource fileSource) async {
-    emit(ENquiryFilePicking());
+    emit(EnquiryFilePicking());
     try {
       DataState<File?> dataState =
-          await filePickUsecsse.call(null, fileSource: fileSource);
+          await filePickUsecase.call(null, fileSource: fileSource);
       if (dataState.data != null) {
         emit(EnquiryFilePickSuccess(dataState.data!));
       } else {

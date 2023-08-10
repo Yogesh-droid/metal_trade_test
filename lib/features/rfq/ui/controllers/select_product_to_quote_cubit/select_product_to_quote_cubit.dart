@@ -6,7 +6,6 @@ part 'select_product_to_quote_state.dart';
 
 class SelectProductToQuoteCubit extends Cubit<SelectProductToQuoteState> {
   SelectProductToQuoteCubit() : super(SelectProductToQuoteInitial());
-  // List<int> selectedIndex = [];
   List<Item> selectedItems = [];
   double price = 0;
   int quantity = 0;
@@ -24,9 +23,6 @@ class SelectProductToQuoteCubit extends Cubit<SelectProductToQuoteState> {
   }
 
   void selectItem(int id, Item item) {
-    // selectedIndex.contains(id)
-    //     ? selectedIndex.remove(id)
-    //     : selectedIndex.add(id);
     selectedItems.contains(item)
         ? selectedItems.remove(item)
         : selectedItems.add(item);

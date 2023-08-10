@@ -152,7 +152,7 @@ final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
       return getTransition(
           child: MyEnquiryDetail(
               item: state.extra as Content,
-              initalTab: state.uri.queryParameters['initialTab'] != null
+              initialTab: state.uri.queryParameters['initialTab'] != null
                   ? int.parse(state.uri.queryParameters['initialTab']!)
                   : null),
           animationType: TransitionType.slide,

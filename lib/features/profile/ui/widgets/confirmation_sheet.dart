@@ -8,19 +8,19 @@ import '../../../../core/constants/text_tyles.dart';
 class ConfirmationSheet extends StatelessWidget {
   const ConfirmationSheet(
       {super.key,
-      required this.onConfirmaTapped,
+      required this.onConfirmTapped,
       required this.title,
       this.explanation,
       this.height,
       required this.filledBtnText,
       required this.outlinedBtnText,
-      this.fillesBtnColor});
-  final Function() onConfirmaTapped;
+      this.filledBtnColor});
+  final Function() onConfirmTapped;
   final String title;
   final String? explanation;
   final double? height;
   final String filledBtnText;
-  final Color? fillesBtnColor;
+  final Color? filledBtnColor;
   final String outlinedBtnText;
 
   @override
@@ -66,9 +66,9 @@ class ConfirmationSheet extends StatelessWidget {
             FilledButtonWidget(
                 title: filledBtnText,
                 onPressed: () {
-                  onConfirmaTapped();
+                  onConfirmTapped();
                 },
-                color: fillesBtnColor ?? Colors.red[900]),
+                color: filledBtnColor ?? Colors.red[900]),
             OutlinedButtonWidget(
                 title: outlinedBtnText,
                 onPressed: () {

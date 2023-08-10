@@ -333,7 +333,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
   void onKycDone(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         behavior: SnackBarBehavior.floating,
-        content: Text("Thanks for letting us know about you")));
+        content: Text("Profile updated successfully")));
     context.read<ProfileBloc>().add(GetUserProfileEvent());
     context.pop();
   }

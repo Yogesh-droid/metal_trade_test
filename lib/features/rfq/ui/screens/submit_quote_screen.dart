@@ -60,7 +60,7 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
                           if (selectProductToQuoteCubit.price == 0) {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                    content: Text("Please add valid price")));
+                                    content: Text("Provide valid quote price")));
                             return;
                           }
                           List<Map<String, dynamic>> selectedItems = [];

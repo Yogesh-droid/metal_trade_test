@@ -139,3 +139,7 @@ const String kAddYourMember = "Add your team members";
 const String kSelectedImg = "Selected Image";
 const String kByDeletingAcc =
     "By Deleting your account you will not be able to access any of data in app and you will loose all your enquiries and quotes and will be deleted";
+const String kMtNeedsKyc =
+    "Metal trade needs your complete KYC in order to trade on the platform. Please add more details to verify your account.";
+const String kYesContinue = "Yes, continue";
+const String kMayBeLater = "May be later";

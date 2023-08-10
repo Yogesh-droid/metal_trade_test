@@ -28,7 +28,6 @@ class _RfqHomePageState extends State<RfqHomePage>
 
   @override
   void initState() {
-    print("My Rfq Home Page");
     profileBloc = context.read<ProfileBloc>();
     profileBloc.add(GetUserProfileEvent());
     rfqBuyerEnquiryBloc = context.read<RfqBuyerEnquiryBloc>();

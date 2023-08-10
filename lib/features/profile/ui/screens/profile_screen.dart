@@ -124,12 +124,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           builder: (context) {
                             return ConfirmationSheet(
                               onConfirmaTapped: () {
+                                context
+                                    .read<ProfileBloc>()
+                                    .add(LogoutUserProfileEvent());
+                                context.read<MyQuoteBloc>().myQuoteList.clear();
+                                context.read<MyRfqBloc>().myRfqList.clear();
+                                context
+                                    .read<RfqBuyerEnquiryBloc>()
+                                    .buyerRfqList
+                                    .clear();
                                 context.read<ProfileBloc>().add(DeleteAccount(
                                     context
                                             .read<ProfileBloc>()
                                             .profileEntity!
                                             .mobileNumber ??
                                         ''));
+                                context.pop();
                                 context.go(loginPageRoute);
                               },
                               title: kDoYouWantToDelete,

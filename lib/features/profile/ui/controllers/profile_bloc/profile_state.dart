@@ -17,4 +17,6 @@ class ProfileFailed extends ProfileState {
   ProfileFailed(this.exception);
 }
 
+class KycCompletedState extends ProfileState {}
+
 class ProfileLoggedOut extends ProfileState {}

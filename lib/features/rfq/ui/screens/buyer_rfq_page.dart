@@ -7,11 +7,9 @@ import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/routes/routes.dart';
 import 'package:metaltrade/features/chat/data/models/chat_response_model.dart'
     as chat_res;
-import 'package:metaltrade/features/profile/ui/widgets/kyc_dialog.dart';
 import 'package:metaltrade/features/quotes/data/models/quote_res_model.dart';
+
 import '../../../chat/ui/controllers/chat_bloc/chat_bloc.dart';
-import '../../../profile/domain/entities/profile_entity.dart';
-import '../../../profile/ui/controllers/profile_bloc/profile_bloc.dart';
 import '../controllers/rfq_buyer_enquiry_bloc/rfq_buyer_enquiry_bloc.dart';
 import '../widgets/home_page_card.dart';
 
@@ -45,97 +43,78 @@ class _BuyerRfqPageState extends State<BuyerRfqPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileBloc, ProfileState>(
-      builder: (context, profileState) {
-        if (profileState is ProfileSuccessState) {
-          if (profileState.profileEntity.company != null) {
-            return BlocBuilder<RfqBuyerEnquiryBloc, RfqBuyerEnquiryState>(
-                builder: (context, state) {
-              if (state is RfqBuyerEnquiryInitial) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state is RfqBuyerEnquiryFetchedState ||
-                  state is RfqBuyerEnquiryLoadMore) {
-                return Column(
-                  children: [
-                    Expanded(
-                      child: ListView(
-                        padding:
-                            const EdgeInsets.only(top: appFormFieldGap / 2),
-                        controller: scrollController,
-                        shrinkWrap: true,
-                        children: homePageBuyerEnquiryBloc.buyerRfqList
-                            .map((e) => HomePageCard(
-                                  content: e,
-                                  itemList: e.item,
-                                  country: e.enquiryCompany!.country!.name,
-                                  uuid: e.uuid,
-                                  borderedBtnTitle: kChat,
-                                  filledBtnTitle: "+ $kSubmitQuote",
-                                  onBorderedBtnTapped: () {
-                                    context.read<ChatBloc>().add(
-                                        GetPreviousChatEvent(
-                                            chatType: ChatType.enquiry.name,
-                                            enquiryId: e.id,
-                                            page: 0));
-                                    context.pushNamed(chatPageName,
-                                        queryParameters: {'room': e.uuid ?? ''},
-                                        extra: chat_res.Content(
-                                            body: chat_res.Body(
-                                              chatMessageType: "Enquiry",
-                                              enquiry: Enquiry(
-                                                lastModifiedDate:
-                                                    DateTime.now().toString(),
-                                                id: e.id,
-                                                item: e.item,
-                                                uuid: e.uuid,
-                                              ),
-                                            ),
-                                            enquiryId: e.id,
-                                            lastModifiedDate: DateTime.now(),
-                                            status: "Unseen"));
-                                  },
-                                  onFilledBtnTapped: () {
-                                    context.pushNamed(submitQuotePageName,
-                                        extra: e);
-                                  },
-                                  onDetailTapped: () {
-                                    context.pushNamed(enquiryDetailPageName,
-                                        extra: e,
-                                        queryParameters: {
-                                          'title': kEnquiryDetail,
-                                          'country':
-                                              e.enquiryCompany!.country!.name,
-                                          'isMyEnquiry': 'yes'
-                                        });
-                                  },
-                                ))
-                            .toList(),
-                      ),
-                    ),
-                    if (state is RfqBuyerEnquiryLoadMore)
-                      Container(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                          height: 50,
-                          width: MediaQuery.of(context).size.width,
-                          child: const LoadingDots()),
-                  ],
-                );
-              } else if (state is RfqBuyerEnquiryFailed) {
-                return Center(child: Text(state.exception.toString()));
-              } else {
-                return const Center(child: Text("Some Error"));
-              }
-            });
-          } else {
-            return KycDialog(
-              profileEntity: ProfileEntity(),
-            );
-          }
-        }
-        return const SizedBox(
-          child: Center(child: LoadingDots()),
+    return BlocBuilder<RfqBuyerEnquiryBloc, RfqBuyerEnquiryState>(
+        builder: (context, state) {
+      if (state is RfqBuyerEnquiryInitial) {
+        return const Center(child: CircularProgressIndicator());
+      } else if (state is RfqBuyerEnquiryFetchedState ||
+          state is RfqBuyerEnquiryLoadMore) {
+        return Column(
+          children: [
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.only(top: appFormFieldGap / 2),
+                controller: scrollController,
+                shrinkWrap: true,
+                children: homePageBuyerEnquiryBloc.buyerRfqList
+                    .map((e) => HomePageCard(
+                          content: e,
+                          itemList: e.item,
+                          country: e.enquiryCompany!.country!.name,
+                          uuid: e.uuid,
+                          borderedBtnTitle: kChat,
+                          filledBtnTitle: "+ $kSubmitQuote",
+                          onBorderedBtnTapped: () {
+                            context.read<ChatBloc>().add(GetPreviousChatEvent(
+                                chatType: ChatType.enquiry.name,
+                                enquiryId: e.id,
+                                page: 0));
+                            context.pushNamed(chatPageName,
+                                queryParameters: {'room': e.uuid ?? ''},
+                                extra: chat_res.Content(
+                                    body: chat_res.Body(
+                                      chatMessageType: "Enquiry",
+                                      enquiry: Enquiry(
+                                        lastModifiedDate:
+                                            DateTime.now().toString(),
+                                        id: e.id,
+                                        item: e.item,
+                                        uuid: e.uuid,
+                                      ),
+                                    ),
+                                    enquiryId: e.id,
+                                    lastModifiedDate: DateTime.now(),
+                                    status: "Unseen"));
+                          },
+                          onFilledBtnTapped: () {
+                            context.pushNamed(submitQuotePageName, extra: e);
+                          },
+                          onDetailTapped: () {
+                            context.pushNamed(enquiryDetailPageName,
+                                extra: e,
+                                queryParameters: {
+                                  'title': kEnquiryDetail,
+                                  'country': e.enquiryCompany!.country!.name,
+                                  'isMyEnquiry': 'yes'
+                                });
+                          },
+                        ))
+                    .toList(),
+              ),
+            ),
+            if (state is RfqBuyerEnquiryLoadMore)
+              Container(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  height: 50,
+                  width: MediaQuery.of(context).size.width,
+                  child: const LoadingDots()),
+          ],
         );
-      },
-    );
+      } else if (state is RfqBuyerEnquiryFailed) {
+        return Center(child: Text(state.exception.toString()));
+      } else {
+        return const Center(child: Text("Some Error"));
+      }
+    });
   }
 }

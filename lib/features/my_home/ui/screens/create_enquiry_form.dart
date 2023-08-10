@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
@@ -12,6 +13,7 @@ import 'package:metaltrade/features/my_home/ui/widgets/attachment_box.dart';
 import '../../../../core/constants/spaces.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../profile/ui/widgets/bordered_textfield.dart';
+import '../controllers/enquiry_file_pick_cubit/enquiry_file_pick_cubit.dart';
 import '../widgets/add_item_container.dart';
 import '../widgets/enquiry_type_radio.dart';
 
@@ -50,7 +52,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
   String termsOfTransport = '';
   String remarks = '';
   int selectedProductSku = 0;
-  int itemCOntainerKey = 0;
+  int itemContainerKey = 0;
   Map<String, dynamic> postEnquiryMap = {};
   List<Map<String, dynamic>> items = [];
   @override
@@ -58,7 +60,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
     items.add({});
     itemContainers = [
       ItemListContainer(
-        key: ValueKey(itemCOntainerKey),
+        key: ValueKey(itemContainerKey),
         onChange: (value) {
           items[0]['quantityUnit'] = value!;
         },
@@ -102,11 +104,11 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
           Column(children: itemContainers),
           InkWell(
               onTap: () {
-                itemCOntainerKey++;
+                itemContainerKey++;
                 items.add({});
                 int index = itemContainers.length;
                 itemContainers.add(ItemListContainer(
-                  key: ValueKey(itemCOntainerKey),
+                  key: ValueKey(itemContainerKey),
                   onChange: (value) {
                     items[index]['quantityUnit'] = value!;
                   },
@@ -133,7 +135,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                 "+ $kAddProducts",
                 style: secMed14.copyWith(
                     color: Theme.of(context).colorScheme.primary),
-              ).tr()),
+              )),
           const Divider(),
           AppDropdownFormField(
             hintText: kAddPaymentTerms,
@@ -168,9 +170,28 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
               if (state is PostEnquiryInProgress) {
                 return const LoadingDots();
               }
+
               return FilledButtonIconWidget(
                 title: kCreateEnquiry,
                 onPressed: () {
+                  if (items[0]['sku'] == null) {
+                    Fluttertoast.showToast(msg: 'Please Select Product');
+                    return;
+                  }
+                  if (items[0]['quantity'] == null ||
+                      items[0]['quantity'] == 0) {
+                    Fluttertoast.showToast(msg: 'Please Check Quantity');
+                    return;
+                  }
+                  if (termsOfTransport.isEmpty) {
+                    Fluttertoast.showToast(
+                        msg: 'Please choose Transport Terms');
+                    return;
+                  }
+                  if (termsOfPayment.isEmpty) {
+                    Fluttertoast.showToast(msg: 'Please choose Payment Terms');
+                    return;
+                  }
                   postEnquiryMap['enquiryType'] = groupValue;
                   postEnquiryMap['transportationTerms'] = termsOfTransport;
                   postEnquiryMap['paymentTerms'] = termsOfPayment;
@@ -182,6 +203,8 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                       PostEnquiryModel.fromJson(postEnquiryMap);
                   context.read<CreateEnquiryBloc>().add(
                       PostEnquiryEvent(postEnquiryModel: postEnquiryModel));
+                  context.read<EnquiryFilePickCubit>().emitInitialState();
+                  context.read<CreateEnquiryBloc>().url = '';
                 },
                 icon: const Icon(Icons.add),
                 width: double.maxFinite,

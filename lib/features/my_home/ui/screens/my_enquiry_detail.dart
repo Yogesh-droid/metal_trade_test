@@ -15,9 +15,9 @@ import '../controllers/quote_detail_list_bloc/quote_detail_list_bloc.dart';
 import '../../../rfq/data/models/rfq_enquiry_model.dart';
 
 class MyEnquiryDetail extends StatefulWidget {
-  const MyEnquiryDetail({super.key, required this.item, this.initalTab});
+  const MyEnquiryDetail({super.key, required this.item, this.initialTab});
   final Content item;
-  final int? initalTab;
+  final int? initialTab;
 
   @override
   State<MyEnquiryDetail> createState() => _MyEnquiryDetailState();
@@ -32,7 +32,7 @@ class _MyEnquiryDetailState extends State<MyEnquiryDetail>
     context.read<QuoteDetailListBloc>().add(GetQuoteDetailList(
         page: 0, enquiryId: widget.item.id!, isLoadMore: false));
     tabController = TabController(
-        length: 2, vsync: this, initialIndex: widget.initalTab ?? 0);
+        length: 2, vsync: this, initialIndex: widget.initialTab ?? 0);
     super.initState();
   }
 
@@ -61,6 +61,12 @@ class _MyEnquiryDetailState extends State<MyEnquiryDetail>
         Expanded(
           child: TabBarView(controller: tabController, children: [
             EnquiryDetailList(
+              otherAttachmentsName: widget.item.otherAttachmentsName != null
+                  ? widget.item.otherAttachmentsName!
+                      .split(RegExp(r'[/_-]'))
+                      .last
+                  : null,
+              otherAttachmentsUrl: widget.item.otherAttachmentsUrl,
               paymentTermsDisplay: widget.item.paymentTermsDisplay ?? '',
               transportationTermsDisplay:
                   widget.item.transportationTermsDisplay ?? '',
@@ -82,7 +88,7 @@ class _MyEnquiryDetailState extends State<MyEnquiryDetail>
                         return ConfirmationSheet(
                             explanation: kThisWillRemoveRfq,
                             height: MediaQuery.of(context).size.height / 3,
-                            onConfirmaTapped: () {
+                            onConfirmTapped: () {
                               context.read<MyRfqBloc>().add(UpdateMyRfq(
                                   status: "Closed", id: widget.item.id!));
                               context.pop();

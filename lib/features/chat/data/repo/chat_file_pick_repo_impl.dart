@@ -36,12 +36,5 @@ class ChatFilePickRepoImpl implements ChatFilePickRepo {
     } else {
       return DataError(exception: Exception("Something went wrong"));
     }
-    // try {
-    //   if (xFile != null) {
-    //     return DataSuccess(data: File(xFile!.path));
-    //   }
-    // } on Exception catch (e) {
-    //   return DataError(exception: e);
-    // }
   }
 }

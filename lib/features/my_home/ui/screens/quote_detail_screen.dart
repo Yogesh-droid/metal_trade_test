@@ -80,7 +80,7 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
                           child: ListView.separated(
                               physics: const NeverScrollableScrollPhysics(),
                               separatorBuilder: (context, index) =>
-                                  Container(height: appPadding),
+                                  Container(height: appPadding / 2),
                               shrinkWrap: true,
                               itemCount: quoteDetailListBloc.contentList.length,
                               itemBuilder: (context, index) => QuoteDetailCard(
@@ -92,8 +92,10 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
                                     lastDateModified: quoteDetailListBloc
                                         .contentList[index].lastModifiedDate,
                                     outlinedBtnText: quoteDetailListBloc
-                                                .contentList[index].status ==
-                                            "Active" && widget.content.status == "Active"
+                                                    .contentList[index]
+                                                    .status ==
+                                                "Active" &&
+                                            widget.content.status == "Active"
                                         ? kChat
                                         : null,
                                     onOutlinedBtnTapped: () {
@@ -131,8 +133,10 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
                                               status: "Unseen"));
                                     },
                                     filledBtnText: quoteDetailListBloc
-                                                .contentList[index].status ==
-                                            "Active" && widget.content.status == "Active"
+                                                    .contentList[index]
+                                                    .status ==
+                                                "Active" &&
+                                            widget.content.status == "Active"
                                         ? kAccept
                                         : null,
                                     onFilledBtnTapped: () {

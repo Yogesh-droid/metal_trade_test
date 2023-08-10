@@ -39,7 +39,7 @@ class AttachmentBox extends StatelessWidget {
               return DisabledTextField(
                   onTap: () {
                     context.read<CreateEnquiryBloc>().url = '';
-                    context.read<EnquiryFilePickCubit>().emitInitiaState();
+                    context.read<EnquiryFilePickCubit>().emitInitialState();
                   },
                   hintText: state.file.path.split('/').last,
                   suffix: const Icon(CupertinoIcons.delete));
@@ -49,7 +49,6 @@ class AttachmentBox extends StatelessWidget {
         if (state is EnquiryFilePickInitial || state is EnquiryFilePickFailed) {
           return DisabledTextField(
             onTap: () {
-              //context.read<EnquiryFilePickCubit>().getImageFromLib();
               openChooseImageSourceSheet(context);
             },
             hintText: "Attach",

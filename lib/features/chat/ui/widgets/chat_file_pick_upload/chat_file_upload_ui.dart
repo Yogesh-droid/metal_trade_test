@@ -13,7 +13,7 @@ class ChatFileUploadUi extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ChatBloc, ChatState>(builder: (context, state) {
       if (state is ChatFileUploaded) {
-        context.read<ChatFilePickCubit>().emitInitiaState();
+        context.read<ChatFilePickCubit>().emitInitialState();
         return Padding(
           padding: const EdgeInsets.all(appPadding),
           child: CachedNetworkImage(
@@ -29,8 +29,8 @@ class ChatFileUploadUi extends StatelessWidget {
             },
           ),
         );
-      } else if (state is ChatFileUpdalodFailed) {
-        context.read<ChatFilePickCubit>().emitInitiaState();
+      } else if (state is ChatFileUploadFailed) {
+        context.read<ChatFilePickCubit>().emitInitialState();
         return Padding(
             padding: const EdgeInsets.all(appPadding),
             child: Stack(

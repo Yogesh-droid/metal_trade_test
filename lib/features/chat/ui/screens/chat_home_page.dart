@@ -181,22 +181,3 @@ class _ChatHomePageState extends State<ChatHomePage> {
         ));
   }
 }
-
-
-
-/* listener: (context, state) {
-                  if (state is PreviousChatLoaded) {
-                    context.pop();
-                    context
-                        .pushNamed(chatPageName, queryParameters: {"id": "1"});
-                  }
-                  if (state is PreviousChatLoading) {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return const Dialog.fullscreen(
-                              backgroundColor: Colors.transparent,
-                              child: LoadingDots());
-                        });
-                  }
-                }, */

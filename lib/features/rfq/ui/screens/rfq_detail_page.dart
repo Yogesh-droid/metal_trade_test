@@ -79,7 +79,7 @@ class RfqDetailPage extends StatelessWidget {
                                   explanation: kThisWillRemoveRfq,
                                   height:
                                       MediaQuery.of(context).size.height / 3,
-                                  onConfirmaTapped: () {
+                                  onConfirmTapped: () {
                                     context.read<MyRfqBloc>().add(UpdateMyRfq(
                                         status: content.status == "Inreview" ||
                                                 content.status == "Active"

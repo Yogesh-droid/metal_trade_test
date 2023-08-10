@@ -8,10 +8,10 @@ import 'package:metaltrade/features/chat/domain/usecases/chat_file_pick_usecase.
 part 'kyc_file_pick_state.dart';
 
 class KycFilePickCubit extends Cubit<KycFilePickState> {
-  final ChatFilePickUsecsse chatFilePickUsecsse;
-  KycFilePickCubit(this.chatFilePickUsecsse) : super(KycFilePickInitial());
+  final ChatFilePickUsecase chatFilePickUsecase;
+  KycFilePickCubit(this.chatFilePickUsecase) : super(KycFilePickInitial());
 
-  Future<void> emitInitiaState() async {
+  Future<void> emitInitialState() async {
     emit(KycFilePickInitial());
   }
 
@@ -19,7 +19,7 @@ class KycFilePickCubit extends Cubit<KycFilePickState> {
     emit(KycFilePicking());
     try {
       DataState<File?> dataState =
-          await chatFilePickUsecsse.call(null, fileSource: fileSource);
+          await chatFilePickUsecase.call(null, fileSource: fileSource);
       if (dataState.data != null) {
         emit(KycFilePickSuccess(dataState.data!));
       } else {

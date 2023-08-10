@@ -49,7 +49,7 @@ class WebFooter extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Image.asset(Assets.assetsWelcomeAppLogoName, color: Colors.white),
       const SizedBox(height: appPadding),
-      Text(kSteelTradeInIndonasia,
+      Text(kSteelTradeInIndonesia,
           style: secMed15.copyWith(color: Colors.white, fontFamily: "Nunito"))
     ]);
   }

@@ -9,9 +9,6 @@ class StompClientProvider {
   StompClient stompCl = StompClient(
     config: StompConfig(
         url: 'wss://api.metaltrade.io/ws',
-        onConnect: (p0) {
-          log("this is stompframe ${p0.toString()}");
-        },
         onWebSocketError: (dynamic error) => log('', error: error.toString()),
         stompConnectHeaders: {
           'Authorization': 'Bearer ${LocalStorage.instance.token}',

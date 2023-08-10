@@ -7,9 +7,9 @@ import '../../../../core/usecase/usecase.dart';
 
 enum FileSource { gallery, camera, files }
 
-class ChatFilePickUsecsse extends Usecase {
+class ChatFilePickUsecase extends Usecase {
   final ChatFilePickRepo chatFilePickRepo;
-  ChatFilePickUsecsse(this.chatFilePickRepo);
+  ChatFilePickUsecase(this.chatFilePickRepo);
   @override
   Future<DataState<File?>> call(params, {FileSource? fileSource}) async {
     return await chatFilePickRepo.getImage(fileSource: fileSource);

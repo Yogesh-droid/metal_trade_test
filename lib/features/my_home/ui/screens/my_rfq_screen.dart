@@ -105,7 +105,7 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
                                                                 .size
                                                                 .height /
                                                             3,
-                                                    onConfirmaTapped: () {
+                                                    onConfirmTapped: () {
                                                       myRfqBloc.add(UpdateMyRfq(
                                                           status: e.status ==
                                                                       "Inreview" ||
@@ -116,7 +116,7 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
                                                           id: e.id!));
                                                       context.pop();
                                                     },
-                                                    fillesBtnColor:
+                                                    filledBtnColor:
                                                         Theme.of(context)
                                                             .colorScheme
                                                             .primary,

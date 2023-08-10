@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -6,6 +7,7 @@ import 'package:metaltrade/features/chat/data/models/chat_response_model.dart'
     as chat_res;
 
 import '../../../../core/constants/app_widgets/context_menu_app_bar.dart';
+import '../../../../core/constants/text_tyles.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../chat/ui/controllers/chat_bloc/chat_bloc.dart';
 import '../../../quotes/data/models/quote_res_model.dart' as quote_res;
@@ -25,9 +27,29 @@ class MyQuoteDetailPage extends StatelessWidget {
         body: Column(
           children: [
             EnquiryDetailHeading(
-                datePosted: content.lastModifiedDate ?? '',
-                status: content.status ?? '',
-                uuid: content.uuid ?? ''),
+              datePosted: content.lastModifiedDate ?? '',
+              status: content.status ?? '',
+              uuidTitle: Text.rich(TextSpan(children: [
+                TextSpan(
+                  text: '${content.uuid}',
+                  style: secMed12.copyWith(color: Colors.black),
+                ),
+                const TextSpan(text: ' on '),
+                TextSpan(
+                    text: '${content.enquiry!.uuid}',
+                    style: secMed12.copyWith(color: Colors.blue),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        context.pushNamed(enquiryDetailPageName,
+                            extra: content,
+                            queryParameters: {
+                              'title': kEnquiryDetail,
+                              'isMyEnquiry': 'yes',
+                              'hideBtn': 'yes'
+                            });
+                      })
+              ])),
+            ),
             const Divider(),
             Expanded(
                 child: EnquiryDetailList(

@@ -49,14 +49,15 @@ class EnquiryDetailList extends StatelessWidget {
         const Divider(),
         TermsRow(title: kRemarks, terms: otherTerms),
         const Divider(),
-        Align(
-          alignment: Alignment.topLeft,
-          child: Text('Attachment'.toUpperCase(),
-              style: Theme.of(context)
-                  .textTheme
-                  .labelSmall!
-                  .copyWith(color: Theme.of(context).colorScheme.secondary)),
-        ),
+        if (otherAttachmentsName != null)
+          Align(
+            alignment: Alignment.topLeft,
+            child: Text('Attachment'.toUpperCase(),
+                style: Theme.of(context)
+                    .textTheme
+                    .labelSmall!
+                    .copyWith(color: Theme.of(context).colorScheme.secondary)),
+          ),
         const SizedBox(height: appPadding),
         if (otherAttachmentsName != null)
           BlocBuilder<DownloadFileCubit, DownloadFileState>(

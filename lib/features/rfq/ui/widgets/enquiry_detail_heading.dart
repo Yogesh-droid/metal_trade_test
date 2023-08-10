@@ -10,11 +10,13 @@ class EnquiryDetailHeading extends StatelessWidget {
       {super.key,
       required this.datePosted,
       required this.status,
-      required this.uuid,
-      this.country});
+      this.uuid,
+      this.country,
+      this.uuidTitle});
   final String datePosted;
   final String status;
-  final String uuid;
+  final String? uuid;
+  final Widget? uuidTitle;
   final String? country;
 
   @override
@@ -29,11 +31,13 @@ class EnquiryDetailHeading extends StatelessWidget {
                     color: Theme.of(context).colorScheme.secondary),
               )
             : const SizedBox(),
+        if (uuidTitle != null) uuidTitle!,
         Row(
           children: [
-            Text(uuid,
-                style: secMed12.copyWith(
-                    color: Theme.of(context).colorScheme.secondary)),
+            if (uuid != null)
+              Text(uuid!,
+                  style: secMed12.copyWith(
+                      color: Theme.of(context).colorScheme.secondary)),
             const SizedBox(width: appPadding),
             if (country == null)
               Row(children: [

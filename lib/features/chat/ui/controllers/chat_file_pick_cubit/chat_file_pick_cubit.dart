@@ -8,12 +8,12 @@ import 'package:metaltrade/features/chat/domain/usecases/chat_file_pick_usecase.
 part 'chat_file_pick_state.dart';
 
 class ChatFilePickCubit extends Cubit<ChatFilePickState> {
-  final ChatFilePickUsecsse chatFilePickUsecsse;
+  final ChatFilePickUsecase chatFilePickUsecase;
   File? pickedImage;
 
-  ChatFilePickCubit(this.chatFilePickUsecsse) : super(ChatFilePickInitial());
+  ChatFilePickCubit(this.chatFilePickUsecase) : super(ChatFilePickInitial());
 
-  Future<void> emitInitiaState() async {
+  Future<void> emitInitialState() async {
     emit(ChatFilePickInitial());
   }
 
@@ -21,7 +21,7 @@ class ChatFilePickCubit extends Cubit<ChatFilePickState> {
     emit(ChatFilePicking());
     try {
       DataState<File?> dataState =
-          await chatFilePickUsecsse.call(null, fileSource: fileSource);
+          await chatFilePickUsecase.call(null, fileSource: fileSource);
       if (dataState.data != null) {
         pickedImage = dataState.data;
         emit(ChatFilePickSuccess(pickedImage));

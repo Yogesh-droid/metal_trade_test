@@ -8,14 +8,6 @@ class EnquiryTypeRadio extends StatelessWidget {
       {super.key, required this.onSelect, required this.groupValue});
   final Function(String? value) onSelect;
   final String groupValue;
-
-//   @override
-//   State<EnquiryTypeRadio> createState() => _EnquiryTypeRadioState();
-// }
-
-// class _EnquiryTypeRadioState extends State<EnquiryTypeRadio> {
-//   var rValue = UserIntent.Buy.name;
-
   @override
   Widget build(BuildContext context) {
     return Row(children: [

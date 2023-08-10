@@ -78,20 +78,20 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
                   filePath: event.file!.path,
                   fileName: event.file!.path.split('/').last,
                   header: header), onReceiveProgress: (value) {
-            emit(ChatFileuploading(value));
+            emit(ChatFileUploading(value));
           }, onSendProgress: (value) {
-            emit(ChatFileuploading(value));
+            emit(ChatFileUploading(value));
           });
           if (dataState.data != null) {
             emit(ChatFileUploaded(imgUrl: dataState.data!));
           } else {
             log(dataState.exception.toString());
-            emit(ChatFileUpdalodFailed(
+            emit(ChatFileUploadFailed(
                 exception: Exception(dataState.exception), file: event.file));
           }
         } on Exception catch (e) {
           log(e.toString());
-          emit(ChatFileUpdalodFailed(exception: e, file: event.file));
+          emit(ChatFileUploadFailed(exception: e, file: event.file));
         }
       }
     });

@@ -102,7 +102,7 @@ class DashBoard extends StatelessWidget {
           indicatorColor:
               Theme.of(context).colorScheme.inversePrimary.withOpacity(0.50),
           onDestinationSelected: (value) {
-            context.read<EnquiryFilePickCubit>().emitInitiaState();
+            context.read<EnquiryFilePickCubit>().emitInitialState();
             context.read<BottomNavControllerCubit>().changeIndex(value);
           },
         );

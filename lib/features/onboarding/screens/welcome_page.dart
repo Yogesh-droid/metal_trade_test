@@ -69,7 +69,6 @@ class _WelcomePageState extends State<WelcomePage> {
               ? context.go(loginPageRoute)
               : context.go(landingPageRoute);
         } else {
-          debugPrint("token is =>=>=>=>  $token");
           context.go(dashBoardRoute);
         }
       });

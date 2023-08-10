@@ -43,7 +43,6 @@ class HomePageQuoteCard extends StatelessWidget {
             children: [
               HomePageCardUpSection(
                 dateTime: content!.lastModifiedDate ?? '',
-                // uuidTitle: "${content!.uuid} on ${content!.enquiry!.uuid}",
                 uuidTitle: Text.rich(TextSpan(children: [
                   TextSpan(
                       text: '${content!.uuid}',

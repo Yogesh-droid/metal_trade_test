@@ -10,7 +10,7 @@ void setup() {
 
   getIt.registerFactory<ChatFilePickRepo>(() => ChatFilePickRepoImpl(getIt()));
   getIt
-      .registerFactory<ChatFilePickUsecsse>(() => ChatFilePickUsecsse(getIt()));
+      .registerFactory<ChatFilePickUsecase>(() => ChatFilePickUsecase(getIt()));
   getIt.registerFactory<ChatFilePickCubit>(() => ChatFilePickCubit(getIt()));
 
   // File Download setup

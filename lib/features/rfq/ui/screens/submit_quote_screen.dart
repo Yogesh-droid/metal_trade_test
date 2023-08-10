@@ -60,7 +60,8 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
                           if (selectProductToQuoteCubit.price == 0) {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                    content: Text("Please add valid price")));
+                                    content:
+                                        Text("Provide valid quote price")));
                             return;
                           }
                           List<Map<String, dynamic>> selectedItems = [];
@@ -84,6 +85,8 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
                           submitQuoteBloc.add(SubmitQuote(
                               postEnquiryModel: postEnquiryModel,
                               quoteId: content.id!));
+
+                          // selectProductToQuoteCubit.selectedItems.clear();
                         },
                         price: selectProductToQuoteCubit.selectedItems.fold(
                             0,

@@ -44,14 +44,14 @@ class _MyHomePageState extends State<MyHomePage>
         bottomWidget: HomePageAppbarBottom(
             tabList: const [
               Tab(text: kCreateEnquiry),
-              Tab(text: kMyENquiries),
+              Tab(text: kMyEnquiry),
               Tab(text: kMyQuotes),
             ],
             tabController: _tabController,
             isScrollable: true,
             onTap: (value) {
               if (value == 1) {
-                context.read<EnquiryFilePickCubit>().emitInitiaState();
+                context.read<EnquiryFilePickCubit>().emitInitialState();
                 if (myRfqBloc.myRfqList.isEmpty && !myRfqBloc.isMyRfqListEnd) {
                   myRfqBloc.add(GetMyRfqList(
                       page:
@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage>
                       isLoadMore: false));
                 }
               } else if (value == 2) {
-                context.read<EnquiryFilePickCubit>().emitInitiaState();
+                context.read<EnquiryFilePickCubit>().emitInitialState();
                 if (myQuoteBloc.myQuoteList.isEmpty &&
                     !myQuoteBloc.isMyQuoteListEnd) {
                   myQuoteBloc.add(GetQuoteList(

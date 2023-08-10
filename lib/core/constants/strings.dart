@@ -35,16 +35,12 @@ const String kSeller = "Sellers";
 const String kEnquiry = "All Enquiries";
 const String kMyQuotes = "My Quotes";
 const String kMyEnquiry = "My Enquiries";
-const String kItemList = "Products List";
 const String kItemName = "Choose Product";
 const String kTotalQty = "Total Qty";
 const String kQuantity = "Quantity";
-const String kShowMore = "Show more";
-const String kShowLess = "Show less";
 const String kClose = "Close";
 const String kReopen = "Reopen";
 const String kViewOrder = "View Order";
-const String kViewQuotes = "View Quote(s)";
 const String kQuoteDetails = "Quote Details";
 const String kBuy = "Buy";
 const String kSell = "Sell";
@@ -59,8 +55,6 @@ const String kTermsOfUse = "Terms of Use";
 const String kDeleteAccount = "Delete Account";
 const String kCompleteKyc = "Complete KYC";
 const String kCompleteProfile = "Complete Profile";
-const String kPleaseCompleteKyc =
-    "Please complete your KYC to submit/view enquiries";
 const String kEmail = "Email";
 const String kPhoneNo = "Phone No";
 const String kAddress = "Address";
@@ -71,17 +65,12 @@ const String kChooseCountry = "Choose your country";
 const String kAccNo = "Enter your account Number";
 const String kSwiftCode = "Enter your Swift code";
 const String kBankName = "Enter your Bank Name";
-const String kRetry = "Retry";
-const String kCheckProfile = "Check Profile";
-const String kBack = "Back";
 const String kPosted = "Posted";
-const String kVerified = "Verified";
 const String kProducts = "PRODUCTS";
 const String kEnquiryDetail = "Enquiry Details";
 const String kPaymentTerms = "Payment terms";
 const String kTransportTerms = "Transportation terms";
 const String kRemarks = "Remarks";
-const String kMyENquiries = "My Enquiries";
 const String kCreateEnquiry = "Create Enquiry";
 const String kUnit = "Unit";
 const String kAddPaymentTerms = "Add payment terms";
@@ -114,13 +103,9 @@ const String kChatWithCustomers =
 const String kGetMarketUpdate = "Selling Steel?";
 const String kStayUpdated =
     "Increase your sales across across ever expanding buyer network with curated service and real time leads -> Sell Now";
-const String kHowToUseMtApp = "How to use the MetalTrade App";
 const String kCreateYourRfq = "Create your Enquiries";
-const String kMyRfq = "My Enquiries and Quotes";
 const String kNeedMoreInfo =
     "Need More Information? Get in Touch or Request a callback";
-const String kSteelTrade =
-    "The steel trade in Indonesia is very huge in size and highly competitive. But it is mostly un organised and unstructured. Our mission is to organize the trade with the help of technology and help all the stakeholders benefit from it and eventually bring growth in economy";
 const String kDownloadApp = "Download the App";
 const String kGetLink = "Get the link to download the app";
 const String kMetalTradeApp = "MetalTrade App";
@@ -129,7 +114,7 @@ const String kWeAreEndToEnd =
 const String kAcceptAQuote = "Accept a Quote";
 const String kMyRfqAndQuotes = "My Enquiries and Quotes";
 const String kAdditionalInfo = "Any Additional message..";
-const String kSteelTradeInIndonasia =
+const String kSteelTradeInIndonesia =
     '''The steel trade in Indonesia is very huge 
 in size and highly competitive. But it is mostly 
 un organised and unstructured. Our mission is to organize the 

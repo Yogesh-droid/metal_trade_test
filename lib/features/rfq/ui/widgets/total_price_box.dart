@@ -29,7 +29,7 @@ class TotalPriceBox extends StatelessWidget {
             children: [
               Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [const Text(kTotalOffer), Text("\$ $price")]),
+                  children: [const Text(kTotalOffer).tr(), Text("\$ $price")]),
               BlocConsumer<SubmitQuoteBloc, SubmitQuoteState>(
                 listener: (context, state) {
                   if (state is SubmitQuoteSuccessful) {

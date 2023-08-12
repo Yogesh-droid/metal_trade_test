@@ -43,11 +43,12 @@ class EnquiryDetailList extends StatelessWidget {
         itemListWidget(context),
         const SizedBox(height: appPadding),
         const Divider(),
-        TermsRow(title: kPaymentTerms, terms: paymentTermsDisplay),
+        TermsRow(title: kPaymentTerms.tr(), terms: paymentTermsDisplay),
         const Divider(),
-        TermsRow(title: kTransportTerms, terms: transportationTermsDisplay),
+        TermsRow(
+            title: kTransportTerms.tr(), terms: transportationTermsDisplay),
         const Divider(),
-        TermsRow(title: kRemarks, terms: otherTerms),
+        TermsRow(title: kRemarks.tr(), terms: otherTerms),
         const Divider(),
         if (otherAttachmentsName != null)
           Align(

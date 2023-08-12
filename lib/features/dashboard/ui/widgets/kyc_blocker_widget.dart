@@ -28,7 +28,7 @@ class KycBlocker extends StatelessWidget {
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width / 2,
-                  child: Text(kCompleteKyc,
+                  child: Text(kCompleteKyc.tr(),
                           style: secMed20.copyWith(
                               color: Theme.of(context).colorScheme.scrim,
                               fontFamily: 'Nunito',

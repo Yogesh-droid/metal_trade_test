@@ -40,7 +40,7 @@ class _MyEnquiryDetailState extends State<MyEnquiryDetail>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const ContextMenuAppBar(title: kEnquiryDetail),
+      appBar: ContextMenuAppBar(title: kEnquiryDetail.tr()),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const SizedBox(height: appPadding),
         EnquiryDetailHeading(
@@ -55,8 +55,8 @@ class _MyEnquiryDetailState extends State<MyEnquiryDetail>
             automaticIndicatorColorAdjustment: true,
             indicatorPadding: EdgeInsets.zero,
             tabs: [
-              const Tab(text: kDetails),
-              Tab(text: ("$kQuote (${widget.item.quoteCount})"))
+              Tab(text: kDetails.tr()),
+              Tab(text: ("${kQuote.tr()} (${widget.item.quoteCount})"))
             ]),
         const SizedBox(height: appPadding),
         Expanded(
@@ -76,7 +76,7 @@ class _MyEnquiryDetailState extends State<MyEnquiryDetail>
                   ? kViewOrder.tr()
                   : widget.item.status == "Inreview" ||
                           widget.item.status == "Active"
-                      ? kCloseRfq
+                      ? kCloseRfq.tr()
                       : widget.item.status == "Expired"
                           ? kReopen.tr()
                           : null,

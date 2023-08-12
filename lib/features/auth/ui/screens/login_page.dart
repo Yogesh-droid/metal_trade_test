@@ -109,10 +109,10 @@ class _LoginPageState extends State<LoginPage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const AppWebPages(
+                                      builder: (context) => AppWebPages(
                                             url:
                                                 "https://metaltrade.io/terms.html",
-                                            title: kTermsOfUse,
+                                            title: kTermsOfUse.tr(),
                                           )));
                             },
                           text: "\n${kTnC.tr()}",

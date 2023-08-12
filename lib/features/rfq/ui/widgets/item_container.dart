@@ -86,7 +86,7 @@ class _ItemContainerState extends State<ItemContainer> {
                 isObscureText: false,
                 textEditingController: priceController,
                 onChange: widget.onPriceChange,
-                hintText: "$kQuotePrice (\$)",
+                hintText: "${kQuotePrice.tr()} (\$)",
               ))
             ],
           )

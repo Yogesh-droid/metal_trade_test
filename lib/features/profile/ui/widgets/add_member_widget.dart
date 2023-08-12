@@ -52,7 +52,7 @@ class AddMemberWidget extends StatelessWidget with InputValidationMixin {
                       builder: (context, countryCodeModel) {
                         return BorderedTextField(
                           isObscureText: false,
-                          hintText: kPhoneNo,
+                          hintText: kPhoneNo.tr(),
                           textEditingController: textEditingController,
                           textInputType: TextInputType.phone,
                           prefix:

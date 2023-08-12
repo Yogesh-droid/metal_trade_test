@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/features/rfq/ui/widgets/itemlist_tile.dart';
@@ -19,7 +20,7 @@ class HomeCardItemListWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(kProducts,
+          Text(kProducts.tr(),
               style: Theme.of(context)
                   .textTheme
                   .labelSmall!

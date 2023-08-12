@@ -77,7 +77,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
             const SizedBox(height: appPadding),
             BorderedTextField(
               isObscureText: false,
-              hintText: kCompanyName,
+              hintText: kCompanyName.tr(),
               textEditingController: companyNameController,
               focusNode: companyNameFocus,
               textInputType: TextInputType.emailAddress,
@@ -96,7 +96,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
             const SizedBox(height: appFormFieldGap),
             BorderedTextField(
               isObscureText: false,
-              hintText: kEmail,
+              hintText: kEmail.tr(),
               textEditingController: emailController,
               textInputType: TextInputType.emailAddress,
               focusNode: emailFocus,
@@ -116,7 +116,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
             BorderedTextField(
               isObscureText: false,
               textInputType: TextInputType.phone,
-              hintText: kPhoneNo,
+              hintText: kPhoneNo.tr(),
               focusNode: phoneFocus,
               textEditingController: phoneController,
               textInputAction: TextInputAction.done,
@@ -130,7 +130,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
             const SizedBox(height: appFormFieldGap),
             BorderedTextField(
               isObscureText: false,
-              hintText: kAddress,
+              hintText: kAddress.tr(),
               textEditingController: addressController,
               focusNode: addressFocus,
               textInputType: TextInputType.streetAddress,
@@ -149,7 +149,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
             const SizedBox(height: appFormFieldGap),
             BorderedTextField(
               isObscureText: false,
-              hintText: kPinCode,
+              hintText: kPinCode.tr(),
               textEditingController: pinController,
               focusNode: pinFocus,
               textInputType: TextInputType.phone,
@@ -171,7 +171,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
             const SizedBox(height: appFormFieldGap),
             BorderedTextField(
               isObscureText: false,
-              hintText: kAccNo,
+              hintText: kAccNo.tr(),
               textEditingController: accNoController,
               textInputType: TextInputType.name,
               focusNode: accNoFocus,
@@ -186,7 +186,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
             const SizedBox(height: appFormFieldGap),
             BorderedTextField(
               isObscureText: false,
-              hintText: kSwiftCode,
+              hintText: kSwiftCode.tr(),
               textEditingController: swiftCodeController,
               textInputType: TextInputType.name,
               focusNode: swiftFocus,
@@ -201,7 +201,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
             const SizedBox(height: appFormFieldGap),
             BorderedTextField(
               isObscureText: false,
-              hintText: kBankName,
+              hintText: kBankName.tr(),
               textEditingController: bankNameController,
               textInputType: TextInputType.name,
               focusNode: bankNameFocus,
@@ -309,7 +309,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
                         color: Theme.of(context).colorScheme.primary),
                     borderRadius: BorderRadius.circular(appPadding),
                     gapPadding: 8),
-                labelText: kChooseCountry,
+                labelText: kChooseCountry.tr(),
                 labelStyle:
                     TextStyle(color: Theme.of(context).colorScheme.outline),
               ),

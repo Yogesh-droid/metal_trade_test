@@ -44,7 +44,7 @@ class MyQuoteDetailPage extends StatelessWidget {
                         context.pushNamed(enquiryDetailPageName,
                             extra: content,
                             queryParameters: {
-                              'title': kEnquiryDetail,
+                              'title': kEnquiryDetail.tr(),
                               'isMyEnquiry': 'yes',
                               'hideBtn': 'yes'
                             });

@@ -59,7 +59,7 @@ class MyOrderCard extends StatelessWidget {
                     ..onTap = () {
                       context.pushNamed(enquiryDetailPageName,
                           extra: Content.fromJson(content!.toJson()),
-                          queryParameters: {'title': kEnquiryDetail});
+                          queryParameters: {'title': kEnquiryDetail.tr()});
                     },
                   style: secMed11.copyWith(color: Colors.blue)),
             ])),
@@ -105,10 +105,11 @@ class MyOrderCard extends StatelessWidget {
               )
             ]),
             const Divider(),
-            TermsRow(title: kPaymentTerms, terms: content!.paymentTermsDisplay),
+            TermsRow(
+                title: kPaymentTerms.tr(), terms: content!.paymentTermsDisplay),
             const SizedBox(height: appPadding),
             TermsRow(
-                title: kTransportTerms,
+                title: kTransportTerms.tr(),
                 terms: content!.transportationTermsDisplay),
           ])),
     );

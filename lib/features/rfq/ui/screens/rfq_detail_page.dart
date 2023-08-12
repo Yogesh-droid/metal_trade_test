@@ -61,10 +61,10 @@ class RfqDetailPage extends StatelessWidget {
               filledBtnText: hideBtns != null
                   ? null
                   : isMyEnquiry != null
-                      ? kSubmitQuote
+                      ? kSubmitQuote.tr()
                       : content.status == 'Inreview' ||
                               content.status == "Active"
-                          ? kCloseRfq
+                          ? kCloseRfq.tr()
                           : null,
               onFilledTapped: hideBtns != null
                   ? null

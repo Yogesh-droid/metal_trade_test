@@ -50,7 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 const ProfileTile(),
                 const SizedBox(height: appPadding),
                 OptionTile(
-                    title: kMyOrders,
+                    title: kMyOrders.tr(),
                     onTap: () {
                       context.pushNamed(myOrderScreenName);
                     }),
@@ -66,7 +66,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     }
                   },
                   child: OptionTile(
-                      title: kAddMember,
+                      title: kAddMember.tr(),
                       onTap: () {
                         showModalBottomSheet(
                             context: context,
@@ -83,7 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 const SizedBox(height: appPadding),
                 OptionTile(
-                    title: kChangeLanguage,
+                    title: kChangeLanguage.tr(),
                     onTap: () {
                       Navigator.push(
                           context,
@@ -91,32 +91,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               builder: (context) => ChangeLangauge()));
                     }),
                 const SizedBox(height: appPadding),
-                const OptionTile(title: kRateUs),
+                OptionTile(title: kRateUs.tr()),
                 const SizedBox(height: appPadding),
                 OptionTile(
-                    title: kTermsOfUse,
+                    title: kTermsOfUse.tr(),
                     onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const AppWebPages(
+                              builder: (context) => AppWebPages(
                                   url: "https://metaltrade.io/terms.html",
-                                  title: kTermsOfUse)));
+                                  title: kTermsOfUse.tr())));
                     }),
                 const SizedBox(height: appPadding),
                 OptionTile(
-                    title: kPrivacyPolicy,
+                    title: kPrivacyPolicy.tr(),
                     onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const AppWebPages(
+                              builder: (context) => AppWebPages(
                                   url: "https://metaltrade.io/privacy.html",
-                                  title: kPrivacyPolicy)));
+                                  title: kPrivacyPolicy.tr())));
                     }),
                 const SizedBox(height: appPadding),
                 OptionTile(
-                    title: kDeleteAccount,
+                    title: kDeleteAccount.tr(),
                     onTap: () {
                       showModalBottomSheet(
                           isDismissible: true,
@@ -144,7 +144,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 context.go(loginPageRoute);
                               },
                               title: kDoYouWantToDelete.tr(),
-                              filledBtnText: kDeleteAccount,
+                              filledBtnText: kDeleteAccount.tr(),
                               outlinedBtnText: kCancel.tr(),
                               explanation: kByDeletingAcc.tr(),
                               height: MediaQuery.of(context).size.height / 3,

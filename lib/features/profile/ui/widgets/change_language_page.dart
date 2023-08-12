@@ -16,7 +16,7 @@ class ChangeLangauge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const ContextMenuAppBar(title: kChangeLanguage),
+      appBar: ContextMenuAppBar(title: kChangeLanguage.tr()),
       body: BlocConsumer<ChangeLanguageCubit, Locale>(
         listener: (context, state) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

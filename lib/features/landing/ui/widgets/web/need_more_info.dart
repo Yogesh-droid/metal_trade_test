@@ -38,7 +38,7 @@ class NeedMoreInfoWidget extends StatelessWidget {
                         return null;
                       },
                       onChange: (value) {},
-                      hint: kRepresentativeName,
+                      hint: kRepresentativeName.tr(),
                       textEditingController: nameController)),
               const SizedBox(width: appWidgetGap),
               Expanded(
@@ -50,7 +50,7 @@ class NeedMoreInfoWidget extends StatelessWidget {
                         return null;
                       },
                       onChange: (value) {},
-                      hint: kPhoneNo,
+                      hint: kPhoneNo.tr(),
                       textEditingController: contactNoController))
             ],
           ),

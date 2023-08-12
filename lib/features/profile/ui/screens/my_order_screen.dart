@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/app_widgets/context_menu_app_bar.dart';
@@ -40,7 +41,7 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.outlineVariant,
-      appBar: const ContextMenuAppBar(title: kMyOrders),
+      appBar: ContextMenuAppBar(title: kMyOrders.tr()),
       body: Column(
         children: [
           BlocBuilder<MyOrderBloc, MyOrderState>(

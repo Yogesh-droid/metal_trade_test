@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -62,7 +63,7 @@ class HomePageQuoteCard extends StatelessWidget {
                           context.pushNamed(enquiryDetailPageName,
                               extra: content,
                               queryParameters: {
-                                'title': kEnquiryDetail,
+                                'title': kEnquiryDetail.tr(),
                                 'isMyEnquiry': 'yes',
                                 'hideBtn': 'yes'
                               });

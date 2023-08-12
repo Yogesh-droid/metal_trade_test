@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:metaltrade/core/constants/app_widgets/context_menu_app_bar.dart';
 import 'package:metaltrade/core/constants/strings.dart';
@@ -13,7 +14,7 @@ class KycScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
-      appBar: const ContextMenuAppBar(title: kCompleteProfile),
+      appBar: ContextMenuAppBar(title: kCompleteProfile.tr()),
       body: KycFormPage(profileEntity: profileEntity),
     );
   }

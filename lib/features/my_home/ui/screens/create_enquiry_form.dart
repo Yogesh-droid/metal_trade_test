@@ -132,13 +132,13 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                 setState(() {});
               },
               child: Text(
-                "+ $kAddProducts",
+                "+ ${kAddProducts.tr()}",
                 style: secMed14.copyWith(
                     color: Theme.of(context).colorScheme.primary),
               ).tr()),
           const Divider(),
           AppDropdownFormField(
-            hintText: kAddPaymentTerms,
+            hintText: kAddPaymentTerms.tr(),
             items: paymentTerms,
             onChange: (value) {
               termsOfPayment = value.toString();
@@ -146,7 +146,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
           ),
           const SizedBox(height: appPadding),
           AppDropdownFormField(
-            hintText: kAddTransportTerms,
+            hintText: kAddTransportTerms.tr(),
             items: transportationTerms,
             onChange: (value) {
               termsOfTransport = value.toString();
@@ -158,7 +158,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
             textEditingController: remarksController,
             radius: 4,
             maxLines: 2,
-            hintText: kOtherTerms,
+            hintText: kOtherTerms.tr(),
             textInputType: TextInputType.text,
             focusNode: FocusNode(),
           ),
@@ -172,7 +172,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
               }
 
               return FilledButtonIconWidget(
-                title: kCreateEnquiry,
+                title: kCreateEnquiry.tr(),
                 onPressed: () {
                   if (items[0]['sku'] == null) {
                     Fluttertoast.showToast(msg: 'Please Select Product');

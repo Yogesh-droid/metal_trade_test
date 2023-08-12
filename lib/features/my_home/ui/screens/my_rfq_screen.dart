@@ -87,11 +87,11 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
                                           ? kViewOrder.tr()
                                           : e.status == "Inreview" ||
                                                   e.status == "Active"
-                                              ? kCloseRfq
+                                              ? kCloseRfq.tr()
                                               : null,
                                       filledBtnTitle: e.status != "Inreview"
                                           ? e.quoteCount! > 0
-                                              ? "$kView ${e.quoteCount} $kQuote"
+                                              ? "${kView.tr()} ${e.quoteCount} ${kQuote.tr()}"
                                               : null
                                           : null,
                                       onBorderedBtnTapped: () {
@@ -152,7 +152,7 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
                                                 enquiryDetailPageName,
                                                 extra: e,
                                                 queryParameters: {
-                                                    'title': kEnquiryDetail
+                                                    'title': kEnquiryDetail.tr()
                                                   })
                                             : context.pushNamed(
                                                 myEnqiryDetailPageName,

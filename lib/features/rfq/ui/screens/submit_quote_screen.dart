@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/app_widgets/context_menu_app_bar.dart';
@@ -39,7 +40,8 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: ContextMenuAppBar(title: kSubmitQuote, subtitle: content.uuid),
+        appBar:
+            ContextMenuAppBar(title: kSubmitQuote.tr(), subtitle: content.uuid),
         body: SingleChildScrollView(
           child: _buildPanel(),
         ),

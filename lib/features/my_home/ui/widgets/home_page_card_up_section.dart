@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -39,7 +40,7 @@ class HomePageCardUpSection extends StatelessWidget {
                 )
               : DateTime.tryParse(dateTime) != null
                   ? Text(
-                      "$kPosted: ${DateFormat('dd MMM yyyy - hh:mm a').format(DateTime.tryParse(dateTime)!.toLocal())}",
+                      "${kPosted.tr()}: ${DateFormat('dd MMM yyyy - hh:mm a').format(DateTime.tryParse(dateTime)!.toLocal())}",
                       style: secMed12.copyWith(
                           color: Theme.of(context).colorScheme.outline),
                     )

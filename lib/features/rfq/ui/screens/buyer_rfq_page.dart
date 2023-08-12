@@ -65,7 +65,7 @@ class _BuyerRfqPageState extends State<BuyerRfqPage> {
                                 country: e.enquiryCompany!.country!.name,
                                 uuid: e.uuid,
                                 borderedBtnTitle: kChat.tr(),
-                                filledBtnTitle: "+ $kSubmitQuote",
+                                filledBtnTitle: "+ ${kSubmitQuote.tr()}",
                                 onBorderedBtnTapped: () {
                                   context.read<ChatBloc>().add(
                                       GetPreviousChatEvent(
@@ -97,7 +97,7 @@ class _BuyerRfqPageState extends State<BuyerRfqPage> {
                                   context.pushNamed(enquiryDetailPageName,
                                       extra: e,
                                       queryParameters: {
-                                        'title': kEnquiryDetail,
+                                        'title': kEnquiryDetail.tr(),
                                         'country':
                                             e.enquiryCompany!.country!.name,
                                         'isMyEnquiry': 'yes'

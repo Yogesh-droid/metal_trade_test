@@ -83,7 +83,7 @@ class _ItemListContainerState extends State<ItemListContainer> {
                   const SizedBox(width: 5),
                   Expanded(
                       child: AppDropdownFormField(
-                    hintText: kUnit,
+                    hintText: kUnit.tr(),
                     items: const [
                       DropdownMenuItem<String>(value: 'MT', child: Text("MT")),
                       DropdownMenuItem<String>(value: 'Kg', child: Text("KG")),
@@ -98,7 +98,7 @@ class _ItemListContainerState extends State<ItemListContainer> {
                 textEditingController: remarksController,
                 radius: 4,
                 maxLines: 2,
-                hintText: kProductRemarks,
+                hintText: kProductRemarks.tr(),
                 textInputType: TextInputType.text,
                 onChange: widget.onRemarksSubmit,
                 focusNode: FocusNode(),

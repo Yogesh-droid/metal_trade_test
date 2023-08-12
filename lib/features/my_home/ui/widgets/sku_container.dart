@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/strings.dart';
@@ -19,7 +20,7 @@ class SkuContainer extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(kChooseProduct,
+            Text(kChooseProduct.tr(),
                 style: secMed14.copyWith(fontWeight: FontWeight.w700)),
             const Divider(),
             BlocBuilder<GetSkuBloc, GetSkuState>(builder: (context, state) {

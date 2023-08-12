@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,7 +42,9 @@ class AddMemberWidget extends StatelessWidget with InputValidationMixin {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(kAddYourMember,
-                        style: secMed14.copyWith(fontWeight: FontWeight.w700)),
+                            style:
+                                secMed14.copyWith(fontWeight: FontWeight.w700))
+                        .tr(),
                     const SizedBox(height: appPadding),
                     const Divider(),
                     const SizedBox(height: appPadding),

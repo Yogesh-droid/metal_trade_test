@@ -236,7 +236,7 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
                 }
               },
               child: FilledButtonWidget(
-                  title: kSubmit,
+                  title: kSubmit.tr(),
                   onPressed: () {
                     if (KycFormPage._formKey.currentState!.validate()) {
                       final KycBloc kycBloc = context.read<KycBloc>();

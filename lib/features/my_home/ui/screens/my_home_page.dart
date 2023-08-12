@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/create_enquiry_bloc/create_enquiry_bloc.dart';
@@ -50,10 +51,10 @@ class _MyHomePageState extends State<MyHomePage>
         appBar: MainAppBar(
           elevation: 5,
           bottomWidget: HomePageAppbarBottom(
-              tabList: const [
-                Tab(text: kCreateEnquiry),
-                Tab(text: kMyEnquiry),
-                Tab(text: kMyQuotes),
+              tabList: [
+                Tab(text: kCreateEnquiry.tr()),
+                Tab(text: kMyEnquiry.tr()),
+                Tab(text: kMyQuotes.tr()),
               ],
               tabController: _tabController,
               isScrollable: true,

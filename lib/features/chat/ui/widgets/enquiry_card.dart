@@ -99,7 +99,7 @@ class ItemList extends StatelessWidget {
                       style: secMed12.copyWith(
                           color:
                               Theme.of(context).colorScheme.onSurfaceVariant),
-                    ),
+                    ).tr(),
                   ],
                 ),
               ))

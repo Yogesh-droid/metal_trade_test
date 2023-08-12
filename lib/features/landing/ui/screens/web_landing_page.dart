@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
@@ -43,12 +44,12 @@ class WebLandingPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  kTradeOn,
+                                  kTradeOn.tr(),
                                   style: secMed48.copyWith(
                                       fontFamily: "Nunito",
                                       fontWeight: FontWeight.w800),
                                 ),
-                                Text(kAllProductOfSteel,
+                                Text(kAllProductOfSteel.tr(),
                                     style: secMed48.copyWith(
                                         color: Theme.of(context)
                                             .colorScheme
@@ -129,8 +130,8 @@ class WebLandingPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const SizedBox(height: appPadding * 2),
-                                  appDescriptionText(context,
-                                      kBuyNow, kChatWithCustomers),
+                                  appDescriptionText(
+                                      context, kBuyNow, kChatWithCustomers),
                                   const SizedBox(height: appPadding * 2),
                                   appDescriptionText(
                                       context, kGetMarketUpdate, kStayUpdated),
@@ -172,7 +173,7 @@ class WebLandingPage extends StatelessWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 4,
                         child: Text(
-                          kWeAreEndToEnd,
+                          kWeAreEndToEnd.tr(),
                           style: secMed18.copyWith(
                               color: Theme.of(context).colorScheme.outline,
                               fontFamily: "Nunito"),
@@ -236,13 +237,13 @@ class WebLandingPage extends StatelessWidget {
   Widget appWorkingDemo(BuildContext context) {
     return Column(
       children: [
-        appDemoTextfield(context, kCreateYourRfq),
+        appDemoTextfield(context, kCreateYourRfq.tr()),
         const SizedBox(height: appPadding),
-        appDemoTextfield(context, kSubmitQuote),
+        appDemoTextfield(context, kSubmitQuote.tr()),
         const SizedBox(height: appPadding),
-        appDemoTextfield(context, kAcceptAQuote),
+        appDemoTextfield(context, kAcceptAQuote.tr()),
         const SizedBox(height: appPadding),
-        appDemoTextfield(context, kMyRfqAndQuotes)
+        appDemoTextfield(context, kMyRfqAndQuotes.tr())
       ],
     );
   }
@@ -286,14 +287,14 @@ class WebLandingPage extends StatelessWidget {
                   duration: const Duration(milliseconds: 700));
             }),
         AppBarTextButton(
-            text: kReachUs,
+            text: kReachUs.tr(),
             onPressed: () {
               scrollController.animateTo(MediaQuery.of(context).size.height * 3,
                   curve: Curves.linear,
                   duration: const Duration(milliseconds: 1000));
             }),
         FilledButtonWidget(
-            title: kMyAcc,
+            title: kMyAcc.tr(),
             onPressed: () async {
               await LocalStorage.instance.getToken().then((value) {
                 if (value.isEmpty) {

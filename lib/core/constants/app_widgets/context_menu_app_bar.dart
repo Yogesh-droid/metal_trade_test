@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
 
@@ -14,12 +15,12 @@ class ContextMenuAppBar extends StatelessWidget implements PreferredSizeWidget {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title ?? ''),
+            Text(title ?? '').tr(),
             Text(
               subtitle ?? '',
               style: secMed12.copyWith(
                   color: Theme.of(context).colorScheme.outline),
-            )
+            ).tr()
           ],
         ),
         centerTitle: true,

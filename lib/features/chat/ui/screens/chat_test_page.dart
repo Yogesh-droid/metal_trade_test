@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
@@ -83,7 +84,7 @@ class ChatTestPageState extends State<ChatTestPage> {
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.outlineVariant,
         appBar: MainAppBar(
-          title: Text(widget.room ?? kChat),
+          title: Text(widget.room ?? kChat).tr(),
         ),
         body: BlocListener<ChatFilePickCubit, ChatFilePickState>(
           listener: (context, state) {
@@ -176,8 +177,8 @@ class ChatTestPageState extends State<ChatTestPage> {
                             }
                             return ChatList(chatList: chatBloc.chatList);
                           }
-                          return const Center(
-                              child: Text("No Previous Chat Found"));
+                          return Center(
+                              child: const Text("No Previous Chat Found").tr());
                         },
                       ),
                     ],
@@ -256,10 +257,9 @@ class ChatTestPageState extends State<ChatTestPage> {
       return;
     }
     stompClient!.send(
-      destination: '/mtp/chat/read',
-      headers: {'Authorization': 'Bearer ${LocalStorage.instance.token}'},
-      body: json.encode(ids)
-    );
+        destination: '/mtp/chat/read',
+        headers: {'Authorization': 'Bearer ${LocalStorage.instance.token}'},
+        body: json.encode(ids));
   }
 
   @override

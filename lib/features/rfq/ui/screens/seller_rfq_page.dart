@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -64,7 +65,7 @@ class _SellerRfqPageState extends State<SellerRfqPage> {
                                 itemList: e.item,
                                 country: e.enquiryCompany!.country!.name,
                                 uuid: e.uuid,
-                                borderedBtnTitle: kChat,
+                                borderedBtnTitle: kChat.tr(),
                                 filledBtnTitle: "+ $kSubmitQuote",
                                 onBorderedBtnTapped: () {
                                   context.read<ChatBloc>().add(

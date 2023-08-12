@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -58,17 +59,23 @@ class _PinPutPageState extends State<PinPutPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: appPadding * 2),
               child: Text(kOtpVerification,
-                  style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                      fontFamily: "Nunito", fontWeight: FontWeight.w700)),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineLarge!
+                          .copyWith(
+                              fontFamily: "Nunito",
+                              fontWeight: FontWeight.w700))
+                  .tr(),
             ),
             // const SizedBox(height: appPadding),
             Padding(
               padding: const EdgeInsets.symmetric(
                   horizontal: appPadding * 2, vertical: appPadding),
-              child: Text("$kEnterOtp $phoneNo",
-                  style: secMed14.copyWith(
-                      fontFamily: "Nunito",
-                      color: Theme.of(context).colorScheme.outline)),
+              child: Text("${kEnterOtp.tr()} $phoneNo",
+                      style: secMed14.copyWith(
+                          fontFamily: "Nunito",
+                          color: Theme.of(context).colorScheme.outline))
+                  .tr(),
             ),
             const SizedBox(height: appWidgetGap),
             Align(
@@ -83,9 +90,9 @@ class _PinPutPageState extends State<PinPutPage> {
                   return Pinput(
                     controller: pinTextController,
                     length: 4,
-                      onCompleted: (pin) => context
-                         .read<ValidateOtpBloc>()
-                         .add(GetValidateOtpEvent(phoneNo: phoneNo, otp: otp)),
+                    onCompleted: (pin) => context
+                        .read<ValidateOtpBloc>()
+                        .add(GetValidateOtpEvent(phoneNo: phoneNo, otp: otp)),
                   );
                 },
               ),
@@ -122,7 +129,7 @@ class _PinPutPageState extends State<PinPutPage> {
                           context.read<ValidateOtpBloc>().add(
                               GetValidateOtpEvent(phoneNo: phoneNo, otp: otp));
                         },
-                        title: kVerify);
+                        title: kVerify.tr());
                   },
                 ),
               ),

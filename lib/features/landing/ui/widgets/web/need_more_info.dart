@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
@@ -22,8 +23,9 @@ class NeedMoreInfoWidget extends StatelessWidget {
       child: Column(
         children: [
           Text(kNeedMoreInfo,
-              style: secMed36.copyWith(
-                  fontWeight: FontWeight.w700, fontFamily: "Nunito")),
+                  style: secMed36.copyWith(
+                      fontWeight: FontWeight.w700, fontFamily: "Nunito"))
+              .tr(),
           const SizedBox(height: appWidgetGap),
           Row(
             children: [
@@ -61,7 +63,7 @@ class NeedMoreInfoWidget extends StatelessWidget {
                 return null;
               },
               onChange: (value) {},
-              hint: kAdditionalInfo,
+              hint: kAdditionalInfo.tr(),
               textEditingController: additionalMsgController),
           const SizedBox(height: appWidgetGap),
           BlocConsumer<RequestCallbackCubit, RequestCallbackState>(
@@ -78,7 +80,7 @@ class NeedMoreInfoWidget extends StatelessWidget {
                 );
               }
               return FilledButtonWidget(
-                title: kSubmit,
+                title: kSubmit.tr(),
                 onPressed: () {
                   context.read<RequestCallbackCubit>().requestCallback({
                     "name": nameController.text,

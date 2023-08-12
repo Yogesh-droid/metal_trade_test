@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
 
@@ -94,7 +95,7 @@ class FilledButtonWidget extends StatelessWidget {
                       foreground: Paint()..color = textColor ?? Colors.white)),
             ),
             onPressed: onPressed,
-            child: Text(title)));
+            child: Text(title).tr()));
   }
 }
 

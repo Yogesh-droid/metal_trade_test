@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +24,7 @@ class MyQuoteDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const ContextMenuAppBar(title: kQuoteDetails),
+        appBar: ContextMenuAppBar(title: kQuoteDetails.tr()),
         body: Column(
           children: [
             EnquiryDetailHeading(
@@ -59,7 +60,7 @@ class MyQuoteDetailPage extends StatelessWidget {
                   content.transportationTermsDisplay ?? '',
               itemList: content.item ?? [],
               otherTerms: content.otherTerms,
-              filledBtnText: content.status == 'Inreview' ? kCancel : null,
+              filledBtnText: content.status == 'Inreview' ? kCancel.tr() : null,
               onFilledTapped: () {
                 context.read<AcceptQuoteBloc>().add(QuoteCancelEvent(
                     quoteId: content.id ?? 0, status: 'Closed'));
@@ -87,7 +88,8 @@ class MyQuoteDetailPage extends StatelessWidget {
                         lastModifiedDate: DateTime.now(),
                         status: "Unseen"));
               },
-              outlinedButtonText: content.status == "Inreview" ? null : kChat,
+              outlinedButtonText:
+                  content.status == "Inreview" ? null : kChat.tr(),
             ))
           ],
         ));

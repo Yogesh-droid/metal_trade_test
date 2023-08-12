@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -87,12 +88,13 @@ class _ChatHomePageState extends State<ChatHomePage> {
                             const SizedBox(height: appPadding),
                             Center(
                               child: Text(
-                                  "No Chats found\n Start chat by submitting quote",
-                                  style: secMed20.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .outline),
-                                  textAlign: TextAlign.center),
+                                      "No Chats found\n Start chat by submitting quote",
+                                      style: secMed20.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .outline),
+                                      textAlign: TextAlign.center)
+                                  .tr(),
                             ),
                           ],
                         )
@@ -126,7 +128,7 @@ class _ChatHomePageState extends State<ChatHomePage> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(e.heading ?? ''),
+                                          Text(e.heading ?? '').tr(),
                                           Text(
                                               DateFormat('dd MMM yyyy').format(
                                                   DateTime.parse(
@@ -148,7 +150,7 @@ class _ChatHomePageState extends State<ChatHomePage> {
                                                 color: Theme.of(context)
                                                     .colorScheme
                                                     .outline),
-                                          ),
+                                          ).tr(),
                                           Text(
                                               DateFormat('hh mm a').format(
                                                   DateTime.parse(

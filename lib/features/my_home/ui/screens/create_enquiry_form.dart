@@ -135,7 +135,7 @@ class _CreateEnquiryFormState extends State<CreateEnquiryForm> {
                 "+ $kAddProducts",
                 style: secMed14.copyWith(
                     color: Theme.of(context).colorScheme.primary),
-              )),
+              ).tr()),
           const Divider(),
           AppDropdownFormField(
             hintText: kAddPaymentTerms,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -142,17 +143,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 context.pop();
                                 context.go(loginPageRoute);
                               },
-                              title: kDoYouWantToDelete,
+                              title: kDoYouWantToDelete.tr(),
                               filledBtnText: kDeleteAccount,
-                              outlinedBtnText: kCancel,
-                              explanation: kByDeletingAcc,
+                              outlinedBtnText: kCancel.tr(),
+                              explanation: kByDeletingAcc.tr(),
                               height: MediaQuery.of(context).size.height / 3,
                             );
                           });
                     }),
                 const SizedBox(height: appPadding),
                 GetStartedBtn(
-                    title: kLogout,
+                    title: kLogout.tr(),
                     onPressed: () {
                       context.read<ProfileBloc>().add(LogoutUserProfileEvent());
                       context.read<MyQuoteBloc>().myQuoteList.clear();

@@ -55,8 +55,9 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: appWidgetGap * 1.5),
             const SizedBox(height: appWidgetGap),
             Text(kWhatsYourNo,
-                style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                    fontFamily: 'Nunito', fontWeight: FontWeight.w700)),
+                    style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                        fontFamily: 'Nunito', fontWeight: FontWeight.w700))
+                .tr(),
             const SizedBox(height: appWidgetGap / 2),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -73,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                 builder: (context, state) {
                   return FilledButtonWidget(
                       width: MediaQuery.of(context).size.width,
-                      title: kContinue,
+                      title: kContinue.tr(),
                       onPressed: () {
                         if (state.dialCode != null) {
                           if (state.dialCode!.isEmpty) {
@@ -98,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
             RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                    text: kAcceptPrivacyNpolicy,
+                    text: kAcceptPrivacyNpolicy.tr(),
                     style: secMed12.copyWith(
                         color: Theme.of(context).colorScheme.outline),
                     children: [
@@ -114,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                                             title: kTermsOfUse,
                                           )));
                             },
-                          text: "\n$kTnC",
+                          text: "\n${kTnC.tr()}",
                           style: const TextStyle(color: Colors.blue))
                     ]))
           ],

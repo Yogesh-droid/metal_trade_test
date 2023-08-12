@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -47,7 +48,7 @@ class MyOrderCard extends StatelessWidget {
                     ..onTap = () {
                       context.pushNamed(enquiryDetailPageName,
                           extra: Content.fromJson(content!.toJson()),
-                          queryParameters: {'title': kQuoteDetails});
+                          queryParameters: {'title': kQuoteDetails.tr()});
                     },
                   style: secMed11.copyWith(color: Colors.blue)),
               TextSpan(
@@ -120,10 +121,11 @@ class MyOrderCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(kProducts,
-              style: Theme.of(context)
-                  .textTheme
-                  .labelSmall!
-                  .copyWith(color: Theme.of(context).colorScheme.outline)),
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelSmall!
+                      .copyWith(color: Theme.of(context).colorScheme.outline))
+              .tr(),
           Column(
               children: itemList!.map((e) => QuoteListItem(item: e)).toList())
         ],

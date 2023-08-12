@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
@@ -50,7 +51,9 @@ class WebFooter extends StatelessWidget {
       Image.asset(Assets.assetsWelcomeAppLogoName, color: Colors.white),
       const SizedBox(height: appPadding),
       Text(kSteelTradeInIndonesia,
-          style: secMed15.copyWith(color: Colors.white, fontFamily: "Nunito"))
+              style:
+                  secMed15.copyWith(color: Colors.white, fontFamily: "Nunito"))
+          .tr()
     ]);
   }
 }

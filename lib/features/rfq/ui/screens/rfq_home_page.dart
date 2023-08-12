@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/app_widgets/main_app_bar.dart';
@@ -72,9 +73,9 @@ class _RfqHomePageState extends State<RfqHomePage>
           }),
       elevation: 5,
       bottomWidget: HomePageAppbarBottom(
-          tabList: const [
-            Tab(text: kBuyer),
-            Tab(text: kSeller),
+          tabList: [
+            Tab(text: kBuyer.tr()),
+            Tab(text: kSeller.tr()),
           ],
           tabController: _tabController,
           onTap: (value) {

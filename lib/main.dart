@@ -20,7 +20,11 @@ Future<void> main(List<String> args) async {
     Hive.init(directory.path);
   }
   runApp(EasyLocalization(
-      supportedLocales: const [Locale('en', 'US'), Locale('hi', 'IN')],
+      supportedLocales: const [
+        Locale('en', 'US'),
+        Locale('hi', 'IN'),
+        Locale('zh', 'CN')
+      ],
       path: 'assets/translations',
       fallbackLocale: const Locale('en', 'US'),
       child: const RestartWidget(child: MetalTradeApp())));

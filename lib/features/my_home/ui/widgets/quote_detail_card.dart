@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
@@ -65,8 +66,9 @@ class QuoteDetailCard extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(appPadding),
           child: Text(kProducts,
-              style: secMed10.copyWith(
-                  color: Theme.of(context).colorScheme.secondary)),
+                  style: secMed10.copyWith(
+                      color: Theme.of(context).colorScheme.secondary))
+              .tr(),
         ),
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: appPadding),

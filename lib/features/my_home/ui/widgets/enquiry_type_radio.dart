@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 
@@ -18,7 +19,7 @@ class EnquiryTypeRadio extends StatelessWidget {
               value: UserIntent.Buy.name,
               groupValue: groupValue,
               onChanged: onSelect),
-          const Text(kBuy)
+          const Text(kBuy).tr()
         ],
       ),
       const SizedBox(width: 40),
@@ -29,7 +30,7 @@ class EnquiryTypeRadio extends StatelessWidget {
               value: UserIntent.Sell.name,
               groupValue: groupValue,
               onChanged: onSelect),
-          const Text(kSell)
+          const Text(kSell).tr()
         ],
       )
     ]);

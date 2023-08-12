@@ -9,7 +9,8 @@ class ChangeLangauge extends StatelessWidget {
   ChangeLangauge({super.key});
   final List<Locale> language = [
     const Locale('hi', 'IN'),
-    const Locale('en', 'US')
+    const Locale('en', 'US'),
+    const Locale('zh', 'CN')
   ];
 
   @override

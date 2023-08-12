@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -110,7 +111,7 @@ class ProfileTile extends StatelessWidget {
         } else {
           return GetStartedBtn(
               width: MediaQuery.of(context).size.width / 1.5,
-              title: kLogin,
+              title: kLogin.tr(),
               onPressed: () {
                 context.push(loginPageRoute);
               });

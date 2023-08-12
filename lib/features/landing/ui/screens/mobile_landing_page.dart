@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -37,7 +38,7 @@ class MobileLandingPage extends StatelessWidget {
               padding: const EdgeInsets.all(appPadding),
               width: MediaQuery.of(context).size.width,
               child: FilledButtonWidget(
-                title: kGetStarted,
+                title: kGetStarted.tr(),
                 onPressed: () async {
                   //context.go(dashBoardRoute);
                   await LocalStorage.instance.getToken().then((value) {

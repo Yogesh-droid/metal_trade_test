@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/text_tyles.dart';
@@ -15,8 +16,9 @@ class IntroWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(title,
-              style: secMed32.copyWith(
-                  fontFamily: 'Nunito', fontWeight: FontWeight.w700)),
+                  style: secMed32.copyWith(
+                      fontFamily: 'Nunito', fontWeight: FontWeight.w700))
+              .tr(),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -26,7 +28,7 @@ class IntroWidget extends StatelessWidget {
                 fontFamily: 'Nunito',
                 fontWeight: FontWeight.w500,
                 color: const Color(0xFF838BA1)),
-          ),
+          ).tr(),
         )
       ],
     );

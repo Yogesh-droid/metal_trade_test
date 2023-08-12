@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
@@ -60,7 +61,7 @@ class _ItemListContainerState extends State<ItemListContainer> {
                         });
                       });
                 },
-                hintText: selectedSku.title ?? kItemName,
+                hintText: selectedSku.title ?? kItemName.tr(),
                 suffix: Icon(
                   CupertinoIcons.chevron_down,
                   color: Theme.of(context).colorScheme.primaryContainer,
@@ -74,7 +75,7 @@ class _ItemListContainerState extends State<ItemListContainer> {
                     isObscureText: false,
                     textEditingController: quantityController,
                     radius: 4,
-                    hintText: kQuantity,
+                    hintText: kQuantity.tr(),
                     textInputType: const TextInputType.numberWithOptions(),
                     onChange: widget.onDone,
                     focusNode: FocusNode(),

@@ -101,7 +101,7 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
                                                     .status ==
                                                 "Active" &&
                                             widget.content.status == "Active"
-                                        ? kChat
+                                        ? kChat.tr()
                                         : null,
                                     onOutlinedBtnTapped: () {
                                       context.read<ChatBloc>().add(
@@ -142,7 +142,7 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
                                                     .status ==
                                                 "Active" &&
                                             widget.content.status == "Active"
-                                        ? kAccept
+                                        ? kAccept.tr()
                                         : null,
                                     onFilledBtnTapped: () {
                                       context.read<AcceptQuoteBloc>().add(

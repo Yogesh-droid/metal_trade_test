@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -91,11 +92,11 @@ class _MyQuoteScreenState extends State<MyQuoteScreen> {
                                         country: e.quoteCompany!.country!.name,
                                         uuid: e.uuid,
                                         filledBtnTitle: e.status == 'Inreview'
-                                            ? kCancel
+                                            ? kCancel.tr()
                                             : null,
                                         borderedBtnTitle: e.status == 'Inreview'
                                             ? null
-                                            : kChat,
+                                            : kChat.tr(),
                                         onBorderedBtnTapped: () {
                                           context.read<ChatBloc>().add(
                                               GetPreviousChatEvent(

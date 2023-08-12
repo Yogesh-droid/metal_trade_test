@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -72,12 +73,12 @@ class _MyEnquiryDetailState extends State<MyEnquiryDetail>
                   widget.item.transportationTermsDisplay ?? '',
               itemList: widget.item.item!,
               outlinedButtonText: widget.item.status == "Complete"
-                  ? kViewOrder
+                  ? kViewOrder.tr()
                   : widget.item.status == "Inreview" ||
                           widget.item.status == "Active"
                       ? kCloseRfq
                       : widget.item.status == "Expired"
-                          ? kReopen
+                          ? kReopen.tr()
                           : null,
               onOutlineTapped: () {
                 if (widget.item.status == "Inreview" ||
@@ -86,7 +87,7 @@ class _MyEnquiryDetailState extends State<MyEnquiryDetail>
                       context: context,
                       builder: (context) {
                         return ConfirmationSheet(
-                            explanation: kThisWillRemoveRfq,
+                            explanation: kThisWillRemoveRfq.tr(),
                             height: MediaQuery.of(context).size.height / 3,
                             onConfirmTapped: () {
                               context.read<MyRfqBloc>().add(UpdateMyRfq(
@@ -94,9 +95,9 @@ class _MyEnquiryDetailState extends State<MyEnquiryDetail>
                               context.pop();
                               context.pop();
                             },
-                            filledBtnText: kClose,
-                            outlinedBtnText: kCancel,
-                            title: kAreYouSureCloseRfq);
+                            filledBtnText: kClose.tr(),
+                            outlinedBtnText: kCancel.tr(),
+                            title: kAreYouSureCloseRfq.tr());
                       });
                 } else if (widget.item.status == "Complete") {
                   context.pushNamed(myOrderScreenName);

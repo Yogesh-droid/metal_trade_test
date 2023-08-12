@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 
@@ -38,7 +39,7 @@ class SearchWidgetWithoutSuggestions extends StatelessWidget {
                     color: Theme.of(context).colorScheme.outlineVariant),
                 borderRadius: BorderRadius.circular(50),
                 gapPadding: 8),
-            hintText: kSearchEnquiry,
+            hintText: kSearchEnquiry.tr(),
             suffix: IconButton(
                 onPressed: () {
                   onSearchTapped(textEditingController.text);

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,24 +29,26 @@ class KycBlocker extends StatelessWidget {
                 SizedBox(
                   width: MediaQuery.of(context).size.width / 2,
                   child: Text(kCompleteKyc,
-                      style: secMed20.copyWith(
-                          color: Theme.of(context).colorScheme.scrim,
-                          fontFamily: 'Nunito',
-                          fontWeight: FontWeight.bold)),
+                          style: secMed20.copyWith(
+                              color: Theme.of(context).colorScheme.scrim,
+                              fontFamily: 'Nunito',
+                              fontWeight: FontWeight.bold))
+                      .tr(),
                 ),
                 const Divider(),
-                Text(kMtNeedsKyc,
-                    style: secMed15.copyWith(fontFamily: 'Nunito')),
+                Text(kMtNeedsKyc.tr(),
+                        style: secMed15.copyWith(fontFamily: 'Nunito'))
+                    .tr(),
                 const Spacer(),
                 Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                   FilledButtonWidget(
-                      title: kYesContinue,
+                      title: kYesContinue.tr(),
                       onPressed: () {
                         context.pushNamed(kycPageName, extra: ProfileEntity());
                       }),
                   const SizedBox(width: appWidgetGap),
                   OutlinedButtonWidget(
-                      title: kMayBeLater,
+                      title: kMayBeLater.tr(),
                       onPressed: () {
                         context
                             .read<ProfileBloc>()

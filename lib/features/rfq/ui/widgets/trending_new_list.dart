@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
@@ -17,7 +18,7 @@ class TrendingNewsList extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             width: 60,
-            child: const Text(kNews, style: secMed14),
+            child: const Text(kNews, style: secMed14).tr(),
           ),
           Expanded(
             child: ListView(

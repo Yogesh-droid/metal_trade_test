@@ -55,7 +55,8 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: appWidgetGap * 1.5),
             const SizedBox(height: appWidgetGap),
             Text(kWhatsYourNo,
-                style: Theme.of(context).textTheme.headlineLarge),
+                style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                    fontFamily: 'Nunito', fontWeight: FontWeight.w700)),
             const SizedBox(height: appWidgetGap / 2),
             Padding(
               padding: const EdgeInsets.all(8.0),

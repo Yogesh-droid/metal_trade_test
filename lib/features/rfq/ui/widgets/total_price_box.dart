@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
@@ -31,7 +32,9 @@ class TotalPriceBox extends StatelessWidget {
               BlocConsumer<SubmitQuoteBloc, SubmitQuoteState>(
                 listener: (context, state) {
                   if (state is SubmitQuoteSuccessful) {
+                    context.pop();
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        behavior: SnackBarBehavior.floating,
                         content: Text('Quote Submitted successfully')));
                   } else if (state is SubmitQuoteFailed) {
                     ScaffoldMessenger.of(context).showSnackBar(

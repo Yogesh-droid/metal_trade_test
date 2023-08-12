@@ -17,7 +17,8 @@ class QuoteDetailCard extends StatelessWidget {
       this.onFilledBtnTapped,
       this.onOutlinedBtnTapped,
       this.outlinedBtnText,
-      this.lastDateModified});
+      this.lastDateModified,
+      this.country});
   final List<Item> item;
   final String uuid;
   final String? filledBtnText;
@@ -25,6 +26,7 @@ class QuoteDetailCard extends StatelessWidget {
   final Function()? onOutlinedBtnTapped;
   final String? outlinedBtnText;
   final String? lastDateModified;
+  final String? country;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,9 @@ class QuoteDetailCard extends StatelessWidget {
                   DateFormat("dd MMM yyyy - hh:mm a")
                       .format(DateTime.parse(lastDateModified!).toLocal()),
                   style: secMed12.copyWith(
-                      color: Theme.of(context).colorScheme.secondary))
+                      color: Theme.of(context).colorScheme.secondary)),
+              const SizedBox(height: appFormFieldGap / 2),
+              Text(country ?? '', style: secMed12)
             ]),
             const Spacer(),
             outlinedBtnText != null

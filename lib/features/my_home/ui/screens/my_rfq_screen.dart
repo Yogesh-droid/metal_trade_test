@@ -4,7 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
+import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/filter_status_cubit/filter_status_cubit.dart';
+import 'package:metaltrade/features/my_home/ui/controllers/home_tab_cubit/home_tab_cubit.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_rfq_bloc/my_rfq_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/widgets/filter_chips_list.dart';
 import '../../../../core/routes/routes.dart';
@@ -155,8 +157,20 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
                                       }))
                                   .toList(),
                             )
-                          : const Center(
-                              child: Text("No Data Yet !!"),
+                          : Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const SizedBox(height: 250),
+                                  OutlinedButtonWidget(
+                                      title: 'Create Enquiry',
+                                      onPressed: () {
+                                        context
+                                            .read<HomeTabCubit>()
+                                            .changeTab(0);
+                                      })
+                                ],
+                              ),
                             );
                     } else {
                       return const SizedBox();

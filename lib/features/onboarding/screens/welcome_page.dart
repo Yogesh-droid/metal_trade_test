@@ -60,6 +60,7 @@ class _WelcomePageState extends State<WelcomePage> {
   Future<void> appStartUp(BuildContext context) async {
     if (!kIsWeb) {
       String token = await LocalStorage.instance.getToken();
+      debugPrint('Token is $token');
       int? noOfTimesAppOpening =
           await LocalStorage.instance.getIsUserFirstTime();
       await LocalStorage.instance.saveIsUserFirstTime(noOfTimesAppOpening + 1);

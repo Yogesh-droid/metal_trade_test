@@ -29,6 +29,7 @@ class MyQuoteBloc extends Bloc<MyQuoteEvent, MyQuoteState> {
             : '';
         try {
           if (event.page == 0) {
+            myQuoteList.clear();
             emit(MyQuoteInitial());
           }
           if (event.page == myQuoteListPage) {

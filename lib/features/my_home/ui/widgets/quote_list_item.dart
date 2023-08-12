@@ -13,8 +13,7 @@ class QuoteListItem extends StatelessWidget {
       contentPadding: EdgeInsets.zero,
       title: Text(
         item.sku!.title ?? '',
-        style: secMed14.copyWith(
-            color: Theme.of(context).colorScheme.onSurfaceVariant),
+        style: secMed14.copyWith(fontWeight: FontWeight.w700),
       ),
       subtitle: Text(item.remarks ?? '',
           style: secMed12.copyWith(

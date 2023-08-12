@@ -21,7 +21,7 @@ class RfqSellerEnquiryBloc
     on<RfqSellerEnquiryEvent>((event, emit) async {
       if (event is GetRfqSellerEnquiryEvent) {
         try {
-          if (sellerRfqListPage == 0) {
+          if (event.page == 0) {
             emit(RfqSellerEnquiryInitial());
             sellerRfqList.clear();
           } else {

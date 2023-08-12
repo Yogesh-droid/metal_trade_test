@@ -52,55 +52,62 @@ class _BuyerRfqPageState extends State<BuyerRfqPage> {
         return Column(
           children: [
             Expanded(
-              child: ListView(
-                padding: const EdgeInsets.only(top: appFormFieldGap / 2),
-                controller: scrollController,
-                shrinkWrap: true,
-                children: homePageBuyerEnquiryBloc.buyerRfqList
-                    .map((e) => HomePageCard(
-                          content: e,
-                          itemList: e.item,
-                          country: e.enquiryCompany!.country!.name,
-                          uuid: e.uuid,
-                          borderedBtnTitle: kChat,
-                          filledBtnTitle: "+ $kSubmitQuote",
-                          onBorderedBtnTapped: () {
-                            context.read<ChatBloc>().add(GetPreviousChatEvent(
-                                chatType: ChatType.enquiry.name,
-                                enquiryId: e.id,
-                                page: 0));
-                            context.pushNamed(chatPageName,
-                                queryParameters: {'room': e.uuid ?? ''},
-                                extra: chat_res.Content(
-                                    body: chat_res.Body(
-                                      chatMessageType: "Enquiry",
-                                      enquiry: Enquiry(
-                                        lastModifiedDate:
-                                            DateTime.now().toString(),
-                                        id: e.id,
-                                        item: e.item,
-                                        uuid: e.uuid,
-                                      ),
-                                    ),
-                                    enquiryId: e.id,
-                                    lastModifiedDate: DateTime.now(),
-                                    status: "Unseen"));
-                          },
-                          onFilledBtnTapped: () {
-                            context.pushNamed(submitQuotePageName, extra: e);
-                          },
-                          onDetailTapped: () {
-                            context.pushNamed(enquiryDetailPageName,
-                                extra: e,
-                                queryParameters: {
-                                  'title': kEnquiryDetail,
-                                  'country': e.enquiryCompany!.country!.name,
-                                  'isMyEnquiry': 'yes'
-                                });
-                          },
-                        ))
-                    .toList(),
-              ),
+              child: homePageBuyerEnquiryBloc.buyerRfqList.isNotEmpty
+                  ? ListView(
+                      padding: const EdgeInsets.only(top: appFormFieldGap / 2),
+                      controller: scrollController,
+                      shrinkWrap: true,
+                      children: homePageBuyerEnquiryBloc.buyerRfqList
+                          .map((e) => HomePageCard(
+                                content: e,
+                                itemList: e.item,
+                                country: e.enquiryCompany!.country!.name,
+                                uuid: e.uuid,
+                                borderedBtnTitle: kChat,
+                                filledBtnTitle: "+ $kSubmitQuote",
+                                onBorderedBtnTapped: () {
+                                  context.read<ChatBloc>().add(
+                                      GetPreviousChatEvent(
+                                          chatType: ChatType.enquiry.name,
+                                          enquiryId: e.id,
+                                          page: 0));
+                                  context.pushNamed(chatPageName,
+                                      queryParameters: {'room': e.uuid ?? ''},
+                                      extra: chat_res.Content(
+                                          body: chat_res.Body(
+                                            chatMessageType: "Enquiry",
+                                            enquiry: Enquiry(
+                                              lastModifiedDate:
+                                                  DateTime.now().toString(),
+                                              id: e.id,
+                                              item: e.item,
+                                              uuid: e.uuid,
+                                            ),
+                                          ),
+                                          enquiryId: e.id,
+                                          lastModifiedDate: DateTime.now(),
+                                          status: "Unseen"));
+                                },
+                                onFilledBtnTapped: () {
+                                  context.pushNamed(submitQuotePageName,
+                                      extra: e);
+                                },
+                                onDetailTapped: () {
+                                  context.pushNamed(enquiryDetailPageName,
+                                      extra: e,
+                                      queryParameters: {
+                                        'title': kEnquiryDetail,
+                                        'country':
+                                            e.enquiryCompany!.country!.name,
+                                        'isMyEnquiry': 'yes'
+                                      });
+                                },
+                              ))
+                          .toList(),
+                    )
+                  : const Center(
+                      child: Text('No Enquiries found.'),
+                    ),
             ),
             if (state is RfqBuyerEnquiryLoadMore)
               Container(

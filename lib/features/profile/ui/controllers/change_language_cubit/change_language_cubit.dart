@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ChangeLanguageCubit extends Cubit<String> {
-  ChangeLanguageCubit() : super('en');
+class ChangeLanguageCubit extends Cubit<Locale> {
+  ChangeLanguageCubit() : super(const Locale('en', 'US'));
 
-  void changeLangue(String langCode) {
-    emit(langCode);
+  void changeLangue(Locale locale) {
+    emit(locale);
   }
 }

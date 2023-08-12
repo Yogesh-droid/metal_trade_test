@@ -5,6 +5,7 @@ class AppBlocProviders {
         BlocProvider(create: (_) => ChangeLanguageCubit()),
         BlocProvider(create: (_) => AppTheme(lightTheme)),
         BlocProvider(create: (_) => BottomNavControllerCubit()),
+        BlocProvider(create: (_) => HomeTabCubit()),
         BlocProvider(create: (_) => CountryCodeController(CountryCodeModel())),
         BlocProvider<RfqBuyerEnquiryBloc>(create: (_) => getIt()),
         BlocProvider<SearchBloc>(create: (_) => getIt()),

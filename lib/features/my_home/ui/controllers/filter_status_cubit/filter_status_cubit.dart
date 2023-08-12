@@ -7,18 +7,22 @@ class FilterStatusCubit extends Cubit<FilterStatusState> {
   FilterStatusCubit() : super(FilterStatusInitial());
 
   void addFilter(List<String> filter) {
-    statusList.contains(filter[0])
-        ? filter[0] == "Complete"
-            // ignore: avoid_function_literals_in_foreach_calls
-            ? filter.forEach((element) {
-                if (statusList.contains(element)) {
-                  statusList.remove(element);
-                } else {
-                  statusList.add(element);
-                }
-              })
-            : statusList.remove(filter[0])
-        : statusList.addAll(filter);
+    if (filter.isNotEmpty) {
+      statusList.contains(filter[0])
+          ? filter[0] == "Complete"
+              // ignore: avoid_function_literals_in_foreach_calls
+              ? filter.forEach((element) {
+                  if (statusList.contains(element)) {
+                    statusList.remove(element);
+                  } else {
+                    statusList.add(element);
+                  }
+                })
+              : statusList.remove(filter[0])
+          : statusList.addAll(filter);
+    } else {
+      statusList.clear();
+    }
     emit(FilterStatusUpdate(statusList: statusList));
   }
 }

@@ -4,15 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/app_widgets/loading_dots.dart';
-import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
-import 'package:metaltrade/features/my_home/ui/controllers/my_quote_bloc/my_quote_bloc.dart';
-import 'package:metaltrade/features/my_home/ui/controllers/my_rfq_bloc/my_rfq_bloc.dart';
-import 'package:metaltrade/features/quotes/ui/controllers/accept_quote_bloc/accept_quote_bloc.dart';
-import 'package:metaltrade/features/rfq/data/models/rfq_enquiry_model.dart';
 import 'package:metaltrade/features/chat/data/models/chat_response_model.dart'
     as chat_res;
+import 'package:metaltrade/features/my_home/ui/controllers/my_quote_bloc/my_quote_bloc.dart';
+import 'package:metaltrade/features/my_home/ui/controllers/my_rfq_bloc/my_rfq_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/widgets/quote_detail_card.dart';
+import 'package:metaltrade/features/quotes/ui/controllers/accept_quote_bloc/accept_quote_bloc.dart';
+import 'package:metaltrade/features/rfq/data/models/rfq_enquiry_model.dart';
 
 import '../../../../core/routes/routes.dart';
 import '../../../chat/ui/controllers/chat_bloc/chat_bloc.dart';
@@ -80,7 +79,7 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
                           child: ListView.separated(
                               physics: const NeverScrollableScrollPhysics(),
                               separatorBuilder: (context, index) =>
-                                  Container(height: appPadding / 2),
+                                  const SizedBox(),
                               shrinkWrap: true,
                               itemCount: quoteDetailListBloc.contentList.length,
                               itemBuilder: (context, index) => QuoteDetailCard(
@@ -88,6 +87,12 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
                                         .contentList[index].item!,
                                     uuid: quoteDetailListBloc
                                             .contentList[index].uuid ??
+                                        '',
+                                    country: quoteDetailListBloc
+                                            .contentList[index]
+                                            .quoteCompany!
+                                            .country!
+                                            .name ??
                                         '',
                                     lastDateModified: quoteDetailListBloc
                                         .contentList[index].lastModifiedDate,

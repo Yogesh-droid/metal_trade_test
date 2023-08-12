@@ -78,19 +78,20 @@ class _RfqHomePageState extends State<RfqHomePage>
           ],
           tabController: _tabController,
           onTap: (value) {
+            searchController.clear();
             if (value == 0) {
-              if (rfqBuyerEnquiryBloc.buyerRfqList.isEmpty &&
-                  !rfqBuyerEnquiryBloc.isBuyerRfqListEnd) {
+              if (rfqBuyerEnquiryBloc.buyerRfqList.isEmpty) {
                 rfqBuyerEnquiryBloc.add(GetRfqBuyerPageEnquiryEvent(
                     page: rfqBuyerEnquiryBloc.buyerRfqListPage,
-                    intent: UserIntent.Buy));
+                    intent: UserIntent.Buy,
+                    text: searchController.text));
               }
             } else {
-              if (rfqSellerEnquiryBloc.sellerRfqList.isEmpty &&
-                  !rfqSellerEnquiryBloc.isSellerRfqListEnd) {
+              if (rfqSellerEnquiryBloc.sellerRfqList.isEmpty) {
                 rfqSellerEnquiryBloc.add(GetRfqSellerEnquiryEvent(
                     page: rfqSellerEnquiryBloc.sellerRfqListPage,
-                    intent: UserIntent.Sell));
+                    intent: UserIntent.Sell,
+                    text: searchController.text));
               }
             }
           }),

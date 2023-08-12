@@ -24,16 +24,6 @@ class _WelcomePageViewState extends State<WelcomePageView> {
     timer = Timer.periodic(const Duration(seconds: 5), (timer) {
       _currentPage++;
       setState(() {});
-      // if (_currentPage < newList.length - 1) {
-      //   _currentPage++;
-      //   _isReversed = false;
-      //   setState(() {});
-      //   print(_currentPage);
-      // } else {
-      //   _currentPage = 0;
-      //   _isReversed = true;
-      //   setState(() {});
-      // }
     });
   }
 
@@ -54,12 +44,10 @@ class _WelcomePageViewState extends State<WelcomePageView> {
         key: const ValueKey("Pageview"),
         physics: const ClampingScrollPhysics(),
         allowImplicitScrolling: true,
-        // reverse: _isReversed,
         controller: _pageController,
         onPageChanged: (value) {
           _currentPage = value % newList.length;
         },
-        // itemCount: newList.length,
         itemBuilder: (context, index) {
           return newList[index % newList.length];
         });

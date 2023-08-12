@@ -5,7 +5,9 @@ import 'package:metaltrade/core/constants/app_widgets/context_menu_app_bar.dart'
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
 import 'package:metaltrade/core/routes/routes.dart';
+import 'package:metaltrade/features/dashboard/ui/controllers/bottom_bar_controller_cubit.dart';
 import 'package:metaltrade/features/my_home/data/models/post_enquiry_req_model.dart';
+import 'package:metaltrade/features/my_home/ui/controllers/home_tab_cubit/home_tab_cubit.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_quote_bloc/my_quote_bloc.dart';
 import 'package:metaltrade/features/rfq/data/models/rfq_enquiry_model.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/select_product_to_quote_cubit/select_product_to_quote_cubit.dart';
@@ -52,7 +54,9 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
                       if (state is SubmitQuoteSuccessful) {
                         context.read<MyQuoteBloc>().add(GetQuoteList(
                             page: 0, status: const [], isLoadMore: false));
-                        context.pushNamed(myQuotePageScreenName);
+                        // context.pushNamed(myQuotePageScreenName);
+                        context.read<BottomNavControllerCubit>().changeIndex(0);
+                        context.read<HomeTabCubit>().changeTab(2);
                       }
                     },
                     child: TotalPriceBox(

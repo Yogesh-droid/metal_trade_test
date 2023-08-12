@@ -6,6 +6,8 @@ import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/features/chat/data/models/chat_response_model.dart'
     as chat_res;
+import 'package:metaltrade/features/dashboard/ui/controllers/bottom_bar_controller_cubit.dart';
+import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/my_quote_bloc/my_quote_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/controllers/quote_filter_cubit/quote_filter_cubit.dart';
 import 'package:metaltrade/features/my_home/ui/widgets/quote_filters.dart';
@@ -131,7 +133,19 @@ class _MyQuoteScreenState extends State<MyQuoteScreen> {
                                       ))
                                   .toList(),
                             )
-                          : const Center(child: Text("No Data Yet !!"));
+                          : Center(
+                              child: Column(
+                              children: [
+                                const SizedBox(height: 250),
+                                OutlinedButtonWidget(
+                                    title: 'Submit Quote',
+                                    onPressed: () {
+                                      context
+                                          .read<BottomNavControllerCubit>()
+                                          .changeIndex(1);
+                                    })
+                              ],
+                            ));
                     } else {
                       return const Center(child: Text("Some Error"));
                     }

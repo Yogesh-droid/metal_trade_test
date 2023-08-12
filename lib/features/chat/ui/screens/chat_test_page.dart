@@ -251,6 +251,17 @@ class ChatTestPageState extends State<ChatTestPage> {
         )));
   }
 
+  markRead(List<int?> ids) {
+    if (ids.isEmpty) {
+      return;
+    }
+    stompClient!.send(
+      destination: '/mtp/chat/read',
+      headers: {'Authorization': 'Bearer ${LocalStorage.instance.token}'},
+      body: json.encode(ids)
+    );
+  }
+
   @override
   void dispose() {
     super.dispose();

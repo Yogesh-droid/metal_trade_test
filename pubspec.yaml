@@ -68,8 +68,6 @@ flutter:
     - assets/welcome/
     - assets/login/
     - assets/home/
-    - assets/bottom_bar/
-    - assets/profile/
     - assets/dashboard/
     - assets/translations/
 

@@ -58,6 +58,11 @@ class RfqDetailPage extends StatelessWidget {
                   ? content.otherAttachmentsName!.split(RegExp(r'[/_-]')).last
                   : null,
               otherAttachmentsUrl: content.otherAttachmentsUrl,
+              isIcon: isMyEnquiry != null
+                  ? true
+                  : content.status == 'Inreview' || content.status == "Active"
+                      ? false
+                      : false,
               filledBtnText: hideBtns != null
                   ? null
                   : isMyEnquiry != null

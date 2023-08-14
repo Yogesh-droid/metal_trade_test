@@ -23,7 +23,9 @@ class HomePageCard extends StatelessWidget {
       this.onDetailTapped,
       this.enquiryType,
       this.attachedFileName,
-      this.attachedFileUrl});
+      this.attachedFileUrl,
+      required this.isIcon,
+      required this.isFilledIcon});
   final Content? content;
   final List<Item>? itemList;
   final String? uuid;
@@ -35,6 +37,8 @@ class HomePageCard extends StatelessWidget {
   final String? borderedBtnTitle;
   final String? filledBtnTitle;
   final String? attachedFileName;
+  final bool isIcon;
+  final bool isFilledIcon;
   final String? attachedFileUrl;
 
   @override
@@ -77,18 +81,29 @@ class HomePageCard extends StatelessWidget {
                         onPressed: () {},
                       );
                     }
-                    return OutlinedIconButtonWidget(
-                      icon: const Icon(Icons.add),
-                      title: borderedBtnTitle!,
-                      onPressed: onBorderedBtnTapped ?? () {},
-                    );
+                    return isIcon
+                        ? OutlinedIconButtonWidget(
+                            icon: const Icon(Icons.add),
+                            title: borderedBtnTitle!,
+                            onPressed: onBorderedBtnTapped ?? () {},
+                          )
+                        : OutlinedButtonWidget(
+                            title: borderedBtnTitle!,
+                            onPressed: onBorderedBtnTapped ?? () {},
+                          );
                   },
                 ),
               const SizedBox(width: appPadding),
               if (filledBtnTitle != null)
-                FilledButtonWidget(
-                    title: filledBtnTitle!,
-                    onPressed: onFilledBtnTapped ?? () {})
+                isFilledIcon
+                    ? FilledButtonIconWidget(
+                        title: filledBtnTitle!,
+                        onPressed: onFilledBtnTapped ?? () {},
+                        icon: const Icon(Icons.add),
+                      )
+                    : FilledButtonWidget(
+                        title: filledBtnTitle!,
+                        onPressed: onFilledBtnTapped ?? () {})
             ],
           )
         ]),

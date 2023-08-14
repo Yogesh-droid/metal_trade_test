@@ -129,3 +129,4 @@ const String kMtNeedsKyc =
 const String kYesContinue = "Yes, continue";
 const String kMayBeLater = "May be later";
 const String kSearchEnquiry = "Search by products, country";
+const String kLanguageChangedTo = 'Language changed Successfully to';

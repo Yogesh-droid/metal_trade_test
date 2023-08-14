@@ -66,7 +66,9 @@ class _SellerRfqPageState extends State<SellerRfqPage> {
                                 country: e.enquiryCompany!.country!.name,
                                 uuid: e.uuid,
                                 borderedBtnTitle: kChat.tr(),
-                                filledBtnTitle: "+ ${kSubmitQuote.tr()}",
+                                filledBtnTitle: kSubmitQuote.tr(),
+                                isIcon: true,
+                                isFilledIcon: false,
                                 onBorderedBtnTapped: () {
                                   context.read<ChatBloc>().add(
                                       GetPreviousChatEvent(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:metaltrade/core/constants/app_widgets/context_menu_app_bar.dart';
 import 'package:metaltrade/core/constants/strings.dart';
+import 'package:metaltrade/core/resource/language_name.dart';
 import 'package:metaltrade/features/profile/ui/controllers/change_language_cubit/change_language_cubit.dart';
 
 class ChangeLangauge extends StatelessWidget {
@@ -15,13 +16,16 @@ class ChangeLangauge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Locale currentLocale = context.locale;
+    context.read<ChangeLanguageCubit>().changeLangue(currentLocale);
     return Scaffold(
       appBar: ContextMenuAppBar(title: kChangeLanguage.tr()),
       body: BlocConsumer<ChangeLanguageCubit, Locale>(
         listener: (context, state) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               behavior: SnackBarBehavior.floating,
-              content: Text("Language changed Successfully")));
+              content: Text(
+                  "$kLanguageChangedTo ${Locale(state.languageCode).fullName()}")));
         },
         builder: (context, state) {
           return ListView.separated(
@@ -30,7 +34,7 @@ class ChangeLangauge extends StatelessWidget {
               itemBuilder: (context, index) => RadioListTile<Locale>(
                   value: language[index],
                   groupValue: state,
-                  title: Text(language[index].languageCode),
+                  title: Text(Locale(language[index].languageCode).fullName()),
                   onChanged: (value) {
                     context.setLocale(value!);
                     context.read<ChangeLanguageCubit>().changeLangue(value);
@@ -38,5 +42,11 @@ class ChangeLangauge extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+extension FullName on Locale {
+  String fullName() {
+    return LanguageLocal().getDisplayLanguage(languageCode);
   }
 }

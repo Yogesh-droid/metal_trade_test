@@ -72,6 +72,10 @@ class _MyEnquiryDetailState extends State<MyEnquiryDetail>
               transportationTermsDisplay:
                   widget.item.transportationTermsDisplay ?? '',
               itemList: widget.item.item!,
+              isIcon: widget.item.status == "Complete" ||
+                      widget.item.status == "Expired"
+                  ? true
+                  : false,
               outlinedButtonText: widget.item.status == "Complete"
                   ? kViewOrder.tr()
                   : widget.item.status == "Inreview" ||

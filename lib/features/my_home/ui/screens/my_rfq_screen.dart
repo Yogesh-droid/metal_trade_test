@@ -83,6 +83,9 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
                                       itemList: e.item,
                                       enquiryType: e.enquiryType,
                                       uuid: e.uuid,
+                                      isIcon:
+                                          e.status == "Complete" ? true : false,
+                                      isFilledIcon: false,
                                       borderedBtnTitle: e.status == "Complete"
                                           ? kViewOrder.tr()
                                           : e.status == "Inreview" ||

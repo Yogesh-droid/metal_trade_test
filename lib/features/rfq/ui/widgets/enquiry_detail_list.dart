@@ -19,6 +19,7 @@ class EnquiryDetailList extends StatelessWidget {
   final List<Item> itemList;
   final bool? isPriceShown;
   final String? otherTerms;
+  final bool isIcon;
   final String? otherAttachmentsName;
   final String? otherAttachmentsUrl;
   const EnquiryDetailList(
@@ -33,7 +34,8 @@ class EnquiryDetailList extends StatelessWidget {
       this.otherTerms,
       this.otherAttachmentsName,
       this.otherAttachmentsUrl,
-      this.isPriceShown});
+      this.isPriceShown,
+      required this.isIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -104,13 +106,20 @@ class EnquiryDetailList extends StatelessWidget {
         Row(
           children: [
             outlinedButtonText != null
-                ? Expanded(
-                    child: OutlinedIconButtonWidget(
-                        width: MediaQuery.of(context).size.width,
-                        title: outlinedButtonText ?? '',
-                        onPressed: onOutlineTapped!,
-                        icon: const Icon(Icons.add)),
-                  )
+                ? isIcon
+                    ? Expanded(
+                        child: OutlinedIconButtonWidget(
+                            width: MediaQuery.of(context).size.width,
+                            title: outlinedButtonText ?? '',
+                            onPressed: onOutlineTapped!,
+                            icon: const Icon(Icons.add)),
+                      )
+                    : Expanded(
+                        child: OutlinedButtonWidget(
+                            width: MediaQuery.of(context).size.width,
+                            title: outlinedButtonText ?? '',
+                            onPressed: onOutlineTapped!),
+                      )
                 : const SizedBox(),
             const SizedBox(width: appPadding * 2),
             filledBtnText != null

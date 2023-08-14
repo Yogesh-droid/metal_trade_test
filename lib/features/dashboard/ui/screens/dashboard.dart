@@ -9,6 +9,7 @@ import 'package:metaltrade/features/my_home/ui/controllers/my_quote_bloc/my_quot
 import 'package:metaltrade/features/my_home/ui/controllers/my_rfq_bloc/my_rfq_bloc.dart';
 import 'package:metaltrade/features/my_home/ui/screens/my_home_page.dart';
 import 'package:metaltrade/features/news/ui/controllers/news_bloc/news_bloc.dart';
+import 'package:metaltrade/features/profile/ui/controllers/change_language_cubit/change_language_cubit.dart';
 import 'package:metaltrade/features/profile/ui/screens/profile_screen.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/rfq_buyer_enquiry_bloc/rfq_buyer_enquiry_bloc.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/rfq_seller_enquiry_bloc/rfq_seller_enquiry_bloc.dart';
@@ -94,16 +95,22 @@ class DashBoard extends StatelessWidget {
   }
 
   Widget getBottomNavBar() {
-    return BlocBuilder<BottomNavControllerCubit, int>(
+    return BlocBuilder<ChangeLanguageCubit, Locale>(
       builder: (context, state) {
-        return NavigationBar(
-          destinations: destinations,
-          selectedIndex: state,
-          indicatorColor:
-              Theme.of(context).colorScheme.inversePrimary.withOpacity(0.50),
-          onDestinationSelected: (value) {
-            context.read<EnquiryFilePickCubit>().emitInitialState();
-            context.read<BottomNavControllerCubit>().changeIndex(value);
+        return BlocBuilder<BottomNavControllerCubit, int>(
+          builder: (context, state) {
+            return NavigationBar(
+              destinations: destinations,
+              selectedIndex: state,
+              indicatorColor: Theme.of(context)
+                  .colorScheme
+                  .inversePrimary
+                  .withOpacity(0.50),
+              onDestinationSelected: (value) {
+                context.read<EnquiryFilePickCubit>().emitInitialState();
+                context.read<BottomNavControllerCubit>().changeIndex(value);
+              },
+            );
           },
         );
       },

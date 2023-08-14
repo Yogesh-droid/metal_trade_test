@@ -88,6 +88,7 @@ class MyQuoteDetailPage extends StatelessWidget {
                         lastModifiedDate: DateTime.now(),
                         status: "Unseen"));
               },
+              isIcon: true,
               outlinedButtonText:
                   content.status == "Inreview" ? null : kChat.tr(),
             ))

@@ -20,7 +20,6 @@ class RfqBuyerEnquiryBloc extends Bloc<RfqEnquiryEvent, RfqBuyerEnquiryState> {
       if (event is GetRfqBuyerPageEnquiryEvent) {
         try {
           if (event.page == 0) {
-            print('Clearing list');
             buyerRfqList.clear();
             emit(RfqBuyerEnquiryInitial());
           } else {
@@ -38,7 +37,6 @@ class RfqBuyerEnquiryBloc extends Bloc<RfqEnquiryEvent, RfqBuyerEnquiryState> {
               isBuyerRfqListEnd = dataState.data!.last!;
               buyerRfqListPage = (dataState.data!.number)! + 1;
               buyerRfqList.addAll(dataState.data!.content!);
-              print(dataState.data!.content!.length);
               emit(RfqBuyerEnquiryFetchedState(buyerEnquiryList: buyerRfqList));
             }
           } else {

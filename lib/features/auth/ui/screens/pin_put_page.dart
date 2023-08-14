@@ -117,7 +117,7 @@ class _PinPutPageState extends State<PinPutPage> {
                           context
                               .read<ProfileBloc>()
                               .add(GetUserProfileEvent());
-                          context.push(dashBoardRoute);
+                          context.go(dashBoardRoute);
                         });
                       });
                     }

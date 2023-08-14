@@ -169,6 +169,33 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
             const SizedBox(height: appFormFieldGap),
             countryDropDown(),
             const SizedBox(height: appFormFieldGap),
+            const Divider(),
+            Padding(
+              padding: const EdgeInsets.all(appPadding),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text("Bank Details",
+                    style: secMed10.copyWith(
+                        color: Theme.of(context).colorScheme.outline))
+                    .tr(),
+              ),
+            ),
+            const SizedBox(height: appFormFieldGap),
+            BorderedTextField(
+              isObscureText: false,
+              hintText: kBankName.tr(),
+              textEditingController: bankNameController,
+              textInputType: TextInputType.name,
+              focusNode: bankNameFocus,
+              textInputAction: TextInputAction.done,
+              onDone: (value) {
+                bankNameFocus.unfocus();
+              },
+              onValidate: (value) {
+                return null;
+              },
+            ),
+            const SizedBox(height: appFormFieldGap),
             BorderedTextField(
               isObscureText: false,
               hintText: kAccNo.tr(),
@@ -193,21 +220,6 @@ class _KycFormPageState extends State<KycFormPage> with InputValidationMixin {
               textInputAction: TextInputAction.done,
               onDone: (value) {
                 bankNameFocus.requestFocus();
-              },
-              onValidate: (value) {
-                return null;
-              },
-            ),
-            const SizedBox(height: appFormFieldGap),
-            BorderedTextField(
-              isObscureText: false,
-              hintText: kBankName.tr(),
-              textEditingController: bankNameController,
-              textInputType: TextInputType.name,
-              focusNode: bankNameFocus,
-              textInputAction: TextInputAction.done,
-              onDone: (value) {
-                bankNameFocus.unfocus();
               },
               onValidate: (value) {
                 return null;

@@ -127,7 +127,7 @@ class _ChatHomePageState extends State<ChatHomePage> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(e.heading ?? '').tr(),
+                                          Text(e.heading ?? ''),
                                           Text(
                                               DateFormat('dd MMM yyyy').format(
                                                   DateTime.parse(
@@ -149,7 +149,7 @@ class _ChatHomePageState extends State<ChatHomePage> {
                                                 color: Theme.of(context)
                                                     .colorScheme
                                                     .outline),
-                                          ).tr(),
+                                          ),
                                           Text(
                                               DateFormat('hh mm a').format(
                                                   DateTime.parse(

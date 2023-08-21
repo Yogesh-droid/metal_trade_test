@@ -29,6 +29,8 @@ class ChatHomeBloc extends Bloc<ChatHomeEvent, ChatHomeState> {
                   header: header));
 
           if (dataState.data != null) {
+            chatListPage = dataState.data!.number!;
+            isChatListEnd = dataState.data!.last!;
             chatList.addAll(dataState.data!.content!);
             emit(ChatHomeListFetched(chatList: chatList));
           } else {

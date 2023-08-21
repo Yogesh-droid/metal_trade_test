@@ -541,6 +541,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  otp_autofill:
+    dependency: "direct main"
+    description:
+      name: otp_autofill
+      sha256: "4757f7c58b0a5acaf89083015efc119df09671a5e937161961e8c4c5a51dc83f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   page_view_dot_indicator:
     dependency: "direct main"
     description:

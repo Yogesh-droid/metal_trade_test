@@ -85,7 +85,7 @@ final GoRouter router = GoRouter(initialLocation: welcomePageRoute, routes: [
     name: otpPageName,
     pageBuilder: (context, state) {
       return getTransition(
-          child: const PinPutPage(),
+          child: PinPutPage(phoneNo: state.uri.queryParameters['phoneNo']!),
           animationType: TransitionType.slide,
           duration: const Duration(milliseconds: 200));
     },

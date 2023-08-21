@@ -9,10 +9,10 @@ import 'package:go_router/go_router.dart';
 import 'package:metaltrade/core/constants/app_theme.dart';
 import 'package:metaltrade/core/constants/spaces.dart';
 import 'package:metaltrade/core/constants/text_tyles.dart';
+
 import '../../../core/constants/assets.dart';
 import '../../../core/constants/hive/local_storage.dart';
 import '../../../core/routes/routes.dart';
-import '../../landing/ui/screens/web_landing_page.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -32,29 +32,27 @@ class _WelcomePageState extends State<WelcomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return (kIsWeb)
-        ? const WebLandingPage()
-        : Scaffold(
-            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
-            body: Stack(
-              alignment: Alignment.center,
-              children: [
-                Image.asset(
-                  Assets.assetsWelcomeWelcomPage,
-                  fit: BoxFit.fill,
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                ),
-                Positioned(
-                    bottom: appWidgetGap,
-                    child: Text(
-                      "Asia's Marketplace for Steel",
-                      style: secMed15.copyWith(
-                          fontFamily: 'Nunito', color: Colors.white),
-                    ))
-              ],
-            ),
-          );
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+      body: Stack(
+        alignment: Alignment.center,
+        children: [
+          Image.asset(
+            Assets.assetsWelcomeWelcomPage,
+            fit: BoxFit.fill,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+          ),
+          Positioned(
+              bottom: appWidgetGap,
+              child: Text(
+                "Asia's Marketplace for Steel",
+                style: secMed15.copyWith(
+                    fontFamily: 'Nunito', color: Colors.white),
+              ))
+        ],
+      ),
+    );
   }
 
   Future<void> appStartUp(BuildContext context) async {

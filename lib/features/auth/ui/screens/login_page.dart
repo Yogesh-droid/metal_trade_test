@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -10,13 +11,13 @@ import 'package:metaltrade/core/constants/strings.dart';
 import 'package:metaltrade/core/routes/routes.dart';
 import 'package:metaltrade/features/auth/data/models/country_code_model.dart';
 import 'package:metaltrade/features/auth/ui/controllers/country_code_controller.dart';
-import 'package:metaltrade/features/auth/ui/controllers/login_bloc/login_bloc.dart';
 import 'package:metaltrade/features/auth/ui/widgets/app_web_pages.dart';
 import 'package:metaltrade/features/auth/ui/widgets/country_chooser_iconbtn.dart';
 import 'package:metaltrade/features/auth/ui/widgets/filled_text_field.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
 
 import '../../../../core/constants/text_tyles.dart';
+import '../controllers/login_bloc/login_bloc.dart';
 
 final List<CountryCodeModel> countryList = [];
 CountryCodeModel? initialCountryModel;
@@ -76,6 +77,9 @@ class _LoginPageState extends State<LoginPage> {
                       width: MediaQuery.of(context).size.width,
                       title: kContinue.tr(),
                       onPressed: () {
+                        // context.pushNamed(otpPageName, queryParameters: {
+                        //   'phoneNo': phoneNoController.text
+                        // });
                         if (state.dialCode != null) {
                           if (state.dialCode!.isEmpty) {
                             showSnackBar(context, "Enter correct country code");
@@ -84,9 +88,10 @@ class _LoginPageState extends State<LoginPage> {
                                 mobNo:
                                     "${state.dialCode}${phoneNoController.text}",
                                 via: 'sms'));
-                            context.pushNamed(
-                              otpPageName,
-                            );
+                            context.pushNamed(otpPageName, queryParameters: {
+                              'phoneNo':
+                                  "${state.dialCode}${phoneNoController.text}"
+                            });
                           }
                         } else {
                           showSnackBar(context, "Enter correct country code");

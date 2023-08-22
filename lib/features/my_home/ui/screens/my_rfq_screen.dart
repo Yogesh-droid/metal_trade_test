@@ -127,7 +127,7 @@ class _MyRfqScreenState extends State<MyRfqScreen> {
                                                             .colorScheme
                                                             .primary,
                                                     filledBtnText:
-                                                        "Yes Continue",
+                                                        kYesContinue.tr(),
                                                     outlinedBtnText:
                                                         kCancel.tr(),
                                                     title: kAreYouSureCloseRfq

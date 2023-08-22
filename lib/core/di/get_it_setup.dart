@@ -170,8 +170,6 @@ void setup() {
       () => RequestCallbackRepoImpl(getIt()));
   getIt.registerFactory<RequestCallbackUsecase>(
       () => RequestCallbackUsecase(requestCallbackRepo: getIt()));
-  getIt.registerFactory<RequestCallbackCubit>(
-      () => RequestCallbackCubit(getIt()));
 
   // set up for my order list //
 

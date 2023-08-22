@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:metaltrade/core/constants/strings.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../../chat/domain/usecases/chat_file_pick_usecase.dart';
 import '../../../chat/ui/widgets/chat_file_pick_upload/image_source_sheet.dart';
@@ -51,7 +53,7 @@ class AttachmentBox extends StatelessWidget {
             onTap: () {
               openChooseImageSourceSheet(context);
             },
-            hintText: "Attach",
+            hintText: kAttach.tr(),
             suffix: const Icon(Icons.attachment_outlined),
           );
         }

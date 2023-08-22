@@ -4,17 +4,22 @@ A new Flutter project.
 
 ## Getting Started
 
+Command to check if flutter setup is ok:
+
+``flutter doctor``
+
 Command to build the web:
 
 ``flutter build web --no-tree-shake-icons --release``
 
-Command to check if flutter setup is ok:
+Command to build the ios:
 
-``flutter doctor``
+``flutter build ios``
 
 Command to build the android apk:
 
 ``flutter build apk --split-per-abi``
 
-This app has enquiry == RFQ, So search enquiry with Rfq
- eg : MyEnquiryScreen == MyRfqScreen
+For Play store build:
+
+``flutter build appbundle``

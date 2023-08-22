@@ -8,22 +8,17 @@ const String kAcceptPrivacyNpolicy = 'By continuing you agree to MetalTrade\'s';
 const String kAccept = "Accept";
 const String kTnC = "Terms of use";
 const String kMeetNewLeads = "Meet new leads everyday";
-const String kConnectWithCountless =
-    "Connect with countless number of buyers and sellers to fulfil your steel requirements";
+const String kConnectWithCountless = "Connect with countless number of buyers and sellers to fulfil your steel requirements";
 const String kCountry = "Country";
 const String kLogout = "Logout";
 const String kGetInstantQuote = "Get instant competitive quotes";
-const String kPostRequirements =
-    "Post your requirements and get instant quotes and strike the best deal";
+const String kPostRequirements = "Post your requirements and get instant quotes and strike the best deal";
 const String kGetStarted = "Get Started";
 const String kNegotiateWithEase = "Negotiate with ease";
-const String kChatWithExperts =
-    "Chat with experts and discuss your custom needs";
-const String kWhatsYourNo =
-    "Connect with global sellers and buyers. Get Started now!";
+const String kChatWithExperts = "Chat with experts and discuss your custom needs";
+const String kWhatsYourNo = "Connect with global sellers and buyers. Get Started now!";
 const String kAreYouSureCloseRfq = 'Are you sure you want to close?';
-const String kThisWillRemoveRfq =
-    'This will remove the RFQ from MetalTrade public listing. You will not receive any new quotation against the RFQ.';
+const String kThisWillRemoveRfq = 'This will remove the RFQ from MetalTrade public listing. You will not receive any new quotation against the RFQ.';
 const String kEnterMobNo = "Enter Mobile Number";
 const String kContinue = "Continue";
 const String kPleaseVerify = "Please verify phone number";
@@ -85,48 +80,15 @@ const String kQuote = "Quote";
 const String kCloseRfq = "Close Enquiry";
 const String kOtherTerms = "Any other comments";
 const String kProductRemarks = "Give more information about the product";
-const String kChats = "Chats";
 const String kDetails = "Details";
 const String kOtpVerification = "OTP Verification";
-const String kSolutions = "Solutions";
-const String kAboutUs = "About Us";
-const String kReachUs = "Reach Us";
-const String kMyAcc = "Login/Signup";
-const String kTradeOn = "Asia's Marketplace for";
-const String kAllProductOfSteel = "Finished, Semi finished and scrap steel";
 const String kDoYouWantToDelete = "Do you really want to delete your Account";
-const String kOurOneStop =
-    "We provide end to end online solution for buying, selling and moving Steel globally";
-const String kBuyNow = "Buying Steel?";
-const String kChatWithCustomers =
-    "Get access to best pricing from  hundreds of suppliers around the globe. 100% anonymous! -> Buy Now";
-const String kGetMarketUpdate = "Selling Steel?";
-const String kStayUpdated =
-    "Increase your sales across across ever expanding buyer network with curated service and real time leads -> Sell Now";
-const String kCreateYourRfq = "Create your Enquiries";
-const String kNeedMoreInfo =
-    "Need More Information? Get in Touch or Request a callback";
-const String kDownloadApp = "Download the App";
-const String kGetLink = "Get the link to download the app";
-const String kMetalTradeApp = "MetalTrade App";
-const String kWeAreEndToEnd =
-    "We are the end-to-end solution for buying, selling metal globally";
-const String kAcceptAQuote = "Accept a Quote";
-const String kMyRfqAndQuotes = "My Enquiries and Quotes";
-const String kAdditionalInfo = "Any Additional message..";
-const String kSteelTradeInIndonesia =
-    '''The steel trade in Indonesia is very huge 
-in size and highly competitive. But it is mostly 
-un organised and unstructured. Our mission is to organize the 
-trade with the help of technology and help all the stakeholders
- benefit from it and eventually bring growth in economy''';
 const String kAddYourMember = "Add your team members";
 const String kSelectedImg = "Selected Image";
-const String kByDeletingAcc =
-    "By Deleting your account you will not be able to access any of data in app and you will loose all your enquiries and quotes and will be deleted";
-const String kMtNeedsKyc =
-    "Metal trade needs your complete KYC in order to trade on the platform. Please add more details to verify your account.";
+const String kByDeletingAcc = "By Deleting your account you will not be able to access any of data in app and you will loose all your enquiries and quotes and will be deleted";
+const String kMtNeedsKyc = "Metal trade needs your complete KYC in order to trade on the platform. Please add more details to verify your account.";
 const String kYesContinue = "Yes, continue";
 const String kMayBeLater = "May be later";
 const String kSearchEnquiry = "Search by products";
 const String kLanguageChangedTo = 'Language changed Successfully to';
+const String kAttach = "Attach";

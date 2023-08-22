@@ -33,7 +33,6 @@ class AppBlocProviders {
         BlocProvider<ChatHomeBloc>(create: (_) => getIt()),
         BlocProvider<QuoteDetailListBloc>(create: (_) => getIt()),
         BlocProvider(create: (_) => SelectProductToQuoteCubit()),
-        BlocProvider<RequestCallbackCubit>(create: (_) => getIt()),
         BlocProvider<MyOrderBloc>(create: (_) => getIt()),
         BlocProvider<AddMemberCubit>(create: (_) => getIt()),
         BlocProvider<KycFilePickCubit>(create: (_) => getIt()),

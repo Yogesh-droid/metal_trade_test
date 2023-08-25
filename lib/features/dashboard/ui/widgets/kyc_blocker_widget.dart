@@ -26,6 +26,7 @@ class KycBlocker extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 10),
                 SizedBox(
                   width: MediaQuery.of(context).size.width / 2,
                   child: Text(kCompleteKyc.tr(),

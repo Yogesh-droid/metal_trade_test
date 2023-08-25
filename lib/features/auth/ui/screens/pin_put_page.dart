@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -8,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otp_autofill/otp_autofill.dart';
 import 'package:pinput/pinput.dart';
-
 import '../../../../core/constants/hive/local_storage.dart';
 import '../../../../core/constants/spaces.dart';
 import '../../../../core/constants/strings.dart';
@@ -40,21 +38,25 @@ class _PinPutPageState extends State<PinPutPage> {
   @override
   void initState() {
     super.initState();
-    _initInteractor();
-    controller = OTPTextEditController(
-      codeLength: 5,
-      onCodeReceive: (code) =>
-          debugPrint('Your Application receive code - $code'),
-      otpInteractor: _otpInteractor,
-    )..startListenUserConsent(
-        (code) {
-          final exp = RegExp(r'(\d{4})');
-          return exp.stringMatch(code ?? '') ?? '';
-        },
-        strategies: [
-          SampleStrategy(),
-        ],
-      );
+    if (!kIsWeb) {
+      _initInteractor();
+      controller = OTPTextEditController(
+        codeLength: 5,
+        onCodeReceive: (code) =>
+            debugPrint('Your Application receive code - $code'),
+        otpInteractor: _otpInteractor,
+      )..startListenUserConsent(
+          (code) {
+            final exp = RegExp(r'(\d{4})');
+            return exp.stringMatch(code ?? '') ?? '';
+          },
+          strategies: [
+            SampleStrategy(),
+          ],
+        );
+    } else {
+      controller = OTPTextEditController(codeLength: 4);
+    }
 
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       start = start - 1;

@@ -56,22 +56,19 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 
   Future<void> appStartUp(BuildContext context) async {
-    if (!kIsWeb) {
-      String token = await LocalStorage.instance.getToken();
-      debugPrint('Token is $token');
-      int? noOfTimesAppOpening =
-          await LocalStorage.instance.getIsUserFirstTime();
-      await LocalStorage.instance.saveIsUserFirstTime(noOfTimesAppOpening + 1);
-      Future.delayed(const Duration(seconds: 2), () async {
-        if (token.isEmpty) {
-          noOfTimesAppOpening > 0
-              ? context.go(loginPageRoute)
-              : context.go(landingPageRoute);
-        } else {
-          context.go(dashBoardRoute);
-        }
-      });
-    }
+    String token = await LocalStorage.instance.getToken();
+    debugPrint('Token is $token');
+    int? noOfTimesAppOpening = await LocalStorage.instance.getIsUserFirstTime();
+    await LocalStorage.instance.saveIsUserFirstTime(noOfTimesAppOpening + 1);
+    Future.delayed(const Duration(seconds: 2), () async {
+      if (token.isEmpty) {
+        noOfTimesAppOpening > 0
+            ? context.go(loginPageRoute)
+            : context.go(landingPageRoute);
+      } else {
+        context.go(dashBoardRoute);
+      }
+    });
 
     final platformDispatcher = WidgetsBinding.instance.platformDispatcher;
     platformDispatcher.onPlatformBrightnessChanged = () {

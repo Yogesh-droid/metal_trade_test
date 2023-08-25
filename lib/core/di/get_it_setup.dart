@@ -164,13 +164,6 @@ void setup() {
   getIt
       .registerFactory<QuoteDetailListBloc>(() => QuoteDetailListBloc(getIt()));
 
-  // set up for Request call back in web page //
-
-  getIt.registerFactory<RequestCallbackRepo>(
-      () => RequestCallbackRepoImpl(getIt()));
-  getIt.registerFactory<RequestCallbackUsecase>(
-      () => RequestCallbackUsecase(requestCallbackRepo: getIt()));
-
   // set up for my order list //
 
   getIt.registerFactory<MyOrderRepo>(

@@ -22,9 +22,6 @@ import 'package:metaltrade/features/chat/domain/usecases/chat_list_usecase.dart'
 import 'package:metaltrade/features/chat/ui/controllers/chat_bloc/chat_bloc.dart';
 import 'package:metaltrade/features/chat/ui/controllers/chat_file_pick_cubit/chat_file_pick_cubit.dart';
 import 'package:metaltrade/features/chat/ui/controllers/chat_home/chat_home_bloc.dart';
-import 'package:metaltrade/features/landing/data/repo/request_callback_repo_impl.dart';
-import 'package:metaltrade/features/landing/domain/repo/request_callback_repo.dart';
-import 'package:metaltrade/features/landing/domain/usecases/request_callback_usecase.dart';
 import 'package:metaltrade/features/my_home/data/repo/update_my_quote_repo_impl.dart';
 import 'package:metaltrade/features/my_home/data/repo/update_rfq_repo_impl.dart';
 import 'package:metaltrade/features/my_home/domain/repo/update_rfq_repo.dart';

@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_web_frame/flutter_web_frame.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'core/constants/app_theme.dart';
@@ -38,14 +39,20 @@ class MetalTradeApp extends StatelessWidget {
         providers: AppBlocProviders.allBlocProviders,
         child: BlocBuilder<AppTheme, ThemeData>(
           builder: (context, state) {
-            return MaterialApp.router(
-              debugShowCheckedModeBanner: false,
-              localizationsDelegates: context.localizationDelegates,
-              supportedLocales: context.supportedLocales,
-              locale: context.locale,
-              title: 'Metal Trade',
-              theme: state,
-              routerConfig: router,
+            return FlutterWebFrame(
+              builder: (context) => MaterialApp.router(
+                debugShowCheckedModeBanner: false,
+                localizationsDelegates: context.localizationDelegates,
+                supportedLocales: context.supportedLocales,
+                locale: context.locale,
+                title: 'Metal Trade',
+                theme: state,
+                routerConfig: router,
+              ),
+              maximumSize: Size(MediaQuery.of(context).size.width / 2,
+                  MediaQuery.of(context).size.height),
+              enabled: kIsWeb,
+              backgroundColor: Colors.grey,
             );
           },
         ));

@@ -67,7 +67,7 @@ class MetalTradeApp extends StatelessWidget {
               maximumSize: Size(MediaQuery.of(context).size.width / 2,
                   MediaQuery.of(context).size.height),
               enabled: kIsWeb,
-              backgroundColor: Colors.grey,
+              backgroundColor: Colors.white,
             );
           },
         ));

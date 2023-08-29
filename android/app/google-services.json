@@ -29,6 +29,13 @@
             {
               "client_id": "389282404678-pc0m44471f9daegsq2ai8pcbc8gldqb3.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "389282404678-hsd3umsjc098qib0tmm36vsgv4kccfn8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.metaltrade"
+              }
             }
           ]
         }

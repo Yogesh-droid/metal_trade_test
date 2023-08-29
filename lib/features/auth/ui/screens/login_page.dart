@@ -77,25 +77,23 @@ class _LoginPageState extends State<LoginPage> {
                       width: MediaQuery.of(context).size.width,
                       title: kContinue.tr(),
                       onPressed: () {
-                        // context.pushNamed(otpPageName, queryParameters: {
-                        //   'phoneNo': phoneNoController.text
-                        // });
-                        if (state.dialCode != null) {
-                          if (state.dialCode!.isEmpty) {
-                            showSnackBar(context, "Enter correct country code");
-                          } else {
-                            context.read<LoginBloc>().add(GetOtpEvent(
-                                mobNo:
-                                    "${state.dialCode}${phoneNoController.text}",
-                                via: 'sms'));
-                            context.pushNamed(otpPageName, queryParameters: {
-                              'phoneNo':
-                                  "${state.dialCode}${phoneNoController.text}"
-                            });
-                          }
-                        } else {
-                          showSnackBar(context, "Enter correct country code");
-                        }
+                        throw Exception;
+                        // if (state.dialCode != null) {
+                        //   if (state.dialCode!.isEmpty) {
+                        //     showSnackBar(context, "Enter correct country code");
+                        //   } else {
+                        //     context.read<LoginBloc>().add(GetOtpEvent(
+                        //         mobNo:
+                        //             "${state.dialCode}${phoneNoController.text}",
+                        //         via: 'sms'));
+                        //     context.pushNamed(otpPageName, queryParameters: {
+                        //       'phoneNo':
+                        //           "${state.dialCode}${phoneNoController.text}"
+                        //     });
+                        //   }
+                        // } else {
+                        //   showSnackBar(context, "Enter correct country code");
+                        // }
                       });
                 },
               ),

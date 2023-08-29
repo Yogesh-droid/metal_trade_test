@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,6 +16,7 @@ import 'package:metaltrade/features/auth/ui/widgets/app_web_pages.dart';
 import 'package:metaltrade/features/auth/ui/widgets/country_chooser_iconbtn.dart';
 import 'package:metaltrade/features/auth/ui/widgets/filled_text_field.dart';
 import 'package:metaltrade/features/landing/ui/widgets/get_started_btn.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/constants/text_tyles.dart';
 import '../controllers/login_bloc/login_bloc.dart';
@@ -108,14 +110,18 @@ class _LoginPageState extends State<LoginPage> {
                       TextSpan(
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => AppWebPages(
+                              if (!kIsWeb) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AppWebPages(
                                             url:
                                                 "https://metaltrade.io/terms.html",
-                                            title: kTermsOfUse.tr(),
-                                          )));
+                                            title: kTermsOfUse.tr())));
+                              } else {
+                                launchUrl(Uri.parse(
+                                    "https://metaltrade.io/terms.html"));
+                              }
                             },
                           text: "\n${kTnC.tr()}",
                           style: const TextStyle(color: Colors.blue))

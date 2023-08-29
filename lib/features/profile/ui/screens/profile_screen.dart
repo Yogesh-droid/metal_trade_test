@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -15,7 +16,7 @@ import 'package:metaltrade/features/profile/ui/widgets/change_language_page.dart
 import 'package:metaltrade/features/profile/ui/widgets/option_tile.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/rfq_buyer_enquiry_bloc/rfq_buyer_enquiry_bloc.dart';
 import 'package:metaltrade/features/rfq/ui/controllers/rfq_seller_enquiry_bloc/rfq_seller_enquiry_bloc.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import '../../../auth/ui/widgets/app_web_pages.dart';
 import '../widgets/confirmation_sheet.dart';
 import '../widgets/profile_tile.dart';
@@ -96,23 +97,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 OptionTile(
                     title: kTermsOfUse.tr(),
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AppWebPages(
-                                  url: "https://metaltrade.io/terms.html",
-                                  title: kTermsOfUse.tr())));
+                      if (!kIsWeb) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AppWebPages(
+                                    url: "https://metaltrade.io/terms.html",
+                                    title: kTermsOfUse.tr())));
+                      } else {
+                        launchUrl(
+                            Uri.parse("https://metaltrade.io/terms.html"));
+                      }
                     }),
                 const SizedBox(height: appPadding),
                 OptionTile(
                     title: kPrivacyPolicy.tr(),
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AppWebPages(
-                                  url: "https://metaltrade.io/privacy.html",
-                                  title: kPrivacyPolicy.tr())));
+                      if (!kIsWeb) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AppWebPages(
+                                    url: "https://metaltrade.io/privacy.html",
+                                    title: kPrivacyPolicy.tr())));
+                      } else {
+                        launchUrl(
+                            Uri.parse("https://metaltrade.io/privacy.html"));
+                      }
                     }),
                 const SizedBox(height: appPadding),
                 OptionTile(

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "389282404678",
+    "project_id": "metaltradingplatform",
+    "storage_bucket": "metaltradingplatform.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389282404678:android:09a19ef1098f066558ad47",
+        "android_client_info": {
+          "package_name": "com.app.metaltrade"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389282404678-pc0m44471f9daegsq2ai8pcbc8gldqb3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_zbc2WMJPLyEd8CTMXm1zhjowBZJ7v20"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389282404678-pc0m44471f9daegsq2ai8pcbc8gldqb3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
